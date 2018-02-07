@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Sample</title>
+</head>
+<body>
+	<script type = "text/javascript" src = "jquery-3.2.1.min.js"></script>
+	<div id = "loginDiv">
+		<form action="userLogin" method="POST" id = "userLoginForm">
+			Username: <input type = "text" name = "username">
+			Password: <input type = "password" name = "password">
+			<Button id = "userLoginBtn" >Login</Button>
+		</form>
+	</div>
+	<div id = "adminLoginDiv">
+		<form action = "adminLogin" method = "POST" id= "adminLoginForm">
+			E-mail: <input type = "text" name = "adminEmail">
+			Password: <input type = "password" name = "adminPassword">
+			<Button id = "adminLoginBtn"> Login</Button>
+		</form> 
+	</div>
+	<script type = "text/javascript" src = "script/index.js"></script>
+</body>
+</html>
