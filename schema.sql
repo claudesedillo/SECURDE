@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `indigo`.`book` (
   `Format` VARCHAR(45) NULL DEFAULT NULL,
   `Published` DATE NULL DEFAULT NULL,
   `Price` FLOAT NULL DEFAULT NULL,
+  `stocklevel` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`bookid`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -140,22 +141,6 @@ CREATE TABLE IF NOT EXISTS `indigo`.`customeraddressrelation` (
   CONSTRAINT `customer_email`
     FOREIGN KEY (`email`)
     REFERENCES `indigo`.`customers` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`inventory`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`inventory` (
-  `bookid` INT(11) NOT NULL,
-  `stocklevel` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`bookid`),
-  CONSTRAINT `book_id`
-    FOREIGN KEY (`bookid`)
-    REFERENCES `indigo`.`book` (`bookid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
