@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.Author;
 import beans.Book;
+import beans.Customer;
 import beans.Publisher;
 import service.AuthorService;
 import service.BookService;
+import service.CustomerService;
 import service.PublisherService;
 
 /**
@@ -71,6 +73,7 @@ public class AdminServlet extends HttpServlet {
     }
     
     protected void addPublisher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	/*
     	System.out.println("*****************************ADD PUBLISHER doPost************************");
 		System.out.println("Publisher Name: " + request.getParameter("publisherName"));
 		
@@ -79,6 +82,14 @@ public class AdminServlet extends HttpServlet {
     	Publisher publisher = new Publisher(publisherName);
     	
     	PublisherService.addPublisher(publisher);
+    	System.out.println("**************************************************************************");
+    	*/
+    	System.out.println("*****************************CUSTOMER TEST doPost*************************");
+    	Customer cust = new Customer();
+    	cust.setEmail("gary_non@yahoo.com");
+    	cust.setHashedpassword("bruh1234#");
+    	
+    	CustomerService.addCustomer(cust);
     	System.out.println("**************************************************************************");
     }
 	/**
