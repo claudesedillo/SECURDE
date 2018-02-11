@@ -8,17 +8,32 @@
 	<script type = "text/javascript" src = "jquery-3.2.1.min.js"></script>
 	<form action = "addAuthor" method = "POST" id = "addAuthorForm">
 		Add Author<br>
-		First Name:<input type = "text" name = "authorFirstName">
-		Last Name:<input type = "text" name = "authorLastName">
-		<Button id = "addAuthorBtn">Add Author</Button>
+		First Name:<input type = "text" name = "authorFirstName"><br>
+		Last Name:<input type = "text" name = "authorLastName"><br>
+		<Button id = "addAuthorBtn">Add Author</Button><br>
 	</form>
 	<form action = "addPublisher" method = "POST" id = "addPublisherForm">
-		 Add Publisher<br>
-		 Publisher Name:<input type = "text" name = "publisherName">
-		 <Button id = "addPublisherBtn">Add Publisher</Button>
+		Add Publisher<br>
+		Publisher Name:<input type = "text" name = "publisherName"><br>
+		 <Button id = "addPublisherBtn">Add Publisher</Button><br>
 	</form>
 	<form action = "addBook" method = "POST" id = "addBookForm">
-		
+		Add Book<br>
+		Title: <input type = "text" name = "bookTitle"><br>
+		ISBN: <input type = "text" name = "isbn"><br>
+		Genre: <input type = "text" name = "genre"><br>
+		Format: <input type = "text" name = "format"><br>
+		Published: <input type = "date" name = "published"><br>
+		Price: <input type = "number" name = "price" min = "0" step = "0.01"><br>
+		Stock: <input type = "number" name = "stock" min = "0"><br>
+		<!-- Author and Publisher list is brute force for now -->
+		Author: <select name = "selectAuthor">
+					<option value = "Briane Samson">DLSU CCS</option> 
+				</select><br>
+		Publisher: <select name = "publisher">
+					<option value = "DLSU CCS">DLSU CCS</option>
+				</select><br>
+		<Button id = "addBookBtn">Add Book</Button><br>
 	</form>
 	<script type = "text/javascript" src = "src/adminPage.js"></script>
 </body>

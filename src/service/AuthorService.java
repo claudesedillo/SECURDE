@@ -2,7 +2,6 @@ package service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import com.mysql.jdbc.Driver;
 
 import beans.Author;
 
@@ -21,7 +20,7 @@ public class AuthorService {
 			stmt.setString(2, author.getLastName());
 			
 			stmt.executeUpdate();
-			
+			System.out.println("Author Successfully added!");
 			conn.close();
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import beans.Publisher;
 
 public class PublisherService {
-
+	
 	public static void addPublisher(Publisher publisher) {
 		try {
 			String driver = "com.mysql.jdbc.Driver";
@@ -19,7 +19,7 @@ public class PublisherService {
 			stmt.setString(1, publisher.getPublisherName());
 			
 			stmt.executeUpdate();
-			
+			System.out.println("Publisher Successfully added!");
 			conn.close();
 		}catch(Exception e) {
 			e.printStackTrace();

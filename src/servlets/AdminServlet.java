@@ -21,7 +21,7 @@ import service.PublisherService;
 						   "/addBook"})
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,23 +30,54 @@ public class AdminServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    protected void addBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("******************************ADD Book doPost*****************************");
+		System.out.println("Book Title: " + request.getParameter("bookTitle"));
+		System.out.println("ISBN: " + request.getParameter("isbn"));
+		System.out.println("Genre: " + request.getParameter("genre"));
+		System.out.println("Format: " + request.getParameter("format"));
+		System.out.println("Price: " + request.getParameter("price"));
+		System.out.println("Date Published: " + request.getParameter("published"));
+		System.out.println("Stock: " + request.getParameter("stock"));
+		 
+    	String title = request.getParameter("bookTitle");
+    	String isbn = request.getParameter("isbn");
+    	String genre = request.getParameter("genre");
+    	String format = request.getParameter("format");
+    	String published = request.getParameter("published");
+    	float price = Float.parseFloat(request.getParameter("price"));
+    	int stock = Integer.parseInt(request.getParameter("stock"));
+    	
+    	Book book = new Book(title, isbn, genre, format, price, stock);
+    	book.setSQLDate(published);
+    	
+    	BookService.addBook(book);
+    	
+    }
     protected void addAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("*****************************ADD AUTHOR doPost***************************");
+		System.out.println("First name: " + request.getParameter("authorFirstName"));
+		System.out.println("Last Name: " + request.getParameter("authorLastName"));
+		
     	String authorFirstName = request.getParameter("authorFirstName");
     	String authorLastName = request.getParameter("authorLastName");
     	
     	Author author = new Author(authorFirstName, authorLastName);
-    	
     	AuthorService.addAuthor(author);
-    	System.out.println("Author Successfully added!");
+    	
+    	System.out.println("**************************************************************************");
     }
     
     protected void addPublisher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	System.out.println("*****************************ADD PUBLISHER doPost************************");
+		System.out.println("Publisher Name: " + request.getParameter("publisherName"));
+		
     	String publisherName = request.getParameter("publisherName");
     	
     	Publisher publisher = new Publisher(publisherName);
     	
     	PublisherService.addPublisher(publisher);
-    	System.out.println("Publisher Successfully added!");
+    	System.out.println("**************************************************************************");
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -62,17 +93,14 @@ public class AdminServlet extends HttpServlet {
 			System.out.println("I am at adminServlet at doPost. Servlet path is " + request.getServletPath());
 			switch(request.getServletPath()) {
 				case "/addAuthor": System.out.println("I am at addAuthor case");
-								  System.out.println("*****************************ADD AUTHOR doPost***************************");
-								  System.out.println("First name: " + request.getParameter("authorFirstName"));
-								  System.out.println("Last Name: " + request.getParameter("authorLastName"));
 								  addAuthor(request, response);
 								  break;
 				case "/addPublisher": System.out.println("I am at addPublisher case");
-								  System.out.println("*****************************ADD PUBLISHER doPost************************");
-								  System.out.println("Publisher Name: " + request.getParameter("publisherName"));
 								  addPublisher(request, response);
 								  break;
+				case "/addBook": System.out.println("I am at addBook case");
+								 addBook(request, response);
+								 break;
 			}
 	}
-
 }
