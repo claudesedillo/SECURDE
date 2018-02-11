@@ -35,15 +35,15 @@
 	                                <h4>SIGN IN!</h4>
 	                                Don't have an account? <a href="SignUp.jsp">Create one in less that one minute!</a>
 	                                <br><br>
-	                                <form>
+	                                <form action="login" method="post">
 	                                    <div class="form-group">
-	                                        <input type="email" class="form-control" id="email" placeholder="email address">
+	                                        <input type="email" class="form-control" id="email" placeholder="email address" name="email">
 	                                    </div>
 	                                    <div class="form-group">
-	                                        <input type="password" class="form-control" id="password" placeholder="password">
+	                                        <input type="password" class="form-control" id="password" placeholder="password" name="password">
 	                                    </div>
+	                                    <button type="submit" class="btn btn-default btn-signin" name ="bt" value ="signin">SIGN IN</button>
 	                                </form>
-	                                <button type="button" class="btn btn-default btn-signin">SIGN IN</button>
 	                            </div>
 	                        </div>
 	                    </div>

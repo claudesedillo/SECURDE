@@ -7,11 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.CustomerService;
+
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/login", 
-						   "/adminLogin"})
+@WebServlet(urlPatterns = {"/login", "/adminLogin"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,17 +36,30 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("i am at login servlet, doPost method");
+		
+		/*
 		switch(request.getServletPath()) {
-			case "/login": System.out.println("i am at login case " + request.getParameter("username") + " " + request.getParameter("password") + " xd");
-			
+			case "/login":  System.out.println("i am at login case " + request.getParameter("username") + " " + request.getParameter("password") + " xd");
+							request.getRequestDispatcher("Index.jsp").forward(request, response);
 							break;
 			case "/adminLogin": System.out.println("i am at adminLogin case " + request.getParameter("adminEmail") + request.getParameter("adminPassword") + " xdd");
 								response.sendRedirect("adminPage.html");
 							break;
 			
+		}*/
+		String user = request.getParameter("email");
+		String pass = request.getParameter("password");	
+		String type = request.getParameter("bt");
+		System.out.println(user + " " + pass + " " + type);
+		
+		if(type.equals("signin") && CustomerService.checkLogin(user, pass)){
+			System.out.println("Succesful Login, pa add po name or something sa index ty Jes ;P");
 		}
-	
+		else {
+			System.out.println("Wrong email/pass gago");
+		}
+		
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 }
