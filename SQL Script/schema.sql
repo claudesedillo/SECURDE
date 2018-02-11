@@ -1,265 +1,314 @@
--- MySQL Workbench Forward Engineering
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: indigo
+-- ------------------------------------------------------
+-- Server version	5.7.17-log
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema indigo
--- -----------------------------------------------------
+--
+-- Table structure for table `admin`
+--
 
--- -----------------------------------------------------
--- Schema indigo
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `indigo` DEFAULT CHARACTER SET utf8 ;
-USE `indigo` ;
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `email` varchar(45) NOT NULL,
+  `hashedpassword` varchar(100) DEFAULT NULL,
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `role` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `indigo`.`address`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`address` (
-  `addressid` INT(11) NOT NULL AUTO_INCREMENT,
-  `streetaddress` VARCHAR(45) NULL DEFAULT NULL,
-  `city` VARCHAR(45) NULL DEFAULT NULL,
-  `postalcode` VARCHAR(45) NULL DEFAULT NULL,
-  `province` VARCHAR(45) NULL DEFAULT NULL,
-  `phonenumber` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`addressid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Dumping data for table `admin`
+--
 
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- -----------------------------------------------------
--- Table `indigo`.`admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`admin` (
-  `email` VARCHAR(45) NOT NULL,
-  `hashedpassword` VARCHAR(100) NULL DEFAULT NULL,
-  `firstname` VARCHAR(45) NULL DEFAULT NULL,
-  `lastname` VARCHAR(45) NULL DEFAULT NULL,
-  `role` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`email`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `authors`
+--
 
+DROP TABLE IF EXISTS `authors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `authors` (
+  `authorid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`authorid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `indigo`.`authors`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`authors` (
-  `authorid` INT(11) NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(45) NULL DEFAULT NULL,
-  `lastname` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`authorid`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8;
+--
+-- Dumping data for table `authors`
+--
 
+LOCK TABLES `authors` WRITE;
+/*!40000 ALTER TABLE `authors` DISABLE KEYS */;
+INSERT INTO `authors` VALUES (1,'Briane Samson');
+/*!40000 ALTER TABLE `authors` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- -----------------------------------------------------
--- Table `indigo`.`book`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`book` (
-  `bookid` INT(11) NOT NULL AUTO_INCREMENT,
-  `Title` VARCHAR(60) NULL DEFAULT NULL,
-  `ISBN` VARCHAR(13) NULL DEFAULT NULL,
-  `Genre` VARCHAR(45) NULL DEFAULT NULL,
-  `Format` VARCHAR(45) NULL DEFAULT NULL,
-  `Published` DATE NULL DEFAULT NULL,
-  `Price` FLOAT NULL DEFAULT NULL,
-  `stocklevel` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`bookid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `book`
+--
 
-
--- -----------------------------------------------------
--- Table `indigo`.`bookauthorrelation`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`bookauthorrelation` (
-  `book_id` INT(11) NOT NULL,
-  `authorid` INT(11) NOT NULL,
-  PRIMARY KEY (`book_id`, `authorid`),
-  INDEX `ba_relation_authorid_idx` (`authorid` ASC),
-  CONSTRAINT `ba_relation_authorid`
-    FOREIGN KEY (`authorid`)
-    REFERENCES `indigo`.`authors` (`authorid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `ba_relation_bookid`
-    FOREIGN KEY (`book_id`)
-    REFERENCES `indigo`.`book` (`bookid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`concerns`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`concerns` (
-  `ticketnumber` INT(11) NOT NULL,
-  `name` VARCHAR(45) NULL DEFAULT NULL,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
-  `concern` VARCHAR(45) NULL DEFAULT NULL,
-  `date` TIMESTAMP NULL DEFAULT NULL,
-  PRIMARY KEY (`ticketnumber`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`customers`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`customers` (
-  `email` VARCHAR(45) NOT NULL,
-  `hashedpassword` VARCHAR(100) NULL DEFAULT NULL,
-  `firstname` VARCHAR(45) NULL DEFAULT NULL,
-  `lastname` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`email`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`customeraddressrelation`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`customeraddressrelation` (
-  `email` VARCHAR(45) NOT NULL,
-  `addressid` INT(11) NOT NULL,
-  PRIMARY KEY (`email`, `addressid`),
-  INDEX `customer_addressid_idx` (`addressid` ASC),
-  CONSTRAINT `customer_addressid`
-    FOREIGN KEY (`addressid`)
-    REFERENCES `indigo`.`address` (`addressid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `customer_email`
-    FOREIGN KEY (`email`)
-    REFERENCES `indigo`.`customers` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`orders`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`orders` (
-  `orderid` INT(11) NOT NULL,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
-  `orderdate` DATE NULL DEFAULT NULL,
-  `total` FLOAT NULL DEFAULT NULL,
-  `datecompleted` TIMESTAMP NULL DEFAULT NULL,
-  `streetaddress` VARCHAR(45) NULL DEFAULT NULL,
-  `city` VARCHAR(45) NULL DEFAULT NULL,
-  `province` VARCHAR(45) NULL DEFAULT NULL,
-  `postalcode` INT(11) NULL DEFAULT NULL,
-  `phonenumber` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`orderid`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`orderlist`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`orderlist` (
-  `orderid` INT(11) NOT NULL,
-  `bookid` INT(11) NOT NULL,
-  `quantity` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`orderid`, `bookid`),
-  INDEX `list_bookid_idx` (`bookid` ASC),
-  CONSTRAINT `list_bookid`
-    FOREIGN KEY (`bookid`)
-    REFERENCES `indigo`.`book` (`bookid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `list_orderid`
-    FOREIGN KEY (`orderid`)
-    REFERENCES `indigo`.`orders` (`orderid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`orderstatus`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`orderstatus` (
-  `orderid` INT(11) NOT NULL,
-  `location` VARCHAR(45) NULL DEFAULT NULL,
-  `status` VARCHAR(200) NULL DEFAULT NULL,
-  `date` TIMESTAMP NULL DEFAULT NULL,
-  PRIMARY KEY (`orderid`),
-  CONSTRAINT `status_orderid`
-    FOREIGN KEY (`orderid`)
-    REFERENCES `indigo`.`orders` (`orderid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`publisher`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`publisher` (
-  `publisherid` INT(11) NOT NULL AUTO_INCREMENT,
-  `publishername` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`publisherid`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`publisherbookrelation`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`publisherbookrelation` (
-  `publisherid` INT(11) NOT NULL,
-  `bookid` INT(11) NOT NULL,
-  PRIMARY KEY (`publisherid`, `bookid`),
-  INDEX `pb_relation_bookid_idx` (`bookid` ASC),
-  CONSTRAINT `pb_relation_bookid`
-    FOREIGN KEY (`bookid`)
-    REFERENCES `indigo`.`book` (`bookid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `pb_relation_publisherid`
-    FOREIGN KEY (`publisherid`)
-    REFERENCES `indigo`.`publisher` (`publisherid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `indigo`.`shoppingcart`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `indigo`.`shoppingcart` (
-  `bookid` INT(11) NOT NULL,
-  `price` FLOAT NULL DEFAULT NULL,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
-  `quantity` VARCHAR(45) NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `book`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `book` (
+  `bookid` int(11) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(60) DEFAULT NULL,
+  `ISBN` varchar(13) DEFAULT NULL,
+  `Genre` varchar(45) DEFAULT NULL,
+  `Format` varchar(45) DEFAULT NULL,
+  `Published` date DEFAULT NULL,
+  `Price` float DEFAULT NULL,
+  `stocklevel` int(11) DEFAULT NULL,
+  `authorid` int(11) DEFAULT NULL,
+  `publisherid` int(11) DEFAULT NULL,
   PRIMARY KEY (`bookid`),
-  INDEX `cart_email_idx` (`email` ASC),
-  CONSTRAINT `cart_email`
-    FOREIGN KEY (`email`)
-    REFERENCES `indigo`.`customers` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  KEY `author_name_idx` (`authorid`),
+  KEY `publisher_id_idx` (`publisherid`),
+  CONSTRAINT `author_id` FOREIGN KEY (`authorid`) REFERENCES `authors` (`authorid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `publisher_id` FOREIGN KEY (`publisherid`) REFERENCES `publisher` (`publisherid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `book`
+--
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+LOCK TABLES `book` WRITE;
+/*!40000 ALTER TABLE `book` DISABLE KEYS */;
+INSERT INTO `book` VALUES (1,'Software Design Patterns','0000000011451','Computers','Paperback','2016-05-16',200,20,1,1);
+/*!40000 ALTER TABLE `book` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `concerns`
+--
+
+DROP TABLE IF EXISTS `concerns`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `concerns` (
+  `ticketnumber` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `concern` varchar(45) DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`ticketnumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `concerns`
+--
+
+LOCK TABLES `concerns` WRITE;
+/*!40000 ALTER TABLE `concerns` DISABLE KEYS */;
+/*!40000 ALTER TABLE `concerns` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
+  `email` varchar(45) NOT NULL,
+  `hashedpassword` varchar(100) DEFAULT NULL,
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `securityquestion` varchar(100) DEFAULT NULL,
+  `securityanswer` varchar(100) DEFAULT NULL,
+  `streetaddress` varchar(45) DEFAULT NULL,
+  `postalcode` int(11) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `province` varchar(45) DEFAULT NULL,
+  `phonenumber` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orderlist`
+--
+
+DROP TABLE IF EXISTS `orderlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderlist` (
+  `orderid` int(11) NOT NULL,
+  `bookid` int(11) NOT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`orderid`,`bookid`),
+  KEY `list_bookid_idx` (`bookid`),
+  CONSTRAINT `list_bookid` FOREIGN KEY (`bookid`) REFERENCES `book` (`bookid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `list_orderid` FOREIGN KEY (`orderid`) REFERENCES `orders` (`orderid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orderlist`
+--
+
+LOCK TABLES `orderlist` WRITE;
+/*!40000 ALTER TABLE `orderlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orderlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+  `orderid` int(11) NOT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `orderdate` date DEFAULT NULL,
+  `total` float DEFAULT NULL,
+  `datecompleted` timestamp NULL DEFAULT NULL,
+  `streetaddress` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `province` varchar(45) DEFAULT NULL,
+  `postalcode` int(11) DEFAULT NULL,
+  `phonenumber` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`orderid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orderstatus`
+--
+
+DROP TABLE IF EXISTS `orderstatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderstatus` (
+  `orderid` int(11) NOT NULL,
+  `location` varchar(45) DEFAULT NULL,
+  `status` varchar(200) DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`orderid`),
+  CONSTRAINT `status_orderid` FOREIGN KEY (`orderid`) REFERENCES `orders` (`orderid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orderstatus`
+--
+
+LOCK TABLES `orderstatus` WRITE;
+/*!40000 ALTER TABLE `orderstatus` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orderstatus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `publisher`
+--
+
+DROP TABLE IF EXISTS `publisher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `publisher` (
+  `publisherid` int(11) NOT NULL AUTO_INCREMENT,
+  `publishername` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`publisherid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `publisher`
+--
+
+LOCK TABLES `publisher` WRITE;
+/*!40000 ALTER TABLE `publisher` DISABLE KEYS */;
+INSERT INTO `publisher` VALUES (1,'College of Computer Studies');
+/*!40000 ALTER TABLE `publisher` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `shoppingcart`
+--
+
+DROP TABLE IF EXISTS `shoppingcart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shoppingcart` (
+  `bookid` int(11) NOT NULL,
+  `price` float DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `quantity` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`bookid`),
+  KEY `cart_email_idx` (`email`),
+  CONSTRAINT `cart_email` FOREIGN KEY (`email`) REFERENCES `customers` (`email`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `shoppingcart`
+--
+
+LOCK TABLES `shoppingcart` WRITE;
+/*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping events for database 'indigo'
+--
+
+--
+-- Dumping routines for database 'indigo'
+--
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-02-11 15:20:19
