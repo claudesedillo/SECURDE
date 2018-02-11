@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Author;
+import beans.Book;
 import beans.Publisher;
 import service.AuthorService;
+import service.BookService;
 import service.PublisherService;
 
 /**
