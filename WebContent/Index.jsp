@@ -19,7 +19,7 @@
 	<body>
 	        <nav class="navbar navbar-default">
 	            <div class="container-fluid signup-bar">
-	                DON'T HAVE AN ACCOUNT? <a href="#">SIGN UP</a> NOW!
+	                DON'T HAVE AN ACCOUNT? <a href="SignUp.jsp">SIGN UP</a> NOW!
 	            </div>
 	            <div class="container-fluid ss-bar">
 	                <div class="col-sm-8">
@@ -33,7 +33,7 @@
 	                            <div class="modal-body">
 	                                <button type="button" class="close" data-dismiss="modal">&times;</button>
 	                                <h4>SIGN IN!</h4>
-	                                Don't have an account? <a href="#">Create one in less that one minute!</a>
+	                                Don't have an account? <a href="SignUp.jsp">Create one in less that one minute!</a>
 	                                <br><br>
 	                                <form>
 	                                    <div class="form-group">
