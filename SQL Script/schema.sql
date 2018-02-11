@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `indigo` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `indigo`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: indigo
@@ -311,4 +313,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-11 15:20:19
+-- Dump completed on 2018-02-11 21:51:10
