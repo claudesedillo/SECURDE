@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.Customer;
+import service.AdminService;
 import service.CustomerService;
 
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/login", "/adminLogin"})
+@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,19 +49,52 @@ public class Login extends HttpServlet {
 							break;
 			
 		}*/
-		String user = request.getParameter("email");
-		String pass = request.getParameter("password");	
-		String type = request.getParameter("bt");
-		System.out.println(user + " " + pass + " " + type);
-		
-		if(type.equals("signin") && CustomerService.checkLogin(user, pass)){
-			System.out.println("Succesful Login, pa add po name or something sa index ty Jes ;P");
+		if(request.getServletPath().equals("/login")){
+			String user = request.getParameter("email");
+			String pass = request.getParameter("password");	
+			String type = request.getParameter("bt");
+			System.out.println(user + " " + pass + " " + type);
+			
+			if(type.equals("signin") && CustomerService.checkLogin(user, pass)){
+				System.out.println("Succesful Login (Customer)");
+				request.getRequestDispatcher("Index.jsp").forward(request, response);
+			}
+			
+			else if(type.equals("signin") && AdminService.checkLogin(user, pass)){
+				System.out.println("Succesful Login (Admin)");
+				response.sendRedirect("adminPage.html");
+			}
+			else {
+				System.out.println("Wrong email/pass gago");
+				request.getRequestDispatcher("Index.jsp").forward(request, response);
+			}
 		}
-		else {
-			System.out.println("Wrong email/pass gago");
+		else if(request.getServletPath().equals("/signup")){
+			String user = request.getParameter("email");
+			String pass = request.getParameter("password");	
+			String pass2 = request.getParameter("password2");	
+			String type = request.getParameter("bt");
+			System.out.println(user + " " + pass + " " + pass2 + " " + type);
+			
+			if(!CustomerService.checkUser(user)){
+				if(pass.equals(pass2)){
+					Customer cust = new Customer();
+					cust.setEmail(user);
+					cust.setHashedpassword(pass);
+					CustomerService.addCustomer(cust);
+					System.out.println("Succesful signup (Customer)");
+					request.getRequestDispatcher("Index.jsp").forward(request, response);
+				}
+				else{
+					System.out.println("Your passwords dont match!!! >:(");
+					request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+				}
+			}
+			else{
+				System.out.println("Your email already exists!!! >:(");
+				request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+			}
 		}
-		
-		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 }

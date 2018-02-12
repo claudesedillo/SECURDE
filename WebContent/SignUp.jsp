@@ -93,18 +93,18 @@
             <h3>create your bookshelf account now!</h3>
             <p>Access your Bookshelf account, write reviews, track orders and more.</p>
             <hr><br>
-            <form>
+            <form action="signup" method="post">
                 <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="email address">
+                    <input type="email" class="form-control" id="email" placeholder="email address" name ="email">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="password">
+                    <input type="password" class="form-control" id="password" placeholder="password" name = "password">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password">
+                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name = "password2">
                 </div>
                 <br>
-                <button type="submit" class="btn btn-default btn-signup">sign up</button>
+                <button type="submit" class="btn btn-default btn-signup" name ="bt" value ="signup">sign up</button>
             </form><br>
         </div>
         
