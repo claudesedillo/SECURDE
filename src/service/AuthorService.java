@@ -2,6 +2,7 @@ package service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import beans.Author;
 
@@ -26,5 +27,29 @@ public class AuthorService {
 			e.printStackTrace();
 			System.out.println("There was a problem adding the author to the database");
 		}
+	}
+	
+	public static String getAuthor(int id) {
+		String authorName = "";
+		try {
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM authors WHERE authorid = ?");
+			
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				authorName = rs.getString("name");
+			}
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("There was a problem the author to the database");
+		}
+		return authorName;
 	}
 }

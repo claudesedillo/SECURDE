@@ -2,6 +2,10 @@ package service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import beans.Book;
 
 public class BookService {
@@ -28,5 +32,37 @@ public class BookService {
 			e.printStackTrace();
 			System.out.println("There was a problem adding the book to the database");
 		}
+	}
+	
+	public static ArrayList<Book> getBooks() {
+		
+		ArrayList<Book> bookList = new ArrayList<Book>();
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book");
+			ResultSet rs = stmt.executeQuery();
+		
+			
+			while(rs.next()) {
+				Book book = new Book(rs.getString("Title"),
+									rs.getString("ISBN"),
+									rs.getString("Genre"),
+									rs.getString("Format"),
+									rs.getFloat("Price"),
+									rs.getInt("stocklevel"),
+									rs.getDate("Published"));
+				bookList.add(book);
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return bookList;
 	}
 }
