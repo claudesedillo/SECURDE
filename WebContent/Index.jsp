@@ -13,82 +13,15 @@
 	        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	        
 	        <link rel="stylesheet" href="css/index.css">
+	        <link rel="stylesheet" href="css/nav.css">
+	        <script src="script/index.js"></script>
 	        <title>Login Sample</title>
 	</head>
 	
 	<body>
-	        <nav class="navbar navbar-default">
-	            <div class="container-fluid signup-bar">
-	                DON'T HAVE AN ACCOUNT? <a href="SignUp.jsp">SIGN UP</a> NOW!
-	            </div>
-	            <div class="container-fluid ss-bar">
-	                <div class="col-sm-8">
-	                    <button type="button" class="btn btn-default btn-navsignin" data-toggle="modal" data-target="#signup-modal"> SIGN IN</button>
-	                </div>
-	                
-	                <!-- SIGN UP MODAL -->
-	                <div id="signup-modal" class="modal" role="dialog">
-	                    <div class="modal-dialog">
-	                        <div class="modal-content">
-	                            <div class="modal-body">
-	                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-	                                <h4>SIGN IN!</h4>
-	                                Don't have an account? <a href="SignUp.jsp">Create one in less that one minute!</a>
-	                                <br><br>
-	                                <form action="login" method="post">
-	                                    <div class="form-group">
-	                                        <input type="email" class="form-control" id="email" placeholder="email address" name="email">
-	                                    </div>
-	                                    <div class="form-group">
-	                                        <input type="password" class="form-control" id="password" placeholder="password" name="password">
-	                                    </div>
-	                                    <button type="submit" class="btn btn-default btn-signin" name ="bt" value ="signin">SIGN IN</button>
-	                                </form>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                
-	                <div class="col-sm-3">
-	                    <div class="input-group stylish-input-group">
-	                        <input type="text" class="form-control search-bar"  placeholder="search" >
-	                        <span class="input-group-addon">
-	                            <button type="submit">
-	                                <span class="glyphicon glyphicon-search"></span>
-	                            </button>  
-	                        </span>
-	                    </div>
-	                </div>
-	                <div class="col-sm-1">
-	                     <button type="button" class="btn btn-default btn-cart"><span class="glyphicon glyphicon-shopping-cart"></span><span class="badge cart-badge">0</span></button>
-	                </div>
-	            </div>
-	            
-	            <div class="container-fluid main-nav">
-	                <div class="wrapper">
-	                    <div class="navbar-header">
-	                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_collapse">
-	                            <span class="icon-bar"></span>
-	                            <span class="icon-bar"></span>
-	                            <span class="icon-bar"></span> 
-	                        </button>
-	                        <a class="navbar-brand" href="#">bookshelf</a>
-	                    </div>
-	
-	                    <div class="collapse navbar-collapse" id="nav_collapse">
-	                       <ul class="nav navbar-nav navbar-right">
-	                            <li><a href="#">SHOP BY GENRE</a></li>
-	                            <li><a href="#">BEST SELLERS</a></li>
-	                            <li><a href="#">SALE</a></li>
-	                        </ul>
-	                    </div>
-	                </div>
-	              </div>
-	        </nav>
-	        <br>
+	        <nav class="navbar navbar-default" id="nav"></nav><br>
+	        
 	        <div class="container-fluid feed">
-	           
-	            
 	        </div>
 	        
 	        <br>
@@ -118,6 +51,5 @@
 	                </div>
 	            </div>
 	    	</footer>
-	
 	    </body>
 </html>

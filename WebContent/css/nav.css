@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:400,600,800');
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
-
-body {
-    font-family: "Muli";
-}
+@CHARSET "UTF-8";
 
 .signup-bar {
     background-color: #222222;
@@ -104,84 +99,4 @@ body {
     font-family: Abril Fatface;
     font-size: 36px;
     color: #222222;
-}
-
-/** BODY **/
-
-.feed {
-    border-style: solid;
-    border-width: 1px;
-    width: 50%;
-    padding: 30px;
-    border-radius: 2px;
-}
-
-h3 {
-    font-size: 30px;
-    font-weight: 700;
-    margin-bottom: 0px;
-}
-
-hr {
-    margin: 10px;
-}
-
-form {
-    margin: 0 auto;
-    width: 80%;
-}
-
-.help-text {
-    font-size: 10px;
-    
-    line-height: 120%;
-    color: dimgray;
-}
-
-#security-qs {
-    color: darkgrey;
-}
-
-.btn-signup {
-    background-color: #f8f8f8;
-    border-color: gray;
-}
-
-/** FOOTER **/
-
-footer {
-    background-color: #222222;
-    color: snow;
-}
-
-.foot-section {
-    font-size: 11px;
-    width: 80%;
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-.foot-section .col-md-4 ul {
-    list-style-type: none;
-    padding-left: 0px;
-}
-
-.foot_section .col-md-8 {
-    font-size: 10px;
-}
-
-footer a {
-    color: snow;
-}
-
-footer a:hover {
-    color: snow;
-    text-decoration: underline;
-}
-
-.foot-section i {
-    font-size: 25px;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-bottom: 5px;
 }

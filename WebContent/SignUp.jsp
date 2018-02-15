@@ -80,7 +80,19 @@
 
                     <div class="collapse navbar-collapse" id="nav_collapse">
                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">SHOP BY GENRE</a></li>
+                             <li class=dropdown>
+                                <a class="dropdown-toggler" data-toggle="dropdown"href="#">SHOP BY GENRE <span class="caret"></span></a>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#">BIOGRAPHY &amp; MEMOIR</a></li>
+                                    <li><a href="#">BUSINESS &amp; FINANCE</a></li>
+                                    <li><a href="#">COMPUTERS</a></li>
+                                    <li><a href="#">FICTION &amp; LITERATURE</a></li>
+                                    <li><a href="#">GRAPHIC NOVELS &amp; MANGA</a></li>
+                                     <li><a href="#">SCI-FI &amp; FANTASY</a></li>
+                                     <li><a href="#">SCIENCE &amp; NATURE</a></li>
+                                     <li><a href="#">TRAVEL</a></li>
+                                </ul>
+                            </li>
                             <li><a href="#">BEST SELLERS</a></li>
                             <li><a href="#">SALE</a></li>
                         </ul>
@@ -103,8 +115,24 @@
                 <div class="form-group">
                     <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name = "password2">
                 </div>
+                 <div class="form-group">
+                    <select class="form-control" id="security-qs">
+                        <option selected disabled>security question</option>
+                        <option>what’s your dream car?</option>
+                        <option>what subject did you enjoy the most in college?</option>
+                        <option>what's your dream travel destination?</option>
+                        <option>what's the name of your first pet?</option>
+                        <option>what's your usual coffee order?</option>
+                    
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="security-answer" placeholder="security answer">
+                </div>
+                <hr>
+                 <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, or special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
                 <br>
-                <button type="submit" class="btn btn-default btn-signup" name ="bt" value ="signup">sign up</button>
+                <button type="submit" class="btn btn-default btn-signup" name ="btn-signup" value ="signup">sign up</button>
             </form><br>
         </div>
         

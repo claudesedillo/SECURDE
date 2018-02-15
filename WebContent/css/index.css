@@ -89,6 +89,17 @@ body {
     text-decoration: underline;
 }
 
+.dropdown-menu>li>a {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-menu>li>a:hover {
+    text-decoration: underline;
+    background-color: white;
+    
+}
+
 .navbar-default .navbar-brand {
     font-family: Abril Fatface;
     font-size: 36px;
