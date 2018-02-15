@@ -15,7 +15,7 @@
 	        <link rel="stylesheet" href="css/index.css">
 	        <link rel="stylesheet" href="css/nav.css">
 	        <script src="script/index.js"></script>
-	        <title>Login Sample</title>
+	        <title>Bookshelf | Home</title>
 	</head>
 	
 	<body>
