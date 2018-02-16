@@ -12,10 +12,9 @@
         
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
-        
         <link rel="stylesheet" href="css/signup.css">
         <link rel="stylesheet" href="css/nav.css">
-         <script src="script/signup.js"></script>
+        <script src="script/signup.js"></script>
         <title>Bookshelf | Sign Up</title>
     </head>
     
@@ -43,7 +42,6 @@
                         <option>what's your dream travel destination?</option>
                         <option>what's the name of your first pet?</option>
                         <option>what's your usual coffee order?</option>
-                    
                     </select>
                 </div>
                 <div class="form-group">
@@ -55,9 +53,7 @@
                 <button type="submit" class="btn btn-default btn-signup" name ="btn-signup" value ="cust-signup">sign up</button>
             </form><br>
         </div>
-        
         <br><br>
-        
         <footer class="page-footer center-on-small-only"> 
             <div class="container-fluid foot-section">
                 <div class="col-md-4">

@@ -21,8 +21,7 @@
 	<body>
 	        <nav class="navbar navbar-default" id="nav"></nav><br>
 	        
-	        <div class="container-fluid feed">
-	        </div>
+	        <div class="container-fluid feed"></div>
 	        
 	        <br>
 	        
