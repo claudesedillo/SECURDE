@@ -46,12 +46,12 @@ public class Login extends HttpServlet {
 			String type = request.getParameter("btn-signin");
 			System.out.println(user + " " + pass + " " + type );
 			
-			if(type.equals("signin") && CustomerService.checkLogin(user, pass)){
+			if(type.equals("cust-signin") && CustomerService.checkLogin(user, pass)){
 				System.out.println("Succesful Login (Customer)");
 				request.getRequestDispatcher("Index.jsp").forward(request, response);
 			}
 			
-			else if(type.equals("signin") && AdminService.checkLogin(user, pass)){
+			else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
 				System.out.println("Succesful Login (Admin)");
 				response.sendRedirect("adminPage.html");
 			}

@@ -20,15 +20,15 @@
         </div>
         <hr>
         <div class="row">
-           <form>
+           <form action="login" method="post">
                <div class="form-group">
-                   <input type="email" class="form-control" placeholder="email address">
+                   <input type="email" class="form-control" placeholder="email address" name = "email">
                </div>
                 <div class="form-group">
-                   <input type="password" class="form-control" placeholder="password">
+                   <input type="password" class="form-control" placeholder="password" name = "password">
                </div>
+               <button type="submit" class="btn btn-default" id="btn-signin" name = "btn-signin" value = "admin-signin">sign in</button>
            </form>
-           <button type="button" class="btn btn-default" id="btn-signin">sign in</button>
            <br><br>
         </div>
     </div>
