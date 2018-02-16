@@ -1,12 +1,18 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Properties;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 import beans.Admin;
 import beans.Customer;
 import service.AdminService;
@@ -15,7 +21,7 @@ import service.CustomerService;
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup"})
+@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +43,7 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
 		if(request.getServletPath().equals("/login")){
@@ -52,14 +58,28 @@ public class Login extends HttpServlet {
 			}
 			
 			else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
-				System.out.println("Succesful Login (Admin)");
-				response.sendRedirect("adminPage.html");
+				sendemail(request, response, user);
 			}
 			else {
 				System.out.println("Wrong email/pass gago");
-				request.getRequestDispatcher("Index.jsp").forward(request, response);
+				request.getRequestDispatcher("Portal.jsp").forward(request, response);
 			}
 		}
+		else if(request.getServletPath().equals("/emailKey") ){
+			HttpSession session = request.getSession();
+			String emailKey = (String) session.getAttribute("emailkey");
+			String inputKey = request.getParameter("emailkey");
+			System.out.println("session key : " + emailKey);
+			if(inputKey.equals(emailKey)){
+				System.out.println("Succesful Login (Admin)");
+				response.sendRedirect("adminPage.html");
+			}
+			else{
+				System.out.println("wrong input >:(");
+				response.sendRedirect("adminEmailDoor.html");
+			}
+		}
+		
 		else if(request.getServletPath().equals("/signup")){
 			String user = request.getParameter("email");
 			String pass = request.getParameter("password");	
@@ -123,4 +143,45 @@ public class Login extends HttpServlet {
 		}
 	}
 
+	private void sendemail(HttpServletRequest request, HttpServletResponse response, String email) throws ServletException, IOException{
+		String emailKey = UUID.randomUUID().toString();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("emailkey", emailKey);
+		
+		final String user="indigo.emailkey@gmail.com";
+		final String pass="#96NDIGO@SECURDE78#";  
+		
+		 Properties props = new Properties();
+		 props.put("mail.smtp.host", "smtp.gmail.com");
+	     //below mentioned mail.smtp.port is optional
+	     props.put("mail.smtp.port", "587");		
+	     props.put("mail.smtp.auth", "true");
+	     props.put("mail.smtp.starttls.enable", "true");
+	     props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	     
+	     Session sesObj = Session.getInstance(props,new javax.mail.Authenticator(){
+	    	 protected PasswordAuthentication getPasswordAuthentication() {
+	    		 return new PasswordAuthentication(user,pass);
+	    	 }
+	     });
+	     
+	     try {
+	    	 MimeMessage message = new MimeMessage(sesObj);
+	         message.setFrom(new InternetAddress(user));
+	         message.addRecipient(Message.RecipientType.TO,new InternetAddress(email));
+	         message.setSubject("ADMIN LOGIN ATTEMPTED");
+	         message.setText("Email key : " + emailKey);
+	         
+	         Transport.send(message);
+	      }
+	      catch(Exception e)
+	      {
+	      	 e.printStackTrace();
+	      }
+		
+		request.setAttribute("emailkey", session.getAttribute("emailkey"));
+		response.sendRedirect("adminEmailDoor.html");
+		
+	}
 }
