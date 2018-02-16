@@ -7,7 +7,7 @@ public class Admin {
 	private String lastname;
 	private String role;
 	
-	private Admin(){}
+	public Admin(){}
 
 	public Admin(String email, String hashedpassword, String firstname, String lastname, String role) {
 		this.email = email;

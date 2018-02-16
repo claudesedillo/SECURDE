@@ -60,4 +60,32 @@ public class AdminService {
 		
 		return false;
 	}
+	
+	public static boolean checkUser(String email){
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM admin");
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			String user;
+			
+			while(rs.next()){
+				user = rs.getString("email");
+				
+				if(user.equals(email)){
+					return true;
+				}
+			}
+			return false;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		
+		return false;
+	}
 }

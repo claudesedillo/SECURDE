@@ -36,7 +36,7 @@
                     <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name = "password2">
                 </div>
                  <div class="form-group">
-                    <select class="form-control" id="security-qs">
+                    <select class="form-control" id="security-qs" name = "securityQ">
                         <option selected disabled>security question</option>
                         <option>what’s your dream car?</option>
                         <option>what subject did you enjoy the most in college?</option>
@@ -47,12 +47,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="security-answer" placeholder="security answer">
+                    <input type="password" class="form-control" id="security-answer" placeholder="security answer" name = "securityA">
                 </div>
                 <hr>
                  <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, or special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
                 <br>
-                <button type="submit" class="btn btn-default btn-signup" name ="btn-signup" value ="signup">sign up</button>
+                <button type="submit" class="btn btn-default btn-signup" name ="btn-signup" value ="cust-signup">sign up</button>
             </form><br>
         </div>
         

@@ -77,7 +77,7 @@ public class CustomerService {
 			
 			ResultSet rs = stmt.executeQuery();
 			
-			String user, pass;
+			String user;
 			
 			while(rs.next()){
 				user = rs.getString("email");

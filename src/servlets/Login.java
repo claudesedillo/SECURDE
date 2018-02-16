@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.Admin;
 import beans.Customer;
 import service.AdminService;
 import service.CustomerService;
@@ -39,21 +40,11 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		/*
-		switch(request.getServletPath()) {
-			case "/login":  System.out.println("i am at login case " + request.getParameter("username") + " " + request.getParameter("password") + " xd");
-							request.getRequestDispatcher("Index.jsp").forward(request, response);
-							break;
-			case "/adminLogin": System.out.println("i am at adminLogin case " + request.getParameter("adminEmail") + request.getParameter("adminPassword") + " xdd");
-								response.sendRedirect("adminPage.html");
-							break;
-			
-		}*/
 		if(request.getServletPath().equals("/login")){
 			String user = request.getParameter("email");
 			String pass = request.getParameter("password");	
-			String type = request.getParameter("bt");
-			System.out.println(user + " " + pass + " " + type);
+			String type = request.getParameter("btn-signin");
+			System.out.println(user + " " + pass + " " + type );
 			
 			if(type.equals("signin") && CustomerService.checkLogin(user, pass)){
 				System.out.println("Succesful Login (Customer)");
@@ -73,26 +64,61 @@ public class Login extends HttpServlet {
 			String user = request.getParameter("email");
 			String pass = request.getParameter("password");	
 			String pass2 = request.getParameter("password2");	
-			String type = request.getParameter("bt");
-			System.out.println(user + " " + pass + " " + pass2 + " " + type);
+			String type = request.getParameter("btn-signup");
 			
-			if(!CustomerService.checkUser(user)){
-				if(pass.equals(pass2)){
-					Customer cust = new Customer();
-					cust.setEmail(user);
-					cust.setHashedpassword(pass);
-					CustomerService.addCustomer(cust);
-					System.out.println("Succesful signup (Customer)");
-					request.getRequestDispatcher("Index.jsp").forward(request, response);
+			if(type.equals("cust-signup")){
+				String secQ = request.getParameter("securityQ");
+				String secA = request.getParameter("securityA");
+				System.out.println(user + " " + pass + " " + type + " " + secQ + " " +  secA);
+				
+				if(!CustomerService.checkUser(user)){
+					if(pass.equals(pass2)){
+						Customer cust = new Customer();
+						cust.setEmail(user);
+						cust.setHashedpassword(pass);
+						cust.setSecurityquestion(secQ);
+						cust.setSecurityanswer(secA);
+						CustomerService.addCustomer(cust);
+						System.out.println("Succesful signup (Customer)");
+						request.getRequestDispatcher("Index.jsp").forward(request, response);
+					}
+					else{
+						System.out.println("Your passwords dont match!!! >:(");
+						request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+					}
 				}
 				else{
-					System.out.println("Your passwords dont match!!! >:(");
+					System.out.println("Your email already exists!!! >:(");
 					request.getRequestDispatcher("SignUp.jsp").forward(request, response);
 				}
 			}
-			else{
-				System.out.println("Your email already exists!!! >:(");
-				request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+			else if(type.equals("admin-signup")){
+				String fName = request.getParameter("firstName");
+				String lName = request.getParameter("lastName");
+				String role = request.getParameter("role");
+				System.out.println(user + " " + pass + " " + type + " " + fName + " " +  lName + " " + role);
+				
+				if(!AdminService.checkUser(user)){
+					if(pass.equals(pass2)){
+						Admin admin = new Admin();
+						admin.setEmail(user);
+						admin.setHashedpassword(pass);
+						admin.setFirstname(fName);
+						admin.setLastname(lName);
+						admin.setRole(role);
+						AdminService.addAdmin(admin);
+						System.out.println("Succesful signup (ADMIN)");
+						request.getRequestDispatcher("adminPage.html").forward(request, response);
+					}
+					else{
+						System.out.println("Your passwords dont match!!! >:(");
+						request.getRequestDispatcher("adminSignUp.html").forward(request, response);
+					}
+				}
+				else{
+					System.out.println("Your email already exists!!! >:(");
+					request.getRequestDispatcher("adminSignUp.html").forward(request, response);
+				}
 			}
 		}
 	}
