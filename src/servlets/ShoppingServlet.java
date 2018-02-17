@@ -19,7 +19,7 @@ import service.PublisherService;
 /**
  * Servlet implementation class ShoppingServlet
  */
-@WebServlet(urlPatterns = {"/getCatalog"})
+@WebServlet(urlPatterns = {"/getCatalog", "/addToCart", "/checkout"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,6 +47,10 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
+	}
+	
+	private void getBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
     /**
      * @see HttpServlet#HttpServlet()

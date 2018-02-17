@@ -65,3 +65,5 @@ $RECYCLE.BIN/
 
 .classpath
 /bin/
+
+src/service/DatabaseManager.java
