@@ -34,7 +34,7 @@ public class BookService {
 		}
 	}
 	
-	public static ArrayList<Book> getBooks() {
+	public static ArrayList<Book> getBookList() {
 		
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		try{
@@ -48,7 +48,8 @@ public class BookService {
 		
 			
 			while(rs.next()) {
-				Book book = new Book(rs.getString("Title"),
+				Book book = new Book(rs.getInt("bookid"),
+								    rs.getString("Title"),
 									rs.getString("ISBN"),
 									rs.getString("Genre"),
 									rs.getString("Format"),
@@ -64,5 +65,64 @@ public class BookService {
 			e.printStackTrace();
 		}
 		return bookList;
+	}
+	
+	public static Book getBook(int id) {
+		
+		Book book = null;
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book");
+			ResultSet rs = stmt.executeQuery();
+		
+			
+			while(rs.next()) {
+				if(id == rs.getInt("bookid")){
+					book = new Book(rs.getInt("bookid"),
+								    rs.getString("Title"),
+									rs.getString("ISBN"),
+									rs.getString("Genre"),
+									rs.getString("Format"),
+									rs.getFloat("Price"),
+									rs.getInt("stocklevel"),
+									rs.getDate("Published"));
+				}
+				
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return book;
+	}
+	
+	public static void updateBooks(Book newBook) {
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			String query = "UPDATE book SET Title = ?, ISBN = ?, Genre = ?, Format = ?, Published = ?, Price = ?, stocklevel = ? WHERE bookid = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, newBook.getTitle());
+			stmt.setString(2, newBook.getIsbn());
+			stmt.setString(3, newBook.getGenre());
+			stmt.setString(4, newBook.getFormat());
+			stmt.setDate(5, newBook.getSQLDate());
+			stmt.setFloat(6, newBook.getPrice());
+			stmt.setInt(7, newBook.getStock());
+			stmt.setInt(8, newBook.getBookID());
+			stmt.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 }

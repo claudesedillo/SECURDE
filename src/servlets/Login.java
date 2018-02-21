@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.Properties;
 import java.util.UUID;
 import javax.servlet.ServletException;
@@ -14,8 +15,10 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 import beans.Admin;
+import beans.Book;
 import beans.Customer;
 import service.AdminService;
+import service.BookService;
 import service.CustomerService;
 
 /**

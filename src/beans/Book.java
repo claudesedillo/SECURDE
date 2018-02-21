@@ -33,6 +33,18 @@ public class Book {
 		this.stock = stock;;
 	}
 	
+	public Book(int bookid, String title, String isbn, String genre, String format, float price, int stock, java.sql.Date published) {
+		this.bookID = bookid;
+		this.title = title;
+		this.isbn = isbn;
+		this.genre = genre;
+		this.format = format;
+		this.price = price;
+		this.stock = stock;;
+		tempDate = published;
+	}
+	
+	
 	public java.sql.Date getSQLDate() {
 		return tempDate;
 	}
