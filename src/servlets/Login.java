@@ -58,7 +58,13 @@ public class Login extends HttpServlet {
 			}
 			
 			else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
-				sendemail(request, response, user);
+				String emailKey = UUID.randomUUID().toString().replace("-", "");
+				emailKey = emailKey.substring(0, 5);
+				sendEmail(request, response, new Email(user, emailKey, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey));
+				HttpSession session = request.getSession();
+				session.setAttribute("emailkey", emailKey);
+				request.setAttribute("emailkey", session.getAttribute("emailkey"));
+				response.sendRedirect("adminEmailDoor.html");
 			}
 			else {
 				System.out.println("Wrong email/pass gago");
@@ -143,12 +149,7 @@ public class Login extends HttpServlet {
 		}
 	}
 
-	private void sendemail(HttpServletRequest request, HttpServletResponse response, String email) throws ServletException, IOException{
-		String emailKey = UUID.randomUUID().toString();
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("emailkey", emailKey);
-		
+	private void sendEmail(HttpServletRequest request, HttpServletResponse response, Email email) throws ServletException, IOException{
 		final String user="indigo.emailkey@gmail.com";
 		final String pass="#96NDIGO@SECURDE78#";  
 		
@@ -169,9 +170,9 @@ public class Login extends HttpServlet {
 	     try {
 	    	 MimeMessage message = new MimeMessage(sesObj);
 	         message.setFrom(new InternetAddress(user));
-	         message.addRecipient(Message.RecipientType.TO,new InternetAddress(email));
-	         message.setSubject("ADMIN LOGIN ATTEMPTED");
-	         message.setText("Email key : " + emailKey);
+	         message.addRecipient(Message.RecipientType.TO,new InternetAddress(email.getEmailAddress()));
+	         message.setSubject(email.getHeader());
+	         message.setText(email.getBody());
 	         
 	         Transport.send(message);
 	      }
@@ -179,9 +180,31 @@ public class Login extends HttpServlet {
 	      {
 	      	 e.printStackTrace();
 	      }
+	}
+	
+	public class Email{
+		String emailAddress;
+		String header;
+		String body;
 		
-		request.setAttribute("emailkey", session.getAttribute("emailkey"));
-		response.sendRedirect("adminEmailDoor.html");
+		public Email(){}
 		
+		public Email(String emailAddress, String authenticationKey, String header, String body){
+			this.emailAddress = emailAddress;
+			this.header = header;
+			this.body = body;
+		}
+
+		public String getEmailAddress() {
+			return emailAddress;
+		}
+
+		public String getHeader() {
+			return header;
+		}
+
+		public String getBody() {
+			return body;
+		}
 	}
 }
