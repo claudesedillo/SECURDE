@@ -60,7 +60,8 @@ public class Login extends HttpServlet {
 			else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
 				String emailKey = UUID.randomUUID().toString().replace("-", "");
 				emailKey = emailKey.substring(0, 5);
-				sendEmail(request, response, new Email(user, emailKey, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey));
+				Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
+				sendEmail(request, response, email);
 				HttpSession session = request.getSession();
 				session.setAttribute("emailkey", emailKey);
 				request.setAttribute("emailkey", session.getAttribute("emailkey"));
@@ -189,7 +190,7 @@ public class Login extends HttpServlet {
 		
 		public Email(){}
 		
-		public Email(String emailAddress, String authenticationKey, String header, String body){
+		public Email(String emailAddress, String header, String body){
 			this.emailAddress = emailAddress;
 			this.header = header;
 			this.body = body;
