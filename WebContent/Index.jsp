@@ -24,48 +24,13 @@
 		<nav class="navbar navbar-default" id="nav"></nav><br>
 		
 		<!--BODY-->
-        <div class="container-fluid feed">
+        <div class="container-fluid feed" id = "catalog">
              <div class="row banner">
                 <p>DEALS OF THE WEEK</p>
                 <a href="#">ONLINE ONLY <span class="glyphicon glyphicon-play"></span></a>
             </div>
             <h5>LATEST RELEASE</h5>
             
-            <div class="col-sm-3 book-div">
-                <img src="css/generic-cover.jpg" class="img-responsive">
-                <div class="row">
-                    <p class="title">NO TITLE YET</p>
-                    <p class="author">No Author</p>
-                    <p class="price">P420.00</p>
-                </div>
-            </div>
-            
-            <div class="col-sm-3 book-div">
-                <img src="css/generic-cover.jpg" class="img-responsive">
-                <div class="row">
-                    <p class="title">NO TITLE YET</p>
-                    <p class="author">No Author</p>
-                    <p class="price">P420.00</p>
-                </div>
-            </div>
-            
-            <div class="col-sm-3 book-div">
-                <img src="css/generic-cover.jpg" class="img-responsive">
-                <div class="row">
-                    <p class="title">NO TITLE YET</p>
-                    <p class="author">No Author</p>
-                    <p class="price">P420.00</p>
-                </div>
-            </div>
-            
-            <div class="col-sm-3 book-div">
-                <img src="css/generic-cover.jpg" class="img-responsive">
-                <div class="row">
-                    <p class="title">NO TITLE YET</p>
-                    <p class="author">No Author</p>
-                    <p class="price">P420.00</p>
-                </div>
-            </div>
         </div>
         <br><br>        
         <footer class="page-footer center-on-small-only" id="footer"></footer>

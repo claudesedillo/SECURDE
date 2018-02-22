@@ -14,7 +14,7 @@ public class Book {
 	
 	public Book() {}
 	
-	public Book(String title, String isbn, String genre, String format, float price, int stock, java.sql.Date published) {
+	public Book(String title, String isbn, String genre, String format, float price, int stock, java.sql.Date published, int authorID, int publisherID) {
 		this.title = title;
 		this.isbn = isbn;
 		this.genre = genre;
@@ -22,6 +22,8 @@ public class Book {
 		this.price = price;
 		this.stock = stock;
 		tempDate = published;
+		this.authorID = authorID;
+		this.publisherID = publisherID;
 	}
 	
 	public Book(String title, String isbn, String genre, String format, float price, int stock) {
@@ -33,7 +35,7 @@ public class Book {
 		this.stock = stock;;
 	}
 	
-	public Book(int bookid, String title, String isbn, String genre, String format, float price, int stock, java.sql.Date published) {
+	public Book(int bookid, String title, String isbn, String genre, String format, float price, int stock, java.sql.Date published, int authorID, int publisherID) {
 		this.bookID = bookid;
 		this.title = title;
 		this.isbn = isbn;
@@ -42,7 +44,19 @@ public class Book {
 		this.price = price;
 		this.stock = stock;;
 		tempDate = published;
+		this.authorID = authorID;
+		this.publisherID = publisherID;
 	}
+	
+	public java.sql.Date getTempDate() {
+		return tempDate;
+	}
+
+	public void setTempDate(java.sql.Date tempDate) {
+		this.tempDate = tempDate;
+	}
+
+
 	
 	
 	public java.sql.Date getSQLDate() {

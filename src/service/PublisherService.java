@@ -28,6 +28,7 @@ public class PublisherService {
 	}
 	
 	public static String getPublisher(int id) {
+		System.out.println("Publisher ID: " + id);
 		String publisherName = "";
 		try {
 			String driver = "com.mysql.jdbc.Driver";

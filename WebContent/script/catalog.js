@@ -5,7 +5,7 @@ function displayCatalog(){
 	
 	$.ajax({
 		context: this,
-		url: 'getCatalog',
+		url: 'getCompleteCatalog',
 		type: 'get',
 		cache: false,
 		success: function(data){
@@ -20,6 +20,5 @@ function displayCatalog(){
 }
 
 $("document").ready(function() {
-	
 	displayCatalog();
 });

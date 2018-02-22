@@ -31,6 +31,7 @@ public class AuthorService {
 	
 	public static String getAuthor(int id) {
 		String authorName = "";
+		System.out.println("Author ID: " + id);
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);

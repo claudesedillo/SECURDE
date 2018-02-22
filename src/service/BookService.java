@@ -55,7 +55,10 @@ public class BookService {
 									rs.getString("Format"),
 									rs.getFloat("Price"),
 									rs.getInt("stocklevel"),
-									rs.getDate("Published"));
+									rs.getDate("Published"),
+									rs.getInt("authorID"),
+									rs.getInt("publisherID"));
+				book.toString();
 				bookList.add(book);
 			}
 			conn.close();
@@ -83,13 +86,15 @@ public class BookService {
 			while(rs.next()) {
 				if(id == rs.getInt("bookid")){
 					book = new Book(rs.getInt("bookid"),
-								    rs.getString("Title"),
-									rs.getString("ISBN"),
-									rs.getString("Genre"),
-									rs.getString("Format"),
-									rs.getFloat("Price"),
-									rs.getInt("stocklevel"),
-									rs.getDate("Published"));
+						    rs.getString("Title"),
+							rs.getString("ISBN"),
+							rs.getString("Genre"),
+							rs.getString("Format"),
+							rs.getFloat("Price"),
+							rs.getInt("stocklevel"),
+							rs.getDate("Published"),
+							rs.getInt("authorID"),
+							rs.getInt("publisherID"));
 				}
 				
 			}
