@@ -1,24 +1,20 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.Properties;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
 import beans.Admin;
-import beans.Book;
 import beans.Customer;
 import service.AdminService;
-import service.BookService;
 import service.CustomerService;
 
 /**
@@ -56,6 +52,11 @@ public class Login extends HttpServlet {
 			System.out.println(user + " " + pass + " " + type );
 			
 			if(type.equals("cust-signin") && CustomerService.checkLogin(user, pass)){
+				//Login hash cookie
+				Cookie cookie = new Cookie("logged", "True");
+				cookie.setMaxAge(60*60*24*365*2);
+				response.addCookie(cookie);
+				
 				System.out.println("Succesful Login (Customer)");
 				request.getRequestDispatcher("Index.jsp").forward(request, response);
 			}
@@ -71,7 +72,7 @@ public class Login extends HttpServlet {
 				response.sendRedirect("adminEmailDoor.html");
 			}
 			else {
-				System.out.println("Wrong email/pass gago");
+				System.out.println("Wrong email/pass ma dude");
 				request.getRequestDispatcher("Portal.jsp").forward(request, response);
 			}
 		}
@@ -103,6 +104,11 @@ public class Login extends HttpServlet {
 				
 				if(!CustomerService.checkUser(user)){
 					if(pass.equals(pass2)){
+						//Login hash cookie
+						Cookie cookie = new Cookie("logged", "True");
+						cookie.setMaxAge(60*60*24*365*2);
+						response.addCookie(cookie);
+						
 						Customer cust = new Customer();
 						cust.setEmail(user);
 						cust.setHashedpassword(pass);
