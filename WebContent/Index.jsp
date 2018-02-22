@@ -14,6 +14,7 @@
 	        
 	        <link rel="stylesheet" href="css/index.css">
 	        <link rel="stylesheet" href="css/nav.css">
+	        <link rel="stylesheet" href="css/usernav.css">
 	        <link rel="stylesheet" href="css/footer.css">
 	        <script src="script/index.js"></script>
 	        <title>Bookshelf | Home</title>
@@ -66,9 +67,7 @@
                 </div>
             </div>
         </div>
-        <br><br>
-        
+        <br><br>        
         <footer class="page-footer center-on-small-only" id="footer"></footer>
-	     
 	</body>
 </html>

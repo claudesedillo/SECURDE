@@ -14,6 +14,7 @@
         
         <link rel="stylesheet" href="css/signup.css">
         <link rel="stylesheet" href="css/nav.css">
+        <link rel="stylesheet" href="css/footer.css">
         <script src="script/signup.js"></script>
         <title>Bookshelf | Sign Up</title>
     </head>
@@ -53,31 +54,7 @@
                 <button type="submit" class="btn btn-default btn-signup" name ="btn-signup" value ="cust-signup">sign up</button>
             </form><br>
         </div>
-        <br><br>
-        <footer class="page-footer center-on-small-only"> 
-            <div class="container-fluid foot-section">
-                <div class="col-md-4">
-                    <h5>CUSTOMER SERVICES</h5>
-                    <ul>
-                        <li><a href="#">help</a></li>
-                        <li><a href="#">contact us</a></li>
-                        <li><a href="#">order tracking</a></li>
-                        <li><a href="#">shipping  returns</a></li>
-                        <li><a href="#">feedback</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-8">
-                    <br>
-                    <i class="fa fa-facebook-square"></i>
-                    <i class="fa fa-google-plus-square"></i>
-                    <i class="fa fa-twitter-square"></i>
-                    <br>
-                    123 Somewhere Road, Over There City, That Country
-                    <br>
-                    © Bookshelf 2018. All Rights Reserved.
-                </div>
-            </div>
-    </footer>
+        <br><br> 
+       <footer class="page-footer center-on-small-only" id="footer"></footer>
     </body>
 </html>

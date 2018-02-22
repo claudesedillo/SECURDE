@@ -1,0 +1,139 @@
+.signup-bar {
+    background-color: #222222;
+    color: snow;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    font-style: italic;
+}
+
+.ss-bar {
+    width: 80%;
+    padding-left: 5px;
+    padding-right: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.ss-bar .col-sm-8  {
+    padding: 5px;
+    font-weight: 700;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.ss-bar .dd-account {
+    font-weight: 400;
+    color: #222222;
+    background-color: transparent;
+    font-size: 12px;
+    padding: 3px;
+    padding-left: 10px;
+    margin-left: 5px;
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px;
+    border-color: #222222;   
+}
+
+.ss-bar .dd-account:hover {
+    text-decoration: underline;
+}
+
+.btn-logout {
+    background-color: #222222;
+    color: snow;
+    border-radius: 1px;
+    width: 90%;
+    margin: 8px;
+    font-size: 10px;
+}
+
+.btn-logout:hover {
+    background-color: #303030;
+    color: snow;
+    text-decoration: underline;
+}
+
+.dropdown {
+    display: inline;
+}
+
+.dropdown-menu {
+    margin-top: 15px;
+    margin-left: 5px;
+    border-color: #222222;
+    border-width: 0.5px;
+    border-top-width: 0px;
+    border-radius: 1px;
+}
+
+.ss-bar .col-sm-1 {
+    text-align: center;
+}
+
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+
+.stylish-input-group .form-control{
+	border-right:0; 
+	border-color: #ccc;
+}
+
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.btn .badge {
+    top: -4px;
+}
+
+.ss-bar .btn-cart {
+    background-color: transparent;
+    border-style: none;
+    font-size: 21px;
+    padding: 2px;
+}
+
+.main-nav {
+    background-color: white;
+}
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+}
+
+.navbar-default .navbar-nav>li>a {
+    font-size: 11px;
+    color: #222222;
+    font-weight: 700;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    text-decoration: underline;
+}
+
+.dropdown-menu>li>a {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-menu>li>a:hover {
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-brand {
+    font-family: Abril Fatface;
+    font-size: 36px;
+    color: #222222;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #303030;
+}
