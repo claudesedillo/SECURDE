@@ -14,41 +14,61 @@
 	        
 	        <link rel="stylesheet" href="css/index.css">
 	        <link rel="stylesheet" href="css/nav.css">
+	        <link rel="stylesheet" href="css/footer.css">
 	        <script src="script/index.js"></script>
 	        <title>Bookshelf | Home</title>
 	</head>
 	
 	<body>
-	        <nav class="navbar navbar-default" id="nav"></nav><br>
-	        
-	        <div class="container-fluid feed"></div>
-	        
-	        <br>
-	        
-	        <footer class="page-footer center-on-small-only"> 
-	            <div class="container-fluid foot-section">
-	                <div class="col-md-4">
-	                    <h5>CUSTOMER SERVICES</h5>
-	                    <ul>
-	                        <li><a href="#">help</a></li>
-	                        <li><a href="#">contact us</a></li>
-	                        <li><a href="#">order tracking</a></li>
-	                        <li><a href="#">shipping  returns</a></li>
-	                        <li><a href="#">feedback</a></li>
-	                    </ul>
-	                </div>
-	
-	                <div class="col-md-8">
-	                    <br>
-	                    <i class="fa fa-facebook-square"></i>
-	                    <i class="fa fa-google-plus-square"></i>
-	                    <i class="fa fa-twitter-square"></i>
-	                    <br>
-	                    123 Somewhere Road, Over There City, That Country
-	                    <br>
-	                    © Bookshelf 2018. All Rights Reserved.
-	                </div>
-	            </div>
-	    	</footer>
-	    </body>
+		<nav class="navbar navbar-default" id="nav"></nav><br>
+		
+		<!--BODY-->
+        <div class="container-fluid feed">
+             <div class="row banner">
+                <p>DEALS OF THE WEEK</p>
+                <a href="#">ONLINE ONLY <span class="glyphicon glyphicon-play"></span></a>
+            </div>
+            <h5>LATEST RELEASE</h5>
+            
+            <div class="col-sm-3 book-div">
+                <img src="css/generic-cover.jpg" class="img-responsive">
+                <div class="row">
+                    <p class="title">NO TITLE YET</p>
+                    <p class="author">No Author</p>
+                    <p class="price">P420.00</p>
+                </div>
+            </div>
+            
+            <div class="col-sm-3 book-div">
+                <img src="css/generic-cover.jpg" class="img-responsive">
+                <div class="row">
+                    <p class="title">NO TITLE YET</p>
+                    <p class="author">No Author</p>
+                    <p class="price">P420.00</p>
+                </div>
+            </div>
+            
+            <div class="col-sm-3 book-div">
+                <img src="css/generic-cover.jpg" class="img-responsive">
+                <div class="row">
+                    <p class="title">NO TITLE YET</p>
+                    <p class="author">No Author</p>
+                    <p class="price">P420.00</p>
+                </div>
+            </div>
+            
+            <div class="col-sm-3 book-div">
+                <img src="css/generic-cover.jpg" class="img-responsive">
+                <div class="row">
+                    <p class="title">NO TITLE YET</p>
+                    <p class="author">No Author</p>
+                    <p class="price">P420.00</p>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        
+        <footer class="page-footer center-on-small-only" id="footer"></footer>
+	     
+	</body>
 </html>

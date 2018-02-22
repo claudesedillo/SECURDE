@@ -1,113 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Muli:400,600,800');
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+@import url('https://fonts.googleapis.com/css?family=Nixie+One');
 
 body {
     font-family: "Muli";
 }
 
-.signup-bar {
-    background-color: #222222;
-    color: snow;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 2px;
-}
-
-.ss-bar {
-    width: 80%;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.ss-bar .col-sm-8, .col-sm-3, .col-sm-1 {
-    padding-left: 2px;
-    padding-right: 2px;
-    
-}
-
-.ss-bar .col-sm-1 {
-    text-align: center;
-}
-
-.stylish-input-group .input-group-addon{
-    background: white !important; 
-}
-
-.stylish-input-group .form-control{
-	border-right:0; 
-	border-color: #ccc;
-}
-
-.stylish-input-group button{
-    border:0;
-    background:transparent;
-}
-
-.btn .badge {
-    top: -4px;
-}
-
-.ss-bar .btn-cart {
-    background-color: transparent;
-    border-style: none;
-    font-size: 21px;
-    padding: 2px;
-}
-
-.ss-bar .btn-navsignin {
-    background-color: transparent;
-    font-size: 15px;
-    border-style: none;
-    font-weight: 800; 
-}
-
-.ss-bar .btn-navsignin:hover {
-    text-decoration: underline;
-}
-
-.main-nav {
-    background-color: white;
-}
-
-.wrapper {
-    width: 80%;
-    margin: auto;
-}
-
-.navbar-default .navbar-nav>li>a {
-    font-size: 11px;
-    color: #222222;
-    font-weight: 700;
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-    text-decoration: underline;
-}
-
-.dropdown-menu>li>a {
-    font-size: 10px;
-    letter-spacing: 0.5px;
-}
-
-.dropdown-menu>li>a:hover {
-    text-decoration: underline;
-    background-color: white;
-    
-}
-
-.navbar-default .navbar-brand {
-    font-family: Abril Fatface;
-    font-size: 36px;
-    color: #222222;
-}
-
 /** BODY **/
-
 .feed {
     border-style: solid;
     border-width: 1px;
@@ -116,41 +15,60 @@ body {
     border-radius: 2px;
 }
 
-/** FOOTER **/
+.feed .banner {
+    background-color: #ec0000;
+    text-align: center;
+    padding: 30px;
+    opacity: 0.85;
+    margin: 0;
+    border-radius: 2px;
+}
 
-footer {
-    background-color: #222222;
+.feed .banner p {
+    color: snow;
+    font-size: 35px;
+    font-family: Nixie One;
+    letter-spacing: 2px;
+    margin: -5px;
     color: snow;
 }
 
-.foot-section {
-    font-size: 11px;
-    width: 80%;
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-.foot-section .col-md-4 ul {
-    list-style-type: none;
-    padding-left: 0px;
-}
-
-.foot_section .col-md-8 {
+.feed .banner a {
+    color: snow;
     font-size: 10px;
+    letter-spacing: 2px;
 }
 
-footer a {
-    color: snow;
+h5 {
+    font-weight: 800;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-footer a:hover {
-    color: snow;
-    text-decoration: underline;
+/** BOOK DIV **/
+.feed .book-div {
+    font-size: 11px;
+    text-align: center;
 }
 
-.foot-section i {
-    font-size: 25px;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-bottom: 5px;
+.feed .img-responsive {
+    width: 55%;
+    margin: auto;
+}
+.feed p {
+    margin: 0px;
+}
+
+.feed .title {
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+.feed .author {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.feed .price {
+    font-size: 13px;
+    font-style: italic;
 }
