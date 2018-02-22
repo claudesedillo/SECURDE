@@ -53,7 +53,7 @@ public class Login extends HttpServlet {
 			
 			if(type.equals("cust-signin") && CustomerService.checkLogin(user, pass)){
 				//Login hash cookie
-				Cookie cookie = new Cookie("logged", "True");
+				Cookie cookie = new Cookie("logged", user);
 				cookie.setMaxAge(60*60*24*365*2);
 				response.addCookie(cookie);
 				
@@ -105,7 +105,7 @@ public class Login extends HttpServlet {
 				if(!CustomerService.checkUser(user)){
 					if(pass.equals(pass2)){
 						//Login hash cookie
-						Cookie cookie = new Cookie("logged", "True");
+						Cookie cookie = new Cookie("logged", user);
 						cookie.setMaxAge(60*60*24*365*2);
 						response.addCookie(cookie);
 						
