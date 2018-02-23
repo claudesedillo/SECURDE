@@ -29,5 +29,6 @@ $("document").ready(function(){
     
     if(document.cookie.indexOf("logged") >= 0){
     	console.log("congrats you logged in");
+    	$("#nav").load("usernav.html");
     }
 });
