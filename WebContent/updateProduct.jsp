@@ -16,6 +16,8 @@
 	Published :	<input type="Date" name="pub" value="<%=request.getAttribute("pub")%>"> <br>
 	Price :		<input type="float" name="price" value="<%=request.getAttribute("price")%>"> <br>
  	Stock :		<input type="int" name="stock" value="<%=request.getAttribute("stock")%>"> <br>
+	Author : 	<input type="int" name="authorID" value="<%=request.getAttribute("authorID")%>"> <br>
+	Publisher :	<input type="int" name="publisherID" value="<%=request.getAttribute("publisherID")%>"> <br>
  	<button type="submit" name = "btn-confirm" value="confirm">Confirm</button> 
 </form>
 </body>

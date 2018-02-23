@@ -43,6 +43,8 @@ public class ShoppingServlet extends HttpServlet {
 							"Format: " + b.getFormat() + " <br> " +
 							"Price: " + b.getPrice() + " <br> " +
 							"Stock: " + b.getStock() + " <br> " +
+							"Author: " + b.getAuthorID() + " <br> " +
+							"Publisher: " + b.getPublisherID() + " <br> " +
 							"<Button type= \"submit\" name = \"btn-editProd\" value =" + String.format("%d", b.getBookID())  + "> EDIT </button>" +
 							"</form>";
 		}
@@ -129,10 +131,11 @@ public class ShoppingServlet extends HttpServlet {
 				   genre = request.getParameter("genre"),
 				   format = request.getParameter("format");
 			Date pub =  java.sql.Date.valueOf(request.getParameter("pub"));
-			int authorID = Integer.parseInt(request.getParameter("")), publisherID = Integer.parseInt(request.getParameter(""));
-			
+
 			float price = Float.parseFloat(request.getParameter("price"));
-			int stock = Integer.parseInt(request.getParameter("stock"));
+			int stock = Integer.parseInt(request.getParameter("stock")),
+			    authorID = Integer.parseInt(request.getParameter("authorID")), 
+			    publisherID = Integer.parseInt(request.getParameter("publisherID"));;
 			Book newBook = new Book(id, title, isbn, genre, format, price, stock, pub, authorID, publisherID);
 			BookService.updateBooks(newBook);
 			request.getRequestDispatcher("catalogTest.html").forward(request, response);

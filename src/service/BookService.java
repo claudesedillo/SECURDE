@@ -112,7 +112,7 @@ public class BookService {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
-			String query = "UPDATE book SET Title = ?, ISBN = ?, Genre = ?, Format = ?, Published = ?, Price = ?, stocklevel = ? WHERE bookid = ?";
+			String query = "UPDATE book SET Title = ?, ISBN = ?, Genre = ?, Format = ?, Published = ?, Price = ?, stocklevel = ?, authorid = ?, publisherid = ? WHERE bookid = ?";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, newBook.getTitle());
 			stmt.setString(2, newBook.getIsbn());
@@ -121,7 +121,9 @@ public class BookService {
 			stmt.setDate(5, newBook.getSQLDate());
 			stmt.setFloat(6, newBook.getPrice());
 			stmt.setInt(7, newBook.getStock());
-			stmt.setInt(8, newBook.getBookID());
+			stmt.setInt(8, newBook.getAuthorID());
+			stmt.setInt(9, newBook.getPublisherID());
+			stmt.setInt(10, newBook.getBookID());
 			stmt.executeUpdate();
 			conn.close();
 		} catch (ClassNotFoundException e) {
