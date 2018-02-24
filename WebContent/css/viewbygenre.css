@@ -15,7 +15,7 @@ body {
     border-radius: 2px;
 }
 
-.banner {
+#feed .banner {
     background-color: #ec0000;
     text-align: center;
     padding: 30px;
@@ -24,7 +24,7 @@ body {
     border-radius: 2px;
 }
 
-.banner p {
+#feed .banner p {
     color: snow;
     font-size: 35px;
     font-family: Nixie One;
@@ -33,34 +33,68 @@ body {
     color: snow;
 }
 
-.banner a {
+#feed .banner a {
     color: snow;
     font-size: 10px;
     letter-spacing: 2px;
 }
 
-h5 {
+#searchresult-div h5 {
     font-weight: 800;
-    margin-top: 20px;
     margin-bottom: 20px;
+}
+
+#filters-div h5 {
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+#filters-div p {
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+#filters-div label {
+    font-size: 11px;
+    line-height: 190%
+}
+
+#feed .checkbox {
+    margin: 0px;
+}
+
+#feed .btn {
+    background-color: #222222;
+    color: snow;
+    margin-top: 5px;
+    margin-left: -2px;
+    border-radius: 2px;
+    font-size: 11px; 
+}
+
+#feed .btn:hover {
+    text-decoration: underline;
+    background-color: #222222;
+    color: snow;
 }
 
 /** BOOK DIV **/
 #feed .book-div {
     font-size: 11px;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 .book-div .img-responsive {
-    width: 55%;
+    width: 60%;
     margin: auto;
 }
+
 .book-div p {
     margin: 0px;
 }
 
-.book-div .title {
+.bookd-div .title {
     font-size: 13px;
     letter-spacing: 1px;
 }

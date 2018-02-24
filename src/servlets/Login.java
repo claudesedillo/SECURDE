@@ -20,7 +20,7 @@ import service.CustomerService;
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey"})
+@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey", "/signout"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,117 +46,150 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		if(request.getServletPath().equals("/login")){
-			String user = request.getParameter("email");
-			String pass = request.getParameter("password");	
-			String type = request.getParameter("btn-signin");
-			System.out.println(user + " " + pass + " " + type );
-			
-			if(type.equals("cust-signin") && CustomerService.checkLogin(user, pass)){
-				//Login hash cookie
-				Cookie cookie = new Cookie("logged", user);
-				cookie.setMaxAge(60*60*24*365*2);
-				response.addCookie(cookie);
-				
-				System.out.println("Succesful Login (Customer)");
-				request.getRequestDispatcher("Index.jsp").forward(request, response);
-			}
-			
-			else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
-				String emailKey = UUID.randomUUID().toString().replace("-", "");
-				emailKey = emailKey.substring(0, 5);
-				Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
-				sendEmail(request, response, email);
-				HttpSession session = request.getSession();
-				session.setAttribute("emailkey", emailKey);
-				request.setAttribute("emailkey", session.getAttribute("emailkey"));
-				response.sendRedirect("adminEmailDoor.html");
-			}
-			else {
-				System.out.println("Wrong email/pass ma dude");
-				request.getRequestDispatcher("Portal.jsp").forward(request, response);
-			}
+			login(request, response);
 		}
 		else if(request.getServletPath().equals("/emailKey") ){
-			HttpSession session = request.getSession();
-			String emailKey = (String) session.getAttribute("emailkey");
-			String inputKey = request.getParameter("emailkey");
-			System.out.println("session key : " + emailKey);
-			if(inputKey.equals(emailKey)){
-				System.out.println("Succesful Login (Admin)");
-				response.sendRedirect("adminPage.html");
-			}
-			else{
-				System.out.println("wrong input >:(");
-				response.sendRedirect("adminEmailDoor.html");
-			}
+			checkAdminLogin(request, response);
+		}
+		else if(request.getServletPath().equals("/signup")){
+			signup(request, response);
+		}
+		else if(request.getServletPath().equals("/signout")){
+			signout(request, response);
 		}
 		
-		else if(request.getServletPath().equals("/signup")){
-			String user = request.getParameter("email");
-			String pass = request.getParameter("password");	
-			String pass2 = request.getParameter("password2");	
-			String type = request.getParameter("btn-signup");
+	}
+	
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String user = request.getParameter("email");
+		String pass = request.getParameter("password");	
+		String type = request.getParameter("btn-signin");
+		System.out.println(user + " " + pass + " " + type );
+		
+		if(type.equals("cust-signin") && CustomerService.checkLogin(user, pass)){
+			//Login hash cookie
+			Cookie cookie = new Cookie("logged", user);
+			cookie.setMaxAge(60*60*24*365*2);
+			response.addCookie(cookie);
 			
-			if(type.equals("cust-signup")){
-				String secQ = request.getParameter("securityQ");
-				String secA = request.getParameter("securityA");
-				System.out.println(user + " " + pass + " " + type + " " + secQ + " " +  secA);
-				
-				if(!CustomerService.checkUser(user)){
-					if(pass.equals(pass2)){
-						//Login hash cookie
-						Cookie cookie = new Cookie("logged", user);
-						cookie.setMaxAge(60*60*24*365*2);
-						response.addCookie(cookie);
-						
-						Customer cust = new Customer();
-						cust.setEmail(user);
-						cust.setHashedpassword(pass);
-						cust.setSecurityquestion(secQ);
-						cust.setSecurityanswer(secA);
-						CustomerService.addCustomer(cust);
-						System.out.println("Succesful signup (Customer)");
-						request.getRequestDispatcher("Index.jsp").forward(request, response);
-					}
-					else{
-						System.out.println("Your passwords dont match!!! >:(");
-						request.getRequestDispatcher("SignUp.jsp").forward(request, response);
-					}
+			System.out.println("Succesful Login (Customer)");
+			request.getRequestDispatcher("usernav.html").forward(request, response);
+		}
+		
+		else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
+			String emailKey = UUID.randomUUID().toString().replace("-", "");
+			emailKey = emailKey.substring(0, 5);
+			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
+			sendEmail(request, response, email);
+			HttpSession session = request.getSession();
+			session.setAttribute("emailkey", emailKey);
+			request.setAttribute("emailkey", session.getAttribute("emailkey"));
+			response.sendRedirect("adminEmailDoor.html");
+		}
+		else {
+			System.out.println("Wrong email/pass ma dude");
+			request.getRequestDispatcher("Portal.jsp").forward(request, response);
+		}
+	}
+	
+	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		HttpSession session = request.getSession();
+		String emailKey = (String) session.getAttribute("emailkey");
+		String inputKey = request.getParameter("emailkey");
+		System.out.println("session key : " + emailKey);
+		if(inputKey.equals(emailKey)){
+			System.out.println("Succesful Login (Admin)");
+			response.sendRedirect("adminPage.html");
+		}
+		else{
+			System.out.println("wrong input >:(");
+			response.sendRedirect("adminEmailDoor.html");
+		}
+	}
+	
+	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String user = request.getParameter("email");
+		String pass = request.getParameter("password");	
+		String pass2 = request.getParameter("password2");	
+		String type = request.getParameter("btn-signup");
+		
+		if(type.equals("cust-signup")){
+			String secQ = request.getParameter("securityQ");
+			String secA = request.getParameter("securityA");
+			System.out.println(user + " " + pass + " " + type + " " + secQ + " " +  secA);
+			
+			if(!CustomerService.checkUser(user)){
+				if(pass.equals(pass2)){
+					//Login hash cookie
+					Cookie cookie = new Cookie("logged", user);
+					cookie.setMaxAge(60*60*24*365*2);
+					response.addCookie(cookie);
+					
+					Customer cust = new Customer();
+					cust.setEmail(user);
+					cust.setHashedpassword(pass);
+					cust.setSecurityquestion(secQ);
+					cust.setSecurityanswer(secA);
+					CustomerService.addCustomer(cust);
+					System.out.println("Succesful signup (Customer)");
+					request.getRequestDispatcher("usernav.html").forward(request, response);
 				}
 				else{
-					System.out.println("Your email already exists!!! >:(");
+					System.out.println("Your passwords dont match!!! >:(");
 					request.getRequestDispatcher("SignUp.jsp").forward(request, response);
 				}
 			}
-			else if(type.equals("admin-signup")){
-				String fName = request.getParameter("firstName");
-				String lName = request.getParameter("lastName");
-				String role = request.getParameter("role");
-				System.out.println(user + " " + pass + " " + type + " " + fName + " " +  lName + " " + role);
-				
-				if(!AdminService.checkUser(user)){
-					if(pass.equals(pass2)){
-						Admin admin = new Admin();
-						admin.setEmail(user);
-						admin.setHashedpassword(pass);
-						admin.setFirstname(fName);
-						admin.setLastname(lName);
-						admin.setRole(role);
-						AdminService.addAdmin(admin);
-						System.out.println("Succesful signup (ADMIN)");
-						request.getRequestDispatcher("adminPage.html").forward(request, response);
-					}
-					else{
-						System.out.println("Your passwords dont match!!! >:(");
-						request.getRequestDispatcher("adminSignUp.html").forward(request, response);
-					}
+			else{
+				System.out.println("Your email already exists!!! >:(");
+				request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+			}
+		}
+		else if(type.equals("admin-signup")){
+			String fName = request.getParameter("firstName");
+			String lName = request.getParameter("lastName");
+			String role = request.getParameter("role");
+			System.out.println(user + " " + pass + " " + type + " " + fName + " " +  lName + " " + role);
+			
+			if(!AdminService.checkUser(user)){
+				if(pass.equals(pass2)){
+					Admin admin = new Admin();
+					admin.setEmail(user);
+					admin.setHashedpassword(pass);
+					admin.setFirstname(fName);
+					admin.setLastname(lName);
+					admin.setRole(role);
+					AdminService.addAdmin(admin);
+					System.out.println("Succesful signup (ADMIN)");
+					request.getRequestDispatcher("adminPage.html").forward(request, response);
 				}
 				else{
-					System.out.println("Your email already exists!!! >:(");
+					System.out.println("Your passwords dont match!!! >:(");
 					request.getRequestDispatcher("adminSignUp.html").forward(request, response);
 				}
 			}
+			else{
+				System.out.println("Your email already exists!!! >:(");
+				request.getRequestDispatcher("adminSignUp.html").forward(request, response);
+			}
 		}
+	}
+	
+	private void signout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.getSession().invalidate();
+		
+		// kill cookie
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("logged")){
+					currentCookie.setMaxAge(0);
+					response.addCookie(currentCookie);
+				}
+			}
+		}
+		
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 	private void sendEmail(HttpServletRequest request, HttpServletResponse response, Email email) throws ServletException, IOException{

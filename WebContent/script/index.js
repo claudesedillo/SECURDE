@@ -1,7 +1,7 @@
 function displayCatalog(){
 	console.log("I am at displayCatalog");
 	
-	var catalog = document.getElementById("catalog");
+	var catalog = document.getElementById("feed");
 	
 	$.ajax({
 		context: this,
@@ -9,7 +9,12 @@ function displayCatalog(){
 		type: 'get',
 		cache: false,
 		success: function(data){
+<<<<<<< HEAD
 			$(catalog).append(data);
+=======
+			$(feed).append(data);
+			console.log(data);
+>>>>>>> origin/master
 			console.log("ajax complete!");
 		},
 		error:function(){
@@ -19,7 +24,7 @@ function displayCatalog(){
 }
 
 $("document").ready(function(){
-    
+	
 	displayCatalog();
 	
     $(function(){
@@ -27,9 +32,16 @@ $("document").ready(function(){
         $("#footer").load("footer.html");
     });
     
-    if(document.cookie.indexOf("logged") >= 0){
+    if(document.cookie.indexOf("logged") >= 0){   	 	
+   	 	
     	console.log("congrats you logged in");
     	$("#nav").load("usernav.html");
+    	
+    /**	var ls = document.createElement('link');
+    	ls.rel="stylesheet";
+    	ls.href="css/usernav.css";
+    	document.getElementsByTagName('head')[0].appendChild(ls); **/
+
     }
     
     $(document).on("click", ".searchButton", function(){

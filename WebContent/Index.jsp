@@ -13,8 +13,7 @@
 	        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	        
 	        <link rel="stylesheet" href="css/index.css">
-	       	<link rel="stylesheet" href="css/usernav.css">
-	        <link rel="stylesheet" href="css/nav.css">
+	   		<link rel="stylesheet" href="css/nav.css">
 	        <link rel="stylesheet" href="css/footer.css">
 	        <script src="script/index.js"></script>
 	        <title>Bookshelf | Home</title>
@@ -24,7 +23,7 @@
 		<nav class="navbar navbar-default" id="nav"></nav><br>
 		
 		<!--BODY-->
-        <div class="container-fluid feed" id = "catalog">
+        <div class="container-fluid" id = "feed">
              <div class="row banner">
                 <p>DEALS OF THE WEEK</p>
                 <a href="#">ONLINE ONLY <span class="glyphicon glyphicon-play"></span></a>

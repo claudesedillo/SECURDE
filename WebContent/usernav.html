@@ -5,14 +5,17 @@
 <div class="container-fluid ss-bar">
     <div class="col-sm-8">
         welcome, user!
-        
-        <div class="dropdown">
-            <button class="dropdown-toggler dd-account" data-toggle="dropdown" href="#">your account <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li><a href="#">SETTINGS</a></li>
-                <li><button type="button" class="btn btn-default btn-logout">LOGOUT</button></li>
-            </ul>
-        </div>
+        <form action="signout" method="post">
+	        <div class="dropdown">
+	            <button class="dropdown-toggler dd-account" data-toggle="dropdown" href="#">your account <span class="caret"></span></button>
+	            <ul class="dropdown-menu">
+	                <li><a href="#">SETTINGS</a></li>
+	                
+	                <li><button type="submit" class="btn btn-default btn-logout">LOGOUT</button></li>
+	                
+	            </ul>
+	        </div>
+        </form>
     </div>
     
     <div class="col-sm-3">
