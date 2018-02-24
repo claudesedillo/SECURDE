@@ -76,6 +76,11 @@ public class Login extends HttpServlet {
 			request.getRequestDispatcher("Index.jsp").forward(request, response);
 		}
 		
+		else if(type.equals("cust-signin") && !CustomerService.checkLogin(user, pass)) {
+			System.out.println("Wrong email/pass ma dude");
+			request.getRequestDispatcher("Index.jsp").forward(request, response);
+		}
+		
 		else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
 			String emailKey = UUID.randomUUID().toString().replace("-", "");
 			emailKey = emailKey.substring(0, 5);
@@ -86,10 +91,11 @@ public class Login extends HttpServlet {
 			request.setAttribute("emailkey", session.getAttribute("emailkey"));
 			response.sendRedirect("adminEmailDoor.html");
 		}
-		else {
+		else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)) {
 			System.out.println("Wrong email/pass ma dude");
 			request.getRequestDispatcher("Portal.jsp").forward(request, response);
 		}
+		
 	}
 	
 	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
