@@ -1,7 +1,7 @@
 function displayCatalog(){
 	console.log("Hello!");
 	
-	var catalog = document.getElementById("catalog");
+	var catalog = document.getElementById("feed");
 	
 	$.ajax({
 		context: this,
@@ -9,7 +9,7 @@ function displayCatalog(){
 		type: 'get',
 		cache: false,
 		success: function(data){
-			$(catalog).append(data);
+			$(feed).append(data);
 			console.log(data);
 			console.log("ajax complete!");
 		},

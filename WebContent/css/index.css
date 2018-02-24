@@ -7,7 +7,7 @@ body {
 }
 
 /** BODY **/
-.feed {
+#feed {
     border-style: solid;
     border-width: 1px;
     width: 77%;
@@ -15,7 +15,7 @@ body {
     border-radius: 2px;
 }
 
-.feed .banner {
+.banner {
     background-color: #ec0000;
     text-align: center;
     padding: 30px;
@@ -24,7 +24,7 @@ body {
     border-radius: 2px;
 }
 
-.feed .banner p {
+.banner p {
     color: snow;
     font-size: 35px;
     font-family: Nixie One;
@@ -33,7 +33,7 @@ body {
     color: snow;
 }
 
-.feed .banner a {
+.banner a {
     color: snow;
     font-size: 10px;
     letter-spacing: 2px;
@@ -46,29 +46,30 @@ h5 {
 }
 
 /** BOOK DIV **/
-.feed .book-div {
+#feed .book-div {
     font-size: 11px;
     text-align: center;
 }
 
-.feed .img-responsive {
+.book-div .img-responsive {
     width: 55%;
     margin: auto;
 }
-.feed p {
+.book-div p {
     margin: 0px;
 }
 
-.feed .title {
+.book-div .title {
     font-size: 13px;
     letter-spacing: 1px;
 }
-.feed .author {
+
+.book-div .author {
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
-.feed .price {
+.book-div .price {
     font-size: 13px;
     font-style: italic;
 }

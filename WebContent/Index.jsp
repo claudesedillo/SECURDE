@@ -23,7 +23,7 @@
 		<nav class="navbar navbar-default" id="nav"></nav><br>
 		
 		<!--BODY-->
-        <div class="container-fluid feed" id = "catalog">
+        <div class="container-fluid" id = "feed">
              <div class="row banner">
                 <p>DEALS OF THE WEEK</p>
                 <a href="#">ONLINE ONLY <span class="glyphicon glyphicon-play"></span></a>
