@@ -71,9 +71,9 @@ public class Login extends HttpServlet {
 			Cookie cookie = new Cookie("logged", user);
 			cookie.setMaxAge(60*60*24*365*2);
 			response.addCookie(cookie);
-			
+			request.setAttribute("nav", "usernav");
 			System.out.println("Succesful Login (Customer)");
-			request.getRequestDispatcher("usernav.html").forward(request, response);
+			request.getRequestDispatcher("Index.jsp").forward(request, response);
 		}
 		
 		else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
@@ -131,8 +131,9 @@ public class Login extends HttpServlet {
 					cust.setSecurityquestion(secQ);
 					cust.setSecurityanswer(secA);
 					CustomerService.addCustomer(cust);
+					request.setAttribute("nav", "usernav");
 					System.out.println("Succesful signup (Customer)");
-					request.getRequestDispatcher("usernav.html").forward(request, response);
+					request.getRequestDispatcher("Index.jsp").forward(request, response);
 				}
 				else{
 					System.out.println("Your passwords dont match!!! >:(");
@@ -188,7 +189,7 @@ public class Login extends HttpServlet {
 				}
 			}
 		}
-		
+		request.setAttribute("nav", "nav");
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
