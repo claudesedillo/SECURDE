@@ -1,15 +1,15 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 import beans.Book;
 import service.AuthorService;
 import service.BookService;
@@ -34,8 +34,30 @@ public class ShoppingServlet extends HttpServlet {
 		request.getRequestDispatcher("viewBook.jsp").forward(request, response);
 	}
 	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Book> bookList;
+		System.out.println("*************************************************************");
+		System.out.println("I am at search method at shoppingServlet");
 		
+		List<Integer> authorIDs;
+		List<Book> bookList, bookListByAuthor;
+		String searchTerm = request.getParameter("searchTerm");
+		System.out.println("Search term is " + searchTerm);
+		
+		authorIDs = AuthorService.findAuthor(searchTerm);
+		bookListByAuthor = BookService.getBookByAuthorID(authorIDs);
+		bookList = BookService.searchBook(searchTerm);
+		
+		bookList.removeAll(bookListByAuthor);
+		bookList.addAll(bookListByAuthor);
+		System.out.println("I am at shoppingServlet");
+		System.out.println("bookList contains:");
+		
+		for(Book b: bookList) {
+			System.out.println(b.toString());
+		}
+		request.setAttribute("searchTerm", searchTerm);
+		request.setAttribute("bookList", bookList);
+		request.getRequestDispatcher("resultPage.jsp").forward(request, response);
+		System.out.println("*************************************************************");
 	}
 	
 	private void getCompleteCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -62,7 +84,6 @@ public class ShoppingServlet extends HttpServlet {
 							"<Button type= \"submit\" name = \"btn-editProd\" value =" + String.format("%d", b.getBookID())  + "> EDIT </button>" +
 							"</form>";
 		}
-		System.out.println("HTML Code: " + htmlBookList);
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
@@ -73,7 +94,6 @@ public class ShoppingServlet extends HttpServlet {
 		
 		for(Book b: bookList) {
 			String authorName;
-			
 			System.out.println(b.toString());
 			authorName = AuthorService.getAuthor(b.getAuthorID());
 			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
@@ -87,7 +107,6 @@ public class ShoppingServlet extends HttpServlet {
 		                    "</div>" +
 							"</form>";
 		}
-		System.out.println("HTML Code: " + htmlBookList);
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);

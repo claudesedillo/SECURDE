@@ -7,6 +7,10 @@ public class Author {
 	
 	public Author() {}
 
+	public Author(int authorID, String name) {
+		this.authorID = authorID;
+		this.name = name;
+	}
 	public Author(String name) {
 		this.name = name;
 	}

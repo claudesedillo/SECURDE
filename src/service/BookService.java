@@ -5,10 +5,53 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import beans.Book;
 
 public class BookService {
+	
+	public static List<Book> searchBook(String bookTitle) {
+		List<Book> bookList = new ArrayList<Book>();
+		System.out.println("I am at BookService -> searchBook");
+		System.out.println("Book title is " + bookTitle);
+		try {
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book WHERE title LIKE ?");
+
+			stmt.setString(1, "%" + bookTitle + "%");
+			System.out.println(stmt);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()) {
+				System.out.println("book found!");
+				Book book = new Book(rs.getInt("bookid"),
+								    rs.getString("Title"),
+									rs.getString("ISBN"),
+									rs.getString("Genre"),
+									rs.getString("Format"),
+									rs.getFloat("Price"),
+									rs.getInt("stocklevel"),
+									rs.getDate("Published"),
+									rs.getInt("authorID"),
+									rs.getInt("publisherID"));
+				System.out.println(book.toString());
+				bookList.add(book);
+			}
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("There was a problem searching the book");
+		}
+		System.out.println("Query Results: ");
+		for(Book b: bookList) {
+			System.out.println(b.toString());
+		}
+		return bookList;
+	}
 	
 	public static void addBook(Book book) {
 		try {
@@ -131,5 +174,50 @@ public class BookService {
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static List<Book> getBookByAuthorID(List<Integer> authorIDs) {
+		List<Book> bookList = new ArrayList<Book>();
+		
+		System.out.println("I am at BookService -> getBookByAuthorID");
+		
+		try {
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			for(int i: authorIDs) {
+				PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book WHERE authorid = ?");
+	
+				stmt.setInt(1, i);
+				System.out.println(stmt);
+				ResultSet rs = stmt.executeQuery();
+	
+				while(rs.next()) {
+					System.out.println("book found!");
+					Book book = new Book(rs.getInt("bookid"),
+									    rs.getString("Title"),
+										rs.getString("ISBN"),
+										rs.getString("Genre"),
+										rs.getString("Format"),
+										rs.getFloat("Price"),
+										rs.getInt("stocklevel"),
+										rs.getDate("Published"),
+										rs.getInt("authorID"),
+										rs.getInt("publisherID"));
+					System.out.println(book.toString());
+					bookList.add(book);
+				}
+			}
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("There was a problem searching the book");
+		}
+		System.out.println("Query Results: ");
+		for(Book b: bookList) {
+			System.out.println(b.toString());
+		}
+		return bookList;
 	}
 }
