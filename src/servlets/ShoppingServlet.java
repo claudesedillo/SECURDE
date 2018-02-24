@@ -18,10 +18,26 @@ import service.PublisherService;
 /**
  * Servlet implementation class ShoppingServlet
  */
-@WebServlet(urlPatterns = {"/getCatalog", "/addToCart", "/checkout", "/editGet", "/editConfirm", "/getCompleteCatalog"})
+
+@WebServlet(urlPatterns = {"/getCatalog", 
+						   "/addToCart", 
+						   "/checkout",
+						   "/getCompleteCatalog",
+						   "/viewBook",
+						   "/search"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    
+	private void viewBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int book = Integer.parseInt(request.getParameter("bookID"));
+		request.setAttribute("shit", book);
+		request.getRequestDispatcher("viewBook.jsp").forward(request, response);
+	}
+	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Book> bookList;
+		
+	}
+	
 	private void getCompleteCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Book> bookList = BookService.getBookList();
 		String htmlBookList = "";
@@ -43,8 +59,6 @@ public class ShoppingServlet extends HttpServlet {
 							"Format: " + b.getFormat() + " <br> " +
 							"Price: " + b.getPrice() + " <br> " +
 							"Stock: " + b.getStock() + " <br> " +
-							"Author: " + b.getAuthorID() + " <br> " +
-							"Publisher: " + b.getPublisherID() + " <br> " +
 							"<Button type= \"submit\" name = \"btn-editProd\" value =" + String.format("%d", b.getBookID())  + "> EDIT </button>" +
 							"</form>";
 		}
@@ -64,12 +78,14 @@ public class ShoppingServlet extends HttpServlet {
 			authorName = AuthorService.getAuthor(b.getAuthorID());
 			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
 							"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
+							"<form method = \"GET\" > " +
 							"<div class=\"row\"> " +
-							"<p class=\"title\">" + b.getTitle() + "</p> " +
+							"<a href = \"/viewBook" + b.getBookID() + "> <p class=\"title\">" + b.getTitle() + "</p></a> " +
 							"<p class=\"author\">" + authorName + "</p> " +
 		                    "<p class=\"price\"> " + b.getPrice() + "</p>" +
 							"</div>" + 
-		                    "</div>";
+		                    "</div>" +
+							"</form>";
 		}
 		System.out.println("HTML Code: " + htmlBookList);
 		response.setContentType("text/html"); 
@@ -98,6 +114,11 @@ public class ShoppingServlet extends HttpServlet {
 		case "/getCatalog": System.out.println("I am at doGet method, getCatalog case");
 							getCatalog(request, response);
 							break;
+		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
+						  System.out.println("TITETITETITE");
+						  viewBook(request, response);
+		case "/search": System.out.println("I am at shoppingServlet, search case");
+							search(request, response);
 		}
 	}
 
@@ -105,42 +126,7 @@ public class ShoppingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		if(request.getServletPath().equals("/editGet")){
-			int id = Integer.valueOf(request.getParameter("btn-editProd"));
-			Book oldBook = BookService.getBook(id);
-			HttpSession session = request.getSession();
-			session.setAttribute("bookid", id);
-			request.setAttribute("bookid", session.getAttribute("bookid"));
-			request.setAttribute("title", oldBook.getTitle());
-			request.setAttribute("isbn", oldBook.getIsbn());
-			request.setAttribute("genre", oldBook.getGenre());
-			request.setAttribute("format", oldBook.getFormat());
-			request.setAttribute("pub", oldBook.getSQLDate());
-			request.setAttribute("price", oldBook.getPrice());
-			request.setAttribute("stock", oldBook.getStock());
-			request.setAttribute("authorID", oldBook.getAuthorID());
-			request.setAttribute("publisherID", oldBook.getPublisherID());
-			request.getRequestDispatcher("updateProduct.jsp").forward(request, response);
-		}
-		else if(request.getServletPath().equals("/editConfirm")){
-			HttpSession session = request.getSession();
-			int id = (int) session.getAttribute("bookid");
-			String title = request.getParameter("title"),
-				   isbn = request.getParameter("isbn"),
-				   genre = request.getParameter("genre"),
-				   format = request.getParameter("format");
-			Date pub =  java.sql.Date.valueOf(request.getParameter("pub"));
-
-			float price = Float.parseFloat(request.getParameter("price"));
-			int stock = Integer.parseInt(request.getParameter("stock")),
-			    authorID = Integer.parseInt(request.getParameter("authorID")), 
-			    publisherID = Integer.parseInt(request.getParameter("publisherID"));;
-			Book newBook = new Book(id, title, isbn, genre, format, price, stock, pub, authorID, publisherID);
-			BookService.updateBooks(newBook);
-			request.getRequestDispatcher("catalogTest.html").forward(request, response);
-		}
-		else doGet(request, response);
+		
 	}
 
 }

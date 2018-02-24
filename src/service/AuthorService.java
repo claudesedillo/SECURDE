@@ -14,11 +14,10 @@ public class AuthorService {
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
 			
-			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO authors (firstname, lastname) " +
-															"VALUES (?,?)");
+			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO authors (name) " +
+															"VALUES (?)");
 			
-			stmt.setString(1, author.getFirstName());
-			stmt.setString(2, author.getLastName());
+			stmt.setString(1, author.getName());
 			
 			stmt.executeUpdate();
 			System.out.println("Author Successfully added!");

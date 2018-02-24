@@ -1,28 +1,31 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import beans.Author;
 import beans.Book;
 import beans.Customer;
-import beans.Publisher;
 import service.AuthorService;
 import service.BookService;
 import service.CustomerService;
-import service.PublisherService;
 
 /**
  * Servlet implementation class AdminServlet
  */
 @WebServlet(urlPatterns = {"/addAuthor",
-						   "/addPublisher",
-						   "/addBook"})
+		   "/addPublisher",
+		   "/addBook",
+		   "/editConfirm",
+		   "/editGet"})
+
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -34,6 +37,41 @@ public class AdminServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+	private void editBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.valueOf(request.getParameter("btn-editProd"));
+		Book oldBook = BookService.getBook(id);
+		HttpSession session = request.getSession();
+		session.setAttribute("bookid", id);
+		request.setAttribute("bookid", session.getAttribute("bookid"));
+		request.setAttribute("title", oldBook.getTitle());
+		request.setAttribute("isbn", oldBook.getIsbn());
+		request.setAttribute("genre", oldBook.getGenre());
+		request.setAttribute("format", oldBook.getFormat());
+		request.setAttribute("pub", oldBook.getSQLDate());
+		request.setAttribute("price", oldBook.getPrice());
+		request.setAttribute("stock", oldBook.getStock());
+		request.setAttribute("authorID", oldBook.getAuthorID());
+		request.setAttribute("publisherID", oldBook.getPublisherID());
+		request.getRequestDispatcher("updateProduct.jsp").forward(request, response);
+	}
+	
+	private void editBookConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int id = (int) session.getAttribute("bookid");
+		String title = request.getParameter("title"),
+			   isbn = request.getParameter("isbn"),
+			   genre = request.getParameter("genre"),
+			   format = request.getParameter("format");
+		Date pub =  java.sql.Date.valueOf(request.getParameter("pub"));
+		int authorID = Integer.parseInt(request.getParameter("")), publisherID = Integer.parseInt(request.getParameter(""));
+		
+		float price = Float.parseFloat(request.getParameter("price"));
+		int stock = Integer.parseInt(request.getParameter("stock"));
+		Book newBook = new Book(id, title, isbn, genre, format, price, stock, pub, authorID, publisherID);
+		BookService.updateBooks(newBook);
+		request.getRequestDispatcher("catalogTest.html").forward(request, response);
+	}
+	
     protected void addBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("******************************ADD Book doPost*****************************");
 		System.out.println("Book Title: " + request.getParameter("bookTitle"));
@@ -65,8 +103,9 @@ public class AdminServlet extends HttpServlet {
 		
     	String authorFirstName = request.getParameter("authorFirstName");
     	String authorLastName = request.getParameter("authorLastName");
+    	String name = authorFirstName + " " + authorLastName;
     	
-    	Author author = new Author(authorFirstName, authorLastName);
+    	Author author = new Author(name);
     	AuthorService.addAuthor(author);
     	
     	System.out.println("**************************************************************************");
@@ -105,15 +144,21 @@ public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			System.out.println("I am at adminServlet at doPost. Servlet path is " + request.getServletPath());
 			switch(request.getServletPath()) {
-				case "/addAuthor": System.out.println("I am at addAuthor case");
+				case "/addAuthor": System.out.println("I am at adminServlet, addAuthor case");
 								  addAuthor(request, response);
 								  break;
-				case "/addPublisher": System.out.println("I am at addPublisher case");
+				case "/addPublisher": System.out.println("I am at adminServlet, addPublisher case");
 								  addPublisher(request, response);
 								  break;
-				case "/addBook": System.out.println("I am at addBook case");
+				case "/addBook": System.out.println("I am at adminServlet, addBook case");
 								 addBook(request, response);
 								 break;
+				case "/editGet": System.out.println("I am at adminServlet, editGet case");
+								editBook(request, response);
+								break;
+				case "/editConfirm": System.out.println("I am at adminServlet, editGet case");
+								editBookConfirm(request, response);	
+								break;				 					 
 			}
 	}
 }

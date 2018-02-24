@@ -3,16 +3,12 @@ package beans;
 public class Author {
 
 	private int authorID;
-	private String firstName;
-	private String lastName;
+	private String name;
 	
 	public Author() {}
 
-	public Author(String firstName, String lastName) {
-		super();
-		this.authorID = authorID;
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public Author(String name) {
+		this.name = name;
 	}
 
 	public int getAuthorID() {
@@ -23,20 +19,13 @@ public class Author {
 		this.authorID = authorID;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 	
 }

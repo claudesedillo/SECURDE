@@ -14,7 +14,7 @@ function displayCatalog(){
 			console.log("ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on displayCatalog");
+			console.log("something is wrong on displayCompleteCatalog");
 		}
 	});
 }
