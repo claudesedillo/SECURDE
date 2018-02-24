@@ -20,6 +20,16 @@ function displayCatalog(){
 	});
 }
 
+$(document).on("click", ".searchButton", function(){
+	console.log("search button was clicked!");
+	var searchTerm = $("#searchBox").val();
+	var temp = searchTerm;
+	if(searchTerm.length == 0 || $.trim(temp) == '' )
+		alert("Please enter an input");
+    else
+    	window.location = "search?searchTerm=" + searchTerm;
+});
+
 $("document").ready(function(){
 	
 	displayCatalog();
