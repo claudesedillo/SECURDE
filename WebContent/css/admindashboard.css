@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:300,500,600,800');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
+body {
+    font-family: "Muli";
+}
+
+.main-nav {
+    background-color: white;
+}
+
+.wrapper {
+    width: 95%;
+    margin: auto;
+}
+
+.navbar-default .navbar-nav>li>a {
+    font-size: 12px;
+    color: #222222;
+    font-weight: 800;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    text-decoration: underline;
+}
+
+.dropdown-menu>li>a {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-menu>li>a:hover {
+    text-decoration: underline;
+    background-color: white;
+}
+
+.navbar-default .navbar-brand {
+    font-family: Abril Fatface;
+    font-size: 36px;
+    color: #222222;
+    padding-right: 5px;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #303030;
+}
+
+nav p {
+    width: auto;
+    display: inline;
+    position: absolute;
+    bottom: -3px;
+    font-weight: 600;
+}
+
+/** DASHBOARD **/
+
+.dashboard {
+    padding: 10px;
+    width: 90%;
+    margin-top: 10px;
+}
+
+#sidenav {
+    border-style: solid;
+    border-width: 0px;
+    border-right-width: 1px;
+}
+
+#sidenav li a {
+    font-size: 12px;
+    font-weight: 600;
+    color: #222222;
+    padding: 3px;
+    padding-left: 10px;
+    border-radius: 0px;
+}
+
+#sidenav li a:hover {
+    background-color: #222222;
+    color: snow;
+    font-weight: 500;
+}
+
+
+/** INVENTORY **/
+.btn {
+    background-color: #222222;
+    color: snow;
+    margin-top: 5px;
+    margin-left: -2px;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.btn:hover, #btn-addbook:active {
+    text-decoration: underline;
+    background-color: black;
+    color: snow;
+}
+
+#cover-div {
+    text-align: center;
+    padding: 15px;
+}
+
+#addbook-div .modal-header {
+    padding: 10px;
+    background-color: #222222;
+    color: snow; 
+    letter-spacing: 2px;
+    font-size: 11px;
+}
+
+#addbook-div .modal-header h4 {
+    font-size: 12px;
+    margin: 0px;
+    margin-left: 5px;
+}
+
+#addbook-div .close {
+    color: snow;
+}
+
+#addbook-div .modal-content {
+    padding: 0px;
+}
+
+#addbook-div .form-group {
+    margin-bottom: 5px; 
+}
+
+#addbook-div input, #addbook-div select {
+    height: 25px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+#addbook-div .form-group label {
+    font-size: 11px;
+    margin: 0px;
+}
+
+#addbook-div .radio-inline {
+    padding: 15px;
+    line-height: 320%;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+#btn-upload {
+    width: 100%;
+}
+
+#addbook-div .abdiv-bottom {
+    padding: 0px;
+    margin-right: 30px;
+}
+
+
+#btn-okay {
+    float: right;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#btn-okay:hover {
+    background-color: black;
+}
