@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,800');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+@import url('https://fonts.googleapis.com/css?family=Nixie+One');
+
+body {
+    font-family: "Muli";
+}
+
+/** BODY **/
+#feed {
+    border-style: solid;
+    border-width: 1px;
+    width: 77%;
+    padding: 20px;
+    border-radius: 2px;
+}
+
+#searchresult-div h5 {
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+#filters-div h5 {
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+#filters-div p {
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+#filters-div label {
+    font-size: 11px;
+    line-height: 190%
+}
+
+#feed .checkbox {
+    margin: 0px;
+}
+
+/** BOOK DIV **/
+.book-div {
+    width: 100%;
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.img-responsive {
+    width: 75%;
+    margin: auto;
+}
+
+p {
+    margin: 0px;
+}
+
+.title {
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.author {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.price {
+    font-size: 13px;
+    font-style: italic;
+}
+
+#feed .btn {
+    background-color: #222222;
+    color: snow;
+    margin-top: 5px;
+    margin-left: -2px;
+    border-radius: 2px;
+    font-size: 11px; 
+}
+
+#feed .btn:hover {
+    text-decoration: underline;
+    background-color: #222222;
+    color: snow;
+}
