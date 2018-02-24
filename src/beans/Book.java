@@ -1,5 +1,7 @@
 package beans;
 
+import java.sql.Date;
+
 public class Book {
 	private int bookID;
 	private String title;
@@ -47,7 +49,7 @@ public class Book {
 		this.authorID = authorID;
 		this.publisherID = publisherID;
 	}
-	
+
 	public java.sql.Date getTempDate() {
 		return tempDate;
 	}
