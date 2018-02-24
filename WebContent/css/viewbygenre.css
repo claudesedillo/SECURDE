@@ -11,8 +11,32 @@ body {
     border-style: solid;
     border-width: 1px;
     width: 77%;
-    padding: 20px;
+    padding: 30px;
     border-radius: 2px;
+}
+
+#feed .banner {
+    background-color: #ec0000;
+    text-align: center;
+    padding: 30px;
+    opacity: 0.85;
+    margin: 0;
+    border-radius: 2px;
+}
+
+#feed .banner p {
+    color: snow;
+    font-size: 35px;
+    font-family: Nixie One;
+    letter-spacing: 2px;
+    margin: -5px;
+    color: snow;
+}
+
+#feed .banner a {
+    color: snow;
+    font-size: 10px;
+    letter-spacing: 2px;
 }
 
 #searchresult-div h5 {
@@ -39,37 +63,6 @@ body {
     margin: 0px;
 }
 
-/** BOOK DIV **/
-.book-div {
-    width: 100%;
-    font-size: 11px;
-    margin-bottom: 20px;
-}
-
-.img-responsive {
-    width: 75%;
-    margin: auto;
-}
-
-p {
-    margin: 0px;
-}
-
-.title {
-    font-size: 14px;
-    letter-spacing: 1px;
-}
-
-.author {
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.price {
-    font-size: 13px;
-    font-style: italic;
-}
-
 #feed .btn {
     background-color: #222222;
     color: snow;
@@ -83,4 +76,35 @@ p {
     text-decoration: underline;
     background-color: #222222;
     color: snow;
+}
+
+/** BOOK DIV **/
+#feed .book-div {
+    font-size: 11px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.book-div .img-responsive {
+    width: 60%;
+    margin: auto;
+}
+
+.book-div p {
+    margin: 0px;
+}
+
+.bookd-div .title {
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.book-div .author {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.book-div .price {
+    font-size: 13px;
+    font-style: italic;
 }
