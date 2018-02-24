@@ -9,12 +9,9 @@ function displayCatalog(){
 		type: 'get',
 		cache: false,
 		success: function(data){
-<<<<<<< HEAD
 			$(catalog).append(data);
-=======
 			$(feed).append(data);
 			console.log(data);
->>>>>>> origin/master
 			console.log("ajax complete!");
 		},
 		error:function(){
@@ -53,12 +50,5 @@ $("document").ready(function(){
         else
         	window.location = "search?searchTerm=" + searchTerm;
     });
-//    $(".searchButton").click(function(){
-//    	console.log("search button was clicked!");
-//    	var searchTerm = $("#searchBox").val();
-//    	if(searchTerm.length == 0 || $.trim(temp) == '' )
-//    		Materialize.toast('Please enter an input!', 3000)
-//        else
-//        	window.location = "search?searchTerm=" + searchTerm;
-//    });
+
 });
