@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,6 +17,7 @@
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/searchresult.js"></script>
+        <script type = "text/javascript" src= "script/searchOptions.js"></script>
         <Title>Bookshelf | Search</Title>
 </head>
 <body>
@@ -48,9 +50,23 @@
             </div>
             
             <div class="col-sm-9" id="searchresult-div">
-                <h5>RESULTS FOR "SEARCH"</h5>
-                
-                <div class="col-sm-3 book-div">
+                <h5>RESULTS FOR "${searchTerm}"</h5>
+               	<c:if test =  "${not empty bookList}">
+					<c:forEach items="${bookList}" var="b">
+						<div class="col-sm-3 book-div">
+                     		<div class="col-sm-3">
+                          		<img src="css/generic-cover.jpg" class="img-responsive">
+                     		</div>
+                     <div class="col-sm-9">
+                        <p class="title">${b.title}</p>
+                        <p class="author">No Author</p>
+                        <p class="price">${b.price}</p>
+                       <button type="button" class="btn btn-default" id="btn-addtocart">ADD TO CART</button>
+                     </div>
+                </div>
+					</c:forEach>
+				</c:if>
+ <!--           <div class="col-sm-3 book-div">
                      <div class="col-sm-3">
                           <img src="css/generic-cover.jpg" class="img-responsive">
                      </div>
@@ -72,11 +88,12 @@
                         <p class="price">P420.00</p>
                        <button type="button" class="btn btn-default btn-addbook">ADD TO CART</button>
                      </div>
-                </div>
+                </div> -->  
             </div>
                  
         </div>
         <br><br>
         <footer class="page-footer center-on-small-only" id="footer"></footer>
+        
 </body>
 </html>

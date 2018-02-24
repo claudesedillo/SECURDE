@@ -24,15 +24,38 @@ import service.PublisherService;
 						   "/checkout",
 						   "/getCompleteCatalog",
 						   "/viewBook",
-						   "/search"})
+						   "/search",
+						   "/browseByGenre"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	private void browseByGenre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("*************************************************************");
+		System.out.println("I am at browseByGenre method at shoppingServlet");
+		
+		List<Book> bookList;
+		String genre = request.getParameter("genre");
+		
+		bookList = BookService.filterByGenre(genre);
+		
+		System.out.println("I am at shoppingServlet");
+		System.out.println("bookList contains:");
+		
+		for(Book b: bookList) {
+			System.out.println(b.toString());
+		}
+		
+		request.setAttribute("genre", genre);
+		request.setAttribute("bookList", bookList);
+		request.getRequestDispatcher("ViewByGenre.jsp").forward(request, response);
+		System.out.println("*************************************************************");
+	}
 	private void viewBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int book = Integer.parseInt(request.getParameter("bookID"));
 		request.setAttribute("shit", book);
 		request.getRequestDispatcher("viewBook.jsp").forward(request, response);
 	}
+	
 	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("*************************************************************");
 		System.out.println("I am at search method at shoppingServlet");
@@ -136,8 +159,13 @@ public class ShoppingServlet extends HttpServlet {
 		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
 						  System.out.println("TITETITETITE");
 						  viewBook(request, response);
+						  break;
 		case "/search": System.out.println("I am at shoppingServlet, search case");
-							search(request, response);
+						search(request, response);
+						break;
+		case "/browseByGenre": System.out.println("I am at shoppingServlet, BrowseByGenre method");
+						browseByGenre(request, response);
+						break;
 		}
 	}
 

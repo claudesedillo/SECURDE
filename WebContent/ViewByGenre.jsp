@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,6 +17,7 @@
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/viewbygenre.js"></script>
+        <script type = "text/javascript" src= "script/searchOptions.js"></script>
 </head>
 <body>
  		<nav class="navbar navbar-default" id="nav"></nav>
@@ -52,9 +54,20 @@
             </div>
             
             <div class="col-sm-10" id="searchresult-div">
-                <h5>"GENRE" BOOKS</h5>
-                
-                <div class="col-sm-3 book-div">
+                <h5>"${genre}" BOOKS</h5>
+                <c:if test = "${not empty bookList}">
+                	<c:forEach items="${bookList}" var="b">
+                		<div class="col-sm-3 book-div">
+                			<img src="css/generic-cover.jpg" class="img-responsive">
+                			<div class="row">
+                				<p>${b.title}</p>
+                				<p>No Author</p>
+                				<p>${b.price}</p>
+                			</div>
+                		</div>
+                	</c:forEach>
+                </c:if>
+               <!--  <div class="col-sm-3 book-div">
                     <img src="css/generic-cover.jpg" class="img-responsive">
                     <div class="row">
                         <p class="title">NO TITLE YET</p>
@@ -97,10 +110,11 @@
                         <p class="author">No Author</p>
                         <p class="price">P420.00</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <br><br>
         <footer class="page-footer center-on-small-only" id="footer"></footer>
+        
 </body>
 </html>

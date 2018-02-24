@@ -22,6 +22,7 @@
 	        
 	        <link rel="stylesheet" href="css/footer.css">
 	        <script src="script/index.js"></script>
+	        <script type = "text/javascript" src = "script/searchOptions.js"></script>
 	        <title>Bookshelf | Home</title>
 	</head>
 	
@@ -39,5 +40,6 @@
         </div>
         <br><br>        
         <footer class="page-footer center-on-small-only" id="footer"></footer>
+        
 	</body>
 </html>
