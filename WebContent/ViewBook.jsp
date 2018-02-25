@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="css/viewbook.css">
         <link rel="stylesheet" href="css/nav.css">
         <script src="script/viewbook.js"></script>
+        <script src="script/searchOptions.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-default" id="nav"></nav><br>
@@ -32,12 +33,12 @@
                 <!-- BOOK DETAILS -->
                 <p class="labels">Genre: </p><p class="info" id="genre">${book.genre}</p><br>
                 <p class="labels">Format: </p><p class="info" id="format">${book.format}</p><br>
-                <p class="labels">Publisher: </p><p class="info" id="publisher">Penguin</p><br>
-                <p class="labels">Published: </p><p class="info" id="datepub">${book.published}</p><br>
+                <p class="labels">Publisher: </p><p class="info" id="publisher">${publisherName}</p><br>
+                <p class="labels">Published: </p><p class="info" id="datepub">${book.publishedDate}</p><br>
                 <p class="labels">ISBN: </p><p class="info" id="isbn">${book.isbn}</p><br><br>
                 <hr>
                 <div class="row">
-                    <p id="price">P420.00</p>
+                    <p id="price">P${book.price}</p>
                     
                     <button type="button" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
                 </div>

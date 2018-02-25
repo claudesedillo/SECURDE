@@ -10,7 +10,7 @@ public class Book {
 	private String format;
 	private float price;
 	private int stock;
-	private java.sql.Date tempDate;
+	private java.sql.Date publishedDate;
 	private int authorID;
 	private int publisherID;
 	
@@ -23,7 +23,7 @@ public class Book {
 		this.format = format;
 		this.price = price;
 		this.stock = stock;
-		tempDate = published;
+		publishedDate = published;
 		this.authorID = authorID;
 		this.publisherID = publisherID;
 	}
@@ -45,28 +45,25 @@ public class Book {
 		this.format = format;
 		this.price = price;
 		this.stock = stock;;
-		tempDate = published;
+		publishedDate = published;
 		this.authorID = authorID;
 		this.publisherID = publisherID;
 	}
 
-	public java.sql.Date getTempDate() {
-		return tempDate;
+	public java.sql.Date getPublishedDate() {
+		return publishedDate;
 	}
 
-	public void setTempDate(java.sql.Date tempDate) {
-		this.tempDate = tempDate;
+	public void setPublishedDate(java.sql.Date tempDate) {
+		this.publishedDate = tempDate;
 	}
 
-
-	
-	
 	public java.sql.Date getSQLDate() {
-		return tempDate;
+		return publishedDate;
 	}
 
 	public void setSQLDate(String publishedDate) {
-		this.tempDate = java.sql.Date.valueOf(publishedDate);
+		this.publishedDate = java.sql.Date.valueOf(publishedDate);
 	}
 
 	public String getTitle() {
@@ -144,7 +141,7 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [bookID=" + bookID + ", title=" + title + ", isbn=" + isbn + ", genre=" + genre + ", format="
-				+ format + ", price=" + price + ", stock=" + stock + ", tempDate=" + tempDate + ", authorID=" + authorID
+				+ format + ", price=" + price + ", stock=" + stock + ", tempDate=" + publishedDate + ", authorID=" + authorID
 				+ ", publisherID=" + publisherID + "]";
 	}
 

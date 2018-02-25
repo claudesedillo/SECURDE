@@ -41,6 +41,6 @@ $("document").ready(function(){
     	console.log("book link was clicked!");
     	var bookID = $(this).attr("data-bookId");
     	console.log("book id is " + bookID);
-    	window.location = "browseByGenre?genre=" + bookID;  
+    	window.location = "viewBook?bookID=" + bookID;  
     });
 });

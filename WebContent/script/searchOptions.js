@@ -12,5 +12,5 @@ $(document).on("click", ".searchButton", function(){
 $(document).on("click", ".browseByGenre", function(){
   	genre = $(this).attr("data-genre");
    	console.log("Genre is " + genre);
-   	window.location = "viewBook?bookID=" + genre;  
+   	window.location = "browseByGenre?genre=" + genre;  
 });

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.Author;
 import beans.Book;
 import service.AuthorService;
 import service.BookService;
@@ -54,8 +53,10 @@ public class ShoppingServlet extends HttpServlet {
 	private void viewBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bookid = Integer.parseInt(request.getParameter("bookID"));
 		Book book = BookService.getBook(bookid);
-		String authorName = AuthorService.getAuthorName(book.getAuthorID());
+		String authorName = AuthorService.getAuthorName(book.getAuthorID()), 
+			   publisherName = PublisherService.getPublisher(book.getPublisherID());
 		request.setAttribute("authorName", authorName);
+		request.setAttribute("publisherName", publisherName);
 		request.setAttribute("book", book);
 		request.getRequestDispatcher("ViewBook.jsp").forward(request, response);
 	}
@@ -128,7 +129,7 @@ public class ShoppingServlet extends HttpServlet {
 							"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
 							"<form method = \"GET\" > " +
 							"<div class=\"row\"> " +
-							"<a class = \"bookLink\" data-bookId = \"${" + b.getBookID() + "\"}\"><p class=\"title\">" + b.getTitle() + "</p></a> " +
+							"<a class = \"bookLink\" data-bookId = " + b.getBookID() + "><p class=\"title\">" + b.getTitle() + "</p></a> " +
 							"<p class=\"author\">" + authorName + "</p> " +
 		                    "<p class=\"price\"> " + b.getPrice() + "</p>" +
 							"</div>" + 
@@ -162,7 +163,6 @@ public class ShoppingServlet extends HttpServlet {
 							getCatalog(request, response);
 							break;
 		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
-						  System.out.println("TITETITETITE");
 						  viewBook(request, response);
 						  break;
 		case "/search": System.out.println("I am at shoppingServlet, search case");
