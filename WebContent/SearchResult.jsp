@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="css/footer.css">
         <script type = "text/javascript" src= "script/searchOptions.js"></script>
         <script type = "text/javascript" src = "script/nav.js"></script>
+        <script type = "text/javascript" src = "script/filters.js"></script> 
         <Title>Bookshelf | Search</Title>
 </head>
 <body>
@@ -29,21 +30,21 @@
                 <h5>FILTERS:</h5>
                 <p>FORMAT</p>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">Paperback</label>
+                  <label><input type="checkbox" id = "paperback" value="Paperback">Paperback</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">Hardbound</label>
+                  <label><input type="checkbox" id = "hardbound" value="Paperback">Hardbound</label>
                 </div>
                 <br>
                  <p>PRICE RANGE</p>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">Under ₱500</label>
+                  <label><input type="checkbox" id = "under500" data-low = "0" data-high = "499.99">Under ₱500</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" value="">₱500 - ₱1000</label>
+                  <label><input type="checkbox" id = "fiveHundredTo1k" data-low = "500" data-high = "1000">₱500 - ₱1000</label>
                 </div>
                  <div class="checkbox">
-                  <label><input type="checkbox" value="">Over ₱1000</label>
+                  <label><input type="checkbox" id = "over1000" data-low = "1000" data-high="no-limit">Over ₱1000</label>
                 </div>
                 <br>
                 <button type="button" class="btn btn-default" id="btn-clearfilter">CLEAR FILTERS</button> 
