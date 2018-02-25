@@ -76,19 +76,20 @@ nav p {
     border-radius: 0px;
 }
 
-#sidenav li a:hover {
+#sidenav li a:hover  {
     background-color: #222222;
     color: snow;
     font-weight: 500;
 }
 
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    background-color: #d2d2d2;
+}
 
-/** INVENTORY **/
 .btn {
     background-color: #222222;
     color: snow;
     margin-top: 5px;
-    margin-left: -2px;
     border-radius: 2px;
     font-size: 11px;
     letter-spacing: 1px;
@@ -100,12 +101,13 @@ nav p {
     color: snow;
 }
 
+/** INVENTORY **/
 #cover-div {
     text-align: center;
     padding: 15px;
 }
 
-#addbook-div .modal-header {
+.modal .modal-header {
     padding: 10px;
     background-color: #222222;
     color: snow; 
@@ -113,36 +115,36 @@ nav p {
     font-size: 11px;
 }
 
-#addbook-div .modal-header h4 {
+.modal .modal-header h4 {
     font-size: 12px;
     margin: 0px;
     margin-left: 5px;
 }
 
-#addbook-div .close {
+.modal .close {
     color: snow;
 }
 
-#addbook-div .modal-content {
+.modal .modal-content {
     padding: 0px;
 }
 
-#addbook-div .form-group {
+.modal .form-group {
     margin-bottom: 5px; 
 }
 
-#addbook-div input, #addbook-div select {
+.modal input, .modal select {
     height: 25px;
     border-radius: 3px;
     font-size: 11px;
 }
 
-#addbook-div .form-group label {
+.modal .form-group label {
     font-size: 11px;
     margin: 0px;
 }
 
-#addbook-div .radio-inline {
+.modal .radio-inline {
     padding: 15px;
     line-height: 320%;
     font-size: 11px;
@@ -153,13 +155,13 @@ nav p {
     width: 100%;
 }
 
-#addbook-div .abdiv-bottom {
+#addbook-modal .abdiv-bottom {
     padding: 0px;
     margin-right: 30px;
 }
 
 
-#btn-okay {
+.btn-okay {
     float: right;
     padding: 10px;
     padding-left: 20px;
@@ -168,4 +170,36 @@ nav p {
 
 #btn-okay:hover {
     background-color: black;
+}
+
+/** ADDBOOK-DIV > INVENTORY LIST **/
+.table-div {
+    margin: 20px;
+}
+
+.bookdiv .img-responsive {
+    width: 80%;
+    margin: 0 auto;
+}
+
+thead {
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+td {
+    font-size: 12px;
+}
+
+.bookdiv td a {
+    color: #222222;
+    text-decoration: underline;
+}
+
+/** MANAGE ACCOUNT **/
+#addaccount-modal .modal-body{
+    margin: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
 }
