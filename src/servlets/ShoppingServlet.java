@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import beans.Book;
 import service.AuthorService;
@@ -56,6 +57,8 @@ public class ShoppingServlet extends HttpServlet {
 			   publisherName = PublisherService.getPublisher(book.getPublisherID());
 		request.setAttribute("authorName", authorName);
 		request.setAttribute("publisherName", publisherName);
+		HttpSession session = request.getSession();
+		session.setAttribute("book", book);
 		request.setAttribute("book", book);
 		request.getRequestDispatcher("ViewBook.jsp").forward(request, response);
 		System.out.println("***************/SHOPPING SERVLET - VIEW BOOK/***************");
@@ -150,6 +153,13 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - GET CATALOG/***************");
 	}
 	
+	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Book book = (Book) session.getAttribute("book");
+		int qty = Integer.parseInt(request.getParameter("qty"));
+		System.out.println(book.getTitle() + " " + String.format("%d", qty));
+	}
+	
 	/**
      * @see HttpServlet#HttpServlet()
      */
@@ -180,6 +190,9 @@ public class ShoppingServlet extends HttpServlet {
 		case "/browseByGenre": System.out.println("I am at shoppingServlet, BrowseByGenre method");
 						browseByGenre(request, response);
 						break;
+		case "/addToCart": System.out.println("I am at shoppingServlet, BrowseByGenre method");
+						addToCart(request, response);
+						break;				
 		}
 	}
 

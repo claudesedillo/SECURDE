@@ -38,19 +38,22 @@
                 <p class="labels">Published: </p><p class="info" id="datepub">${book.publishedDate}</p><br>
                 <p class="labels">ISBN: </p><p class="info" id="isbn">${book.isbn}</p><br><br>
                 <hr>
-                <div class="row">
-                    <p id="price">P${book.price}</p>
-                    
-                    <div class="input-group spinner">
-                        <input type="text" class="form-control" value="1">
-                        <div class="input-group-btn-vertical">
-                          <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-                          <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-                        </div>
-                    </div>
-                    
-                    <button type="button" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
-                </div>
+                <form action="addToCart" method="get">
+                	<div class="row">
+	                    <p id="price">P${book.price}</p>
+	                    
+	                    <div class="input-group spinner">
+	                        <input type="text" class="form-control" name="qty" value="1">
+	                        <div class="input-group-btn-vertical">
+	                          <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+	                          <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+	                        </div>
+	                    </div>
+	                    
+	                    <button type="submit" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
+	                </div>
+                </form>
+	                
             </div>
         </div>
         <br><br>
