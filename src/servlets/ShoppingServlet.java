@@ -30,8 +30,7 @@ public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private void browseByGenre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("*************************************************************");
-		System.out.println("I am at browseByGenre method at shoppingServlet");
+		System.out.println("***************SHOPPING SERVLET - BROWSE BY GENRE***************");
 		
 		List<Book> bookList;
 		String genre = request.getParameter("genre");
@@ -48,9 +47,11 @@ public class ShoppingServlet extends HttpServlet {
 		request.setAttribute("genre", genre);
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("ViewByGenre.jsp").forward(request, response);
-		System.out.println("*************************************************************");
+		System.out.println("***************/SHOPPING SERVLET - BROWSE BY GENRE/***************");
 	}
+	
 	private void viewBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - VIEW BOOK***************");
 		int bookid = Integer.parseInt(request.getParameter("bookID"));
 		Book book = BookService.getBook(bookid);
 		String authorName = AuthorService.getAuthorName(book.getAuthorID()), 
@@ -59,11 +60,11 @@ public class ShoppingServlet extends HttpServlet {
 		request.setAttribute("publisherName", publisherName);
 		request.setAttribute("book", book);
 		request.getRequestDispatcher("ViewBook.jsp").forward(request, response);
+		System.out.println("***************/SHOPPING SERVLET - VIEW BOOK/***************");
 	}
 	
 	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("*************************************************************");
-		System.out.println("I am at search method at shoppingServlet");
+		System.out.println("***************SHOPPING SERVLET - SEARCH***************");
 		
 		List<Integer> authorIDs;
 		List<Book> bookList, bookListByAuthor;
@@ -85,10 +86,11 @@ public class ShoppingServlet extends HttpServlet {
 		request.setAttribute("searchTerm", searchTerm);
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("resultPage.jsp").forward(request, response);
-		System.out.println("*************************************************************");
+		System.out.println("***************/SHOPPING SERVLET - SEARCH/***************");
 	}
 	
 	private void getCompleteCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - GET COMPLETE CATALOG***************");
 		ArrayList<Book> bookList = BookService.getBookList();
 		String htmlBookList = "";
 		
@@ -116,14 +118,15 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
+	    System.out.println("***************/SHOPPING SERVLET - GET COMPLETE CATALOG/***************");
 	}
 	private void getCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - GET COMPLETE CATALOG***************");
 		ArrayList<Book> bookList = BookService.getBookList();
 		String htmlBookList = "";
 		
 		for(Book b: bookList) {
 			String authorName;
-			System.out.println(b.toString());
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
 							"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
@@ -139,6 +142,8 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
+	    System.out.println("ShoppingServlet, getCatalog complete!");
+	    System.out.println("*************************************************************");
 	}
 	
 	/**

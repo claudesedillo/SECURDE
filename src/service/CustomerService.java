@@ -9,6 +9,8 @@ import beans.Customer;
 public class CustomerService {
 
 	public static void addCustomer(Customer customer){
+		System.out.println("*************************************************************");
+		System.out.println("I am at CustomerService, addCustomer");
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -29,7 +31,7 @@ public class CustomerService {
 			stmt.setString(9, customer.getCity());
 			stmt.setString(10, customer.getProvince());
 			stmt.setString(11, customer.getPhonenumber());
-			
+			System.out.println("Query is: " + stmt);
 			stmt.executeUpdate();
 			System.out.println("Customer Successfully added!");
 			conn.close();
@@ -37,15 +39,20 @@ public class CustomerService {
 			e.printStackTrace();
 			System.out.println("There was a problem adding the customer to the database");
 		}
+		System.out.println("CustomerService, getAuthorName complete!");
+		System.out.println("*************************************************************");
 	}
 	
 	public static boolean checkLogin(String email, String hashedPass){
+		System.out.println("*************************************************************");
+		System.out.println("I am at CustomerService, checkLogin");
 		try{
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM customers");
 			
+			System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
 			String user, pass;
@@ -55,20 +62,24 @@ public class CustomerService {
 				pass = rs.getString("hashedpassword");
 				
 				if(user.equals(email) && pass.equals(hashedPass)){
+					System.out.println("CustomerService, checkLogin complete! Return Value true");
+					System.out.println("*************************************************************");
 					return true;
 				}
 			}
-			return false;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 		}
-		
+		System.out.println("CustomerService, checkLogin complete! Return Value false");
+		System.out.println("*************************************************************");
 		return false;
 	}
 	
 	public static boolean checkUser(String email){
+		System.out.println("*************************************************************");
+		System.out.println("I am at CustomerService, checkUser");
 		try{
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -76,23 +87,25 @@ public class CustomerService {
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM customers");
 			
 			ResultSet rs = stmt.executeQuery();
-			
+			System.out.println("Query is: " + stmt);
 			String user;
 			
 			while(rs.next()){
 				user = rs.getString("email");
 				
 				if(user.equals(email)){
+					System.out.println("CustomerService, checkUser complete! Return Value true");
+					System.out.println("*************************************************************");
 					return true;
 				}
 			}
-			return false;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 		}
-		
+		System.out.println("CustomerService, checkUser complete! Return Value false");
+		System.out.println("*************************************************************");
 		return false;
 	}
 	

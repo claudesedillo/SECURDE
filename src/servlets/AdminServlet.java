@@ -44,6 +44,7 @@ public class AdminServlet extends HttpServlet {
     }
 
 	private void editBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************ADMIN SERVLET - EDIT BOOK***************");
 		if(request.getParameter("btn-editProd") != null){
 			int id = Integer.valueOf(request.getParameter("btn-editProd"));
 			Book oldBook = BookService.getBook(id);
@@ -64,11 +65,13 @@ public class AdminServlet extends HttpServlet {
 		else{
 			int id = Integer.valueOf(request.getParameter("btn-deleteProd"));
 			BookService.deleteBook(id);
+			System.out.println("***************/ADMIN SERVLET - EDIT BOOK/***************");
 			request.getRequestDispatcher("catalogTest.html").forward(request, response);
 		}
 	}
 	
 	private void editBookConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************ADMIN SERVLET - EDIT BOOK CONFIRM***************");
 		HttpSession session = request.getSession();
 		int id = (int) session.getAttribute("bookid");
 		String title = request.getParameter("title"),
@@ -83,11 +86,13 @@ public class AdminServlet extends HttpServlet {
 		int stock = Integer.parseInt(request.getParameter("stock"));
 		Book newBook = new Book(id, title, isbn, genre, format, price, stock, pub, authorID, publisherID);
 		BookService.updateBooks(newBook);
+		System.out.println("***************/ADMIN SERVLET - EDIT BOOK CONFIRM/***************");
 		request.getRequestDispatcher("catalogTest.html").forward(request, response);
 	}
 	
     protected void addBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("******************************ADD Book doPost*****************************");
+    	System.out.println("***************ADMIN SERVLET - ADD BOOK***************");
+		
 		System.out.println("Book Title: " + request.getParameter("bookTitle"));
 		System.out.println("ISBN: " + request.getParameter("isbn"));
 		System.out.println("Genre: " + request.getParameter("genre"));
@@ -106,12 +111,12 @@ public class AdminServlet extends HttpServlet {
     	
     	Book book = new Book(title, isbn, genre, format, price, stock);
     	book.setSQLDate(published);
-    	
     	BookService.addBook(book);
+    	System.out.println("***************/ADMIN SERVLET - ADD BOOK/***************");
     	
     }
     protected void addAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("*****************************ADD AUTHOR doPost***************************");
+    	System.out.println("***************ADMIN SERVLET - ADD AUTHOR***************");
 		System.out.println("First name: " + request.getParameter("authorFirstName"));
 		System.out.println("Last Name: " + request.getParameter("authorLastName"));
 		
@@ -121,11 +126,11 @@ public class AdminServlet extends HttpServlet {
     	
     	Author author = new Author(name);
     	AuthorService.addAuthor(author);
-    	
-    	System.out.println("**************************************************************************");
+    	System.out.println("***************/ADMIN SERVLET - ADD AUTHOR/***************");
     }
     
     protected void addPublisher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	System.out.println("***************ADMIN SERVLET - ADD PUBLISER***************");
     	/*
     	System.out.println("*****************************ADD PUBLISHER doPost************************");
 		System.out.println("Publisher Name: " + request.getParameter("publisherName"));
@@ -143,10 +148,13 @@ public class AdminServlet extends HttpServlet {
     	cust.setHashedpassword("bruh1234#");
     	
     	CustomerService.addCustomer(cust);
-    	System.out.println("**************************************************************************");
+    	
+		System.out.println("***************ADMIN SERVLET - ADD PUBLISHER***************");
     }
     
     private void getAdminList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("***************/ADMIN SERVLET - GET ADMIN LIST/***************");
+		
 		ArrayList<Admin> adminList = AdminService.getAdminList();
 		String htmlBookList = "";
 		System.out.println("gt in");
@@ -164,9 +172,12 @@ public class AdminServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
+	    
+	    System.out.println("***************/ADMIN SERVLET - GET ADMIN LIST/***************");
 	}
     
     private void editAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************ADMIN SERVLET - EDIT ADMIN***************");
 		if(request.getParameter("btn-editProd") != null){
 			String email = request.getParameter("btn-editProd");
 			Admin oldAdmin = AdminService.getAdmin(email);
@@ -186,10 +197,11 @@ public class AdminServlet extends HttpServlet {
 			request.getRequestDispatcher("adminList.html").forward(request, response);
 			
 		}
-			
+		System.out.println("***************/ADMIN SERVLET - EDIT ADMIN/***************");	
 	}
     
     private void editAdminConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("***************ADMIN SERVLET - EDIT ADMIN CONFIRM***************");
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email"),
 			   pass = request.getParameter("pass"),
@@ -199,6 +211,7 @@ public class AdminServlet extends HttpServlet {
 		Admin admin = new Admin(email, pass, first, last, role);
 		AdminService.updateAdmin(admin);
 		request.getRequestDispatcher("adminList.html").forward(request, response);
+		System.out.println("***************/ADMIN SERVLET - EDIT ADMIN CONFIRM/***************");	
 	}
     
     
@@ -230,13 +243,13 @@ public class AdminServlet extends HttpServlet {
 				case "/editConfirm": System.out.println("I am at adminServlet, editGet case");
 								editBookConfirm(request, response);	
 								break;	
-				case "/getAdminList" :
+				case "/getAdminList" : System.out.println("I am at adminServlet, getAdminList case");
 								getAdminList(request, response);	
 								break;
-				case "/editAdminGet" :
+				case "/editAdminGet" : System.out.println("I am at adminServlet, editAdminGet case");
 								editAdmin(request, response);	
 								break;
-				case "/editAdminConfirm" :
+				case "/editAdminConfirm" : System.out.println("I am at adminServlet, editAdminConfirm");
 								editAdminConfirm(request, response);	
 								break;
 			}

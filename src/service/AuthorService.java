@@ -25,14 +25,13 @@ public class AuthorService {
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM authors WHERE name LIKE ?");
 
 			stmt.setString(1, "%" + authorName + "%");
-			System.out.println(stmt);
+			System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()) {
 				System.out.println("author found!");
 				Author author = new Author(rs.getInt("authorid"),
 										 rs.getString("name"));
-				System.out.println(author.toString());
 				authorIDs.add(author.getAuthorID());
 			}
 			conn.close();
@@ -40,10 +39,7 @@ public class AuthorService {
 			e.printStackTrace();
 			System.out.println("There was a problem searching the author");
 		}
-		System.out.println("Query Results: ");
-		for(int id: authorIDs) {
-			System.out.println(id);
-		}
+		System.out.println("AuthorService, findAuthor complete!");
 		System.out.println("*************************************************************");
 		
 		return authorIDs;
@@ -51,7 +47,7 @@ public class AuthorService {
 	
 	public static void addAuthor(Author author) {
 		System.out.println("*************************************************************");
-		System.out.println("Add author");
+		System.out.println("I am at AuthorService, Add author");
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -61,7 +57,7 @@ public class AuthorService {
 															"VALUES (?)");
 			
 			stmt.setString(1, author.getName());
-			
+			System.out.println("Query is: " + stmt);
 			stmt.executeUpdate();
 			System.out.println("Author Successfully added!");
 			conn.close();
@@ -70,9 +66,13 @@ public class AuthorService {
 			System.out.println("There was a problem adding the author to the database");
 			System.out.println("*************************************************************");
 		}
+		System.out.println("AuthorService, addAuthor complete!");
+		System.out.println("*************************************************************");
 	}
 	
 	public static String getAuthorName(int id) {
+		System.out.println("*************************************************************");
+		System.out.println("I am at AuthorService, getAuthorName");
 		String authorName = "";
 		System.out.println("Author ID: " + id);
 		try {
@@ -83,7 +83,7 @@ public class AuthorService {
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM authors WHERE authorid = ?");
 			
 			stmt.setInt(1, id);
-			
+			System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
@@ -94,6 +94,8 @@ public class AuthorService {
 			e.printStackTrace();
 			System.out.println("There was a problem getting the author from the database");
 		}
+		System.out.println("AuthorService, getAuthorName complete!");
+		System.out.println("*************************************************************");
 		return authorName;
 	}
 }

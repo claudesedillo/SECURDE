@@ -13,7 +13,6 @@ function displayCatalog(){
 		success: function(data){
 			$(catalog).append(data);
 			$(feed).append(data);
-			console.log(data);
 			console.log("ajax complete!");
 		},
 		error:function(){
