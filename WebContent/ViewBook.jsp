@@ -27,11 +27,11 @@
   <nav class="navbar navbar-default" id="nav"></nav><br>
         
         <div class="container-fluid feed">
-            <div class="col-sm-5">
-                <img src="css/cmbyn.jpeg" class="img-responsive">
+            <div class="col-sm-4">
+                <img src="css/generic-cover.jpg" class="img-responsive">
             </div>
             
-            <div class="col-sm-7">
+            <div class="col-sm-8">
                 <p class="booktitle">${book.title}</p>
                 <p class="author">${authorName}</p><br>
                 
@@ -42,22 +42,13 @@
                 <p class="labels">Published: </p><p class="info" id="datepub">${book.publishedDate}</p><br>
                 <p class="labels">ISBN: </p><p class="info" id="isbn">${book.isbn}</p><br><br>
                 <hr>
-                <form action="addToCart" method="get">
-                	<div class="row">
-	                    <p id="price">P${book.price}</p>
-	                    
-	                    <div class="input-group spinner">
-	                        <input type="text" class="form-control" name="qty" value="1">
-	                        <div class="input-group-btn-vertical">
-	                          <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
-	                          <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
-	                        </div>
-	                    </div>
-	                    
-	                    <button type="submit" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
-	                </div>
-                </form>
-	                
+                <div class="row">
+                    <p id="price">P${book.price}</p>
+                    
+                    <form action="addToCart" method="get">
+                    	<button type="button" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
+                	</form>
+                </div>
             </div>
         </div>
         <br><br>

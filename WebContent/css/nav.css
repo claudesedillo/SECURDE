@@ -1,5 +1,3 @@
-@CHARSET "UTF-8";
-
 .signup-bar {
     background-color: #222222;
     color: snow;
@@ -9,6 +7,7 @@
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 2px;
+    font-style: italic;
 }
 
 .ss-bar {
@@ -19,11 +18,61 @@
     padding-bottom: 5px;
 }
 
-.ss-bar .col-sm-8, .col-sm-3, .col-sm-1 {
-    padding-left: 2px;
-    padding-right: 2px;
-    
+.ss-bar .col-sm-8  {
+    padding: 5px;
+    font-weight: 700;
+    font-size: 12px;
+    display: inline-block;
 }
+
+/** USERNAV SPECIFICS **/
+.ss-bar .dd-account {
+    font-weight: 400;
+    color: #222222;
+    background-color: transparent;
+    font-size: 12px;
+    padding: 3px;
+    padding-left: 10px;
+    margin-left: 5px;
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px;
+    border-color: #222222;   
+}
+
+.ss-bar .dd-account:hover {
+    text-decoration: underline;
+}
+
+.btn-logout {
+    background-color: #222222;
+    color: snow;
+    border-radius: 1px;
+    width: 90%;
+    margin: 8px;
+    font-size: 10px;
+}
+
+.btn-logout:hover {
+    background-color: #303030;
+    color: snow;
+    text-decoration: underline;
+}
+
+.dropdown {
+    display: inline;
+}
+
+.dropdown-menu {
+    margin-top: 15px;
+    margin-left: 5px;
+    border-color: #222222;
+    border-width: 0.5px;
+    border-top-width: 0px;
+    border-radius: 1px;
+}
+
+/** END USER-NAV **/
 
 .ss-bar .col-sm-1 {
     text-align: center;
@@ -91,12 +140,15 @@
 
 .dropdown-menu>li>a:hover {
     text-decoration: underline;
-    background-color: white;
-    
+    background-color: transparent;
 }
 
 .navbar-default .navbar-brand {
     font-family: Abril Fatface;
     font-size: 36px;
     color: #222222;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #303030;
 }
