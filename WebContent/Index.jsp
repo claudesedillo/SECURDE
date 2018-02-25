@@ -40,7 +40,6 @@
         </div>
         <br><br>        
         <footer class="page-footer center-on-small-only" id="footer"></footer>
-        <script src="script/index.js"></script>
         
 	</body>
 </html>

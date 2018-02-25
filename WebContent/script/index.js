@@ -1,9 +1,7 @@
-var genre;
-
 function displayCatalog(){
-	console.log("I am at displayCatalog");
+	console.log("Hello!");
 	
-	var catalog = document.getElementById("feed");
+	var feed = document.getElementById("feed");
 	
 	$.ajax({
 		context: this,
@@ -11,8 +9,8 @@ function displayCatalog(){
 		type: 'get',
 		cache: false,
 		success: function(data){
-			$(catalog).append(data);
 			$(feed).append(data);
+			console.log(data);
 			console.log("ajax complete!");
 		},
 		error:function(){
@@ -23,8 +21,6 @@ function displayCatalog(){
 
 $("document").ready(function(){
 	
-	displayCatalog();
-
     if(document.cookie.indexOf("logged") >= 0){   	 	
 		$("#nav").load("usernav.html");
 	    $("#footer").load("footer.html");
@@ -42,4 +38,6 @@ $("document").ready(function(){
     	console.log("book id is " + bookID);
     	window.location = "viewBook?bookID=" + bookID;  
     });
+    
+	displayCatalog();
 });

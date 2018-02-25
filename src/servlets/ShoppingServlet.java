@@ -73,7 +73,7 @@ public class ShoppingServlet extends HttpServlet {
 
 		request.setAttribute("searchTerm", searchTerm);
 		request.setAttribute("bookList", bookList);
-		request.getRequestDispatcher("resultPage.jsp").forward(request, response);
+		request.getRequestDispatcher("SearchResult.jsp").forward(request, response);
 		System.out.println("***************/SHOPPING SERVLET - SEARCH/***************");
 	}
 	
@@ -107,11 +107,13 @@ public class ShoppingServlet extends HttpServlet {
 	    response.getWriter().write(htmlBookList);
 	    System.out.println("***************/SHOPPING SERVLET - GET COMPLETE CATALOG/***************");
 	}
+	
 	private void getCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - GET CATALOG***************");
 		ArrayList<Book> bookList = BookService.getBookList();
 		String htmlBookList = "";
 		System.out.println("Book List:");
+		
 		for(Book b: bookList) {
 			System.out.println("Book Name: " + b.getTitle());
 			System.out.println("Book ID: " + b.getBookID());
