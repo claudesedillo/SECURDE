@@ -13,14 +13,15 @@
 	        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	        
 	        <link rel="stylesheet" href="css/index.css">
-	        <c:catch var="nav">
-	        	<link rel="stylesheet" type="text/css" href="css/${nav}.css">
-	        </c:catch>
-	        <c:if test="${empty nav}">
+	        <c:if test="${cookie.containsKey('logged')}">
 	        	<link rel="stylesheet" type="text/css" href="css/nav.css">
 	        </c:if>
+	        <c:else>
+	        	<link rel="stylesheet" type="text/css" href="css/usernav.css">
+	        </c:else>
 	        
 	        <link rel="stylesheet" href="css/footer.css">
+	        <script src="script/index.js"></script>
 	        <script type = "text/javascript" src = "script/searchOptions.js"></script>
 	        <title>Bookshelf | Home</title>
 	</head>
@@ -40,5 +41,6 @@
         <br><br>        
         <footer class="page-footer center-on-small-only" id="footer"></footer>
         <script src="script/index.js"></script>
+        
 	</body>
 </html>
