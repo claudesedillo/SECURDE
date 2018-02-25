@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Book;
+import beans.Shoppingcart;
 import service.AuthorService;
 import service.BookService;
 import service.PublisherService;
+import service.ShoppingcartService;
 
 /**
  * Servlet implementation class ShoppingServlet
@@ -158,29 +160,87 @@ public class ShoppingServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Book book = (Book) session.getAttribute("book");
 		int qty = Integer.parseInt(request.getParameter("qty"));
-		System.out.println(book.getTitle() + " " + String.format("%d", qty));
 		
 		boolean geust = true;
-		String username = "Guest";
+		String email = "Guest";
 		
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
 				Cookie currentCookie = cookies[i];
 				if(currentCookie.getName().equals("logged")){
-					geust = true;
-					username = currentCookie.getValue();
+					geust = false;
+					email = currentCookie.getValue();
 				}
 			}
 		}
 		
-		if(geust){
-			
+		List<Shoppingcart> cartlist = (List<Shoppingcart>) session.getAttribute("cartlist");
+		
+		if(cartlist == null){
+			System.out.println("NULL");
+			if(geust)
+				cartlist = new ArrayList<Shoppingcart>();
+			else
+				cartlist = ShoppingcartService.getShoppingCartList(email);
 		}
 		else{
-			
+			System.out.println("NOT NULL");
+			System.out.println(cartlist);
 		}
 		
+		if(geust){
+			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
+			
+			int indexOfDuplicate = checkContains(sc, cartlist);
+			
+			System.out.println("indexOfDuplicate : " + indexOfDuplicate);
+			
+			if(indexOfDuplicate != -1){
+				sc.setQuantity(sc.getQuantity() + cartlist.get(indexOfDuplicate).getQuantity());
+				sc.setPrice(sc.getPrice() + cartlist.get(indexOfDuplicate).getPrice());
+				cartlist.add(indexOfDuplicate, sc);
+			}
+			else{
+				cartlist.add(sc);
+			}
+			
+			session.setAttribute("cartlist", cartlist);
+			request.setAttribute("cartlist", cartlist);
+			request.getRequestDispatcher("Index.jsp").forward(request, response);
+		}
+		else{
+			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
+			
+			int indexOfDuplicate = checkContains(sc, cartlist);
+			
+			
+			System.out.println("indexOfDuplicate : " + indexOfDuplicate);
+			if(indexOfDuplicate != -1){
+				sc.setQuantity(sc.getQuantity() + cartlist.get(indexOfDuplicate).getQuantity());
+				sc.setPrice(sc.getPrice() + cartlist.get(indexOfDuplicate).getPrice());
+				cartlist.add(indexOfDuplicate, sc);
+				ShoppingcartService.updateShoppincart(sc);
+			}
+			else{
+				cartlist.add(sc);
+				ShoppingcartService.addShoppingcart(sc);
+			}
+			
+			session.setAttribute("cartlist", cartlist);
+			request.setAttribute("cartlist", cartlist);
+			request.getRequestDispatcher("Index.jsp").forward(request, response);
+		}
+		
+	}
+	
+	public int checkContains(Shoppingcart sc, List<Shoppingcart> cartlist){
+		for(Shoppingcart c : cartlist){
+			if(c.getBookid() == sc.getBookid() && c.getEmail().equals(sc.getEmail())){
+				return cartlist.indexOf(c);
+			}
+		}
+		return -1;
 	}
 	
 	/**
