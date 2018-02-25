@@ -15,7 +15,12 @@
         
         <link rel="stylesheet" href="css/viewbook.css">
         <link rel="stylesheet" href="css/nav.css">
+<<<<<<< HEAD
         <script src="script/nav.js"></script>
+=======
+        <link rel="stylesheet" href="css/footer.css">
+        <script src="script/viewbook.js"></script>
+>>>>>>> origin/master
         <script src="script/searchOptions.js"></script>
 </head>
 <body>
@@ -23,7 +28,7 @@
         
         <div class="container-fluid feed">
             <div class="col-sm-5">
-                <img src="cmbyn.jpeg" class="img-responsive">
+                <img src="css/cmbyn.jpeg" class="img-responsive">
             </div>
             
             <div class="col-sm-7">
@@ -37,14 +42,26 @@
                 <p class="labels">Published: </p><p class="info" id="datepub">${book.publishedDate}</p><br>
                 <p class="labels">ISBN: </p><p class="info" id="isbn">${book.isbn}</p><br><br>
                 <hr>
-                <div class="row">
-                    <p id="price">P${book.price}</p>
-                    
-                    <button type="button" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
-                </div>
+                <form action="addToCart" method="get">
+                	<div class="row">
+	                    <p id="price">P${book.price}</p>
+	                    
+	                    <div class="input-group spinner">
+	                        <input type="text" class="form-control" name="qty" value="1">
+	                        <div class="input-group-btn-vertical">
+	                          <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+	                          <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+	                        </div>
+	                    </div>
+	                    
+	                    <button type="submit" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
+	                </div>
+                </form>
+	                
             </div>
         </div>
         <br><br>
+<<<<<<< HEAD
         
           <footer class="page-footer center-on-small-only"> 
             <div class="container-fluid foot-section">
@@ -71,5 +88,8 @@
                 </div>
             </div>
         </footer>
+=======
+        <footer class="page-footer center-on-small-only" id="footer"></footer>
+>>>>>>> origin/master
 </body>
 </html>
