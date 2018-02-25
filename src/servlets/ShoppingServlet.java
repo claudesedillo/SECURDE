@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -158,6 +159,28 @@ public class ShoppingServlet extends HttpServlet {
 		Book book = (Book) session.getAttribute("book");
 		int qty = Integer.parseInt(request.getParameter("qty"));
 		System.out.println(book.getTitle() + " " + String.format("%d", qty));
+		
+		boolean geust = true;
+		String username = "Guest";
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("logged")){
+					geust = true;
+					username = currentCookie.getValue();
+				}
+			}
+		}
+		
+		if(geust){
+			
+		}
+		else{
+			
+		}
+		
 	}
 	
 	/**
@@ -190,7 +213,7 @@ public class ShoppingServlet extends HttpServlet {
 		case "/browseByGenre": System.out.println("I am at shoppingServlet, BrowseByGenre method");
 						browseByGenre(request, response);
 						break;
-		case "/addToCart": System.out.println("I am at shoppingServlet, BrowseByGenre method");
+		case "/addToCart": System.out.println("I am at shoppingServlet, addToCart method");
 						addToCart(request, response);
 						break;				
 		}
