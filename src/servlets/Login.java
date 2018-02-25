@@ -91,7 +91,7 @@ public class Login extends HttpServlet {
 			request.setAttribute("emailkey", session.getAttribute("emailkey"));
 			response.sendRedirect("adminEmailDoor.html");
 		}
-		else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)) {
+		else if(type.equals("admin-signin") && !AdminService.checkLogin(user, pass)) {
 			System.out.println("Wrong email/pass ma dude");
 			request.getRequestDispatcher("Portal.jsp").forward(request, response);
 		}

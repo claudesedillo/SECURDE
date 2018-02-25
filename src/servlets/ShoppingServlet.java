@@ -105,6 +105,7 @@ public class ShoppingServlet extends HttpServlet {
 							"Price: " + b.getPrice() + " <br> " +
 							"Stock: " + b.getStock() + " <br> " +
 							"<Button type= \"submit\" name = \"btn-editProd\" value =" + String.format("%d", b.getBookID())  + "> EDIT </button>" +
+							"<Button type= \"submit\" name = \"btn-deleteProd\" value =" + String.format("%d", b.getBookID())  + "> DELETE </button>" +
 							"</form>";
 		}
 		response.setContentType("text/html"); 

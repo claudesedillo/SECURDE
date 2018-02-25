@@ -193,6 +193,23 @@ public class BookService {
 		return book;
 	}
 	
+	public static void deleteBook(int bookid) {
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			String query = "DELETE FROM book WHERE bookid = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, bookid);
+			stmt.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void updateBooks(Book newBook) {
 		try{
 			String driver = "com.mysql.jdbc.Driver";

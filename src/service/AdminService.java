@@ -3,6 +3,8 @@ package service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import beans.Admin;
 
@@ -31,6 +33,108 @@ public class AdminService {
 			System.out.println(e);
 		}
 	}
+	
+public static ArrayList<Admin> getAdminList() {
+		
+		ArrayList<Admin> adminList = new ArrayList<Admin>();
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM admin");
+			ResultSet rs = stmt.executeQuery();
+		
+			
+			while(rs.next()) {
+				Admin admin = new Admin(rs.getString("email"),
+								     	rs.getString("hashedpassword"),
+								     	rs.getString("firstname"),
+								     	rs.getString("lastname"),
+								     	rs.getString("role"));
+				adminList.add(admin);
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return adminList;
+	}
+	
+	public static Admin getAdmin(String email) {
+		
+		Admin admin = null;
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM admin");
+			ResultSet rs = stmt.executeQuery();
+		
+			
+			while(rs.next()) {
+				if(email.equals(rs.getString("email"))){
+					admin = new Admin(rs.getString("email"),
+							rs.getString("hashedpassword"),
+							rs.getString("firstname"),
+							rs.getString("lastname"),
+							rs.getString("role"));
+				}
+				
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return admin;
+	}
+
+	public static void updateAdmin(Admin newAdmin) {
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			String query = "UPDATE admin SET email = ?, hasedpassword = ?, firstname = ?, lastname = ?, role = ? WHERE email = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, newAdmin.getEmail());
+			stmt.setString(2, newAdmin.getHashedpassword());
+			stmt.setString(3, newAdmin.getFirstname());
+			stmt.setString(4, newAdmin.getLastname());
+			stmt.setString(5, newAdmin.getRole());
+			stmt.setString(6, newAdmin.getEmail());
+			stmt.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteAdmin(String email) {
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			String query = "DELETE FROM admin WHERE email = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, email);
+			stmt.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static boolean checkLogin(String email, String hashedPass){
 		try{
