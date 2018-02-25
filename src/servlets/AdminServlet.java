@@ -14,18 +14,19 @@ import javax.servlet.http.HttpSession;
 import beans.Admin;
 import beans.Author;
 import beans.Book;
-import beans.Customer;
+import beans.Order;
 import beans.Publisher;
 import service.AdminService;
 import service.AuthorService;
 import service.BookService;
-import service.CustomerService;
+import service.OrderService;
 import service.PublisherService;
 
 /**
  * Servlet implementation class AdminServlet
  */
 @WebServlet(urlPatterns = {"/addAuthor",
+		   "/getOrders",
 		   "/addPublisher",
 		   "/addBook",
 		   "/editConfirm",
@@ -45,6 +46,31 @@ public class AdminServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    private void getOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("***************ADMIN SERVLET - GET ORDERS***************");
+    	ArrayList<Order> orderList = OrderService.getAllOrders();
+    	String htmlOrderlist = "";
+    	
+    	for(Order o: orderList) {
+    		htmlOrderlist += "<div class = \"order\">" +
+    						 "<p> Order ID: " + o.getOrderID() +"</p>" +
+    				         "<p> Order email: " + o.getEmail() +"</p>" +
+    				         "<p> Order date: " + o.getOrderDate() +"</p>" +
+    				         "<p> Total: " + o.getTotal() + "</p>" +
+    				         "<p> Street Address: " + o.getStreetAddress() +"</p>" +
+    				         "<p> City: " + o.getCity() +"</p>" +
+    				         "<p> Province: " + o.getProvince() +"</p>" +
+    				         "<p> Postal Code: " + o.getProvince() +"</p>" +
+    				         "<p> Phone Number: " + o.getPhoneNumber() +"</p>" +
+    				         "<button id = \"" + o.getOrderID() + "\"> View Order </button>" +
+    				         "<div>";
+    	}
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(htmlOrderlist);
+    	System.out.println("***************/ADMIN SERVLET - GET ORDERS/***************");
+    }
+    
 	private void editBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************ADMIN SERVLET - EDIT BOOK***************");
 		if(request.getParameter("btn-editProd") != null){
@@ -211,7 +237,12 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		switch(request.getServletPath()) {
+		case "/getOrders": System.out.println("I am at adminServlet, getOrders case");
+						getOrders(request, response);
+						break;
+		
+		}
 	}
 
 	/**
