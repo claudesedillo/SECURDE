@@ -95,7 +95,7 @@ nav p {
     letter-spacing: 1px;
 }
 
-.btn:hover, #btn-addbook:active {
+.btn:hover {
     text-decoration: underline;
     background-color: black;
     color: snow;
@@ -195,9 +195,29 @@ td {
 }
 
 /** MANAGE ACCOUNT **/
-#addaccount-modal .modal-body{
+#addaccount-modal .modal-body, #delaccount-modal .modal-body{
     margin: 40px;
     margin-top: 10px;
-    margin-bottom: 10px;
-    
+    margin-bottom: 10px; 
+}
+
+.btn-tabledelacc {
+    background-color: white;
+    color: #222222;
+    margin: -5px;
+    border-style: none;
+    font-size: 15px;
+}
+
+.btn-tabledelacc:hover {
+    background-color: white;
+    color: black;  
+}
+
+.btn-confirmdelete {
+    background-color: #c5120c;
+}
+
+.btn-confirmdelete:hover {
+    background-color: #90120e;
 }

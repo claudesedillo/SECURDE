@@ -293,8 +293,7 @@
                       </div>
                     </div>
             
-                    <!-- ACCOUNTS TABLE -->
-                    <div class="row table-div">
+                   <div class="row table-div">
                         <div class="col-sm-12">
                             <table class="table">
                                 <thead>
@@ -303,6 +302,7 @@
                                         <th>FIRST NAME</th>
                                         <th>EMAIL ADDRESS</th>
                                         <th>ROLE</th>
+                                        <th> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -311,15 +311,39 @@
                                         <td>Patrick</td>
                                         <td>tobi@god.com</td>
                                         <td>God</td>
+                                        <td><button class="btn btn-default btn-tabledelacc" data-toggle="modal" data-target="#delaccount-modal"><span class="glyphicon glyphicon-remove"></span></button></td>
                                     </tr>
                                     <tr>
                                         <td>Sedillo</td>
                                         <td>Claude</td>
                                         <td>claude@god.com</td>
                                         <td>Apostle</td>
+                                        <td><button class="btn btn-default btn-tabledelacc" data-toggle="modal" data-target="#delaccount-modal"><span class="glyphicon glyphicon-remove"></span></button></td>
                                     </tr>
                                 </tbody>
                             </table>
+                            
+                            <div id="delaccount-modal" class="modal" role="dialog">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">DELETE ACCOUNT</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            Are you sure you want to delete account: *insert user here*?
+                                        </div>
+                                    </div>    
+                                    
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                                        <button type="button" class="btn btn-default btn-confirmdelete" >DELETE</button>   
+                                    </div>
+                                </div>
+                              </div>
+                            </div>  
                         </div>
                     </div>
                 </div>
