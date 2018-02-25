@@ -33,10 +33,15 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************SHOPPING SERVLET - BROWSE BY GENRE***************");
 		
 		List<Book> bookList;
+		List<String> authorNames = new ArrayList<String>();
 		String genre = request.getParameter("genre");
 		
 		bookList = BookService.filterByGenre(genre);
+		for(Book b: bookList) {
+			authorNames.add(AuthorService.getAuthorName(b.getAuthorID()));
+		}
 		
+		request.setAttribute("authorNames", authorNames);
 		request.setAttribute("genre", genre);
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("ViewByGenre.jsp").forward(request, response);
@@ -61,6 +66,9 @@ public class ShoppingServlet extends HttpServlet {
 		
 		List<Integer> authorIDs;
 		List<Book> bookList, bookListByAuthor;
+		
+		List<String> authorNames = new ArrayList<String>();
+		
 		String searchTerm = request.getParameter("searchTerm");
 		System.out.println("Search term is " + searchTerm);
 		
@@ -69,8 +77,13 @@ public class ShoppingServlet extends HttpServlet {
 		bookList = BookService.searchBook(searchTerm);
 		
 		bookList.removeAll(bookListByAuthor);
-		bookList.addAll(bookListByAuthor);
-
+		bookList.addAll(bookListByAuthor);		
+		
+		for(Book b: bookList) {
+			authorNames.add(AuthorService.getAuthorName(b.getAuthorID()));
+		}
+		
+		request.setAttribute("authorNames", authorNames);
 		request.setAttribute("searchTerm", searchTerm);
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("SearchResult.jsp").forward(request, response);

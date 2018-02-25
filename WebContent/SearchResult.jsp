@@ -52,14 +52,14 @@
             <div class="col-sm-9" id="searchresult-div">
                 <h5>RESULTS FOR "${searchTerm}"</h5>
                	<c:if test =  "${not empty bookList}">
-					<c:forEach items="${bookList}" var="b">
+					<c:forEach items="${bookList}" var="b" varStatus = "status">
 						<div class="col-sm-3 book-div">
                      		<div class="col-sm-3">
                           		<img src="css/generic-cover.jpg" class="img-responsive">
                      		</div>
                      <div class="col-sm-9">
                         <p class="title">${b.title}</p>
-                        <p class="author">No Author</p>
+                        <p class="author">${authorNames[status.index]}</p>
                         <p class="price">${b.price}</p>
                        <button type="button" class="btn btn-default" id="btn-addtocart">ADD TO CART</button>
                      </div>

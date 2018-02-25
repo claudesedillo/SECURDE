@@ -56,12 +56,12 @@
             <div class="col-sm-10" id="searchresult-div">
                 <h5>"${genre}" BOOKS</h5>
                 <c:if test = "${not empty bookList}">
-                	<c:forEach items="${bookList}" var="b">
+                	<c:forEach items="${bookList}" var="b" varStatus = "status">
                 		<div class="col-sm-3 book-div">
                 			<img src="css/generic-cover.jpg" class="img-responsive">
                 			<div class="row">
                 				<p>${b.title}</p>
-                				<p>No Author</p>
+                				<p>${authorNames[status.index]}</p>
                 				<p>${b.price}</p>
                 			</div>
                 		</div>
