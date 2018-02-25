@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.Author;
 import beans.Book;
 import service.AuthorService;
 import service.BookService;
@@ -51,9 +52,12 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("*************************************************************");
 	}
 	private void viewBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int book = Integer.parseInt(request.getParameter("bookID"));
-		request.setAttribute("shit", book);
-		request.getRequestDispatcher("viewBook.jsp").forward(request, response);
+		int bookid = Integer.parseInt(request.getParameter("bookID"));
+		Book book = BookService.getBook(bookid);
+		String authorName = AuthorService.getAuthorName(book.getAuthorID());
+		request.setAttribute("authorName", authorName);
+		request.setAttribute("book", book);
+		request.getRequestDispatcher("ViewBook.jsp").forward(request, response);
 	}
 	
 	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,7 +95,7 @@ public class ShoppingServlet extends HttpServlet {
 			String authorName, publisherName;
 			
 			System.out.println(b.toString());
-			authorName = AuthorService.getAuthor(b.getAuthorID());
+			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			publisherName = PublisherService.getPublisher(b.getPublisherID());
 			System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
 			htmlBookList += "<form action=\"editGet\" method=\"post\">" + 
@@ -119,12 +123,12 @@ public class ShoppingServlet extends HttpServlet {
 		for(Book b: bookList) {
 			String authorName;
 			System.out.println(b.toString());
-			authorName = AuthorService.getAuthor(b.getAuthorID());
+			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
 							"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
 							"<form method = \"GET\" > " +
 							"<div class=\"row\"> " +
-							"<a href = \"/viewBook" + b.getBookID() + "> <p class=\"title\">" + b.getTitle() + "</p></a> " +
+							"<a class = \"bookLink\" data-bookId = \"${" + b.getBookID() + "\"}\"><p class=\"title\">" + b.getTitle() + "</p></a> " +
 							"<p class=\"author\">" + authorName + "</p> " +
 		                    "<p class=\"price\"> " + b.getPrice() + "</p>" +
 							"</div>" + 

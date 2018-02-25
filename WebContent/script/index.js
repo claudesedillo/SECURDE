@@ -22,16 +22,6 @@ function displayCatalog(){
 	});
 }
 
-$(document).on("click", ".searchButton", function(){
-	console.log("search button was clicked!");
-	var searchTerm = $("#searchBox").val();
-	var temp = searchTerm;
-	if(searchTerm.length == 0 || $.trim(temp) == '' )
-		alert("Please enter an input");
-    else
-    	window.location = "search?searchTerm=" + searchTerm;
-});
-
 $("document").ready(function(){
 	
 	displayCatalog();
@@ -46,4 +36,11 @@ $("document").ready(function(){
 		    $("#footer").load("footer.html");
 	    });
     }
+    
+    $(document).on("click", ".bookLink", function(){
+    	console.log("book link was clicked!");
+    	var bookID = $(this).attr("data-bookId");
+    	console.log("book id is " + bookID);
+    	window.location = "browseByGenre?genre=" + bookID;  
+    });
 });

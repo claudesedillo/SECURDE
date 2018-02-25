@@ -72,7 +72,7 @@ public class AuthorService {
 		}
 	}
 	
-	public static String getAuthor(int id) {
+	public static String getAuthorName(int id) {
 		String authorName = "";
 		System.out.println("Author ID: " + id);
 		try {

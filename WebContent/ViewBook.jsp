@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,15 +26,15 @@
             </div>
             
             <div class="col-sm-7">
-                <p class="booktitle">CALL ME BY YOUR NAME</p>
-                <p class="author">André Aciman</p><br>
+                <p class="booktitle">${book.title}</p>
+                <p class="author">${authorName}</p><br>
                 
                 <!-- BOOK DETAILS -->
-                <p class="labels">Genre: </p><p class="info" id="genre">Fiction</p><br>
-                <p class="labels">Format: </p><p class="info" id="format">Paperback</p><br>
+                <p class="labels">Genre: </p><p class="info" id="genre">${book.genre}</p><br>
+                <p class="labels">Format: </p><p class="info" id="format">${book.format}</p><br>
                 <p class="labels">Publisher: </p><p class="info" id="publisher">Penguin</p><br>
-                <p class="labels">Published: </p><p class="info" id="datepub">October 3, 2017</p><br>
-                <p class="labels">ISBN: </p><p class="info" id="isbn">1250169445</p><br><br>
+                <p class="labels">Published: </p><p class="info" id="datepub">${book.published}</p><br>
+                <p class="labels">ISBN: </p><p class="info" id="isbn">${book.isbn}</p><br><br>
                 <hr>
                 <div class="row">
                     <p id="price">P420.00</p>
