@@ -37,13 +37,6 @@ public class ShoppingServlet extends HttpServlet {
 		
 		bookList = BookService.filterByGenre(genre);
 		
-		System.out.println("I am at shoppingServlet");
-		System.out.println("bookList contains:");
-		
-		for(Book b: bookList) {
-			System.out.println(b.toString());
-		}
-		
 		request.setAttribute("genre", genre);
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("ViewByGenre.jsp").forward(request, response);
@@ -77,12 +70,7 @@ public class ShoppingServlet extends HttpServlet {
 		
 		bookList.removeAll(bookListByAuthor);
 		bookList.addAll(bookListByAuthor);
-		System.out.println("I am at shoppingServlet");
-		System.out.println("bookList contains:");
-		
-		for(Book b: bookList) {
-			System.out.println(b.toString());
-		}
+
 		request.setAttribute("searchTerm", searchTerm);
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("resultPage.jsp").forward(request, response);
@@ -97,7 +85,6 @@ public class ShoppingServlet extends HttpServlet {
 		for(Book b: bookList) {
 			String authorName, publisherName;
 			
-			System.out.println(b.toString());
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			publisherName = PublisherService.getPublisher(b.getPublisherID());
 			System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
@@ -121,11 +108,14 @@ public class ShoppingServlet extends HttpServlet {
 	    System.out.println("***************/SHOPPING SERVLET - GET COMPLETE CATALOG/***************");
 	}
 	private void getCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - GET COMPLETE CATALOG***************");
+		System.out.println("***************SHOPPING SERVLET - GET CATALOG***************");
 		ArrayList<Book> bookList = BookService.getBookList();
 		String htmlBookList = "";
-		
+		System.out.println("Book List:");
 		for(Book b: bookList) {
+			System.out.println("Book Name: " + b.getTitle());
+			System.out.println("Book ID: " + b.getBookID());
+			System.out.println("Author ID: " + b.getAuthorID());
 			String authorName;
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
@@ -142,8 +132,7 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
-	    System.out.println("ShoppingServlet, getCatalog complete!");
-	    System.out.println("*************************************************************");
+		System.out.println("***************/SHOPPING SERVLET - GET CATALOG/***************");
 	}
 	
 	/**

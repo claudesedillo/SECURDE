@@ -75,11 +75,11 @@ public class AuthorService {
 		System.out.println("I am at AuthorService, getAuthorName");
 		String authorName = "";
 		System.out.println("Author ID: " + id);
+		
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
-			
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM authors WHERE authorid = ?");
 			
 			stmt.setInt(1, id);
