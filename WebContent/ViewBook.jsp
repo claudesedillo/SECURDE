@@ -23,7 +23,7 @@
         
         <div class="container-fluid feed">
             <div class="col-sm-5">
-                <img src="cmbyn.jpeg" class="img-responsive">
+                <img src="css/cmbyn.jpeg" class="img-responsive">
             </div>
             
             <div class="col-sm-7">
@@ -40,38 +40,19 @@
                 <div class="row">
                     <p id="price">P${book.price}</p>
                     
+                    <div class="input-group spinner">
+                        <input type="text" class="form-control" value="1">
+                        <div class="input-group-btn-vertical">
+                          <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                          <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                        </div>
+                    </div>
+                    
                     <button type="button" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
                 </div>
             </div>
         </div>
         <br><br>
-        
-          <footer class="page-footer center-on-small-only"> 
-            <div class="container-fluid foot-section">
-                <div class="col-md-4">
-                    <h5>CUSTOMER SERVICES</h5>
-                    <ul>
-                        <li><a href="#">help</a></li>
-                        <li><a href="#">contact us</a></li>
-                        <li><a href="#">order tracking</a></li>
-                        <li><a href="#">shipping &amp; returns</a></li>
-                        <li><a href="#">feedback</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-8">
-                    <br>
-                    <i class="fa fa-facebook-square"></i>
-                    <i class="fa fa-google-plus-square"></i>
-                    <i class="fa fa-twitter-square"></i>
-                    <br>
-                    123 Somewhere Road, Over There City, That Country
-                    <br>
-                    © Bookshelf 2018. All Rights Reserved.
-                </div>
-            </div>
-        </footer>
-
-
+        <footer class="page-footer center-on-small-only" id="footer"></footer>
 </body>
 </html>
