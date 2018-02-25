@@ -70,33 +70,33 @@
                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-upload">
                                        <span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
                                   </div>
-
-                                  <div class="col-sm-8">
+								<form action = "addBook" method = "POST">
+									<div class="col-sm-8">
                                       <div class="form-group">
                                           <label for="title-inp">Title</label>
-                                          <input type="text" class="form-control" id="title-inp">
+                                          <input type="text" class="form-control" id="title-inp" name = "bookTitle">
                                       </div>
                                       <div class="form-group">
                                           <label for="author-inp">Author</label>
-                                          <input type="text" class="form-control" id="author-inp">
+                                          <input type="text" class="form-control" id="author-inp" name = "selectAuthor">
                                       </div>
                                       <div class="form-group">
                                           <label for="isbn-inp">ISBN</label>
-                                          <input type="number" class="form-control" id="isbn-inp">
+                                          <input type="number" class="form-control" id="isbn-inp" name = "isbn">
                                       </div>
                                       <div class="form-group">
                                           <label for="publisher-inp">Publisher</label>
-                                          <input type="text" class="form-control" id="publisher-inp">
+                                          <input type="text" class="form-control" id="publisher-inp" name = "publisher">
                                       </div>
                                       <div class="form-group">
                                           <label for="datepub-inp">Date Published</label>
-                                          <input type="date" class="form-control" id="datepub-inp">
+                                          <input type="date" class="form-control" id="datepub-inp" name = "published">
                                       </div>
                                       
                                       
                                       <div class="form-group">
                                           <label for="genre-inp">Genre</label>
-                                          <select class="form-control" id="genre-inp">
+                                          <select class="form-control" id="genre-inp" name = "genre">
                                               <option>Biography &amp; Memoir</option>
                                               <option>Business &amp; Finance</option>
                                               <option>Computers</option>
@@ -111,18 +111,19 @@
                                     <div class="col-sm-3 abdiv-bottom">
                                          <div class="form-group">
                                               <label for="author-inp">Price</label>
-                                              <input type="number" class="form-control" id="price-inp">
+                                              <input type="number" class="form-control" id="price-inp" name = "price">
                                           </div>  
                                     </div>
                                       
                                     <div class="col-sm-7 abdiv-bottom">
-                                        <label class="radio-inline"><input type="radio" name="optradio">Paperback</label>
-                                        <label class="radio-inline"><input type="radio" name="optradio">Hardbound</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" name = "format" >Paperback</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" name = "format">Hardbound</label>
                                     </div>
                                     <br>
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-okay"> 
+                                    <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-okay"> 
                                     <span class="glyphicon glyphicon-ok"></span></button>
                                   </div>
+								</form>
                               </div>
                             </div>
                         </div>
