@@ -15,12 +15,12 @@
         
         <link rel="stylesheet" href="css/viewbook.css">
         <link rel="stylesheet" href="css/nav.css">
-<<<<<<< HEAD
+
         <script src="script/nav.js"></script>
-=======
+
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/viewbook.js"></script>
->>>>>>> origin/master
+
         <script src="script/searchOptions.js"></script>
 </head>
 <body>
@@ -61,8 +61,7 @@
             </div>
         </div>
         <br><br>
-<<<<<<< HEAD
-        
+
           <footer class="page-footer center-on-small-only"> 
             <div class="container-fluid foot-section">
                 <div class="col-md-4">
@@ -88,8 +87,8 @@
                 </div>
             </div>
         </footer>
-=======
+
         <footer class="page-footer center-on-small-only" id="footer"></footer>
->>>>>>> origin/master
+
 </body>
 </html>
