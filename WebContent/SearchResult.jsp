@@ -16,8 +16,8 @@
         <link rel="stylesheet" href="css/searchresult.css">
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
-        <script src="script/searchresult.js"></script>
         <script type = "text/javascript" src= "script/searchOptions.js"></script>
+        <script type = "text/javascript" src = "script/nav.js"></script>
         <Title>Bookshelf | Search</Title>
 </head>
 <body>
@@ -58,7 +58,7 @@
                           		<img src="css/generic-cover.jpg" class="img-responsive">
                      		</div>
                      <div class="col-sm-9">
-                        <p class="title">${b.title}</p>
+                        <a class="title bookLink" data-bookId="${b.bookID}">${b.title}</a>
                         <p class="author">${authorNames[status.index]}</p>
                         <p class="price">${b.price}</p>
                        <button type="button" class="btn btn-default" id="btn-addtocart">ADD TO CART</button>
@@ -66,29 +66,9 @@
                 </div>
 					</c:forEach>
 				</c:if>
- <!--           <div class="col-sm-3 book-div">
-                     <div class="col-sm-3">
-                          <img src="css/generic-cover.jpg" class="img-responsive">
-                     </div>
-                     <div class="col-sm-9">
-                        <p class="title">NO TITLE YET</p>
-                        <p class="author">No Author</p>
-                        <p class="price">P420.00</p>
-                       <button type="button" class="btn btn-default" id="btn-addtocard">ADD TO CART</button>
-                     </div>
-                </div>
-                
-                <div class="col-sm-3 book-div">
-                     <div class="col-sm-3">
-                          <img src="css/generic-cover.jpg" class="img-responsive">
-                     </div>
-                     <div class="col-sm-9">
-                        <p class="title">NO TITLE YET</p>
-                        <p class="author">No Author</p>
-                        <p class="price">P420.00</p>
-                       <button type="button" class="btn btn-default btn-addbook">ADD TO CART</button>
-                     </div>
-                </div> -->  
+				<c:if test = "${empty bookList}">
+					<p id="notFound">No books found!</p>
+				</c:if>
             </div>
                  
         </div>

@@ -14,3 +14,10 @@ $(document).on("click", ".browseByGenre", function(){
    	console.log("Genre is " + genre);
    	window.location = "browseByGenre?genre=" + genre;  
 });
+
+$(document).on("click", ".bookLink", function(){
+	console.log("book link was clicked!");
+	var bookID = $(this).attr("data-bookId");
+	console.log("book id is " + bookID);
+	window.location = "viewBook?bookID=" + bookID;  
+});

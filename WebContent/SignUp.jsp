@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="css/signup.css">
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
-        <script src="script/signup.js"></script>
+        <script src="script/nav.js"></script>
         <title>Bookshelf | Sign Up</title>
     </head>
     

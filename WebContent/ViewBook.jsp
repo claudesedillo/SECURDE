@@ -15,7 +15,7 @@
         
         <link rel="stylesheet" href="css/viewbook.css">
         <link rel="stylesheet" href="css/nav.css">
-        <script src="script/viewbook.js"></script>
+        <script src="script/nav.js"></script>
         <script src="script/searchOptions.js"></script>
 </head>
 <body>
@@ -71,7 +71,5 @@
                 </div>
             </div>
         </footer>
-
-
 </body>
 </html>
