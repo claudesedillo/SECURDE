@@ -16,7 +16,7 @@
 	        <c:catch var="nav">
 	        	<link rel="stylesheet" type="text/css" href="css/${nav}.css">
 	        </c:catch>
-	        <c:if test="${not empty nav}">
+	        <c:if test="${empty nav}">
 	        	<link rel="stylesheet" type="text/css" href="css/nav.css">
 	        </c:if>
 	        
