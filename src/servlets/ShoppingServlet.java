@@ -245,45 +245,36 @@ public class ShoppingServlet extends HttpServlet {
 		//int qty = Integer.parseInt(request.getParameter("qty"));
 		
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
-		System.out.println("NUMBER INSIDE LIST :" + cartlist.size());
 		if(geust){
 			//Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
 			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() , email, 1);
 			int indexOfDuplicate = checkContains(sc, cartlist);
 			
-			System.out.println("indexOfDuplicate : " + indexOfDuplicate);
-			
 			if(indexOfDuplicate != -1){
 				sc.setQuantity(sc.getQuantity() + cartlist.get(indexOfDuplicate).getQuantity());
 				sc.setPrice(sc.getPrice() + cartlist.get(indexOfDuplicate).getPrice());
 				cartlist.set(indexOfDuplicate, sc);
-				System.out.println("Inside Guest");
 			}
 			else{
 				cartlist.add(sc);
 			}
-			System.out.println("NUMBER INSIDE LIST :" + cartlist.size());
 		}
 		else{
 			//Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
 			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() , email, 1);
 			int indexOfDuplicate = checkContains(sc, cartlist);
 			
-			
-			System.out.println("indexOfDuplicate : " + indexOfDuplicate);
 			if(indexOfDuplicate != -1){
 				sc.setQuantity(sc.getQuantity() + cartlist.get(indexOfDuplicate).getQuantity());
 				sc.setPrice(sc.getPrice() + cartlist.get(indexOfDuplicate).getPrice());
 				cartlist.set(indexOfDuplicate, sc);
 				ShoppingcartService.updateShoppincart(sc);
-				System.out.println("Inside user");
 			}
 			else{
 				cartlist.add(sc);
 				ShoppingcartService.addShoppingcart(sc);
 			}
 		}
-		System.out.println("NUMBER INSIDE LIST :" + cartlist.size());
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
@@ -297,14 +288,29 @@ public class ShoppingServlet extends HttpServlet {
 		
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		
-		System.out.println("CART LENGTH : " + cartlist.size());
-		int indexRemoved = -1;
-		for(Shoppingcart sc : cartlist){
-			if(sc.getBookid() == bookid){
-				indexRemoved = cartlist.indexOf(sc);
+		
+		
+		if(geust){
+			int indexRemoved = -1;
+			for(Shoppingcart sc : cartlist){
+				if(sc.getBookid() == bookid){
+					indexRemoved = cartlist.indexOf(sc);
+				}
 			}
+			cartlist.remove(indexRemoved);
 		}
-		cartlist.remove(indexRemoved);
+		else{
+			int indexRemoved = -1;
+			for(Shoppingcart sc : cartlist){
+				if(sc.getBookid() == bookid){
+					indexRemoved = cartlist.indexOf(sc);
+				}
+			}
+			ShoppingcartService.deleteCart(cartlist.get(indexRemoved).getBookid(), cartlist.get(indexRemoved).getEmail());
+			cartlist.remove(indexRemoved);
+			
+		}
+		
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
 		request.getRequestDispatcher("Cart.jsp").forward(request, response);
