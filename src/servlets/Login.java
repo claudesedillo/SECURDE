@@ -174,7 +174,7 @@ public class Login extends HttpServlet {
 			}
 			else{
 				System.out.println("Your email already exists!!! >:(");
-				request.getRequestDispatcher("adminSignUp.html").forward(request, response);
+				request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
 			}
 		}
 	}
