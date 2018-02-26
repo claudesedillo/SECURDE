@@ -31,7 +31,8 @@ import service.ShoppingcartService;
 						   "/search",
 						   "/browseByGenre",
 						   "/intoCart",
-						   "/getCartList"})
+						   "/getCartList",
+						   "/removeFromCart"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -172,7 +173,9 @@ public class ShoppingServlet extends HttpServlet {
 									"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\">" +
 								"</div>" +
 								"<div class=\"col-sm-9\">"+
-									"<button type=\"button\" class=\"btn btn-delete\"><span class=\"glyphicon glyphicon-remove\"></span></button>" +
+									"<form action=\"removeFromCart\" method=\"get\">" +
+										"<button type=\"submit\" class=\"btn btn-delete\"  name=\"remove\" value=\"" + String.format("%d", book.getBookID()) + "\"><span class=\"glyphicon glyphicon-remove\"></span></button>" +
+									"</form>" +
 									"<p class=\"title\">" + book.getTitle() + "</p>" +
 									"<p> by <span class=\"author\">" + AuthorService.getAuthorName(book.getAuthorID()) + "</span></p>" + 
 									"<p class=\"format\">" + book.getFormat() + "</p>" +
@@ -287,6 +290,26 @@ public class ShoppingServlet extends HttpServlet {
 		
 	}
 	
+	private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		int bookid = Integer.parseInt(request.getParameter("remove"));
+		
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		
+		System.out.println("CART LENGTH : " + cartlist.size());
+		int indexRemoved = -1;
+		for(Shoppingcart sc : cartlist){
+			if(sc.getBookid() == bookid){
+				indexRemoved = cartlist.indexOf(sc);
+			}
+		}
+		cartlist.remove(indexRemoved);
+		session.setAttribute("cartlist", cartlist);
+		request.setAttribute("cartlist", cartlist);
+		request.getRequestDispatcher("Cart.jsp").forward(request, response);
+	}
+	
 	public List<Shoppingcart> getShoppingCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		geust = true;
@@ -370,7 +393,10 @@ public class ShoppingServlet extends HttpServlet {
 						break;			
 		case "/intoCart": System.out.println("I am at shoppingServlet, intoCart method");
 						intoCart(request, response);
-						break;					
+						break;
+		case "/removeFromCart" : System.out.println("I am at shoppingServlet, removeFromCart method");
+						removeFromCart(request, response);
+						break;
 		
 		}
 	}
