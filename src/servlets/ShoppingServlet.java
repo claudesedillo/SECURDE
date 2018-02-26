@@ -288,8 +288,6 @@ public class ShoppingServlet extends HttpServlet {
 		
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		
-		
-		
 		if(geust){
 			int indexRemoved = -1;
 			for(Shoppingcart sc : cartlist){

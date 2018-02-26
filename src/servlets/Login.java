@@ -153,24 +153,24 @@ public class Login extends HttpServlet {
 			String fName = request.getParameter("firstName");
 			String lName = request.getParameter("lastName");
 			String role = request.getParameter("role");
-			System.out.println(user + " " + pass + " " + type + " " + fName + " " +  lName + " " + role);
+			
+			
+			System.out.println(user + " " + type + " " + fName + " " +  lName + " " + role);
 			
 			if(!AdminService.checkUser(user)){
-				if(pass.equals(pass2)){
 					Admin admin = new Admin();
 					admin.setEmail(user);
-					admin.setHashedpassword(pass);
+					String adminPass = UUID.randomUUID().toString().replace("-", "");
+					adminPass = adminPass.substring(0, 10);
+					Email email = new Email(user, "Your Admin Account has been Created!", "Password : " + adminPass);
+					sendEmail(request, response, email);
+					admin.setHashedpassword(adminPass);
 					admin.setFirstname(fName);
 					admin.setLastname(lName);
 					admin.setRole(role);
 					AdminService.addAdmin(admin);
 					System.out.println("Succesful signup (ADMIN)");
 					request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
-				}
-				else{
-					System.out.println("Your passwords dont match!!! >:(");
-					request.getRequestDispatcher("adminSignUp.html").forward(request, response);
-				}
 			}
 			else{
 				System.out.println("Your email already exists!!! >:(");

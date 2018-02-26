@@ -261,35 +261,37 @@
                                 <h4 class="modal-title">ADD AN ACCOUNT</h4>
                             </div>
                         
-                            <div class="modal-body">
-                              <div class="row">
-                                  <div class="form-group">
-                                      <label for="fname-inp">First Name</label>
-                                      <input type="text" class="form-control" id="fname-inp">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                      <label for="lname-inp">Last Name</label>
-                                      <input type="text" class="form-control" id="lname-inp">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                      <label for="email-inp">Email Address</label>
-                                      <input type="text" class="form-control" id="email-inp">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                      <label for="dept-inp">Department</label>
-                                      <select class="form-control" id="dept-inp">
-                                          <option>Customer Support</option>
-                                          <option>Shipping &amp; Tracking</option>
-                                          <option>Inventory</option> 
-                                      </select>
-                                </div>
-                                  
-                                <button type="button" class="btn btn-default btn-okay" id="btn-okayaccount"> <span class="glyphicon glyphicon-ok"></span></button>
-                              </div>
-                            </div>
+                        	<form action = "signup" method = "POST">
+	                            <div class="modal-body">
+	                              <div class="row">
+	                                  <div class="form-group">
+	                                      <label for="fname-inp">First Name</label>
+	                                      <input type="text" class="form-control" id="fname-inp" name = "firstName">
+	                                  </div>
+	                                  
+	                                  <div class="form-group">
+	                                      <label for="lname-inp">Last Name</label>
+	                                      <input type="text" class="form-control" id="lname-inp" name = "lastName">
+	                                  </div>
+	                                  
+	                                  <div class="form-group">
+	                                      <label for="email-inp">Email Address</label>
+	                                      <input type="email" class="form-control" id="email-inp" name ="email">
+	                                  </div>
+	                                  
+	                                  <div class="form-group">
+	                                      <label for="dept-inp">Department</label>
+	                                      <select class="form-control" id="dept-inp" select name = "role">
+	                                          <option>Customer Support</option>
+	                                          <option>Shipping &amp; Tracking</option>
+	                                          <option>Inventory</option> 
+	                                      </select>
+	                                </div>
+	                                  
+	                                <button type="submit" class="btn btn-default btn-okay" id="btn-okayaccount" name ="btn-signup" value ="admin-signup"> <span class="glyphicon glyphicon-ok"></span></button>
+	                              </div>
+	                            </div>
+	                    	</form>
                         </div>
                       </div>
                     </div>
