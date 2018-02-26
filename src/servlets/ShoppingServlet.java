@@ -176,7 +176,7 @@ public class ShoppingServlet extends HttpServlet {
 									"<p class=\"title\">" + book.getTitle() + "</p>" +
 									"<p> by <span class=\"author\">" + AuthorService.getAuthorName(book.getAuthorID()) + "</span></p>" + 
 									"<p class=\"format\">" + book.getFormat() + "</p>" +
-									"<p class=\"price\">P" + String.format("%f", book.getPrice()) + " </p>" +
+									"<p class=\"price\">P" + String.format("%.2f", book.getPrice()) + " </p>" +
 									"<div class=\"col-sm-3\">" +
 										"<div class=\"input-group\">" +
 											"<span class=\"input-group-btn\">" +
@@ -194,10 +194,34 @@ public class ShoppingServlet extends HttpServlet {
 							"</div>";
 									
 		}
+		
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
 		
+	}
+	
+
+	private void getCheckOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		System.out.print("GOT IN intoCart");
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		float total = 0;
+		for(Shoppingcart sc : cartlist){
+			total += sc.getPrice();
+		}
+		
+		String htmlBookList =   "<div class=\"col-sm-5\">" +
+				                    "<p>SUBTOTAL: </p>" +
+				                "</div>" +
+				                
+				                "<div class=\"col-sm-7\">" +
+				                    "<p id=\"totalprice\"> P" + String.format("%.2f", total) + "</p>" +
+				                "</div>" +
+				                
+				                "<button type=\"button\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>";
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(htmlBookList);
 	}
 	
 	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -218,7 +242,7 @@ public class ShoppingServlet extends HttpServlet {
 		//int qty = Integer.parseInt(request.getParameter("qty"));
 		
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
-		
+		System.out.println("NUMBER INSIDE LIST :" + cartlist.size());
 		if(geust){
 			//Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
 			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() , email, 1);
@@ -229,11 +253,13 @@ public class ShoppingServlet extends HttpServlet {
 			if(indexOfDuplicate != -1){
 				sc.setQuantity(sc.getQuantity() + cartlist.get(indexOfDuplicate).getQuantity());
 				sc.setPrice(sc.getPrice() + cartlist.get(indexOfDuplicate).getPrice());
-				cartlist.add(indexOfDuplicate, sc);
+				cartlist.set(indexOfDuplicate, sc);
+				System.out.println("Inside Guest");
 			}
 			else{
 				cartlist.add(sc);
 			}
+			System.out.println("NUMBER INSIDE LIST :" + cartlist.size());
 		}
 		else{
 			//Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
@@ -245,14 +271,16 @@ public class ShoppingServlet extends HttpServlet {
 			if(indexOfDuplicate != -1){
 				sc.setQuantity(sc.getQuantity() + cartlist.get(indexOfDuplicate).getQuantity());
 				sc.setPrice(sc.getPrice() + cartlist.get(indexOfDuplicate).getPrice());
-				cartlist.add(indexOfDuplicate, sc);
+				cartlist.set(indexOfDuplicate, sc);
 				ShoppingcartService.updateShoppincart(sc);
+				System.out.println("Inside user");
 			}
 			else{
 				cartlist.add(sc);
 				ShoppingcartService.addShoppingcart(sc);
 			}
 		}
+		System.out.println("NUMBER INSIDE LIST :" + cartlist.size());
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
@@ -325,6 +353,9 @@ public class ShoppingServlet extends HttpServlet {
 		case "/getCartList" : System.out.println("I am at doGet method, getCartList case");
 							getCartList(request, response);
 							break;
+		case "/checkout" :  System.out.println("I am at doGet method, getChecOut case");
+							getCheckOut(request, response);
+							break;
 		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
 						  viewBook(request, response);
 						  break;
@@ -340,7 +371,7 @@ public class ShoppingServlet extends HttpServlet {
 		case "/intoCart": System.out.println("I am at shoppingServlet, intoCart method");
 						intoCart(request, response);
 						break;					
-						
+		
 		}
 	}
 

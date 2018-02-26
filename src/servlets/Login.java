@@ -71,7 +71,6 @@ public class Login extends HttpServlet {
 			Cookie cookie = new Cookie("logged", user);
 			cookie.setMaxAge(60*60*24*365*2);
 			response.addCookie(cookie);
-			request.setAttribute("nav", "usernav");
 			System.out.println("Succesful Login (Customer)");
 			request.getRequestDispatcher("Index.jsp").forward(request, response);
 		}
@@ -137,7 +136,6 @@ public class Login extends HttpServlet {
 					cust.setSecurityquestion(secQ);
 					cust.setSecurityanswer(secA);
 					CustomerService.addCustomer(cust);
-					request.setAttribute("nav", "usernav");
 					System.out.println("Succesful signup (Customer)");
 					request.getRequestDispatcher("Index.jsp").forward(request, response);
 				}
@@ -195,7 +193,6 @@ public class Login extends HttpServlet {
 				}
 			}
 		}
-		request.setAttribute("nav", "nav");
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 

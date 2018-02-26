@@ -27,15 +27,6 @@
             </div>
             
             <div class="col-sm-4" id="total-div">
-                <div class="col-sm-5">
-                    <p>SUBTOTAL: </p>
-                </div>
-                
-                <div class="col-sm-7">
-                    <p id="totalprice">P840.00</p>
-                </div>
-                
-                <button type="button" class="btn btn-default" id="btn-checkout">CHECKOUT</button>
             </div>
         </div>
         <br><br>

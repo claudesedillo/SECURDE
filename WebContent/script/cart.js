@@ -9,7 +9,29 @@ function displayCart(){
 		type: 'get',
 		cache: false,
 		success : function(data){
-			$(feed).append(data);
+			$(listDiv).append(data);
+			console.log(data);
+			console.log("ajax complete!");
+		},
+		error:function(){
+			console.log("something is wrong with displayCart");
+		}
+	});
+	
+}
+
+function displayCheckOut(){
+	console.log("Inside Cart script");
+	
+	var totalDiv = document.getElementById("total-div");
+	
+	$.ajax({
+		context: this,
+		url : 'checkout',
+		type: 'get',
+		cache: false,
+		success : function(data){
+			$(totalDiv).append(data);
 			console.log(data);
 			console.log("ajax complete!");
 		},
@@ -34,4 +56,5 @@ $("document").ready(function(){
     }
     
     displayCart();
+    displayCheckOut();
 });
