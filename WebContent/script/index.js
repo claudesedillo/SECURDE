@@ -26,10 +26,8 @@ $("document").ready(function(){
 	    $("#footer").load("footer.html");
     	console.log("congrats you logged in");
     }else {
-	    $(function(){
-			$("#nav").load("nav.html");
-		    $("#footer").load("footer.html");
-	    });
+		$("#nav").load("nav.html");
+	    $("#footer").load("footer.html");
     }
     
     $(document).on("click", ".bookLink", function(){

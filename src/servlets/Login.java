@@ -105,7 +105,7 @@ public class Login extends HttpServlet {
 		System.out.println("session key : " + emailKey);
 		if(inputKey.equals(emailKey)){
 			System.out.println("Succesful Login (Admin)");
-			response.sendRedirect("adminPage.html");
+			response.sendRedirect("AdminDashboard.jsp");
 		}
 		else{
 			System.out.println("wrong input >:(");
@@ -167,7 +167,7 @@ public class Login extends HttpServlet {
 					admin.setRole(role);
 					AdminService.addAdmin(admin);
 					System.out.println("Succesful signup (ADMIN)");
-					request.getRequestDispatcher("adminPage.html").forward(request, response);
+					request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
 				}
 				else{
 					System.out.println("Your passwords dont match!!! >:(");

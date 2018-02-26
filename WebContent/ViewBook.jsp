@@ -46,7 +46,7 @@
                     <p id="price">P${book.price}</p>
                     
                     <form action="addToCart" method="get">
-                    	<button type="button" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
+                    	<button type="submit" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
                 	</form>
                 </div>
             </div>
