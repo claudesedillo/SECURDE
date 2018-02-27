@@ -15,10 +15,12 @@ import beans.Admin;
 import beans.Author;
 import beans.Book;
 import beans.Order;
+import beans.OrderList;
 import beans.Publisher;
 import service.AdminService;
 import service.AuthorService;
 import service.BookService;
+import service.OrderListService;
 import service.OrderService;
 import service.PublisherService;
 
@@ -27,6 +29,7 @@ import service.PublisherService;
  */
 @WebServlet(urlPatterns = {"/addAuthor",
 		   "/getOrders",
+		   "/getOrderDetails",
 		   "/addPublisher",
 		   "/addBook",
 		   "/editConfirm",
@@ -46,6 +49,22 @@ public class AdminServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    private void getOrderDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("***************ADMIN SERVLET - GET ORDER DETAILS***************");
+    	System.out.println("Order id is: " + request.getParameter("orderID"));
+    	ArrayList<OrderList> orderlist = OrderListService.getOrderDetails(Integer.parseInt(request.getParameter("orderID")));
+    	String htmlOrderDetails = "";
+    	
+    	for(OrderList o: orderlist) {
+    		htmlOrderDetails += "<div class = \"order\"> " +
+    							"<p> Book Title: " + BookService.getBook(o.getBookID()) + "		Quantity: " + o.getQuantity() + "</p>";
+    	}
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(htmlOrderDetails);
+    	System.out.println("***************/ADMIN SERVLET - GET ORDER DETAILS/***************");
+    }
+    
     private void getOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************ADMIN SERVLET - GET ORDERS***************");
     	ArrayList<Order> orderList = OrderService.getAllOrders();
@@ -62,7 +81,7 @@ public class AdminServlet extends HttpServlet {
     				         "<p> Province: " + o.getProvince() +"</p>" +
     				         "<p> Postal Code: " + o.getProvince() +"</p>" +
     				         "<p> Phone Number: " + o.getPhoneNumber() +"</p>" +
-    				         "<button id = \"" + o.getOrderID() + "\"> View Order </button>" +
+    				         "<button class = \"viewOrderButton\" id = \"" + o.getOrderID() + "\"> View Order </button>" +
     				         "<div>";
     	}
 		response.setContentType("text/html"); 
@@ -241,7 +260,9 @@ public class AdminServlet extends HttpServlet {
 		case "/getOrders": System.out.println("I am at adminServlet, getOrders case");
 						getOrders(request, response);
 						break;
-		
+		case "/getOrderDetails": System.out.println("I am at adminServlet, getOrderDetails case");
+						getOrderDetails(request, response);
+						break;
 		}
 	}
 
