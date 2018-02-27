@@ -220,10 +220,14 @@ public class ShoppingServlet extends HttpServlet {
 				                
 				                "<div class=\"col-sm-7\">" +
 				                    "<p id=\"totalprice\"> P" + String.format("%.2f", total) + "</p>" +
-				                "</div>" +
-				                "<form action=\"checkoutInformation.jsp\" method=\"get\">" + 
-				                	"<button type=\"submit\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>" +
-				                "</form>";
+				                "</div>";
+		if(total > 0){
+			htmlBookList += "<form action=\"checkoutInformation.jsp\" method=\"get\">" + 
+					        	"<button type=\"submit\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>" +
+					        "</form>";
+		}
+		else htmlBookList += "<button type=\"button\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>";
+				                
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
