@@ -26,6 +26,7 @@ import service.ShoppingcartService;
 @WebServlet(urlPatterns = {"/getCatalog", 
 						   "/addToCart", 
 						   "/checkout",
+						   "/checkoutConfirm",
 						   "/getCompleteCatalog",
 						   "/viewBook",
 						   "/search",
@@ -205,7 +206,7 @@ public class ShoppingServlet extends HttpServlet {
 	}
 	
 
-	private void getCheckOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+	private void getCheckOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.print("GOT IN intoCart");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		float total = 0;
@@ -220,11 +221,33 @@ public class ShoppingServlet extends HttpServlet {
 				                "<div class=\"col-sm-7\">" +
 				                    "<p id=\"totalprice\"> P" + String.format("%.2f", total) + "</p>" +
 				                "</div>" +
-				                
-				                "<button type=\"button\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>";
+				                "<form action=\"checkoutInformation.jsp\" method=\"get\">" + 
+				                	"<button type=\"submit\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>" +
+				                "</form>";
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
+	}
+	
+	private void checkOutConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.print("GOT IN intoCart");
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		
+		String email = request.getParameter("email"),
+			   stAddress = request.getParameter("streetAddress"),
+			   city = request.getParameter("city"),
+			   province = request.getParameter("province"),
+			   phoneNum = request.getParameter("phoneNumber");
+		int    postal = Integer.parseInt(request.getParameter("postalcode"));
+		float total = 0;
+		for(Shoppingcart sc : cartlist){
+			if(geust){
+				
+			}
+			else{
+				
+			}
+		}
 	}
 	
 	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -380,9 +403,13 @@ public class ShoppingServlet extends HttpServlet {
 		case "/getCartList" : System.out.println("I am at doGet method, getCartList case");
 							getCartList(request, response);
 							break;
-		case "/checkout" :  System.out.println("I am at doGet method, getChecOut case");
+		case "/checkout" :  System.out.println("I am at doGet method, checkout case");
 							getCheckOut(request, response);
 							break;
+		case "/checkoutConfirm" : System.out.println("I am at doGet method, checkoutConfirm case");
+								  checkOutConfirm(request, response);
+								  break;
+			
 		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
 						  viewBook(request, response);
 						  break;

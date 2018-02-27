@@ -255,6 +255,29 @@ public class BookService {
 		System.out.println("*************************************************************");
 	}
 	
+	public static void updateBookStock(Book newBook, int numBought) {
+		System.out.println("*************************************************************");
+		System.out.println("I am at BookService, updateBooks");
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			String query = "UPDATE book SET stocklevel = ? WHERE bookid = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, newBook.getStock() - numBought);
+			stmt.setInt(1, newBook.getBookID());
+			System.out.println("Query is: " + stmt);
+			stmt.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		System.out.println("BookService, updateBooks complete!");
+		System.out.println("*************************************************************");
+	}
+	
 	public static List<Book> getBookByAuthorID(List<Integer> authorIDs) {
 		System.out.println("*************************************************************");
 		System.out.println("I am at BookService, getBookByAuthorID (searching books by author)");
