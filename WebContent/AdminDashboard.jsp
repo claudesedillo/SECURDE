@@ -11,7 +11,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 
         <link rel="stylesheet" href="css/admindashboard.css">
-        
+        <script src = "script/adminViewOrders.js"></script>
         <Title>Bookshelf Portal | Dashboard</Title>
 </head>
 <body>
@@ -66,7 +66,7 @@
                     
                     <div class="row table-div">
                         <div class="col-sm-12 orderdiv">
-                            <table class="table">
+                            <table class="table" >
                                 <thead>
                                     <tr>
                                         <th>ORDER ID</th>
@@ -75,19 +75,7 @@
                                         <th>TOTAL</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a data-toggle="modal" data-target="#">#420420420</a></td>
-                                        <td>tobi@god.com</td>
-                                        <td>Patrick Tobias</td>
-                                        <td>₱450.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">#420420421</a></td>
-                                        <td>claude@god.com</td>
-                                        <td>Claude Sedillo</td>
-                                        <td>₱450.00</td>
-                                    </tr>
+                                <tbody id = "orderTable">
                                 </tbody>
                             </table>
                         </div>

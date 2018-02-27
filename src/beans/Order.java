@@ -18,7 +18,7 @@ public class Order {
 	private String lastName;
 	
 	public Order(int orderID, String email, Date orderDate, int total, String streetAddress, String city, String province,
-			int postalCode, String phoneNumber) {
+			int postalCode, String phoneNumber, String firstName, String lastName) {
 
 		this.orderID = orderID;
 		this.email = email;
@@ -29,6 +29,8 @@ public class Order {
 		this.province = province;
 		this.postalCode = postalCode;
 		this.phoneNumber = phoneNumber;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 	
 	public Order(String email, String firstName, String lastname, String address, String city, int total) {

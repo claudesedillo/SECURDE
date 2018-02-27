@@ -71,18 +71,12 @@ public class AdminServlet extends HttpServlet {
     	String htmlOrderlist = "";
     	
     	for(Order o: orderList) {
-    		htmlOrderlist += "<div class = \"order\">" +
-    						 "<p> Order ID: " + o.getOrderID() +"</p>" +
-    				         "<p> Order email: " + o.getEmail() +"</p>" +
-    				         "<p> Order date: " + o.getOrderDate() +"</p>" +
-    				         "<p> Total: " + o.getTotal() + "</p>" +
-    				         "<p> Street Address: " + o.getStreetAddress() +"</p>" +
-    				         "<p> City: " + o.getCity() +"</p>" +
-    				         "<p> Province: " + o.getProvince() +"</p>" +
-    				         "<p> Postal Code: " + o.getProvince() +"</p>" +
-    				         "<p> Phone Number: " + o.getPhoneNumber() +"</p>" +
-    				         "<button class = \"viewOrderButton\" id = \"" + o.getOrderID() + "\"> View Order </button>" +
-    				         "<div>";
+    		htmlOrderlist +=  "<tr>" +
+	    				         "<td><a data-toggle=\"modal\" data-target=\"#\">" + o.getOrderID() +"</a></td>" +
+	    				         "<td>" + o.getEmail() +"</td>" +
+	    				         "<td>" + o.getFirstName() + " " + o.getLastName() + "</td>" +
+	    				         "<td>" + o.getTotal() +"</td>" +
+    				         "</tr>";
     	}
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 

@@ -86,7 +86,9 @@ public class OrderService {
 										 rs.getString("city"),
 										 rs.getString("province"),
 										 rs.getInt("postalcode"),
-										 rs.getString("phonenumber"));
+										 rs.getString("phonenumber"),
+										 rs.getString("firstname"),
+										 rs.getString("lastname"));
 				orderList.add(order);
 			}
 			conn.close();
