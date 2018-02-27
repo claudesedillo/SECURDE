@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,800');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+@import url('https://fonts.googleapis.com/css?family=Nixie+One');
+
+body {
+    font-family: "Muli";
+}
+
+/** NAV **/
+.main-nav {
+    background-color: white;
+}
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+}
+
+.navbar-default .navbar-brand {
+    font-family: Abril Fatface;
+    font-size: 36px;
+    color: #222222;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #303030;
+}
+
+.navbar-text {
+    float: right;
+    font-weight: 600;
+    letter-spacing: 0.5px;  
+}
+
+/** BODY **/
+#feed {
+    border-style: solid;
+    border-width: 1px;
+    width: 77%;
+    padding: 30px;
+    border-radius: 2px;
+}
+
+.btn-default {
+    background-color: #222222;
+    color: snow;
+    margin-top: 5px;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    float: right;
+}
+
+.btn-default:hover {
+    text-decoration: underline;
+    background-color: black;
+    color: snow;
+}
+
+/** ACCORDION **/
+.card-header {
+    background-color: #222222;
+    border-radius: 2px;
+}
+
+.btn-link {
+    color: snow;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.card-body a {
+    color: #222222;
+    text-decoration: underline;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.card-body .sub {
+    color: #222222;
+    font-size: 12px;
+    font-weight: 600; 
+    margin-bottom: 19px;
+}
+
+#signin-div {
+    border-style: solid;
+    border-width: 0px;
+    border-right-width: 1px;
+    color: #222222;
+}
+
+.form-control {
+    height: 25px;
+    border-radius: 2px;
+}
+
+.control-label {
+    font-size: 12px;
+}
+
+/** TOTAL DIV **/
+#total-div {
+    margin-top: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px; 
+}
+
+#total-div #totalprice{
+    float: right;
+    font-weight: 800;
+}
+
+#total-div .col-sm-7, #total-div .col-sm-5 {
+    margin: 0px;
+    padding: 0px;
+}
