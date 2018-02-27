@@ -46,13 +46,54 @@
             <div class="col-sm-2" id="sidenav">
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="#">INBOX</a></li>
-                    <li><a href="#">ORDER TRACKING</a></li>
+                    <li><a href="#ordertracking" data-toggle="tab">ORDER TRACKING</a></li>
                     <li><a href="#inventory" data-toggle="tab">INVENTORY</a></li>
                     <li class="active"><a href="#manage-accounts" data-toggle="tab">MANAGE ACCOUNTS</a></li>
                 </ul>
             </div>
             
             <div class="col-sm-10 tab-content">
+            	<!-- ORDER TRACKING TAB -->
+                <div class="tab-pane" id="ordertracking">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control search-bar"  placeholder="search" >
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>  
+                        </span>
+                    </div>
+                    
+                    <div class="row table-div">
+                        <div class="col-sm-12 orderdiv">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ORDER ID</th>
+                                        <th>EMAIL ADDRESS</th>
+                                        <th>NAME</th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a data-toggle="modal" data-target="#">#420420420</a></td>
+                                        <td>tobi@god.com</td>
+                                        <td>Patrick Tobias</td>
+                                        <td>₱450.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#">#420420421</a></td>
+                                        <td>claude@god.com</td>
+                                        <td>Claude Sedillo</td>
+                                        <td>₱450.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            
                 <!-- INVENTORY TAB -->
                 <div class="tab-pane" id="inventory">
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-modal" id="btn-addbook"><span class="glyphicon glyphicon-plus"></span>  ADD A BOOK</button>
@@ -350,6 +391,8 @@
                         </div>
                     </div>
                 </div>
+           
+           		
             </div>
         </div>
     </body>
