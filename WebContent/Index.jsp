@@ -13,13 +13,7 @@
 	        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	        
 	        <link rel="stylesheet" href="css/index.css">
-	        <c:if test="${cookie.containsKey('logged')}">
-	        	<link rel="stylesheet" type="text/css" href="css/nav.css">
-	        </c:if>
-	        <c:else>
-	        	<link rel="stylesheet" type="text/css" href="css/usernav.css">
-	        </c:else>
-	        
+	        <link rel="stylesheet" type="text/css" href="css/nav.css">
 	        <link rel="stylesheet" href="css/footer.css">
 	        <script src="script/index.js"></script>
 	        <script type = "text/javascript" src = "script/searchOptions.js"></script>

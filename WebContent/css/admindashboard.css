@@ -221,3 +221,20 @@ td {
 .btn-confirmdelete:hover {
     background-color: #90120e;
 }
+
+/** ORDER TRACKING **/
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+
+.stylish-input-group .form-control{
+	border-right:0; 
+	border-color: #ccc;
+    width: 25%;
+    float: right;
+}
+
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}

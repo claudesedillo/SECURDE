@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,800');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
+body {
+    font-family: "Muli";
+}
+
+/** BODY **/
+#feed {
+    border-style: solid;
+    border-width: 1px;
+    width: 77%;
+    padding: 30px;
+    border-radius: 2px;
+}
+
+#list-div h5 {
+    font-size: 16px;
+    padding: 0px;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+/** BOOK-DIV **/
+.book-div {
+    margin-bottom: 10px;
+}
+
+.book-div .img-responsive {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.btn-delete {
+    float: right;
+    padding: 2px;
+}
+
+
+.book-div .title {
+    margin: 0px;
+    letter-spacing: 1.5px;
+    font-size: 15px;
+}
+
+.book-div .author, .book-div .format {
+    margin: 0px;
+    font-size: 12px;   
+    font-weight: 700;
+}
+
+.book-div .price {
+    font-size: 15px;
+    font-style: italic;
+    color: #ff4800;
+}
+
+.book-div .col-sm-3 {
+    padding: 0px;
+}
+
+.btn-number {
+    padding: 5px;
+    padding-bottom: 8px; 
+    color: snow;
+    background-color: #222222;
+    font-size: 10px;
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #222222;
+}
+
+.input-number {
+    height: 25px;
+    padding: 0px;
+    text-align: center;    
+}
+
+#total-div {
+    padding-left: 25px;
+    padding-right: 25px;
+    border-style: solid;
+    border-width: 0px;
+    border-left-width: 1px; 
+}
+
+#total-div #totalprice{
+    float: right;
+    font-weight: 800;
+}
+
+#total-div .col-sm-7, #total-div .col-sm-5 {
+    margin: 0px;
+    padding: 0px;
+}
+
+#btn-checkout {
+    background-color: #222222;
+    color: snow;
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+#btn-checkout:hover {
+    text-decoration: underline;
+    background-color: black;
+    color: snow;
+}

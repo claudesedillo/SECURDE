@@ -33,7 +33,7 @@
                                <a class="dropdown-toggler" data-toggle="dropdown" href="#">ACCOUNT <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                    <li><a href="#">SETTINGS</a></li>
-                                   <li><a href="#">LOGOUT</a></li>
+                                   <li><a href="Index.jsp">LOGOUT</a></li>
                                </ul>
                            </li>
                        </ul>
@@ -46,13 +46,54 @@
             <div class="col-sm-2" id="sidenav">
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="#">INBOX</a></li>
-                    <li><a href="#">ORDER TRACKING</a></li>
+                    <li><a href="#ordertracking" data-toggle="tab">ORDER TRACKING</a></li>
                     <li><a href="#inventory" data-toggle="tab">INVENTORY</a></li>
                     <li class="active"><a href="#manage-accounts" data-toggle="tab">MANAGE ACCOUNTS</a></li>
                 </ul>
             </div>
             
             <div class="col-sm-10 tab-content">
+            	<!-- ORDER TRACKING TAB -->
+                <div class="tab-pane" id="ordertracking">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control search-bar"  placeholder="search" >
+                        <span class="input-group-addon">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>  
+                        </span>
+                    </div>
+                    
+                    <div class="row table-div">
+                        <div class="col-sm-12 orderdiv">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ORDER ID</th>
+                                        <th>EMAIL ADDRESS</th>
+                                        <th>NAME</th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a data-toggle="modal" data-target="#">#420420420</a></td>
+                                        <td>tobi@god.com</td>
+                                        <td>Patrick Tobias</td>
+                                        <td>₱450.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#">#420420421</a></td>
+                                        <td>claude@god.com</td>
+                                        <td>Claude Sedillo</td>
+                                        <td>₱450.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            
                 <!-- INVENTORY TAB -->
                 <div class="tab-pane" id="inventory">
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-modal" id="btn-addbook"><span class="glyphicon glyphicon-plus"></span>  ADD A BOOK</button>
@@ -72,65 +113,66 @@
                                       <img src="css/generic-cover.jpg" class="img-responsive">
                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-upload"><span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
                                   </div>
-								  	
-                                  <div class="col-sm-8">
-                                      <div class="form-group">
-                                          <label for="title-inp">Title</label>
-                                          <input type="text" class="form-control" id="title-inp" name = "bookTitle">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="author-inp">Author</label>
-                                          <input type="text" class="form-control" id="author-inp" name = "selectAuthor">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="isbn-inp">ISBN</label>
-                                          <input type="number" class="form-control" id="isbn-inp" name = "isbn">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="publisher-inp">Publisher</label>
-                                          <input type="text" class="form-control" id="publisher-inp" name = "publisher">
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="datepub-inp">Date Published</label>
-                                          <input type="date" class="form-control" id="datepub-inp" name = "published">
-                                      </div>
-                                      
-                                      <div class="form-group">
-                                          <label for="genre-inp">Genre</label>
-                                          <select class="form-control" id="genre-inp" name = "genre">
-                                              <option>Biography &amp; Memoir</option>
-                                              <option>Business &amp; Finance</option>
-                                              <option>Computers</option>
-                                              <option>Fiction &amp; Literature</option>
-                                              <option>Graphic Novels &amp; Manga</option>
-                                              <option>Sci-fi &amp; Fantasy</option>
-                                              <option>Science &amp; Nature</option>
-                                              <option>Travel</option>
-                                          </select>
-                                    </div>
-                                      
-                                    <div class="col-sm-6 abdiv-bottom">
-                                         <div class="form-group">
-                                              <label for="price-inp">Price</label>
-                                              <input type="number" class="form-control" id="price-inp" name = "price">
-                                          </div>  
-                                    </div>
-                                      
-                                    <div class="col-sm-1"></div>
-                                      
-                                    <div class="col-sm-5 abdiv-bottom">
-                                        <div class="form-group">
-                                            <label for="qty-inp">Qty</label>
-                                            <input type="number" class="form-control" id="qty-inp" name = "qty">
-                                        </div>  
-                                    </div>
-                                    
-                                    <label class="radio-inline"><input type="radio" name="optradio" name = "price">Paperback</label>
-                                    <label class="radio-inline"><input type="radio" name="optradio" name = "price">Hardbound</label>
-                                    <br>
-                                      
-                                    <button type="button" class="btn btn-default btn-okay"  id="btn-okayinventory"> <span class="glyphicon glyphicon-ok"></span></button>
-                                  </div>
+								  <form action = "addBook" method = "POST">
+								  	<div class="col-sm-8">
+	                                      <div class="form-group">
+	                                          <label for="title-inp">Title</label>
+	                                          <input type="text" class="form-control" id="title-inp" name = "bookTitle">
+	                                      </div>
+	                                      <div class="form-group">
+	                                          <label for="author-inp">Author</label>
+	                                          <input type="text" class="form-control" id="author-inp" name = "selectAuthor">
+	                                      </div>
+	                                      <div class="form-group">
+	                                          <label for="isbn-inp">ISBN</label>
+	                                          <input type="number" class="form-control" id="isbn-inp" name = "isbn">
+	                                      </div>
+	                                      <div class="form-group">
+	                                          <label for="publisher-inp">Publisher</label>
+	                                          <input type="text" class="form-control" id="publisher-inp" name = "publisher">
+	                                      </div>
+	                                      <div class="form-group">
+	                                          <label for="datepub-inp">Date Published</label>
+	                                          <input type="date" class="form-control" id="datepub-inp" name = "published">
+	                                      </div>
+	                                      
+	                                      <div class="form-group">
+	                                          <label for="genre-inp">Genre</label>
+	                                          <select class="form-control" id="genre-inp" name = "genre">
+	                                              <option>Biography &amp; Memoir</option>
+	                                              <option>Business &amp; Finance</option>
+	                                              <option>Computers</option>
+	                                              <option>Fiction &amp; Literature</option>
+	                                              <option>Graphic Novels &amp; Manga</option>
+	                                              <option>Sci-fi &amp; Fantasy</option>
+	                                              <option>Science &amp; Nature</option>
+	                                              <option>Travel</option>
+	                                          </select>
+	                                    </div>
+	                                      
+	                                    <div class="col-sm-6 abdiv-bottom">
+	                                         <div class="form-group">
+	                                              <label for="price-inp">Price</label>
+	                                              <input type="number" class="form-control" id="price-inp" name = "price">
+	                                          </div>  
+	                                    </div>
+	                                      
+	                                    <div class="col-sm-1"></div>
+	                                      
+	                                    <div class="col-sm-5 abdiv-bottom">
+	                                        <div class="form-group">
+	                                            <label for="qty-inp">Qty</label>
+	                                            <input type="number" class="form-control" id="qty-inp" name = "qty">
+	                                        </div>  
+	                                    </div>
+	                                    
+	                                    <label class="radio-inline"><input type="radio" name="optradio">Paperback</label>
+	                                    <label class="radio-inline"><input type="radio" name="optradio">Hardbound</label>
+	                                    <br>
+	                                      
+	                                    <button type="submit" class="btn btn-default btn-okay"  id="btn-okayinventory"> <span class="glyphicon glyphicon-ok"></span></button>
+	                                  </div>
+								  </form> 	
                               </div>
                             </div>
                         </div>
@@ -260,35 +302,37 @@
                                 <h4 class="modal-title">ADD AN ACCOUNT</h4>
                             </div>
                         
-                            <div class="modal-body">
-                              <div class="row">
-                                  <div class="form-group">
-                                      <label for="fname-inp">First Name</label>
-                                      <input type="text" class="form-control" id="fname-inp">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                      <label for="lname-inp">Last Name</label>
-                                      <input type="text" class="form-control" id="lname-inp">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                      <label for="email-inp">Email Address</label>
-                                      <input type="text" class="form-control" id="email-inp">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                      <label for="dept-inp">Department</label>
-                                      <select class="form-control" id="dept-inp">
-                                          <option>Customer Support</option>
-                                          <option>Shipping &amp; Tracking</option>
-                                          <option>Inventory</option> 
-                                      </select>
-                                </div>
-                                  
-                                <button type="button" class="btn btn-default btn-okay" id="btn-okayaccount"> <span class="glyphicon glyphicon-ok"></span></button>
-                              </div>
-                            </div>
+                        	<form action = "signup" method = "POST">
+	                            <div class="modal-body">
+	                              <div class="row">
+	                                  <div class="form-group">
+	                                      <label for="fname-inp">First Name</label>
+	                                      <input type="text" class="form-control" id="fname-inp" name = "firstName">
+	                                  </div>
+	                                  
+	                                  <div class="form-group">
+	                                      <label for="lname-inp">Last Name</label>
+	                                      <input type="text" class="form-control" id="lname-inp" name = "lastName">
+	                                  </div>
+	                                  
+	                                  <div class="form-group">
+	                                      <label for="email-inp">Email Address</label>
+	                                      <input type="email" class="form-control" id="email-inp" name ="email">
+	                                  </div>
+	                                  
+	                                  <div class="form-group">
+	                                      <label for="dept-inp">Department</label>
+	                                      <select class="form-control" id="dept-inp" select name = "role">
+	                                          <option>Customer Support</option>
+	                                          <option>Shipping &amp; Tracking</option>
+	                                          <option>Inventory</option> 
+	                                      </select>
+	                                </div>
+	                                  
+	                                <button type="submit" class="btn btn-default btn-okay" id="btn-okayaccount" name ="btn-signup" value ="admin-signup"> <span class="glyphicon glyphicon-ok"></span></button>
+	                              </div>
+	                            </div>
+	                    	</form>
                         </div>
                       </div>
                     </div>
@@ -347,6 +391,8 @@
                         </div>
                     </div>
                 </div>
+           
+           		
             </div>
         </div>
     </body>

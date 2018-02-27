@@ -71,7 +71,6 @@ public class Login extends HttpServlet {
 			Cookie cookie = new Cookie("logged", user);
 			cookie.setMaxAge(60*60*24*365*2);
 			response.addCookie(cookie);
-			request.setAttribute("nav", "usernav");
 			System.out.println("Succesful Login (Customer)");
 			request.getRequestDispatcher("Index.jsp").forward(request, response);
 		}
@@ -105,7 +104,7 @@ public class Login extends HttpServlet {
 		System.out.println("session key : " + emailKey);
 		if(inputKey.equals(emailKey)){
 			System.out.println("Succesful Login (Admin)");
-			response.sendRedirect("adminPage.html");
+			response.sendRedirect("AdminDashboard.jsp");
 		}
 		else{
 			System.out.println("wrong input >:(");
@@ -137,7 +136,6 @@ public class Login extends HttpServlet {
 					cust.setSecurityquestion(secQ);
 					cust.setSecurityanswer(secA);
 					CustomerService.addCustomer(cust);
-					request.setAttribute("nav", "usernav");
 					System.out.println("Succesful signup (Customer)");
 					request.getRequestDispatcher("Index.jsp").forward(request, response);
 				}
@@ -155,28 +153,28 @@ public class Login extends HttpServlet {
 			String fName = request.getParameter("firstName");
 			String lName = request.getParameter("lastName");
 			String role = request.getParameter("role");
-			System.out.println(user + " " + pass + " " + type + " " + fName + " " +  lName + " " + role);
+			
+			
+			System.out.println(user + " " + type + " " + fName + " " +  lName + " " + role);
 			
 			if(!AdminService.checkUser(user)){
-				if(pass.equals(pass2)){
 					Admin admin = new Admin();
 					admin.setEmail(user);
-					admin.setHashedpassword(pass);
+					String adminPass = UUID.randomUUID().toString().replace("-", "");
+					adminPass = adminPass.substring(0, 10);
+					Email email = new Email(user, "Your Admin Account has been Created!", "Password : " + adminPass);
+					sendEmail(request, response, email);
+					admin.setHashedpassword(adminPass);
 					admin.setFirstname(fName);
 					admin.setLastname(lName);
 					admin.setRole(role);
 					AdminService.addAdmin(admin);
 					System.out.println("Succesful signup (ADMIN)");
-					request.getRequestDispatcher("adminPage.html").forward(request, response);
-				}
-				else{
-					System.out.println("Your passwords dont match!!! >:(");
-					request.getRequestDispatcher("adminSignUp.html").forward(request, response);
-				}
+					request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
 			}
 			else{
 				System.out.println("Your email already exists!!! >:(");
-				request.getRequestDispatcher("adminSignUp.html").forward(request, response);
+				request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
 			}
 		}
 	}
@@ -195,7 +193,6 @@ public class Login extends HttpServlet {
 				}
 			}
 		}
-		request.setAttribute("nav", "nav");
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 

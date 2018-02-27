@@ -143,23 +143,24 @@ public class AdminServlet extends HttpServlet {
 		System.out.println("Book Title: " + request.getParameter("bookTitle"));
 		System.out.println("ISBN: " + request.getParameter("isbn"));
 		System.out.println("Genre: " + request.getParameter("genre"));
-		System.out.println("Format: " + request.getParameter("format"));
+		System.out.println("Format: " + request.getParameter("optradio"));
 		System.out.println("Price: " + request.getParameter("price"));
 		System.out.println("Date Published: " + request.getParameter("published"));
-		System.out.println("Stock: " + request.getParameter("stock"));
+		System.out.println("Stock: " + request.getParameter("qty"));
 		 
     	String title = request.getParameter("bookTitle");
     	String isbn = request.getParameter("isbn");
     	String genre = request.getParameter("genre");
-    	String format = request.getParameter("format");
+    	String format = request.getParameter("optradio");
     	String published = request.getParameter("published");
     	float price = Float.parseFloat(request.getParameter("price"));
-    	int stock = Integer.parseInt(request.getParameter("stock"));
+    	int stock = Integer.parseInt(request.getParameter("qty"));
     	
     	Book book = new Book(title, isbn, genre, format, price, stock);
     	book.setSQLDate(published);
     	BookService.addBook(book);
     	System.out.println("***************/ADMIN SERVLET - ADD BOOK/***************");
+    	request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
     	
     }
     protected void addAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -37,6 +37,29 @@ public class ShoppingcartService {
 		System.out.println("*************************************************************");
 	}
 	
+	public static void deleteCart(int bookid, String email) {
+		System.out.println("*************************************************************");
+		System.out.println("I am at ScService, deleteCart");
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			String query = "DELETE FROM shoppingcart WHERE email = ? and bookid = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, email);
+			stmt.setInt(2, bookid);
+			System.out.println("Query is: " + stmt);
+			stmt.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		System.out.println("ScService, deleteCart complete!");
+		System.out.println("*************************************************************");
+	}
+	
 	public static void updateShoppincart(Shoppingcart newSc) {
 		System.out.println("*************************************************************");
 		System.out.println("I am at ShoppingcartService, update");
