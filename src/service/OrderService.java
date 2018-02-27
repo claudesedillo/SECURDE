@@ -10,8 +10,6 @@ import beans.Order;
 
 public class OrderService {
 
-<<<<<<< HEAD
-=======
 	public static void addCustomer(Order order){
 		System.out.println("*************************************************************");
 		System.out.println("I am at OrderService, addOrder");
@@ -44,7 +42,6 @@ public class OrderService {
 		System.out.println("OrderService, addOrder complete!");
 		System.out.println("*************************************************************");
 	}
->>>>>>> origin/master
 	
 	public static ArrayList<Order> getAllOrders() {
 		System.out.println("*************************************************************");
