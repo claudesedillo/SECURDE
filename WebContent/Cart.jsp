@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/cart.js"></script>
+        <script src="script/searchOptions.js"></script>
 </head>
 <body>
  		<nav class="navbar navbar-default" id="nav"></nav>

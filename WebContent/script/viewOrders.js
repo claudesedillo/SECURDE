@@ -9,7 +9,6 @@ function getOrder(orderID, parent){
 		success: function(data){
 			console.log(parent);
 			$(parent).append(data);
-			console.log(data);
 			console.log("ajax complete!");
 		},
 		error:function(){

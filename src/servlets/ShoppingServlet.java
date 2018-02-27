@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Book;
+import beans.Order;
+import beans.OrderList;
 import beans.Shoppingcart;
 import service.AuthorService;
 import service.BookService;
+import service.OrderListService;
+import service.OrderService;
 import service.PublisherService;
 import service.ShoppingcartService;
 
@@ -33,10 +37,40 @@ import service.ShoppingcartService;
 						   "/browseByGenre",
 						   "/intoCart",
 						   "/getCartList",
-						   "/removeFromCart"})
+						   "/removeFromCart",
+						   "/checkoutLogin",
+						   "/getPrice"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	private boolean geust;
+	private String email;
+	
+	private void checkoutLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - CHECKOUT LOGIN CHECK***************");
+		geust = true;
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("logged")){
+					geust = false;
+					email = currentCookie.getValue();
+				}
+			}
+		}
+		
+		if(geust == false) {
+			System.out.println("User is logged in!");
+			request.getRequestDispatcher("CheckoutLogged.jsp").forward(request, response);}
+		
+		else {
+			System.out.println("User is a guest!");
+			request.getRequestDispatcher("CheckoutGuest.jsp").forward(request, response);
+		}
+		System.out.println("***************/SHOPPING SERVLET - CHECKOUT LOGIN CHECK/***************");
+	}
+	
 	private void browseByGenre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - BROWSE BY GENRE***************");
 		
@@ -110,7 +144,7 @@ public class ShoppingServlet extends HttpServlet {
 			
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			publisherName = PublisherService.getPublisher(b.getPublisherID());
-			System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
+			//System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
 			htmlBookList += "<form action=\"editGet\" method=\"post\">" + 
 							"<div class = \"bookDiv\"> <br>" + 
 							"Title: " + b.getTitle() + " <br> " +
@@ -135,12 +169,12 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************SHOPPING SERVLET - GET CATALOG***************");
 		ArrayList<Book> bookList = BookService.getBookList();
 		String htmlBookList = "";
-		System.out.println("Book List:");
+		//System.out.println("Book List:");
 		
 		for(Book b: bookList) {
-			System.out.println("Book Name: " + b.getTitle());
-			System.out.println("Book ID: " + b.getBookID());
-			System.out.println("Author ID: " + b.getAuthorID());
+			//System.out.println("Book Name: " + b.getTitle());
+			//System.out.println("Book ID: " + b.getBookID());
+			//System.out.println("Author ID: " + b.getAuthorID());
 			String authorName;
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
@@ -160,8 +194,7 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - GET CATALOG/***************");
 	}
 	
-	private boolean geust;
-	private String email;
+
 	
 	private void getCartList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		System.out.print("GOT IN intoCart");
@@ -222,7 +255,7 @@ public class ShoppingServlet extends HttpServlet {
 				                    "<p id=\"totalprice\"> P" + String.format("%.2f", total) + "</p>" +
 				                "</div>";
 		if(total > 0){
-			htmlBookList += "<form action=\"checkoutInformation.jsp\" method=\"get\">" + 
+			htmlBookList += "<form action=\"checkoutLogin\" method=\"get\">" + 
 					        	"<button type=\"submit\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>" +
 					        "</form>";
 		}
@@ -234,24 +267,32 @@ public class ShoppingServlet extends HttpServlet {
 	}
 	
 	private void checkOutConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.print("GOT IN intoCart");
-		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		System.out.print("AT CHECKOUT CONFIRM");
+		HttpSession session = request.getSession();
+		List<Shoppingcart> cartlist = (List<Shoppingcart>) session.getAttribute("cartlist");
+		int totalprice = 0;
+		
+		for(Shoppingcart c: cartlist) {
+			totalprice += (c.getPrice() * c.getQuantity());
+		}
 		
 		String email = request.getParameter("email"),
+			   firstname = request.getParameter("firstname"),
+			   lastname = request.getParameter("lastname"),
 			   stAddress = request.getParameter("streetAddress"),
-			   city = request.getParameter("city"),
-			   province = request.getParameter("province"),
-			   phoneNum = request.getParameter("phoneNumber");
-		int    postal = Integer.parseInt(request.getParameter("postalcode"));
-		float total = 0;
+			   city = request.getParameter("city");
+		System.out.println("Total price: " + totalprice);
+		Order order = new Order(email, firstname, lastname, stAddress, city, totalprice);
+		
+		OrderService.addCustomer(order);
+		int orderID = OrderService.getLatestOrder();
+		
 		for(Shoppingcart sc : cartlist){
-			if(geust){
-				
-			}
-			else{
-				
-			}
+			OrderList ol = new OrderList(orderID, sc.getBookid(), sc.getQuantity());
+			OrderListService.addOrderList(ol);
 		}
+		System.out.println("I am at checkout confirm, done!");
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 	
 	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -308,6 +349,19 @@ public class ShoppingServlet extends HttpServlet {
 		
 	}
 	
+	private void getShoppingCartPrice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		List<Shoppingcart> cartlist = (List<Shoppingcart>) session.getAttribute("cartlist");
+		int totalprice = 0;
+		
+		for(Shoppingcart c: cartlist) {
+			totalprice += (c.getPrice() * c.getQuantity());
+		}
+		String finalPrice = Integer.toString(totalprice);
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(totalprice);
+	}
 	private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
@@ -396,6 +450,7 @@ public class ShoppingServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("I am at shopping servlet, doGet method");
+		System.out.println(request.getServletPath());
 		switch(request.getServletPath()) {
 		
 		case "/getCompleteCatalog": System.out.println("I am at doGet method, getCompleteCatalog case.");
@@ -410,9 +465,6 @@ public class ShoppingServlet extends HttpServlet {
 		case "/checkout" :  System.out.println("I am at doGet method, checkout case");
 							getCheckOut(request, response);
 							break;
-		case "/checkoutConfirm" : System.out.println("I am at doGet method, checkoutConfirm case");
-								  checkOutConfirm(request, response);
-								  break;
 			
 		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
 						  viewBook(request, response);
@@ -432,6 +484,12 @@ public class ShoppingServlet extends HttpServlet {
 		case "/removeFromCart" : System.out.println("I am at shoppingServlet, removeFromCart method");
 						removeFromCart(request, response);
 						break;
+		case "/checkoutLogin": System.out.println("I am at shoppingServlet, checkOutLogin method");
+						checkoutLogin(request,response);
+						break;
+//		case "/getPrice": System.out.println("I am at shoppingServlet, getPrice method");
+//		getShoppingCartPrice(request, response);
+//		break;
 		
 		}
 	}
@@ -440,7 +498,11 @@ public class ShoppingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		switch(request.getServletPath()) {
+			case "/checkoutConfirm" : System.out.println("I am at doGet method, checkoutConfirm case");
+			  checkOutConfirm(request, response);
+			  break;
+		}
 	}
 
 }

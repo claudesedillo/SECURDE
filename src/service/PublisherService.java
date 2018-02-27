@@ -9,8 +9,8 @@ import beans.Publisher;
 public class PublisherService {
 	
 	public static void addPublisher(Publisher publisher) {
-		System.out.println("*************************************************************");
-		System.out.println("I am at PublisherService, addPublisher");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at PublisherService, addPublisher");
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -33,9 +33,9 @@ public class PublisherService {
 	}
 	
 	public static String getPublisher(int id) {
-		System.out.println("*************************************************************");
-		System.out.println("I am at PublisherService, getPubliser");
-		System.out.println("Publisher ID: " + id);
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at PublisherService, getPubliser");
+		//System.out.println("Publisher ID: " + id);
 		String publisherName = "";
 		try {
 			String driver = "com.mysql.jdbc.Driver";
@@ -45,7 +45,7 @@ public class PublisherService {
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM publisher WHERE publisherid = ?");
 			
 			stmt.setInt(1, id);
-			System.out.println("Query is: " + stmt);
+			//System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
@@ -54,10 +54,10 @@ public class PublisherService {
 			conn.close();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("There was a problem retrieving the publisher from the database");
+			//System.out.println("There was a problem retrieving the publisher from the database");
 		}
-		System.out.println("PublisherService, getPublisher complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("PublisherService, getPublisher complete!");
+		//System.out.println("*************************************************************");
 		return publisherName;
 	}
 }

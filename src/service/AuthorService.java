@@ -13,9 +13,9 @@ public class AuthorService {
 
 	public static List<Integer> findAuthor(String authorName){
 		List<Integer> authorIDs = new ArrayList<Integer>();
-		System.out.println("*************************************************************");
-		System.out.println("I am at AuthorService -> findAuthor");
-		System.out.println("Author Name is " + authorName);
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at AuthorService -> findAuthor");
+		//System.out.println("Author Name is " + authorName);
 		
 		try {
 			String driver = "com.mysql.jdbc.Driver";
@@ -39,8 +39,8 @@ public class AuthorService {
 			e.printStackTrace();
 			System.out.println("There was a problem searching the author");
 		}
-		System.out.println("AuthorService, findAuthor complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("AuthorService, findAuthor complete!");
+		//System.out.println("*************************************************************");
 		
 		return authorIDs;
 	}
@@ -71,10 +71,10 @@ public class AuthorService {
 	}
 	
 	public static String getAuthorName(int id) {
-		System.out.println("*************************************************************");
-		System.out.println("I am at AuthorService, getAuthorName");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at AuthorService, getAuthorName");
 		String authorName = "";
-		System.out.println("Author ID: " + id);
+		//System.out.println("Author ID: " + id);
 		
 		try {
 			String driver = "com.mysql.jdbc.Driver";
@@ -83,7 +83,7 @@ public class AuthorService {
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM authors WHERE authorid = ?");
 			
 			stmt.setInt(1, id);
-			System.out.println("Query is: " + stmt);
+			//System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
@@ -94,8 +94,8 @@ public class AuthorService {
 			e.printStackTrace();
 			System.out.println("There was a problem getting the author from the database");
 		}
-		System.out.println("AuthorService, getAuthorName complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("AuthorService, getAuthorName complete!");
+		//System.out.println("*************************************************************");
 		return authorName;
 	}
 }

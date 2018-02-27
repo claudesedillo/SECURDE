@@ -10,6 +10,27 @@ import beans.Order;
 
 public class OrderService {
 
+	public static int getLatestOrder() {
+		int orderID = 0;
+		try {
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT MAX(orderid) AS 'orderid' FROM orders");
+			
+			System.out.println("Query is: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				orderID = rs.getInt("orderid");
+			}
+			conn.close();
+		}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("There was a problem adding the order to the database");
+			}
+		return orderID;
+	}
 	public static void addCustomer(Order order){
 		System.out.println("*************************************************************");
 		System.out.println("I am at OrderService, addOrder");
@@ -18,19 +39,15 @@ public class OrderService {
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
 			
-			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO customers (orderid, email, orderdate, total, datecompleted, streetaddress,"
-														  + "city, province, postalcode, phonenumber) VALUES (?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO orders (email, firstname, lastname, streetaddress, city, total) VALUES (?,?,?,?,?,?)");
 			
-			stmt.setInt(1, order.getOrderID());
-			stmt.setString(2, order.getEmail());
-			stmt.setDate(3, order.getOrderDate());
-			stmt.setInt(4, order.getTotal());
-			stmt.setDate(5, order.getDateCompleted());
-			stmt.setString(6, order.getStreetAddress());
-			stmt.setString(7, order.getCity());
-			stmt.setString(8, order.getProvince());
-			stmt.setInt(9, order.getPostalCode());
-			stmt.setString(10, order.getPhoneNumber());
+			stmt.setString(1, order.getEmail());
+			stmt.setString(2, order.getFirstName());
+			stmt.setString(3, order.getLastName());
+			stmt.setString(4, order.getStreetAddress());
+			stmt.setString(5, order.getCity());
+			stmt.setInt(6, order.getTotal());
+			
 			System.out.println("Query is: " + stmt);
 			stmt.executeUpdate();
 			System.out.println("Order Successfully added!");

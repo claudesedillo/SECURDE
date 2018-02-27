@@ -14,7 +14,6 @@
         
         <link rel="stylesheet" href="css/checkout.css">
         <link rel="stylesheet" href="css/footer.css">
-        <script src="script/checkout.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -34,7 +33,7 @@
                 <div id="accordion">
                     
                     <!-- SIGN IN -->
-                    <div class="card">
+                   <!--  <div class="card">
                         <div class="card-header" id="ch-signin">
                           <h5 class="mb-0"><button class="btn btn-link" data-toggle="collapse" data-target="#signin-card" aria-expanded="true" aria-controls="signin-card">SIGN IN</button></h5>
                         </div>
@@ -42,7 +41,7 @@
                         <div id="signin-card" class="collapse show" aria-labelledby="ch-signin" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-6" id="signin-div">
+                                    <!-- <div class="col-sm-6" id="signin-div">
                                         <p>Sign in to your Bookshelf account</p>
                                         <a href="#">want to create an online account?</a><br><br>
                                         <form>
@@ -56,7 +55,7 @@
                                             <button type="button" class="btn btn-default" id="btn-signin">sign in</button>
                                             <a href="#">forgot password?</a>
                                         </form>
-                                    </div>
+                                    </div> 
 
                                     <div class="col-sm-6" id="guestco-div">
                                         <p>Checkout as a Guest</p>
@@ -72,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  -->
                     
                     <!-- DELIVERY -->
                     <div class="card">
@@ -83,34 +82,34 @@
                         <div id="delivery-card" class="collapse" aria-labelledby="ch-delivery" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="row">
-                                     <form class="form-horizontal" method = "POST" action = "checkoutConfirm">
+                                     <form class="form-horizontal" action = "checkoutConfirm" method = "POST" >
                                          <div class="form-group">
                                              <label class="control-label col-sm-2" for="fname-inp">First Name</label>
                                              <div class="col-sm-10">
-                                                 <input type="text" class="form-control" id="fname-inp">
+                                                 <input type="text" class="form-control" id="fname-inp" name = "firstname">
                                              </div>
                                          </div>
                                          <div class="form-group">
                                              <label class="control-label col-sm-2" for="lname-inp">Last Name</label>
                                              <div class="col-sm-10">
-                                                 <input type="text" class="form-control" id="lname-inp">
+                                                 <input type="text" class="form-control" id="lname-inp" name = "lastname">
                                              </div>
                                         </div>
                                         <div class="form-group">
                                              <label class="control-label col-sm-2" for="address-inp">Address</label>
                                              <div class="col-sm-10">
-                                                 <input type="text" class="form-control" id="address-inp">
+                                                 <input type="text" class="form-control" id="address-inp" name = "address">
                                              </div>
                                         </div>
                                          
                                         <div class="form-group">
                                              <label class="control-label col-sm-2" for="city-inp">City</label>
                                              <div class="col-sm-10">
-                                                 <input type="text" class="form-control" id="city-inp">
+                                                 <input type="text" class="form-control" id="city-inp" name = "city">
                                              </div>
                                         </div>
                                          
-                                        <button type="submit" class="btn btn-default" id="btn-next2" >next</button>
+                                        <input type="submit" class="btn btn-default" id="btn-next2" value = "next">
                                     </form>
                                 </div>
                             </div>
@@ -142,7 +141,7 @@
                 </div>
                 
                 <div class="col-sm-7">
-                    <p id="totalprice">P840.00</p>
+                    <p id="totalprice">P</p>
                 </div>
             </div>
         </div>

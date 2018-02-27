@@ -12,12 +12,12 @@ import beans.Book;
 public class BookService {
 	
 	public static List<Book> filterByGenre(String genre){
-		System.out.println("*************************************************************");
-		System.out.println("I am at BookService, filterByGenre");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at BookService, filterByGenre");
 		
 		List<Book> bookList = new ArrayList<Book>();
-		System.out.println("I am at BookService -> searchBook");
-		System.out.println("Genre is " + genre);
+		//System.out.println("I am at BookService -> searchBook");
+		//System.out.println("Genre is " + genre);
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -25,11 +25,11 @@ public class BookService {
 			
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book WHERE genre = ?");
 			stmt.setString(1, genre);
-			System.out.println("Query is: " + stmt);
+			//System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()) {
-				System.out.println("book found!");
+				//System.out.println("book found!");
 				Book book = new Book(rs.getInt("bookid"),
 								    rs.getString("Title"),
 									rs.getString("ISBN"),
@@ -45,20 +45,20 @@ public class BookService {
 			conn.close();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("There was a problem searching the book");
+			//System.out.println("There was a problem searching the book");
 		}
-		System.out.println("BookService, filterByGenre complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("BookService, filterByGenre complete!");
+		//System.out.println("*************************************************************");
 		return bookList;
 	}
 	
 	
 	public static List<Book> searchBook(String bookTitle) {
-		System.out.println("*************************************************************");
-		System.out.println("I am at BookService, searchBook");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at BookService, searchBook");
 		List<Book> bookList = new ArrayList<Book>();
-		System.out.println("I am at BookService -> searchBook");
-		System.out.println("Book title is " + bookTitle);
+		//System.out.println("I am at BookService -> searchBook");
+		//System.out.println("Book title is " + bookTitle);
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -71,7 +71,7 @@ public class BookService {
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()) {
-				System.out.println("book found!");
+				//System.out.println("book found!");
 				Book book = new Book(rs.getInt("bookid"),
 								    rs.getString("Title"),
 									rs.getString("ISBN"),
@@ -87,16 +87,16 @@ public class BookService {
 			conn.close();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("There was a problem searching the book");
+			//System.out.println("There was a problem searching the book");
 		}
-		System.out.println("BookService, searchBook complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("BookService, searchBook complete!");
+		//System.out.println("*************************************************************");
 		return bookList;
 	}
 	
 	public static void addBook(Book book) {
-		System.out.println("*************************************************************");
-		System.out.println("I am at BookService, addBook");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at BookService, addBook");
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -111,21 +111,21 @@ public class BookService {
 			stmt.setDate(5, book.getSQLDate());
 			stmt.setFloat(6, book.getPrice());
 			stmt.setInt(7, book.getStock());
-			System.out.println("Query is: " + stmt);
+			//System.out.println("Query is: " + stmt);
 			stmt.executeUpdate();
-			System.out.println("Book was successfully added to the database!");
+			//System.out.println("Book was successfully added to the database!");
 			conn.close();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("There was a problem adding the book to the database");
+			//System.out.println("There was a problem adding the book to the database");
 		}
-		System.out.println("BookService, addBook complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("BookService, addBook complete!");
+		//System.out.println("*************************************************************");
 	}
 	
 	public static ArrayList<Book> getBookList() {
-		System.out.println("*************************************************************");
-		System.out.println("I am at BookService, getBookList");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at BookService, getBookList");
 		ArrayList<Book> bookList = new ArrayList<Book>();
 		try{
 			String driver = "com.mysql.jdbc.Driver";
@@ -134,7 +134,7 @@ public class BookService {
 			
 			
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book");
-			System.out.println("Query is: " + stmt);
+			//System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -156,14 +156,14 @@ public class BookService {
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
-		System.out.println("BookService, getBookList complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("BookService, getBookList complete!");
+		//System.out.println("*************************************************************");
 		return bookList;
 	}
 	
 	public static Book getBook(int id) {
-		System.out.println("*************************************************************");
-		System.out.println("I am at BookService, getBook");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at BookService, getBook");
 		
 		Book book = null;
 		try{
@@ -175,7 +175,7 @@ public class BookService {
 			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book WHERE bookid = ?");
 			
 			stmt.setInt(1, id);
-			System.out.println("Query is: " + stmt);
+			//System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
 			
@@ -197,8 +197,8 @@ public class BookService {
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
-		System.out.println("BookService, getBook complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("BookService, getBook complete!");
+		//System.out.println("*************************************************************");
 		return book;
 	}
 	
@@ -279,11 +279,11 @@ public class BookService {
 	}
 	
 	public static List<Book> getBookByAuthorID(List<Integer> authorIDs) {
-		System.out.println("*************************************************************");
-		System.out.println("I am at BookService, getBookByAuthorID (searching books by author)");
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at BookService, getBookByAuthorID (searching books by author)");
 		List<Book> bookList = new ArrayList<Book>();
 		
-		System.out.println("I am at BookService -> getBookByAuthorID");
+		//System.out.println("I am at BookService -> getBookByAuthorID");
 		
 		try {
 			String driver = "com.mysql.jdbc.Driver";
@@ -294,11 +294,11 @@ public class BookService {
 				PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book WHERE authorid = ?");
 	
 				stmt.setInt(1, i);
-				System.out.println(stmt);
+				//System.out.println(stmt);
 				ResultSet rs = stmt.executeQuery();
-				System.out.println("Query is: " + stmt);
+				//System.out.println("Query is: " + stmt);
 				while(rs.next()) {
-					System.out.println("book found!");
+					//System.out.println("book found!");
 					Book book = new Book(rs.getInt("bookid"),
 									    rs.getString("Title"),
 										rs.getString("ISBN"),
@@ -315,10 +315,10 @@ public class BookService {
 			conn.close();
 		}catch(Exception e) {
 			e.printStackTrace();
-			System.out.println("There was a problem searching the book");
+			//System.out.println("There was a problem searching the book");
 		}
-		System.out.println("BookService, getBookByAuthorID (searching books by author) complete!");
-		System.out.println("*************************************************************");
+		//System.out.println("BookService, getBookByAuthorID (searching books by author) complete!");
+		//System.out.println("*************************************************************");
 		return bookList;
 	}
 }

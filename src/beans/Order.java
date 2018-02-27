@@ -14,6 +14,8 @@ public class Order {
 	private String province;
 	private int postalCode;
 	private String phoneNumber;
+	private String firstName;
+	private String lastName;
 	
 	public Order(int orderID, String email, Date orderDate, int total, String streetAddress, String city, String province,
 			int postalCode, String phoneNumber) {
@@ -29,6 +31,14 @@ public class Order {
 		this.phoneNumber = phoneNumber;
 	}
 	
+	public Order(String email, String firstName, String lastname, String address, String city, int total) {
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastname;
+		this.streetAddress = address;
+		this.city = city;
+		this.total = total;
+	}
 	public Order(String email, Date orderDate, int total, String streetAddress, String city, String province,
 			int postalCode, String phoneNumber) {
 
@@ -121,6 +131,22 @@ public class Order {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	
 }

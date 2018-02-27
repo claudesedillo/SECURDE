@@ -10,7 +10,6 @@ function displayCatalog(){
 		cache: false,
 		success: function(data){
 			$(feed).append(data);
-			console.log(data);
 			console.log("ajax complete!");
 		},
 		error:function(){
