@@ -42,34 +42,6 @@ import service.ShoppingcartService;
 						   "/getPrice"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	private boolean geust;
-	private String email;
-	
-	private void checkoutLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - CHECKOUT LOGIN CHECK***************");
-		geust = true;
-		Cookie[] cookies = request.getCookies();
-		if(cookies!=null){
-			for(int i = 0; i < cookies.length; i++){
-				Cookie currentCookie = cookies[i];
-				if(currentCookie.getName().equals("logged")){
-					geust = false;
-					email = currentCookie.getValue();
-				}
-			}
-		}
-		
-		if(geust == false) {
-			System.out.println("User is logged in!");
-			request.getRequestDispatcher("CheckoutLogged.jsp").forward(request, response);}
-		
-		else {
-			System.out.println("User is a guest!");
-			request.getRequestDispatcher("CheckoutGuest.jsp").forward(request, response);
-		}
-		System.out.println("***************/SHOPPING SERVLET - CHECKOUT LOGIN CHECK/***************");
-	}
 	
 	private void browseByGenre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - BROWSE BY GENRE***************");
@@ -273,7 +245,7 @@ public class ShoppingServlet extends HttpServlet {
 		int totalprice = 0;
 		
 		for(Shoppingcart c: cartlist) {
-			totalprice += (c.getPrice() * c.getQuantity());
+			totalprice += c.getPrice();
 		}
 		
 		String email = request.getParameter("email"),
@@ -295,6 +267,29 @@ public class ShoppingServlet extends HttpServlet {
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 	
+	private boolean geust;
+	private String email;
+	
+	private void checkoutLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - CHECKOUT LOGIN CHECK***************");
+		HttpSession session = request.getSession();
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		
+		if(geust == false) {
+			System.out.println("User is logged in!");
+			session.setAttribute("cartlist", cartlist);
+			request.setAttribute("cartlist", cartlist);
+			request.getRequestDispatcher("CheckoutLogged.jsp").forward(request, response);}
+		
+		else {
+			System.out.println("User is a guest!");
+			session.setAttribute("cartlist", cartlist);
+			request.setAttribute("cartlist", cartlist);
+			request.getRequestDispatcher("CheckoutGuest.jsp").forward(request, response);
+		}
+		System.out.println("***************/SHOPPING SERVLET - CHECKOUT LOGIN CHECK/***************");
+	}
+	
 	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.print("GOT IN intoCart");
@@ -314,7 +309,6 @@ public class ShoppingServlet extends HttpServlet {
 		
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		if(geust){
-			//Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
 			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() , email, 1);
 			int indexOfDuplicate = checkContains(sc, cartlist);
 			
@@ -328,7 +322,6 @@ public class ShoppingServlet extends HttpServlet {
 			}
 		}
 		else{
-			//Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() * qty, email, qty);
 			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() , email, 1);
 			int indexOfDuplicate = checkContains(sc, cartlist);
 			
@@ -362,6 +355,7 @@ public class ShoppingServlet extends HttpServlet {
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(totalprice);
 	}
+	
 	private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
@@ -488,8 +482,8 @@ public class ShoppingServlet extends HttpServlet {
 						checkoutLogin(request,response);
 						break;
 //		case "/getPrice": System.out.println("I am at shoppingServlet, getPrice method");
-//		getShoppingCartPrice(request, response);
-//		break;
+//						getShoppingCartPrice(request, response);
+//						break;
 		
 		}
 	}
