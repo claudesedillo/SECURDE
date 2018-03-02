@@ -15,13 +15,11 @@
         
         <link rel="stylesheet" href="css/viewbook.css">
         <link rel="stylesheet" href="css/nav.css">
-
-        <script src="script/nav.js"></script>
-
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/viewbook.js"></script>
-
         <script src="script/searchOptions.js"></script>
+        <script src="script/nav.js"></script>
+        
 </head>
 <body>
   <nav class="navbar navbar-default" id="nav"></nav><br>

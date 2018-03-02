@@ -27,13 +27,19 @@
             <hr><br>
             <form action="signup" method="post">
                 <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="email address" name ="email">
+                    <input type="email" class="form-control" id="email" placeholder="Email Address" name ="email">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="password" name = "password">
+                    <input type="password" class="form-control" id="password" placeholder="Password" name = "password">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name = "password2">
+                    <input type="password" class="form-control" id="confirm-pw" placeholder="Confirm Password" name = "password2">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="firstname" placeholder="First Name" name ="firstname">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="lastname" placeholder="Last Name" name ="lastname">
                 </div>
                  <div class="form-group">
                     <select class="form-control" id="security-qs" name = "securityQ">
@@ -46,7 +52,22 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="security-answer" placeholder="security answer" name = "securityA">
+                    <input type="password" class="form-control" id="security-answer" placeholder="Security Answer" name = "securityA">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="streetaddress" placeholder="Street Address" name ="streetaddress">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="postal" placeholder="Postal Code" name ="postal">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="city" placeholder="City" name ="city">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="province" placeholder="Province" name ="province">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="phone" placeholder="Phone Number" name ="phone">
                 </div>
                 <hr>
                  <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, or special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>

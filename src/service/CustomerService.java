@@ -3,7 +3,7 @@ package service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import beans.Customer;
 
 public class CustomerService {
@@ -107,6 +107,48 @@ public class CustomerService {
 		System.out.println("CustomerService, checkUser complete! Return Value false");
 		System.out.println("*************************************************************");
 		return false;
+	}
+	
+	public static Customer getCustomer(String email) {
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at BookService, getBook");
+		
+		Customer cust = null;
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM customers");
+			//System.out.println("Query is: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				if(rs.getString("email").equals(email)){
+					cust = new Customer(rs.getString("email"),
+										rs.getString("hashedpassword"),
+										rs.getString("firstname"),
+										rs.getString("lastname"),
+										rs.getString("securityquestion"),
+										rs.getString("securityanswer"),
+										rs.getString("streetaddress"),
+										rs.getInt("postalcode"),
+										rs.getString("city"),
+										rs.getString("province"),
+										rs.getString("phonenumber"));
+				}
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		//System.out.println("BookService, getBook complete!");
+		//System.out.println("*************************************************************");
+		return cust;
 	}
 	
 }

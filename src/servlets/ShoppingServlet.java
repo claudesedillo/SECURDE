@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Book;
+import beans.Customer;
 import beans.Order;
 import beans.OrderList;
 import beans.Shoppingcart;
 import service.AuthorService;
 import service.BookService;
+import service.CustomerService;
 import service.OrderListService;
 import service.OrderService;
 import service.PublisherService;
@@ -239,7 +241,6 @@ public class ShoppingServlet extends HttpServlet {
 	}
 	
 	private void getCheckoutSignIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		String htmlBookList = "<div class=\"card\">"
 							 	+ "<div class=\"card-header\" id=\"ch-signin\">"
 							 		+ "<h5 class=\"mb-0\"><button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#signin-card\" aria-expanded=\"true\" aria-controls=\"signin-card\">SIGN IN</button></h5>" 
@@ -279,41 +280,46 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
-		
 	}
 
 	private void getCheckoutDelivery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		Customer cust = null;
+		for(Shoppingcart c: cartlist) 
+			cust = CustomerService.getCustomer(c.getEmail());
+		if(cust == null)
+			cust = new Customer();
 		String htmlBookList = "<div class=\"card\">"
 								+ "<div class=\"card-header\" id=\"ch-delivery\">"
 									+ "<h5 class=\"mb-0\"><button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#delivery-card\" aria-expanded=\"false\" aria-controls=\"delivery-card\">DELIVERY</button></h5>"
 								+ "</div>"
-								+ "<div id=\"delivery-card\" class=\"collapse\" aria-labelledby=\"ch-delivery\" data-parent=\"#accordion\">"
+								+ "<div id=\"delivery-card\" class=\"collapse show\" aria-labelledby=\"ch-delivery\" data-parent=\"#accordion\">"
 						        + "<div class=\"card-body\">"
 						            + "<div class=\"row\">"
 						                 + "<form class=\"form-horizontal\" method = \"POST\" action = \"checkoutConfirm\">"
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"fname-inp\">First Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\" value = \" " + cust.getFirstname()  +"\">"
 						                         + "</div>"
 						                     + "</div>"
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"lname-inp\">Last Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\" value = \" " + cust.getLastname()  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                    + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"address-inp\">Address</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\" value = \" " + cust.getStreetaddress()  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
 						                    + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"city-inp\">City</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\" value = \" " + cust.getCity()  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
@@ -552,8 +558,8 @@ public class ShoppingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		switch(request.getServletPath()) {
 			case "/checkoutConfirm" : System.out.println("I am at doGet method, checkoutConfirm case");
-			  checkOutConfirm(request, response);
-			  break;
+			  						  checkOutConfirm(request, response);
+			  						  break;
 		}
 	}
 

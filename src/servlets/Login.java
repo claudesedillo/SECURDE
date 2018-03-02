@@ -119,10 +119,15 @@ public class Login extends HttpServlet {
 		String type = request.getParameter("btn-signup");
 		
 		if(type.equals("cust-signup")){
-			String secQ = request.getParameter("securityQ");
-			String secA = request.getParameter("securityA");
-			System.out.println(user + " " + pass + " " + type + " " + secQ + " " +  secA);
-			
+			String secQ = request.getParameter("securityQ"),
+				   secA = request.getParameter("securityA"),
+				   firstname = request.getParameter("firstname"),
+				   lastname = request.getParameter("lastname"),
+				   address = request.getParameter("streetaddress"),
+				   city = request.getParameter("city"),
+				   province = request.getParameter("province"),
+				   phone = request.getParameter("phone");
+			int postal = Integer.parseInt(request.getParameter("postal"));
 			if(!CustomerService.checkUser(user)){
 				if(pass.equals(pass2)){
 					//Login hash cookie
@@ -135,6 +140,13 @@ public class Login extends HttpServlet {
 					cust.setHashedpassword(pass);
 					cust.setSecurityquestion(secQ);
 					cust.setSecurityanswer(secA);
+					cust.setFirstname(firstname);
+					cust.setLastname(lastname);
+					cust.setStreetaddress(address);
+					cust.setPostalcode(postal);
+					cust.setCity(city);
+					cust.setProvince(province);
+					cust.setPhonenumber(phone);
 					CustomerService.addCustomer(cust);
 					System.out.println("Succesful signup (Customer)");
 					request.getRequestDispatcher("Index.jsp").forward(request, response);
