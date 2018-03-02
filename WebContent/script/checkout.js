@@ -36,11 +36,30 @@ function getCheckoutDelivery(){
 	});
 }
 
+function getCheckoutPrice(){
+	
+	var feed = document.getElementById("feed");
+	
+	$.ajax({
+		context: this,
+		url: 'getCheckoutPrice',
+		type: 'get',
+		cache: false,
+		success: function(data){
+			$(feed).append(data);
+			console.log("ajax complete!");
+		},
+		error:function(){
+			console.log("something is wrong on getOrder");
+		}
+	});
+}
+
 $("document").ready(function(){
 	if(!(document.cookie.indexOf("logged") >= 0)){   	 	
 		getCheckoutSignIn();
     }
 	getCheckoutDelivery();
 	//console.log("Console ready on checkout!");
-	//getPrice();
+	getCheckoutPrice();
 });
