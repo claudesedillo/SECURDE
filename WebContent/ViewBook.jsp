@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/viewbook.js"></script>
         <script src="script/searchOptions.js"></script>
-        <script src="script/nav.js"></script>
+        <script type = "text/javascript" src = "script/nav.js"></script>
         
 </head>
 <body>
