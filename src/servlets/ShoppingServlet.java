@@ -38,8 +38,8 @@ import service.ShoppingcartService;
 						   "/intoCart",
 						   "/getCartList",
 						   "/removeFromCart",
-						   "/checkoutLogin",
-						   "/getPrice"})
+						   "/getCheckoutDelivery",
+						   "/getCheckoutSignIn"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -211,7 +211,7 @@ public class ShoppingServlet extends HttpServlet {
 	}
 	
 
-	private void getCheckOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void getCheckOutButton(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.print("GOT IN intoCart");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		float total = 0;
@@ -227,7 +227,7 @@ public class ShoppingServlet extends HttpServlet {
 				                    "<p id=\"totalprice\"> P" + String.format("%.2f", total) + "</p>" +
 				                "</div>";
 		if(total > 0){
-			htmlBookList += "<form action=\"checkoutLogin\" method=\"get\">" + 
+			htmlBookList += "<form action=\"Checkout.jsp\" method=\"get\">" + 
 					        	"<button type=\"submit\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>" +
 					        "</form>";
 		}
@@ -238,10 +238,101 @@ public class ShoppingServlet extends HttpServlet {
 	    response.getWriter().write(htmlBookList);
 	}
 	
+	private void getCheckoutSignIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		String htmlBookList = "<div class=\"card\">"
+							 	+ "<div class=\"card-header\" id=\"ch-signin\">"
+							 		+ "<h5 class=\"mb-0\"><button class=\"btn btn-link\" data-toggle=\"collapse\" data-target=\"#signin-card\" aria-expanded=\"true\" aria-controls=\"signin-card\">SIGN IN</button></h5>" 
+							 	+ "</div>"
+							 	+ "<div id=\"signin-card\" class=\"collapse show\" aria-labelledby=\"ch-signin\" data-parent=\"#accordion\">"
+							 		+ "<div class=\"card-body\">"
+							 			+ "<div class=\"row\">"
+							 				+ "<div class=\"col-sm-6\" id=\"signin-div\">"
+							 					+ "<p>Sign in to your Bookshelf account</p>"
+							 					+ "<a href=\"#\">want to create an online account?</a><br><br>"
+							 					+ "<form>"
+							 						+ "<div class=\"form-group\">"
+							 							+ "<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"email address\">"
+							 						+ "</div>" 
+							 						+ "<div class=\"form-group\">"
+							 							+ "<input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"password\">"
+							 						+ "</div>"
+							 						+ "<button type=\"button\" class=\"btn btn-default\" id=\"btn-signin\">sign in</button>"
+							 						+ "<a href=\"#\">forgot password?</a>"
+							 					+ "</form>"
+							 				+ "</div>"
+							 				+ "<div class=\"col-sm-6\" id=\"guestco-div\">"
+							 					+ "<p>Checkout as a Guest</p>"
+							 					+ "<p class=\"sub\">your email will be used to confirm your order.</p>"
+							 					+ "<form>"
+							 						+ "<div class=\"form-group\">"
+							 							+ "<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"email address\">"
+							 						+ "</div>"
+							 						+ "<button type=\"button\" class=\"btn btn-default\" id=\"btn-next1\" >next</button>"
+							 					+ "</form>"
+							 				+ "</div>"
+							 			+ "</div>"
+							 		+ "</div>"
+							 	+ "</div>"
+							 + "</div>";
+		
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(htmlBookList);
+		
+	}
+
+	private void getCheckoutDelivery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String htmlBookList = "<div class=\"card\">"
+								+ "<div class=\"card-header\" id=\"ch-delivery\">"
+									+ "<h5 class=\"mb-0\"><button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#delivery-card\" aria-expanded=\"false\" aria-controls=\"delivery-card\">DELIVERY</button></h5>"
+								+ "</div>"
+								+ "<div id=\"delivery-card\" class=\"collapse\" aria-labelledby=\"ch-delivery\" data-parent=\"#accordion\">"
+						        + "<div class=\"card-body\">"
+						            + "<div class=\"row\">"
+						                 + "<form class=\"form-horizontal\" method = \"POST\" action = \"checkoutConfirm\">"
+						                     + "<div class=\"form-group\">"
+						                         + "<label class=\"control-label col-sm-2\" for=\"fname-inp\">First Name</label>"
+						                         + "<div class=\"col-sm-10\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\">"
+						                         + "</div>"
+						                     + "</div>"
+						                     + "<div class=\"form-group\">"
+						                         + "<label class=\"control-label col-sm-2\" for=\"lname-inp\">Last Name</label>"
+						                         + "<div class=\"col-sm-10\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\">"
+						                         + "</div>"
+						                    + "</div>"
+						                    + "<div class=\"form-group\">"
+						                         + "<label class=\"control-label col-sm-2\" for=\"address-inp\">Address</label>"
+						                         + "<div class=\"col-sm-10\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\">"
+						                         + "</div>"
+						                    + "</div>"
+						                     
+						                    + "<div class=\"form-group\">"
+						                         + "<label class=\"control-label col-sm-2\" for=\"city-inp\">City</label>"
+						                         + "<div class=\"col-sm-10\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\">"
+						                         + "</div>"
+						                    + "</div>"
+						                     
+						                    + "<button type=\"submit\" class=\"btn btn-default\" id=\"btn-next2\" >next</button>"
+						                + "</form>"
+						            + "</div>"
+						        + "</div>"
+						    + "</div>"
+						+ "</div>";
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(htmlBookList);
+		
+	}
+	
 	private void checkOutConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.print("AT CHECKOUT CONFIRM");
 		HttpSession session = request.getSession();
-		List<Shoppingcart> cartlist = (List<Shoppingcart>) session.getAttribute("cartlist");
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		int totalprice = 0;
 		
 		for(Shoppingcart c: cartlist) {
@@ -269,26 +360,6 @@ public class ShoppingServlet extends HttpServlet {
 	
 	private boolean geust;
 	private String email;
-	
-	private void checkoutLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - CHECKOUT LOGIN CHECK***************");
-		HttpSession session = request.getSession();
-		List<Shoppingcart> cartlist = getShoppingCart(request, response);
-		
-		if(geust == false) {
-			System.out.println("User is logged in!");
-			session.setAttribute("cartlist", cartlist);
-			request.setAttribute("cartlist", cartlist);
-			request.getRequestDispatcher("CheckoutLogged.jsp").forward(request, response);}
-		
-		else {
-			System.out.println("User is a guest!");
-			session.setAttribute("cartlist", cartlist);
-			request.setAttribute("cartlist", cartlist);
-			request.getRequestDispatcher("CheckoutGuest.jsp").forward(request, response);
-		}
-		System.out.println("***************/SHOPPING SERVLET - CHECKOUT LOGIN CHECK/***************");
-	}
 	
 	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -340,20 +411,6 @@ public class ShoppingServlet extends HttpServlet {
 		request.setAttribute("cartlist", cartlist);
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
 		
-	}
-	
-	private void getShoppingCartPrice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		List<Shoppingcart> cartlist = (List<Shoppingcart>) session.getAttribute("cartlist");
-		int totalprice = 0;
-		
-		for(Shoppingcart c: cartlist) {
-			totalprice += (c.getPrice() * c.getQuantity());
-		}
-		String finalPrice = Integer.toString(totalprice);
-		response.setContentType("text/html"); 
-	    response.setCharacterEncoding("UTF-8"); 
-	    response.getWriter().write(totalprice);
 	}
 	
 	private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -415,6 +472,8 @@ public class ShoppingServlet extends HttpServlet {
 				cartlist = ShoppingcartService.getShoppingCartList(email);
 		}
 		else{
+			if(!geust)
+				cartlist = ShoppingcartService.getShoppingCartList(email);
 			System.out.println("NOT NULL");
 			System.out.println(cartlist);
 		}
@@ -457,7 +516,7 @@ public class ShoppingServlet extends HttpServlet {
 							getCartList(request, response);
 							break;
 		case "/checkout" :  System.out.println("I am at doGet method, checkout case");
-							getCheckOut(request, response);
+							getCheckOutButton(request, response);
 							break;
 			
 		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
@@ -467,27 +526,26 @@ public class ShoppingServlet extends HttpServlet {
 						search(request, response);
 						break;
 		case "/browseByGenre": System.out.println("I am at shoppingServlet, BrowseByGenre method");
-						browseByGenre(request, response);
-						break;
+							   browseByGenre(request, response);
+							   break;
 		case "/addToCart": System.out.println("I am at shoppingServlet, addToCart method");
-						addToCart(request, response);
-						break;			
+						   addToCart(request, response);
+						   break;			
 		case "/intoCart": System.out.println("I am at shoppingServlet, intoCart method");
-						intoCart(request, response);
-						break;
+						  intoCart(request, response);
+						  break;
 		case "/removeFromCart" : System.out.println("I am at shoppingServlet, removeFromCart method");
-						removeFromCart(request, response);
-						break;
-		case "/checkoutLogin": System.out.println("I am at shoppingServlet, checkOutLogin method");
-						checkoutLogin(request,response);
-						break;
-//		case "/getPrice": System.out.println("I am at shoppingServlet, getPrice method");
-//						getShoppingCartPrice(request, response);
-//						break;
+								 removeFromCart(request, response);
+								 break;
+		case "/getCheckoutSignIn": System.out.println("I am at shoppingServlet, checkOutLogin method");
+								   getCheckoutSignIn(request,response);
+								   break;
+		case "/getCheckoutDelivery": System.out.println("I am at shoppingServlet, getPrice method");
+									 getCheckoutDelivery(request, response);
+									 break;
 		
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
