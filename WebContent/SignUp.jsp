@@ -21,28 +21,35 @@
     
      <body>
         <nav class="navbar navbar-default" id="nav"></nav><br>
+        
         <div class="container-fluid feed">
             <h3>create your bookshelf account now!</h3>
             <p>Access your Bookshelf account, write reviews, track orders and more.</p>
             <hr><br>
-            <form action="signup" method="post">
-                <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="Email Address" name ="email">
+            <form>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="fname" placeholder="first name" name="fname">
+                    </div>
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="lname" placeholder="last name" name="lname">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="Password" name = "password">
+                    <input type="email" class="form-control" id="email" placeholder="email address" name="email">
+                    <p class="warnings" id="userexists">Email address already in use.</p>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="confirm-pw" placeholder="Confirm Password" name = "password2">
+                    <input type="password" class="form-control" id="password" placeholder="password" name="passowrd">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="firstname" placeholder="First Name" name ="firstname">
+                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name="password2">
                 </div>
+                
                 <div class="form-group">
-                    <input type="text" class="form-control" id="lastname" placeholder="Last Name" name ="lastname">
-                </div>
-                 <div class="form-group">
-                    <select class="form-control" id="security-qs" name = "securityQ">
+                    <select class="form-control" id="security-qs" name="securityQ">
                         <option selected disabled>security question</option>
                         <option>what’s your dream car?</option>
                         <option>what subject did you enjoy the most in college?</option>
@@ -52,28 +59,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="security-answer" placeholder="Security Answer" name = "securityA">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="streetaddress" placeholder="Street Address" name ="streetaddress">
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" id="postal" placeholder="Postal Code" name ="postal">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="city" placeholder="City" name ="city">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="province" placeholder="Province" name ="province">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="phone" placeholder="Phone Number" name ="phone">
+                    <input type="password" class="form-control" id="security-answer" placeholder="security answer" name="securityA">
                 </div>
                 <hr>
                  <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, or special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
-                <br>
-                <button type="submit" class="btn btn-default btn-signup" name ="btn-signup" value ="cust-signup">sign up</button>
-            </form><br>
+                
+                <button class="btn btn-default" id="btn-signup" name="btn-signup" value="cust-signup">SIGN UP</button> 
+            </form>     
         </div>
         <br><br> 
        <footer class="page-footer center-on-small-only" id="footer"></footer>

@@ -5,14 +5,14 @@
 <div class="container-fluid ss-bar">
     <div class="col-sm-8">
         welcome, user!
+        
         <form action="signout" method="post">
 	        <div class="dropdown">
 	            <button class="dropdown-toggler dd-account" data-toggle="dropdown" href="#">your account <span class="caret"></span></button>
 	            <ul class="dropdown-menu">
-	                <li><a href="#">SETTINGS</a></li>
-	                
-	                <li><button type="submit" class="btn btn-default btn-logout">LOGOUT</button></li>
-	                
+	            	<li><a href="#">ORDER STATUS</a></li>
+                    <li><a href="#">SETTINGS</a></li>
+                    <li><button type="submit" class="btn btn-default" id="btn-logout">LOGOUT</button></li>
 	            </ul>
 	        </div>
         </form>
@@ -31,7 +31,7 @@
     
    <form action="intoCart" method="get">
     	<div class="col-sm-1">
-	         <button type="submit" class="btn btn-default btn-cart">
+	         <button type="submit" class="btn btn-default" id="btn-cart">
 	         <span class="glyphicon glyphicon-shopping-cart"></span>
 	         <span class="badge cart-badge">0</span></button>
 	    </div>
@@ -53,15 +53,15 @@
            <ul class="nav navbar-nav navbar-right">
                 <li class=dropdown>
                     <a class="dropdown-toggler" data-toggle="dropdown" href="#">SHOP BY GENRE <span class="caret"></span></a>
-                     <ul class="dropdown-menu">
-                        <li><a href="#">BIOGRAPHY &amp; MEMOIR</a></li>
-                        <li><a href="#">BUSINESS &amp; FINANCE</a></li>
-                        <li><a href="#">COMPUTERS</a></li>
-                        <li><a href="#">FICTION &amp; LITERATURE</a></li>
-                        <li><a href="#">GRAPHIC NOVELS &amp; MANGA</a></li>
-                         <li><a href="#">SCI-FI &amp; FANTASY</a></li>
-                         <li><a href="#">SCIENCE &amp; NATURE</a></li>
-                         <li><a href="#">TRAVEL</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a class = "browseByGenre" href="#" data-genre = "Biography and Memoir">BIOGRAPHY &amp; MEMOIR</a></li>
+                        <li><a class = "browseByGenre" href="#" data-genre = "Business and Finance">BUSINESS &amp; FINANCE</a></li>
+                        <li><a class = "browseByGenre" href="#" data-genre = "Computers">COMPUTERS</a></li>
+                        <li><a class = "browseByGenre" href="#" data-genre = "Fiction and Literature">FICTION &amp; LITERATURE</a></li>
+                        <li><a class = "browseByGenre" href="#" data-genre = "Graphic Novels and Manga">GRAPHIC NOVELS &amp; MANGA</a></li>
+                        <li><a class = "browseByGenre" href="#" data-genre = "SciFi and Fantasy">SCI-FI &amp; FANTASY</a></li>
+                        <li><a class = "browseByGenre" href="#" data-genre = "Science and Nature">SCIENCE &amp; NATURE</a></li>
+                        <li><a class = "browseByGenre" href="#" data-genre = "Travel">TRAVEL</a></li>
                     </ul>
                 </li>
                 <li><a href="#">BEST SELLERS</a></li>

@@ -1,3 +1,5 @@
+/** aligned **/
+
 .signup-bar {
     background-color: #222222;
     color: snow;
@@ -8,6 +10,12 @@
     font-weight: 400;
     letter-spacing: 2px;
     font-style: italic;
+}
+
+.signup-bar a {
+    color: #617C93;
+    font-size: 11.5px;
+    font-weight: 800;
 }
 
 .ss-bar {
@@ -24,7 +32,7 @@
     display: inline-block;
 }
 
-.ss-bar .btn-navsignin {
+.ss-bar #btn-navsignin {
     background-color: transparent;
     font-size: 15px;
     padding-left: 0px;
@@ -33,7 +41,7 @@
     font-weight: 800; 
 }
 
-.ss-bar .btn-navsignin:hover {
+.ss-bar #btn-navsignin:hover {
     text-decoration: underline;
 }
 
@@ -41,14 +49,14 @@
     text-align: center;
 }
 
-.ss-bar .btn-cart {
+.ss-bar #btn-cart {
     background-color: transparent;
     border-style: none;
     font-size: 21px;
     padding: 2px;
 }
 
-.btn .badge {
+#btn-cart .badge {
     top: -4px;
 }
 
@@ -154,16 +162,16 @@
     display: none;
 }
 
-.btn-signin {
+#btn-signin {
     background-color: #222222;
     color: snow;
     margin-right: 5px;
     border-radius: 2.5px;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 1px;
 }
 
-.btn-signin:hover {
+#btn-signin:hover, #btn-logout:hover {
     text-decoration: underline;
     background-color: black;
     color: snow;
@@ -189,7 +197,7 @@
     text-decoration: underline;
 }
 
-.btn-logout {
+#btn-logout {
     background-color: #222222;
     color: snow;
     border-radius: 1px;
@@ -198,9 +206,4 @@
     font-size: 10px;
 }
 
-.btn-logout:hover {
-    background-color: #303030;
-    color: snow;
-    text-decoration: underline;
-}
 /** END USER-NAV **/
