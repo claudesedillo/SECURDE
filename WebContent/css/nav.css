@@ -24,6 +24,151 @@
     display: inline-block;
 }
 
+.ss-bar .btn-navsignin {
+    background-color: transparent;
+    font-size: 15px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-style: none;
+    font-weight: 800; 
+}
+
+.ss-bar .btn-navsignin:hover {
+    text-decoration: underline;
+}
+
+.ss-bar .col-sm-1 {
+    text-align: center;
+}
+
+.ss-bar .btn-cart {
+    background-color: transparent;
+    border-style: none;
+    font-size: 21px;
+    padding: 2px;
+}
+
+.btn .badge {
+    top: -4px;
+}
+
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+
+.stylish-input-group .form-control{
+	border-right:0; 
+	border-color: #ccc;
+}
+
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+.main-nav {
+    background-color: white;
+}
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+}
+
+.navbar-default .navbar-brand {
+    font-family: Abril Fatface;
+    font-size: 36px;
+    color: #222222;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #303030;
+}
+
+.dropdown {
+    display: inline;
+}
+
+.dropdown-menu {
+    margin-top: 15px;
+    margin-left: 5px;
+    border-color: #222222;
+    border-width: 0.5px;
+    border-top-width: 0px;
+    border-radius: 1px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    font-size: 11px;
+    color: #222222;
+    font-weight: 700;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    text-decoration: underline;
+}
+
+.dropdown-menu>li>a {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-menu>li>a:hover {
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+/** SIGN IN MODAL **/
+.modal-content {
+    width: 80%;
+    margin: auto;
+    border-radius: 2px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+#signin-modal h3 {
+    margin: 0px;
+    font-weight: 600;
+}
+
+#signin-modal a {
+    font-size: 11px;
+    font-weight: 600;
+    color: #617C93;
+}
+
+#signin-modal .form-control {
+    margin-top: 10px;
+    height: 30px;
+    border-radius: 2px;
+    font-size: 12.5px;
+}
+
+#signin-modal .errormsg {
+    color: crimson;
+    font-size: 10px;
+    font-style: italic;
+    margin-top: -5px;
+    letter-spacing: 0.2px;
+    display: none;
+}
+
+.btn-signin {
+    background-color: #222222;
+    color: snow;
+    margin-right: 5px;
+    border-radius: 2.5px;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.btn-signin:hover {
+    text-decoration: underline;
+    background-color: black;
+    color: snow;
+}
+
 /** USERNAV SPECIFICS **/
 .ss-bar .dd-account {
     font-weight: 400;
@@ -58,97 +203,4 @@
     color: snow;
     text-decoration: underline;
 }
-
-.dropdown {
-    display: inline;
-}
-
-.dropdown-menu {
-    margin-top: 15px;
-    margin-left: 5px;
-    border-color: #222222;
-    border-width: 0.5px;
-    border-top-width: 0px;
-    border-radius: 1px;
-}
-
 /** END USER-NAV **/
-
-.ss-bar .col-sm-1 {
-    text-align: center;
-}
-
-.stylish-input-group .input-group-addon{
-    background: white !important; 
-}
-
-.stylish-input-group .form-control{
-	border-right:0; 
-	border-color: #ccc;
-}
-
-.stylish-input-group button{
-    border:0;
-    background:transparent;
-}
-
-.btn .badge {
-    top: -4px;
-}
-
-.ss-bar .btn-cart {
-    background-color: transparent;
-    border-style: none;
-    font-size: 21px;
-    padding: 2px;
-}
-
-.ss-bar .btn-navsignin {
-    background-color: transparent;
-    font-size: 15px;
-    border-style: none;
-    font-weight: 800; 
-}
-
-.ss-bar .btn-navsignin:hover {
-    text-decoration: underline;
-}
-
-.main-nav {
-    background-color: white;
-}
-
-.wrapper {
-    width: 80%;
-    margin: auto;
-}
-
-.navbar-default .navbar-nav>li>a {
-    font-size: 11px;
-    color: #222222;
-    font-weight: 700;
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-    text-decoration: underline;
-}
-
-.dropdown-menu>li>a {
-    font-size: 10px;
-    letter-spacing: 0.5px;
-}
-
-.dropdown-menu>li>a:hover {
-    text-decoration: underline;
-    background-color: transparent;
-}
-
-.navbar-default .navbar-brand {
-    font-family: Abril Fatface;
-    font-size: 36px;
-    color: #222222;
-}
-
-.navbar-default .navbar-brand:hover {
-    color: #303030;
-}
