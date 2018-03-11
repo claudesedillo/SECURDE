@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class DatabaseManager {
 	private static final String url = "jdbc:mysql://localhost:3306/indigo?autoReconnect=true&useSSL=false";
 	private static final String user = "root";
-	private static final String pass= "1234";
+	private static final String pass= "password";
 	
 	public DatabaseManager() {}
 	
