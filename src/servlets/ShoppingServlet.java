@@ -390,9 +390,6 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - CHECKOUT CONFIRM/***************");
 	}
 	
-	private boolean geust;
-	private String email;
-	
 	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("***************SHOPPING SERVLET - INTO CART***************");
@@ -406,8 +403,22 @@ public class ShoppingServlet extends HttpServlet {
 		Book book = (Book) session.getAttribute("book");
 		//int qty = Integer.parseInt(request.getParameter("qty"));
 		
+		boolean guest = true;
+		String email = "Guest";
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("logged")){
+					guest = false;
+					email = currentCookie.getValue();
+				}
+			}
+		}
+		
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
-		if(geust){
+		if(guest){
 			Shoppingcart sc = new Shoppingcart(book.getBookID(), book.getPrice() , email, 1);
 			int indexOfDuplicate = checkContains(sc, cartlist);
 			
@@ -447,9 +458,21 @@ public class ShoppingServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int bookid = Integer.parseInt(request.getParameter("remove"));
 		
+		boolean guest = true;
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("logged")){
+					guest = false;
+				}
+			}
+		}
+		
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		
-		if(geust){
+		if(guest){
 			int indexRemoved = -1;
 			for(Shoppingcart sc : cartlist){
 				if(sc.getBookid() == bookid){
@@ -479,15 +502,15 @@ public class ShoppingServlet extends HttpServlet {
 	public List<Shoppingcart> getShoppingCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - GET SHOPPING CART***************");
 		HttpSession session = request.getSession();
-		geust = true;
-		email = "Guest";
+		boolean guest = true;
+		String email = "Guest";
 		
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
 				Cookie currentCookie = cookies[i];
 				if(currentCookie.getName().equals("logged")){
-					geust = false;
+					guest = false;
 					email = currentCookie.getValue();
 				}
 			}
@@ -497,13 +520,13 @@ public class ShoppingServlet extends HttpServlet {
 		
 		if(cartlist == null){
 			System.out.println("NULL");
-			if(geust)
+			if(guest)
 				cartlist = new ArrayList<Shoppingcart>();
 			else
 				cartlist = ShoppingcartService.getShoppingCartList(email);
 		}
 		else{
-			if(!geust)
+			if(!guest)
 				cartlist = ShoppingcartService.getShoppingCartList(email);
 			System.out.println("NOT NULL");
 			System.out.println(cartlist);
