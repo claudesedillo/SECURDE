@@ -42,7 +42,8 @@ import service.ShoppingcartService;
 						   "/removeFromCart",
 						   "/getCheckoutDelivery",
 						   "/getCheckoutSignIn",
-						   "/getCheckoutPrice"})
+						   "/getCheckoutPrice",
+						   "/getCartCount"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -222,7 +223,7 @@ public class ShoppingServlet extends HttpServlet {
 			total += sc.getPrice();
 		}
 		
-		String htmlBookList =   "<div class=\"col-sm-5\">" +
+		String checkoutHTML =   "<div class=\"col-sm-5\">" +
 				                    "<p>SUBTOTAL: </p>" +
 				                "</div>" +
 				                
@@ -230,15 +231,15 @@ public class ShoppingServlet extends HttpServlet {
 				                    "<p id=\"totalprice\"> P" + String.format("%.2f", total) + "</p>" +
 				                "</div>";
 		if(total > 0){
-			htmlBookList += "<form action=\"Checkout.jsp\" method=\"get\">" + 
+			checkoutHTML += "<form action=\"Checkout.jsp\" method=\"get\">" + 
 					        	"<button type=\"submit\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>" +
 					        "</form>";
 		}
-		else htmlBookList += "<button type=\"button\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>";
+		else checkoutHTML += "<button type=\"button\" class=\"btn btn-default\" id=\"btn-checkout\">CHECKOUT</button>";
 				                
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
-	    response.getWriter().write(htmlBookList);
+	    response.getWriter().write(checkoutHTML);
 	}
 	
 	private void getCheckoutSignIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -499,7 +500,7 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - REMOVE FROM CART/***************");
 	}
 	
-	public List<Shoppingcart> getShoppingCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private List<Shoppingcart> getShoppingCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - GET SHOPPING CART***************");
 		HttpSession session = request.getSession();
 		boolean guest = true;
@@ -519,16 +520,22 @@ public class ShoppingServlet extends HttpServlet {
 		List<Shoppingcart> cartlist = (List<Shoppingcart>) session.getAttribute("cartlist");
 		
 		if(cartlist == null){
-			System.out.println("NULL");
-			if(guest)
+			System.out.println("Cart is empty!");
+			if(guest) {
+				System.out.println("Cartlist is null, user is a guest");
 				cartlist = new ArrayList<Shoppingcart>();
-			else
+			}
+			else {
+				System.out.println("Cartlist is null, user is not a guest");
 				cartlist = ShoppingcartService.getShoppingCartList(email);
+			}
 		}
 		else{
-			if(!guest)
+			if(!guest) {
+				System.out.println("Cartlist is not null, user is not a guest");
 				cartlist = ShoppingcartService.getShoppingCartList(email);
-			System.out.println("NOT NULL");
+			}
+			System.out.println("Cart is not empty!");
 			System.out.println(cartlist);
 		}
 		System.out.println("***************/SHOPPING SERVLET - GET SHOPPING CART/***************");
@@ -536,7 +543,18 @@ public class ShoppingServlet extends HttpServlet {
 		
 	}
 	
-	public int checkContains(Shoppingcart sc, List<Shoppingcart> cartlist){
+	private void getCartCount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - GET CART COUNT***************");
+		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		String cartCount = Integer.toString(cartlist.size());
+		System.out.println("Cart count: " + cartCount);
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(cartCount);
+	    System.out.println("***************/SHOPPING SERVLET - GET CART COUNT/***************");
+	}
+	
+	private int checkContains(Shoppingcart sc, List<Shoppingcart> cartlist){
 		for(Shoppingcart c : cartlist){
 			if(c.getBookid() == sc.getBookid() && c.getEmail().equals(sc.getEmail())){
 				return cartlist.indexOf(c);
@@ -600,6 +618,8 @@ public class ShoppingServlet extends HttpServlet {
 									 break;
 		case "/getCheckoutPrice" : getCheckoutPrice(request, response);
 		 						   break;
+		case "/getCartCount" : getCartCount(request, response);
+								break;
 		}
 	}
 	/**

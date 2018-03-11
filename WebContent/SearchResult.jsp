@@ -21,7 +21,7 @@
         <script type = "text/javascript" src = "script/filters.js"></script> 
         <Title>Bookshelf | Search</Title>
 </head>
-<body>
+<body onload="getCartCount()">
   		<nav class="navbar navbar-default" id="nav"></nav>
         
         <!--BODY-->

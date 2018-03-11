@@ -16,9 +16,10 @@
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/cart.js"></script>
+        <script src="script/nav.js"></script>
         <script src="script/searchOptions.js"></script>
 </head>
-<body>
+<body onload="getCartCount()">
  		<nav class="navbar navbar-default" id="nav"></nav>
         
         <div class="container-fluid" id="feed">

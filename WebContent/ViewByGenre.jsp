@@ -20,7 +20,7 @@
         <script type = "text/javascript" src = "script/filters.js"></script>
         <script type = "text/javascript" src= "script/searchOptions.js"></script>
 </head>
-<body>
+<body onload="getCartCount()">
  		<nav class="navbar navbar-default" id="nav"></nav>
         
         <!--BODY-->

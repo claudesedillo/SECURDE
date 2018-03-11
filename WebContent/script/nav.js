@@ -1,5 +1,25 @@
+function getCartCount(){
+	
+	var badge = document.getElementById("badge");
+	
+	$.ajax({
+		context: this,
+		url: 'getCartCount',
+		type: 'get',
+		cache: false,
+		success: function(data){
+			console.log("cart count: " +  data);
+			$(badge).text(data);
+			console.log("append complete!");
+		},
+		error:function(){
+			console.log("something is wrong on getCartCount");
+		}
+	});
+}
+
 $("document").ready(function(){
-    
+	
 	 if(document.cookie.indexOf("logged") >= 0){   	 	
 			$("#nav").load("usernav.html");
 		    $("#footer").load("footer.html");
@@ -18,5 +38,5 @@ $("document").ready(function(){
 	   	window.location = "intoCart";  
 	});
 	
-	console.log("im in nav.js")
+	console.log("im in nav.js");
 });

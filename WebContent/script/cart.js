@@ -10,7 +10,6 @@ function displayCart(){
 		cache: false,
 		success : function(data){
 			$(listDiv).append(data);
-			console.log(data);
 			console.log("ajax complete!");
 		},
 		error:function(){

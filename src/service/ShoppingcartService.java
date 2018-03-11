@@ -89,7 +89,7 @@ public class ShoppingcartService {
 	
 	public static ArrayList<Shoppingcart> getShoppingCartList(String email){
 		System.out.println("*************************************************************");
-		System.out.println("I am at AdminService, getAdminList");
+		System.out.println("I am at ShoppingCartService, getShoppingCart");
 		ArrayList<Shoppingcart> cartList = new ArrayList<Shoppingcart>();
 		try{
 			String driver = "com.mysql.jdbc.Driver";

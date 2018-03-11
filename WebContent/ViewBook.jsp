@@ -21,7 +21,7 @@
         <script type = "text/javascript" src = "script/nav.js"></script>
         
 </head>
-<body>
+<body onload="getCartCount()">
   <nav class="navbar navbar-default" id="nav"></nav><br>
         
         <div class="container-fluid feed">

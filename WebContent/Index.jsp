@@ -16,11 +16,12 @@
 	        <link rel="stylesheet" type="text/css" href="css/nav.css">
 	        <link rel="stylesheet" href="css/footer.css">
 	        <script src="script/index.js"></script>
+	        <script src="script/nav.js"></script>
 	        <script type = "text/javascript" src = "script/searchOptions.js"></script>
 	        <title>Bookshelf | Home</title>
 	</head>
 	
-	<body>
+	<body onload="getCartCount()">
 		<nav class="navbar navbar-default" id="nav"></nav><br>
 		
 		<!--BODY-->

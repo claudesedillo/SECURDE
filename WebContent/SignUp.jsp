@@ -19,7 +19,7 @@
         <title>Bookshelf | Sign Up</title>
     </head>
     
-     <body>
+     <body onload="getCartCount()">
         <nav class="navbar navbar-default" id="nav"></nav><br>
         
         <div class="container-fluid feed">
