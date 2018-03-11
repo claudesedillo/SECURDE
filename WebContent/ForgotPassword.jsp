@@ -27,7 +27,7 @@
                     </div>
                     
                     <!-- ADD ARROW -->
-                    <a href="index.html" id="btn-home">BACK TO HOMEPAGE</a>
+                    <a href="Index.jsp" id="btn-home">BACK TO HOMEPAGE</a>
                 </div>
             </div>
         </nav>
