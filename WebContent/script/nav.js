@@ -8,7 +8,7 @@ function getCartCount(){
 		type: 'get',
 		cache: false,
 		success: function(data){
-			console.log("cart count: " +  data);
+			console.log("Cart count: " + data);
 			$(badge).text(data);
 			console.log("append complete!");
 		},
@@ -23,20 +23,18 @@ $("document").ready(function(){
 	 if(document.cookie.indexOf("logged") >= 0){   	 	
 			$("#nav").load("usernav.html");
 		    $("#footer").load("footer.html");
-	    	console.log("congrats you logged in");
+	    	console.log("Log in successful");
     }else {
-	    $(function(){
 			$("#nav").load("nav.html");
 		    $("#footer").load("footer.html");
-	    });
     }
 	 
 	$(document).on("click", "#btn-cart", function(){
-	  	console.log("cart was clicked!");
+	  	console.log("Cart was clicked");
 	   	var bookID = $(this).attr("data-bookId");
-	   	console.log("book id is " + bookID);
+	   	console.log("BookID =  " + bookID);
 	   	window.location = "intoCart";  
 	});
 	
-	console.log("im in nav.js");
+	console.log("I'm in nav.js");
 });
