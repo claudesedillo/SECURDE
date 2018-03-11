@@ -10,5 +10,13 @@ $("document").ready(function(){
 		    $("#footer").load("footer.html");
 	    });
     }
-	console.log("im in")
+	 
+	$(document).on("click", "#btn-cart", function(){
+	  	console.log("cart was clicked!");
+	   	var bookID = $(this).attr("data-bookId");
+	   	console.log("book id is " + bookID);
+	   	window.location = "intoCart";  
+	});
+	
+	console.log("im in nav.js")
 });

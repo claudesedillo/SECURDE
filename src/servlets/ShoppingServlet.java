@@ -172,7 +172,7 @@ public class ShoppingServlet extends HttpServlet {
 
 	
 	private void getCartList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		System.out.print("GOT IN intoCart");
+		System.out.println("***************SHOPPING SERVLET - GET CART LIST***************");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		String htmlBookList = "";
 		for(Shoppingcart sc : cartlist){
@@ -210,7 +210,7 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
-		
+	    System.out.println("***************/SHOPPING SERVLET - GET CART LIST/***************");
 	}
 	
 
@@ -338,6 +338,7 @@ public class ShoppingServlet extends HttpServlet {
 	
 
 	private void getCheckoutPrice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - GET CHECKOUT PRICE***************");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		float total = 0;
 		for(Shoppingcart sc : cartlist){
@@ -356,11 +357,12 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
+	    System.out.println("***************/SHOPPING SERVLET - GET CHECKOUT PRICE/***************");
 	}
 
 	
 	private void checkOutConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.print("AT CHECKOUT CONFIRM");
+		System.out.println("***************SHOPPING SERVLET - CHECKOUT CONFIRM***************");
 		HttpSession session = request.getSession();
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		int totalprice = 0;
@@ -384,8 +386,8 @@ public class ShoppingServlet extends HttpServlet {
 			OrderList ol = new OrderList(orderID, sc.getBookid(), sc.getQuantity());
 			OrderListService.addOrderList(ol);
 		}
-		System.out.println("I am at checkout confirm, done!");
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		System.out.println("***************/SHOPPING SERVLET - CHECKOUT CONFIRM/***************");
 	}
 	
 	private boolean geust;
@@ -393,17 +395,13 @@ public class ShoppingServlet extends HttpServlet {
 	
 	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.print("GOT IN intoCart");
-		HttpSession session = request.getSession();
-		
-		List<Shoppingcart> cartlist = getShoppingCart(request, response);
-		
-		session.setAttribute("cartlist", cartlist);
-		request.setAttribute("cartlist", cartlist);
+		System.out.println("***************SHOPPING SERVLET - INTO CART***************");
 		request.getRequestDispatcher("Cart.jsp").forward(request, response);
+		System.out.println("***************/SHOPPING SERVLET - INTO CART/***************");
 	}
 	
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - ADD TO CART***************");
 		HttpSession session = request.getSession();
 		Book book = (Book) session.getAttribute("book");
 		//int qty = Integer.parseInt(request.getParameter("qty"));
@@ -440,10 +438,11 @@ public class ShoppingServlet extends HttpServlet {
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
-		
+		System.out.println("***************/SHOPPING SERVLET - ADD TO CART/***************");
 	}
 	
 	private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - REMOVE FROM CART***************");
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		int bookid = Integer.parseInt(request.getParameter("remove"));
@@ -474,9 +473,11 @@ public class ShoppingServlet extends HttpServlet {
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
 		request.getRequestDispatcher("Cart.jsp").forward(request, response);
+		System.out.println("***************/SHOPPING SERVLET - REMOVE FROM CART/***************");
 	}
 	
 	public List<Shoppingcart> getShoppingCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - GET SHOPPING CART***************");
 		HttpSession session = request.getSession();
 		geust = true;
 		email = "Guest";
@@ -507,8 +508,9 @@ public class ShoppingServlet extends HttpServlet {
 			System.out.println("NOT NULL");
 			System.out.println(cartlist);
 		}
-		
+		System.out.println("***************/SHOPPING SERVLET - GET SHOPPING CART/***************");
 		return cartlist;
+		
 	}
 	
 	public int checkContains(Shoppingcart sc, List<Shoppingcart> cartlist){
