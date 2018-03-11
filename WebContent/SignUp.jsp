@@ -42,10 +42,10 @@
                     <p class="warnings" id="userexists">Email address already in use.</p>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="password" name="passowrd">
+                    <input type="password" class="form-control" id="password" placeholder="password" name="passowrd" maxlength="20">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name="password2">
+                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name="password2" maxlength="20">
                 </div>
                 
                 <div class="form-group">
@@ -69,5 +69,6 @@
         </div>
         <br><br> 
        <footer class="page-footer center-on-small-only" id="footer"></footer>
+      
     </body>
 </html>
