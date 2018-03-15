@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.owasp.esapi.*;
+import org.owasp.esapi.errors.EncryptionException;
+import org.owasp.esapi.errors.IntrusionException;
+import org.owasp.esapi.errors.ValidationException;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import beans.Admin;
@@ -118,16 +124,29 @@ public class Login extends HttpServlet {
 		String pass2 = request.getParameter("password2");	
 		String type = request.getParameter("btn-signup");
 		
+		//boolean isValid = ESAPI.validator().isValidInput("signup", user, "email", 45, false);
+		//System.out.println("isValid : " + isValid);
+		System.out.println("Pass : " + pass);
+		String passHash = null; 
+		try {
+			passHash = ESAPI.encryptor().hash(pass, "testtest");
+		} catch (EncryptionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(passHash);
+		
 		if(type.equals("cust-signup")){
 			String secQ = request.getParameter("securityQ"),
 				   secA = request.getParameter("securityA"),
-				   firstname = request.getParameter("firstname"),
-				   lastname = request.getParameter("lastname"),
-				   address = request.getParameter("streetaddress"),
-				   city = request.getParameter("city"),
-				   province = request.getParameter("province"),
-				   phone = request.getParameter("phone");
-			int postal = Integer.parseInt(request.getParameter("postal"));
+				   firstname = request.getParameter("fname"),
+				   lastname = request.getParameter("lname");
+				   //address = request.getParameter("streetaddress"),
+				   //city = request.getParameter("city"),
+				   //province = request.getParameter("province"),
+				   //phone = request.getParameter("phone");
+			//int postal = Integer.parseInt(request.getParameter("postal"));
 			if(!CustomerService.checkUser(user)){
 				if(pass.equals(pass2)){
 					//Login hash cookie
@@ -142,11 +161,11 @@ public class Login extends HttpServlet {
 					cust.setSecurityanswer(secA);
 					cust.setFirstname(firstname);
 					cust.setLastname(lastname);
-					cust.setStreetaddress(address);
-					cust.setPostalcode(postal);
-					cust.setCity(city);
-					cust.setProvince(province);
-					cust.setPhonenumber(phone);
+					//cust.setStreetaddress(address);
+					//cust.setPostalcode(postal);
+					//cust.setCity(city);
+					//cust.setProvince(province);
+					//cust.setPhonenumber(phone);
 					CustomerService.addCustomer(cust);
 					System.out.println("Succesful signup (Customer)");
 					request.getRequestDispatcher("Index.jsp").forward(request, response);

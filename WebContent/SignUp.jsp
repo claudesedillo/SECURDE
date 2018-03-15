@@ -26,7 +26,7 @@
             <h3>create your bookshelf account now!</h3>
             <p>Access your Bookshelf account, write reviews, track orders and more.</p>
             <hr><br>
-            <form>
+            <form action="signup" method="post">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <input type="text" class="form-control" id="fname" placeholder="first name" name="fname">
@@ -42,7 +42,7 @@
                     <p class="warnings" id="userexists">Email address already in use.</p>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="password" name="passowrd" maxlength="20">
+                    <input type="password" class="form-control" id="password" placeholder="password" name="password" maxlength="20">
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name="password2" maxlength="20">
@@ -64,7 +64,7 @@
                 <hr>
                  <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, or special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
                 
-                <button class="btn btn-default" id="btn-signup" name="btn-signup" value="cust-signup">SIGN UP</button> 
+                <button type="submit" class="btn btn-default" id="btn-signup" name="btn-signup" value="cust-signup">SIGN UP</button> 
             </form>     
         </div>
         <br><br> 
