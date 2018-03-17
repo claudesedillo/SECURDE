@@ -154,7 +154,7 @@
     font-size: 12.5px;
 }
 
-#signin-modal .errormsg {
+#signin-modal #errormsg {
     color: crimson;
     font-size: 10px;
     font-style: italic;
