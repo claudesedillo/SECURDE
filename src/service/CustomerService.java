@@ -49,7 +49,7 @@ public class CustomerService {
 	
 	public static boolean doesCustomerExist(String email) {
 		System.out.println("*************************************************************");
-		System.out.println("I am at CustomerService, checkLogin");
+		System.out.println("I am at CustomerService, doesCustomerExist");
 		try{
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -75,7 +75,7 @@ public class CustomerService {
 			e.printStackTrace();
 			System.out.println(e);
 		}
-		System.out.println("CustomerService, checkLogin complete! Return Value false");
+		System.out.println("CustomerService, doesCustomerExist complete! Return Value false");
 		System.out.println("*************************************************************");
 		return false;
 	}

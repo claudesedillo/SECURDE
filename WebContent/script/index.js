@@ -10,7 +10,7 @@ function displayCatalog(){
 		cache: false,
 		success: function(data){
 			$(feed).append(data);
-			console.log("ajax complete!");
+			console.log("displayCatalog ajax complete!");
 		},
 		error:function(){
 			console.log("something is wrong on displayCatalog");
