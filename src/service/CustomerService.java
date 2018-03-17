@@ -85,7 +85,7 @@ public class CustomerService {
 		System.out.println("I am at CustomerService, checkLogin");
 		
 		try {
-			hashedPass = ESAPI.encryptor().decrypt(hashedPass);
+			hashedPass = ESAPI.encryptor().encrypt(hashedPass);
 		} catch (EncryptionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
