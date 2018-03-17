@@ -20,7 +20,7 @@
         </div>
         <hr>
         <div class="row">
-           <form action="login" method="post">
+           <form action="adminLogin" method="post">
                <div class="form-group">
                    <input type="email" class="form-control" placeholder="email address" name = "email">
                </div>

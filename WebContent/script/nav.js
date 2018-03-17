@@ -1,15 +1,17 @@
 function getCartCount(){
 	
 	var badge = document.getElementById("badge");
-	
+	var badgeText = document.getElementById("badge").innerHTML;
 	$.ajax({
 		context: this,
 		url: 'getCartCount',
 		type: 'get',
 		cache: false,
 		success: function(data){
+			console.log("badge content: " + badgeText);
 			console.log("Cart count: " + data);
-			$(badge).text(data);
+			$(badge).text("WOOOOOOOOO");
+			console.log("badge content: " + badgeText);
 			console.log("append complete!");
 		},
 		error:function(){

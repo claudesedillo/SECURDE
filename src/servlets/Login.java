@@ -88,7 +88,7 @@ public class Login extends HttpServlet {
 			}
 		}
 		
-		else if(AdminService.checkLogin(user, pass)){
+		if(AdminService.checkLogin(user, pass)){
 			String emailKey = UUID.randomUUID().toString().replace("-", "");
 			emailKey = emailKey.substring(0, 5);
 			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
@@ -102,24 +102,46 @@ public class Login extends HttpServlet {
 		else{
 			System.out.println("Wrong email/pass ma dude");
 			request.getRequestDispatcher("Portal.jsp").forward(request, response);
-			response.getWriter().write("ADMIN-WRONG-PASSWORD");
+			response.getWriter().write("FAIL-LOGIN-ADMIN");
 		}
 		System.out.println("***************/SHOPPING SERVLET - LOGIN/***************");
 	}
 	
 	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		HttpSession session = request.getSession();
-		String emailKey = (String) session.getAttribute("emailkey");
-		String inputKey = request.getParameter("emailkey");
-		System.out.println("session key : " + emailKey);
-		if(inputKey.equals(emailKey)){
-			System.out.println("Succesful Login (Admin)");
-			response.sendRedirect("AdminDashboard.jsp");
-		}
-		else{
-			System.out.println("wrong input >:(");
+//		HttpSession session = request.getSession();
+//		String emailKey = (String) session.getAttribute("emailkey");
+//		String inputKey = request.getParameter("emailkey");
+//		System.out.println("session key : " + emailKey);
+//		if(inputKey.equals(emailKey)){
+//			System.out.println("Succesful Login (Admin)");
+//			response.sendRedirect("AdminDashboard.jsp");
+//		}
+//		else{
+//			System.out.println("wrong input >:(");
+//			response.sendRedirect("adminEmailDoor.html");
+//		}
+		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
+		String user = request.getParameter("email");
+		String pass = request.getParameter("password");	
+		System.out.println(user + " " + pass);
+		
+		if(AdminService.checkLogin(user, pass)){
+			String emailKey = UUID.randomUUID().toString().replace("-", "");
+			emailKey = emailKey.substring(0, 5);
+			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
+			sendEmail(request, response, email);
+			HttpSession session = request.getSession();
+			session.setAttribute("emailkey", emailKey);
+			request.setAttribute("emailkey", session.getAttribute("emailkey"));
 			response.sendRedirect("adminEmailDoor.html");
+			response.getWriter().write("PASS-LOGIN-ADMIN");
+		}	
+		else{
+			System.out.println("Wrong email/pass ma dude");
+			request.getRequestDispatcher("Portal.jsp").forward(request, response);
+			response.getWriter().write("FAIL-LOGIN-ADMIN");
 		}
+		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
 	}
 	
 	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

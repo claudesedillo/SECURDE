@@ -10,7 +10,7 @@ function displayCart(){
 		cache: false,
 		success : function(data){
 			$(listDiv).append(data);
-			console.log("ajax complete!");
+			console.log("getCartajax complete!");
 		},
 		error:function(){
 			console.log("something is wrong with displayCart");
@@ -31,8 +31,7 @@ function displayCheckOut(){
 		cache: false,
 		success : function(data){
 			$(totalDiv).append(data);
-			console.log(data);
-			console.log("ajax complete!");
+			console.log("displayCheckout ajax complete!");
 		},
 		error:function(){
 			console.log("something is wrong with displayCart");
