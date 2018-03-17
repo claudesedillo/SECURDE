@@ -1,6 +1,6 @@
-/** aligned **/
+/** UPDATED 03/17 **/
 
-.signup-bar {
+#signup-bar {
     background-color: #222222;
     color: snow;
     padding-top: 14px;
@@ -12,13 +12,13 @@
     font-style: italic;
 }
 
-.signup-bar a {
+#signup-bar a {
     color: #617C93;
     font-size: 11.5px;
     font-weight: 800;
 }
 
-.ss-bar {
+#ss-bar {
     width: 80%;
     padding-left: 0px;
     padding-right: 0px;
@@ -26,13 +26,13 @@
     padding-bottom: 5px;
 }
 
-.ss-bar .col-sm-8  {
+#ss-bar .col-sm-8  {
     font-weight: 700;
     font-size: 12px;
     display: inline-block;
 }
 
-.ss-bar #btn-navsignin {
+#ss-bar #btn-navsignin {
     background-color: transparent;
     font-size: 15px;
     padding-left: 0px;
@@ -41,15 +41,16 @@
     font-weight: 800; 
 }
 
-.ss-bar #btn-navsignin:hover {
+#ss-bar #btn-navsignin:hover {
     text-decoration: underline;
 }
 
-.ss-bar .col-sm-1 {
+#ss-bar .col-sm-1 {
     text-align: center;
 }
 
-.ss-bar #btn-cart {
+#ss-bar #btn-cart {
+    margin-top: 2px;
     background-color: transparent;
     border-style: none;
     font-size: 21px;
@@ -74,7 +75,7 @@
     background:transparent;
 }
 
-.main-nav {
+#main-nav {
     background-color: white;
 }
 
@@ -164,9 +165,11 @@
 
 #btn-signin {
     background-color: #222222;
-    color: snow;
-    margin-right: 5px;
-    border-radius: 2.5px;
+    color: snow !important;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 2px;
     font-size: 10px;
     letter-spacing: 1px;
 }
@@ -178,7 +181,8 @@
 }
 
 /** USERNAV SPECIFICS **/
-.ss-bar .dd-account {
+
+#ss-bar .dd-account {
     font-weight: 400;
     color: #222222;
     background-color: transparent;
@@ -190,7 +194,8 @@
     border-style: solid;
     border-width: 0px;
     border-left-width: 1px;
-    border-color: #222222;   
+    border-color: #222222;  
+    display: inline-block;
 }
 
 .ss-bar .dd-account:hover {
@@ -198,11 +203,15 @@
 }
 
 #btn-logout {
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
     background-color: #222222;
     color: snow;
     border-radius: 1px;
     width: 90%;
     margin: 8px;
+    margin-top: 5px;
     font-size: 10px;
 }
 

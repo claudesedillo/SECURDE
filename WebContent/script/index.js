@@ -20,18 +20,8 @@ function displayCatalog(){
 
 
 $("document").ready(function(){
-	
-    if(document.cookie.indexOf("logged") >= 0){
-    	console.log("loading usernav.html");
-		$("#nav").load("usernav.html");
-	    $("#footer").load("footer.html");
-    	console.log("congrats you logged in");
-    }else {
-    	console.log("loading usernav.html");
-		$("#nav").load("nav.html");
-	    $("#footer").load("footer.html");
-    }
-    
+   
+	// view book
     $(document).on("click", ".bookLink", function(){
     	console.log("book link was clicked!");
     	var bookID = $(this).attr("data-bookId");

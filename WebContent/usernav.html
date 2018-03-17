@@ -1,21 +1,21 @@
-<div class="container-fluid signup-bar">
+<!-- UPDATED 03/17 -->
+
+<div class="container-fluid" id="signup-bar">
     "Never trust anyone who has not brought a book with them" - Lemony Snicket
 </div>
 
-<div class="container-fluid ss-bar">
+<div class="container-fluid" id="ss-bar">
     <div class="col-sm-8">
         welcome, user!
-        
-        <form action="signout" method="post">
-	        <div class="dropdown">
-	            <button class="dropdown-toggler dd-account" data-toggle="dropdown" href="#">your account <span class="caret"></span></button>
-	            <ul class="dropdown-menu">
-	            	<li><a href="#">ORDER STATUS</a></li>
-                    <li><a href="#">SETTINGS</a></li>
-                    <li><button type="submit" class="btn btn-default" id="btn-logout">LOGOUT</button></li>
-	            </ul>
-	        </div>
-        </form>
+         
+        <div class="dropdown">
+            <button class="dropdown-toggler dd-account" data-toggle="dropdown">your account <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">ORDER STATUS</a></li>
+                <li><a href="#">SETTINGS</a></li>
+                <li><a href="signout" id="btn-logout">LOGOUT</a></li>
+            </ul>
+        </div>
     </div>
     
     <div class="col-sm-3">
@@ -29,16 +29,16 @@
         </div>
     </div>
     
-   <form action="intoCart" method="get">
-    	<div class="col-sm-1">
+    <div class="col-sm-1">
+    	<form action="intoCart" method="get">
 	         <button type="submit" class="btn btn-default" id="btn-cart">
 	         <span class="glyphicon glyphicon-shopping-cart"></span>
 	         <span class="badge cart-badge" id = "badge">0</span></button>
-	    </div>
-    </form>
+    	 </form>
+    </div>
 </div>
 
-<div class="container-fluid main-nav">
+<div class="container-fluid" id="main-nav">
     <div class="wrapper">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_collapse">

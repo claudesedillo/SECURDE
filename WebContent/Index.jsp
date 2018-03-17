@@ -18,6 +18,7 @@
         <script src="script/index.js"></script>
         <script src="script/nav.js"></script>
         <script type = "text/javascript" src = "script/searchOptions.js"></script>
+        
         <title>Bookshelf | Home</title>
 	</head>
 	

@@ -1,8 +1,10 @@
-<div class="container-fluid signup-bar">
+<!-- UPDATED 03/17 -->
+
+<div class="container-fluid" id="signup-bar">
     DON'T HAVE AN ACCOUNT? <a href="SignUp.jsp">SIGN UP</a> NOW!
 </div>
 
-<div class="container-fluid ss-bar">
+<div class="container-fluid" id="ss-bar"> <!-- ss = signup-search -->
     <div class="col-sm-8">
         <button type="button" class="btn btn-default" id="btn-navsignin" data-toggle="modal" data-target="#signin-modal"> SIGN IN</button>
     </div>
@@ -17,19 +19,16 @@
                     <a href="SignUp.jsp">Want to create an account?</a> |
                     <a href="Portal.jsp">Employee Portal</a><br> 
                     
-                    <form action="login" method="post"> 
-                        <!-- append "has-error" for JS -->
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="email address" name = "email">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="password" placeholder="password" name = "password">
-                        </div>
-                        <p class="errormsg">Invalid username and/or password</p>
-                        
-                        <button type="submit" class="btn btn-default" id ="btn-signin" name = "btn-signin" value = "cust-signin">SIGN IN</button>
-                        <a href="ForgotPassword.jsp">forgot your password?</a>
-                    </form>
+                	<div class="form-group">
+                        <input type="email" class="form-control" id="email" placeholder="email address" name = "email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" placeholder="password" name = "password">
+                    </div>
+                    <p class="errormsg">Invalid username and/or password</p>
+
+                    <a id ="btn-signin" name = "btn-signin">SIGN IN</a>
+                    <a href="ForgotPassword.jsp">forgot your password?</a>
                 </div>
             </div>
         </div>
@@ -53,7 +52,7 @@
 
 </div>
 
-<div class="container-fluid main-nav">
+<div class="container-fluid" id="main-nav">
     <div class="wrapper">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_collapse">
