@@ -67,26 +67,28 @@ public class Login extends HttpServlet {
 	}
 	
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************SHOPPING SERVLET - LOGIN***************");
 		String user = request.getParameter("email");
 		String pass = request.getParameter("password");	
-		String type = request.getParameter("btn-signin");
-		System.out.println(user + " " + pass + " " + type );
+		System.out.println(user + " " + pass);
 		
-		if(type.equals("cust-signin") && CustomerService.checkLogin(user, pass)){
-			//Login hash cookie
-			Cookie cookie = new Cookie("logged", user);
-			cookie.setMaxAge(60*60*24*365*2);
-			response.addCookie(cookie);
-			System.out.println("Succesful Login (Customer)");
-			request.getRequestDispatcher("Index.jsp").forward(request, response);
+		if(CustomerService.doesCustomerExist(user)) {
+			if(CustomerService.checkLogin(user, pass)){
+				//Login hash cookie
+				Cookie cookie = new Cookie("logged", user);
+				cookie.setMaxAge(60*60*24*365*2);
+				response.addCookie(cookie);
+				System.out.println("Succesful Login (Customer)");
+				response.getWriter().write("PASS-LOGIN-CUSTOMER");
+			}
+			
+			else{
+				System.out.println("Wrong email/pass");
+				response.getWriter().write("FAIL-LOGIN-CUSTOMER");
+			}
 		}
 		
-		else if(type.equals("cust-signin") && !CustomerService.checkLogin(user, pass)) {
-			System.out.println("Wrong email/pass ma dude");
-			request.getRequestDispatcher("Index.jsp").forward(request, response);
-		}
-		
-		else if(type.equals("admin-signin") && AdminService.checkLogin(user, pass)){
+		else if(AdminService.checkLogin(user, pass)){
 			String emailKey = UUID.randomUUID().toString().replace("-", "");
 			emailKey = emailKey.substring(0, 5);
 			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
@@ -95,12 +97,14 @@ public class Login extends HttpServlet {
 			session.setAttribute("emailkey", emailKey);
 			request.setAttribute("emailkey", session.getAttribute("emailkey"));
 			response.sendRedirect("adminEmailDoor.html");
-		}
-		else if(type.equals("admin-signin") && !AdminService.checkLogin(user, pass)) {
+			response.getWriter().write("PASS-LOGIN-ADMIN");
+		}	
+		else{
 			System.out.println("Wrong email/pass ma dude");
 			request.getRequestDispatcher("Portal.jsp").forward(request, response);
+			response.getWriter().write("ADMIN-WRONG-PASSWORD");
 		}
-		
+		System.out.println("***************/SHOPPING SERVLET - LOGIN/***************");
 	}
 	
 	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

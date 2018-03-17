@@ -24,10 +24,19 @@ function validateEmail(email) {
 }
 
 function showError() {
-    $(".errormsg").show();
+    $("#errormsg").show();
     $(".form-group").addClass("has-error");
 }
 
+function accPassMismatch(data){
+	if(data == "PASS-LOGIN-CUSTOMER"){
+		document.location.href = 'Index.jsp';
+	}
+	else if(data == "FAIL-LOGIN-CUSTOMER"){
+		console.log("wrong password");
+		showError();
+	}
+}
 function submitTheForm(email, password){
     $.ajax({
  	    context: this,
@@ -37,7 +46,7 @@ function submitTheForm(email, password){
         type:'POST',
         cache:false,
         success: function(data){
-        	//Front-end here.
+        	console.log("submitTheForm success!");
         	accPassMismatch(data);
         },
         error:function(){
@@ -60,9 +69,8 @@ $("document").ready(function(){
 	displayCatalog();
     
     // submit form for button
-	$("a#btn-signin").click(function() {
+	$(document).on("click", "#btn-signin",function() {
 		console.log("Sign in clicked");
-		System.out.println("Sign in clicked");
 		
 		var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
@@ -77,13 +85,14 @@ $("document").ready(function(){
     
     // submit for on enter
     $(document).keyup(function (e) {
-        var email = document.getElementById('email').value;
+		var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
-        var activeElement = document.activeElement;
         
-        if((activeElement.id == 'email' || activeElement.id == 'password') && (e.keyCode == 13))
-	        if(validateEmail(username) && password !== null && password !== "")
-	        	 $(".form-group").removeClass("has-error");
-	        else showError();
+        if(validateEmail(email) && password !== null && password !== ""){
+        	$(".form-group").removeClass("has-error");
+        	submitTheForm(email, password); 
+        } else{
+        	showError();
+        }
     });
 });

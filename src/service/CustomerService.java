@@ -43,6 +43,39 @@ public class CustomerService {
 		System.out.println("*************************************************************");
 	}
 	
+	public static boolean doesCustomerExist(String email) {
+		System.out.println("*************************************************************");
+		System.out.println("I am at CustomerService, checkLogin");
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM customers");
+			
+			System.out.println("Query is: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			
+			String user;
+			
+			if(rs.next()){
+				user = rs.getString("email");
+				
+				if(user.equals(email)){
+					System.out.println("CustomerService, doesCustomerExist complete! Return Value true");
+					System.out.println("*************************************************************");
+					return true;
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		System.out.println("CustomerService, checkLogin complete! Return Value false");
+		System.out.println("*************************************************************");
+		return false;
+	}
+	
 	public static boolean checkLogin(String email, String hashedPass){
 		System.out.println("*************************************************************");
 		System.out.println("I am at CustomerService, checkLogin");
