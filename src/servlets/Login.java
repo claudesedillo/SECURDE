@@ -79,14 +79,6 @@ public class Login extends HttpServlet {
 		System.out.println(user + " " + pass);
 		
 		if(CustomerService.doesCustomerExist(user)) {
-			
-			try {
-				pass = ESAPI.encryptor().decrypt(pass);
-			} catch (EncryptionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 			if(CustomerService.checkLogin(user, pass)){
 				//Login hash cookie
 				Cookie cookie = new Cookie("logged", user);

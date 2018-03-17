@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.EncryptionException;
+
 import beans.Customer;
 
 public class CustomerService {
@@ -79,6 +83,14 @@ public class CustomerService {
 	public static boolean checkLogin(String email, String hashedPass){
 		System.out.println("*************************************************************");
 		System.out.println("I am at CustomerService, checkLogin");
+		
+		try {
+			hashedPass = ESAPI.encryptor().decrypt(hashedPass);
+		} catch (EncryptionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		try{
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
