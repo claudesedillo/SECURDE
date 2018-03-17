@@ -54,8 +54,9 @@ public class CustomerService {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
-			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM customers");
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM customers WHERE email = ?");
 			
+			stmt.setString(1, email);
 			System.out.println("Query is: " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			
