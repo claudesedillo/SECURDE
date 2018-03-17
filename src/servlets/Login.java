@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.owasp.esapi.*;
+import org.owasp.esapi.crypto.CipherText;
+import org.owasp.esapi.crypto.PlainText;
 import org.owasp.esapi.errors.EncryptionException;
 
 import beans.Admin;
@@ -77,6 +79,14 @@ public class Login extends HttpServlet {
 		System.out.println(user + " " + pass);
 		
 		if(CustomerService.doesCustomerExist(user)) {
+			
+			try {
+				pass = ESAPI.encryptor().decrypt(pass);
+			} catch (EncryptionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			if(CustomerService.checkLogin(user, pass)){
 				//Login hash cookie
 				Cookie cookie = new Cookie("logged", user);
@@ -154,19 +164,6 @@ public class Login extends HttpServlet {
 		String pass2 = request.getParameter("password2");	
 		String type = request.getParameter("btn-signup");
 		
-		//boolean isValid = ESAPI.validator().isValidInput("signup", user, "email", 45, false);
-		//System.out.println("isValid : " + isValid);
-		System.out.println("Pass : " + pass);
-		String passHash = null; 
-		try {
-			passHash = ESAPI.encryptor().hash(pass, "testtest");
-		} catch (EncryptionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(passHash);
-		
 		if(type.equals("cust-signup")){
 			String secQ = request.getParameter("securityQ"),
 				   secA = request.getParameter("securityA"),
@@ -179,6 +176,14 @@ public class Login extends HttpServlet {
 			//int postal = Integer.parseInt(request.getParameter("postal"));
 			if(!CustomerService.checkUser(user)){
 				if(pass.equals(pass2)){
+					//Hashing Password
+					try {
+						pass = ESAPI.encryptor().encrypt(pass);
+					} catch (EncryptionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					//Login hash cookie
 					Cookie cookie = new Cookie("logged", user);
 					cookie.setMaxAge(60*60*24*365*2);
