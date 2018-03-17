@@ -37,6 +37,13 @@ $("document").ready(function(){
 	   	console.log("BookID =  " + bookID);
 	   	window.location = "intoCart";  
 	});
-	
+
+	$(document).on("click", "#btn-cart", function(){
+	  	console.log("Cart was clicked");
+	   	var bookID = $(this).attr("data-bookId");
+	   	console.log("BookID =  " + bookID);
+	   	window.location = "intoCart";  
+	});
+
 	console.log("I'm in nav.js");
 });

@@ -29,7 +29,7 @@ import service.CustomerService;
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey", "/signout"})
+@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey", "/logout"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,7 +45,11 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println(request.getServletPath());
+		if(request.getServletPath().equals("/logout")){
+			System.out.println("I am at login servlet, doPost, signout case");
+			signout(request, response);
+		}
 	}
 
 	/**
@@ -53,7 +57,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Login do post: " + request.getServletPath());
 		if(request.getServletPath().equals("/login")){
 			login(request, response);
 		}
@@ -62,9 +66,6 @@ public class Login extends HttpServlet {
 		}
 		else if(request.getServletPath().equals("/signup")){
 			signup(request, response);
-		}
-		else if(request.getServletPath().equals("/signout")){
-			signout(request, response);
 		}
 		
 	}
@@ -240,6 +241,7 @@ public class Login extends HttpServlet {
 	}
 	
 	private void signout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************SHOPPING SERVLET - SIGN OUT***************");
 		request.getSession().invalidate();
 		
 		// kill cookie
@@ -254,6 +256,7 @@ public class Login extends HttpServlet {
 			}
 		}
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		System.out.println("***************/SHOPPING SERVLET - SIGN OUT/***************");
 	}
 
 	private void sendEmail(HttpServletRequest request, HttpServletResponse response, Email email) throws ServletException, IOException{
