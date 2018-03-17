@@ -29,6 +29,7 @@ function showError() {
 }
 
 function accPassMismatch(data){
+	console.log("data is: " + data);
 	if(data == "PASS-LOGIN-CUSTOMER"){
 		document.location.href = 'Index.jsp';
 	}
@@ -84,15 +85,15 @@ $("document").ready(function(){
 	});
     
     // submit for on enter
-    $(document).keyup(function (e) {
-		var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        
-        if(validateEmail(email) && password !== null && password !== ""){
-        	$(".form-group").removeClass("has-error");
-        	submitTheForm(email, password); 
-        } else{
-        	showError();
-        }
-    });
+//    $(document).keyup(function (e) {
+//		var email = document.getElementById('email').value;
+//        var password = document.getElementById('password').value;
+//        
+//        if(validateEmail(email) && password !== null && password !== ""){
+//        	$(".form-group").removeClass("has-error");
+//        	submitTheForm(email, password); 
+//        } else{
+//        	showError();
+//        }
+//    });
 });

@@ -3,6 +3,13 @@ package servlets;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.UUID;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -13,11 +20,7 @@ import javax.servlet.http.HttpSession;
 
 import org.owasp.esapi.*;
 import org.owasp.esapi.errors.EncryptionException;
-import org.owasp.esapi.errors.IntrusionException;
-import org.owasp.esapi.errors.ValidationException;
 
-import javax.mail.*;
-import javax.mail.internet.*;
 import beans.Admin;
 import beans.Customer;
 import service.AdminService;
@@ -83,27 +86,27 @@ public class Login extends HttpServlet {
 			}
 			
 			else{
-				System.out.println("Wrong email/pass");
+				System.out.println("Customer: wrong email/pass");
 				response.getWriter().write("FAIL-LOGIN-CUSTOMER");
 			}
 		}
 		
-		if(AdminService.checkLogin(user, pass)){
-			String emailKey = UUID.randomUUID().toString().replace("-", "");
-			emailKey = emailKey.substring(0, 5);
-			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
-			sendEmail(request, response, email);
-			HttpSession session = request.getSession();
-			session.setAttribute("emailkey", emailKey);
-			request.setAttribute("emailkey", session.getAttribute("emailkey"));
-			response.sendRedirect("adminEmailDoor.html");
-			response.getWriter().write("PASS-LOGIN-ADMIN");
-		}	
-		else{
-			System.out.println("Wrong email/pass ma dude");
-			request.getRequestDispatcher("Portal.jsp").forward(request, response);
-			response.getWriter().write("FAIL-LOGIN-ADMIN");
-		}
+//		if(AdminService.checkLogin(user, pass)){
+//			String emailKey = UUID.randomUUID().toString().replace("-", "");
+//			emailKey = emailKey.substring(0, 5);
+//			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
+//			sendEmail(request, response, email);
+//			HttpSession session = request.getSession();
+//			session.setAttribute("emailkey", emailKey);
+//			request.setAttribute("emailkey", session.getAttribute("emailkey"));
+//			response.sendRedirect("adminEmailDoor.html");
+//			response.getWriter().write("PASS-LOGIN-ADMIN");
+//		}	
+//		else{
+//			System.out.println("Wrong email/pass ma dude");
+//			request.getRequestDispatcher("Portal.jsp").forward(request, response);
+//			response.getWriter().write("FAIL-LOGIN-ADMIN");
+//		}
 		System.out.println("***************/SHOPPING SERVLET - LOGIN/***************");
 	}
 	
