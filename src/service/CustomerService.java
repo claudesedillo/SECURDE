@@ -85,13 +85,6 @@ public class CustomerService {
 		System.out.println("*************************************************************");
 		System.out.println("I am at CustomerService, checkLogin");
 		
-		try {
-			hashedPass = ESAPI.encryptor().encrypt(hashedPass);
-		} catch (EncryptionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		try{
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
@@ -107,7 +100,14 @@ public class CustomerService {
 				user = rs.getString("email");
 				pass = rs.getString("hashedpassword");
 				
-				if(user.equals(email) && pass.equals(hashedPass)){
+				if(user.equals(email)){
+					try {
+						pass = ESAPI.encryptor().decrypt(pass);
+					} catch (EncryptionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(pass.equals(hashedPass))
 					System.out.println("CustomerService, checkLogin complete! Return Value true");
 					System.out.println("*************************************************************");
 					return true;
