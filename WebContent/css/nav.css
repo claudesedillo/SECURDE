@@ -1,4 +1,4 @@
-/** UPDATED 03/17 **/
+/** UPDATED 3/13 **/
 
 #signup-bar {
     background-color: #222222;
@@ -133,7 +133,7 @@
     margin: auto;
     border-radius: 2px;
     padding-top: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 #signin-modal h3 {
@@ -158,19 +158,20 @@
     color: crimson;
     font-size: 10px;
     font-style: italic;
-    margin-top: -5px;
+    margin-top: -10px;
+    margin-bottom: 15px;
     letter-spacing: 0.2px;
     display: none;
 }
 
 #btn-signin {
+    margin: 2px;
     background-color: #222222;
     color: snow !important;
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    border-radius: 2px;
-    font-size: 10px;
+    border-radius: 1.5px;
     letter-spacing: 1px;
 }
 
@@ -178,6 +179,10 @@
     text-decoration: underline;
     background-color: black;
     color: snow;
+}
+
+#forgotpw {
+    float: right;
 }
 
 /** USERNAV SPECIFICS **/
