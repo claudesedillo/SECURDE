@@ -168,34 +168,52 @@ public class Login extends HttpServlet {
 			//int postal = Integer.parseInt(request.getParameter("postal"));
 			if(!CustomerService.checkUser(user)){
 				if(pass.equals(pass2)){
-					//Hashing Password
-					try {
-						pass = ESAPI.encryptor().encrypt(pass);
-					} catch (EncryptionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if(pass.length()>= 8){
+						if(!pass.equals(pass.toUpperCase()) && !pass.equals(pass.toLowerCase())){
+							if(!pass.matches("[A-Za-z0-9 ]*")){
+								//Hashing Password
+								try {
+									pass = ESAPI.encryptor().encrypt(pass);
+								} catch (EncryptionException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								
+								//Login hash cookie
+								Cookie cookie = new Cookie("logged", user);
+								cookie.setMaxAge(60*60*24*365*2);
+								response.addCookie(cookie);
+								
+								Customer cust = new Customer();
+								cust.setEmail(user);
+								cust.setHashedpassword(pass);
+								cust.setSecurityquestion(secQ);
+								cust.setSecurityanswer(secA);
+								cust.setFirstname(firstname);
+								cust.setLastname(lastname);
+								//cust.setStreetaddress(address);
+								//cust.setPostalcode(postal);
+								//cust.setCity(city);
+								//cust.setProvince(province);
+								//cust.setPhonenumber(phone);
+								CustomerService.addCustomer(cust);
+								System.out.println("Succesful signup (Customer)");
+								request.getRequestDispatcher("Index.jsp").forward(request, response);
+							}
+							else{
+								System.out.println("Your password must contain a special, non alpha numeric character, ex : !,?, %, or &");
+								request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+							}	
+						}
+						else{
+							System.out.println("Your password must contain both UPPER CASE and LOWER CASE letters");
+							request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+						}
 					}
-					
-					//Login hash cookie
-					Cookie cookie = new Cookie("logged", user);
-					cookie.setMaxAge(60*60*24*365*2);
-					response.addCookie(cookie);
-					
-					Customer cust = new Customer();
-					cust.setEmail(user);
-					cust.setHashedpassword(pass);
-					cust.setSecurityquestion(secQ);
-					cust.setSecurityanswer(secA);
-					cust.setFirstname(firstname);
-					cust.setLastname(lastname);
-					//cust.setStreetaddress(address);
-					//cust.setPostalcode(postal);
-					//cust.setCity(city);
-					//cust.setProvince(province);
-					//cust.setPhonenumber(phone);
-					CustomerService.addCustomer(cust);
-					System.out.println("Succesful signup (Customer)");
-					request.getRequestDispatcher("Index.jsp").forward(request, response);
+					else{
+						System.out.println("Your password is too weak (LESS THAN 8 CHARACTERS)");
+						request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+					}
 				}
 				else{
 					System.out.println("Your passwords dont match!!! >:(");
