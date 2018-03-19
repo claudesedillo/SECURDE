@@ -54,8 +54,24 @@
 	<a href="catalogTest.html">Check catalog</a><br>
 	<a href="adminViewOrders.jsp">View orders</a><br>
 	<a href="adminSignUp.html">ADD ADMIN</a> <br>
-	<a href="adminList.html">ADMIN LIST</a>
+	<a href="adminList.html">ADMIN LIST</a><br>
+	FUCKING SAMPLE TEXT FIELD HERE<input type = "text" id = "textField">
+	<button id ="sampleButton">FUCKING SAMPLE BUTTON HERE</button>
 	<script type = "text/javascript" src = "jquery-3.2.1.min.js"></script>
+		<script>
+	$(document).on("click", "#sampleButton",function() {
+		console.log("Edit book clicked!");
+		
+		var bookID = $(this).attr("data-bookId");
+		console.log("book ID of selected book is: " + bookID);
+		
+		var titleField = document.getElementById('textField');
+		
+		titleField.value += "TITE";
+		
+		console.log(titleField.value);
+	});
+	</script>
 	<script type = "text/javascript" src = "src/adminPage.js"></script>
 </body>
 </html>

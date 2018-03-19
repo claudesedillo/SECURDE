@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import beans.Admin;
 import beans.Author;
 import beans.Book;
@@ -37,7 +40,10 @@ import service.PublisherService;
 		   "/editGet",
 		   "/getAdminList",
 		   "/editAdminGet",
-		   "/editAdminConfirm"})
+		   "/editAdminConfirm",
+		   "/getBookDetails",
+		   "/getAuthorName",
+		   "/getPublisherName"})
 
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -77,7 +83,7 @@ public class AdminServlet extends HttpServlet {
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			//System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
 			htmlBookList += "<tr>" + 
-							"	<td><a data-toggle=\"modal\" data-target=\"#viewbook-div\">" + b.getTitle() + "</a></td>" +
+							"	<td><a data-toggle=\"modal\" data-target=\"#viewbook-div\" data-bookid = \"" + b.getBookID() + "\" class = \"edit-book-btn\">" + b.getTitle() + "</a></td>" +
 							"	<td>" + authorName +  " </td>" +
 							"	<td>" + b.getFormat() + " </td> " +
 							"	<td>" + b.getPrice() + " </td> " +
@@ -225,8 +231,7 @@ public class AdminServlet extends HttpServlet {
 							 "</tr>";
 		}
 		response.setContentType("text/html"); 
-	    response.setCharacterEncoding("UTF-8"); 
-	    System.out.println("adminList is: " + htmlAdminList);
+	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(htmlAdminList);
 	    
 	    System.out.println("***************/ADMIN SERVLET - GET ADMIN LIST/***************");
@@ -270,7 +275,40 @@ public class AdminServlet extends HttpServlet {
 		System.out.println("***************/ADMIN SERVLET - EDIT ADMIN CONFIRM/***************");	
 	}
     
-    
+	private void getBookDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - VIEW BOOK***************");
+		int bookid = Integer.parseInt(request.getParameter("bookID"));
+		Book book = BookService.getBook(bookid);
+
+		Gson gson = new GsonBuilder()
+				   .setDateFormat("yyyy-MM-dd").create();
+		String bookJson = gson.toJson(book);
+		System.out.println("Book JSON: " + bookJson);
+		response.setContentType("application/json"); 
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(bookJson);
+		System.out.println("***************/SHOPPING SERVLET - VIEW BOOK/***************");
+	}
+	
+	private void getPublisherName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************ADMIN SERVLET - GET PUBLISHER NAME***************");
+		String publisherName = PublisherService.getPublisher(Integer.parseInt(request.getParameter("publisherID")));
+
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(publisherName);
+		System.out.println("***************/ADMIN SERVLET - GET PUBLISHER NAME/***************");
+	}
+	
+	private void getAuthorName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************ADMIN SERVLET - GET AUTHOR NAME***************");
+		String authorName = AuthorService.getAuthorName(Integer.parseInt(request.getParameter("authorID")));
+
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(authorName);
+		System.out.println("***************/ADMIN SERVLET - GET AUTHOR NAME/***************");
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -289,7 +327,15 @@ public class AdminServlet extends HttpServlet {
 		case "/getAdminList" : System.out.println("I am at adminServlet, getAdminList case");
 							getAdminList(request, response);	
 							break;
-		}
+		case "/getBookDetails" : System.out.println("I am at adminServlet, getAdminList case");
+							getBookDetails(request, response);	
+							break;
+		case "/getAuthorName" : System.out.println("I am at adminServlet, getAuthorName case");
+							getAuthorName(request,response);
+							break;
+		case "/getPublisherName": System.out.println("I am at adminServlet, getPublisherName case");
+							getPublisherName(request, response);
+		}	
 	}
 
 	/**

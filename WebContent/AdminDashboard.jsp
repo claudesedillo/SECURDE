@@ -11,7 +11,6 @@
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	            
 	    <link rel="stylesheet" href="css/admindashboard.css">
-	    <script src = "script/adminViewOrders.js"></script>
 	    <script src = "script/adminDashboard.js"></script>
 	    <Title>Bookshelf Portal | Dashboard</Title>
 	</head>
@@ -183,20 +182,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id = "inventoryTable">
-                                    <tr>
-                                        <td><a data-toggle="modal" data-target="#viewbook-div">How To Be A God</a></td>
-                                        <td>Patrick Tobias</td>
-                                        <td>Hardbound</td>
-                                        <td>₱450.00</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">Guide To Ontario</a></td>
-                                        <td>Claude Sedillo</td>
-                                        <td>Paperback</td>
-                                        <td>₱450.00</td>
-                                        <td>5</td>
-                                    </tr>
                                 </tbody>
                             </table>
                             
@@ -219,44 +204,44 @@
                                               <div class="col-sm-8">
                                                   <div class="form-group">
                                                       <label for="title-inp">Title</label>
-                                                      <input type="text" class="form-control" id="title-inp">
+                                                      <input type="text" class="form-control" id="titleField">
                                                   </div>
                                                   <div class="form-group">
                                                       <label for="author-inp">Author</label>
-                                                      <input type="text" class="form-control" id="author-inp">
+                                                      <input type="text" class="form-control" id="authorField">
                                                   </div>
                                                   <div class="form-group">
                                                       <label for="isbn-inp">ISBN</label>
-                                                      <input type="number" class="form-control" id="isbn-inp">
+                                                      <input type="number" class="form-control" id="isbnField">
                                                   </div>
                                                   <div class="form-group">
                                                       <label for="publisher-inp">Publisher</label>
-                                                      <input type="text" class="form-control" id="publisher-inp">
+                                                      <input type="text" class="form-control" id="publisherField">
                                                   </div>
                                                   <div class="form-group">
                                                       <label for="datepub-inp">Date Published</label>
-                                                      <input type="date" class="form-control" id="datepub-inp">
+                                                      <input type="date" class="form-control" id="publishedField">
                                                   </div>
 
 
                                                   <div class="form-group">
                                                       <label for="genre-inp">Genre</label>
                                                       <select class="form-control" id="genre-inp">
-                                                          <option>Biography &amp; Memoir</option>
-                                                          <option>Business &amp; Finance</option>
-                                                          <option>Computers</option>
-                                                          <option>Fiction &amp; Literature</option>
-                                                          <option>Graphic Novels &amp; Manga</option>
-                                                          <option>Sci-fi &amp; Fantasy</option>
-                                                          <option>Science &amp; Nature</option>
-                                                          <option>Travel</option>
+                                                          <option value = "Biography and Memoir">Biography &amp; Memoir</option>
+                                                          <option value = "Business and Finance">Business &amp; Finance</option>
+                                                          <option value = "Computers">Computers</option>
+                                                          <option value = "Fiction and Literature">Fiction &amp; Literature</option>
+                                                          <option value = "Graphic Novels and Manga">Graphic Novels &amp; Manga</option>
+                                                          <option value = "SciFi and Fantasy">Sci-fi &amp; Fantasy</option>
+                                                          <option value = "Science and Nature">Science &amp; Nature</option>
+                                                          <option value = "Travel">Travel</option>
                                                       </select>
                                                 </div>
 
                                                 <div class="col-sm-3 abdiv-bottom">
                                                      <div class="form-group">
                                                           <label for="author-inp">Price</label>
-                                                          <input type="number" class="form-control" id="price-inp">
+                                                          <input type="number" class="form-control" id="priceField">
                                                       </div>  
                                                 </div>
 
