@@ -33,7 +33,6 @@ import service.ShoppingcartService;
 						   "/addToCart", 
 						   "/checkout",
 						   "/checkoutConfirm",
-						   "/getCompleteCatalog",
 						   "/viewBook",
 						   "/search",
 						   "/browseByGenre",
@@ -110,36 +109,7 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - SEARCH/***************");
 	}
 	
-	private void getCompleteCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - GET COMPLETE CATALOG***************");
-		ArrayList<Book> bookList = BookService.getBookList();
-		String htmlBookList = "";
-		
-		for(Book b: bookList) {
-			String authorName, publisherName;
-			
-			authorName = AuthorService.getAuthorName(b.getAuthorID());
-			publisherName = PublisherService.getPublisher(b.getPublisherID());
-			//System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
-			htmlBookList += "<form action=\"editGet\" method=\"post\">" + 
-							"<div class = \"bookDiv\"> <br>" + 
-							"Title: " + b.getTitle() + " <br> " +
-							"Author: " + authorName +  " <br>" +
-							"Publisher: " + publisherName + " <br> " +
-							"ISBN: " + b.getIsbn() + " <br> " +
-							"Genre: " + b.getGenre() + " <br> " +
-							"Format: " + b.getFormat() + " <br> " +
-							"Price: " + b.getPrice() + " <br> " +
-							"Stock: " + b.getStock() + " <br> " +
-							"<Button type= \"submit\" name = \"btn-editProd\" value =" + String.format("%d", b.getBookID())  + "> EDIT </button>" +
-							"<Button type= \"submit\" name = \"btn-deleteProd\" value =" + String.format("%d", b.getBookID())  + "> DELETE </button>" +
-							"</form>";
-		}
-		response.setContentType("text/html"); 
-	    response.setCharacterEncoding("UTF-8"); 
-	    response.getWriter().write(htmlBookList);
-	    System.out.println("***************/SHOPPING SERVLET - GET COMPLETE CATALOG/***************");
-	}
+
 	
 	private void getCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - GET CATALOG***************");
@@ -579,9 +549,6 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println(request.getServletPath());
 		switch(request.getServletPath()) {
 		
-		case "/getCompleteCatalog": System.out.println("I am at doGet method, getCompleteCatalog case.");
-							getCompleteCatalog(request, response);
-							break;
 		case "/getCatalog": System.out.println("I am at doGet method, getCatalog case");
 							getCatalog(request, response);
 							break;

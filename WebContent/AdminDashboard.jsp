@@ -12,6 +12,7 @@
 	            
 	    <link rel="stylesheet" href="css/admindashboard.css">
 	    <script src = "script/adminViewOrders.js"></script>
+	    <script src = "script/adminDashboard.js"></script>
 	    <Title>Bookshelf Portal | Dashboard</Title>
 	</head>
 	<body>
@@ -181,7 +182,7 @@
                                         <th>QTY</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id = "inventoryTable">
                                     <tr>
                                         <td><a data-toggle="modal" data-target="#viewbook-div">How To Be A God</a></td>
                                         <td>Patrick Tobias</td>
@@ -338,21 +339,7 @@
                                         <th> </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Tobias</td>
-                                        <td>Patrick</td>
-                                        <td>tobi@god.com</td>
-                                        <td>God</td>
-                                        <td><button class="btn btn-default btn-tabledelacc" data-toggle="modal" data-target="#delaccount-modal"><span class="glyphicon glyphicon-remove"></span></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sedillo</td>
-                                        <td>Claude</td>
-                                        <td>claude@god.com</td>
-                                        <td>Apostle</td>
-                                        <td><button class="btn btn-default btn-tabledelacc" data-toggle="modal" data-target="#delaccount-modal"><span class="glyphicon glyphicon-remove"></span></button></td>
-                                    </tr>
+                                <tbody id = "adminTable">
                                 </tbody>
                             </table>
                             

@@ -30,6 +30,7 @@ import service.PublisherService;
 @WebServlet(urlPatterns = {"/addAuthor",
 		   "/getOrders",
 		   "/getOrderDetails",
+		   "/getInventory",
 		   "/addPublisher",
 		   "/addBook",
 		   "/editConfirm",
@@ -65,6 +66,30 @@ public class AdminServlet extends HttpServlet {
     	System.out.println("***************/ADMIN SERVLET - GET ORDER DETAILS/***************");
     }
     
+	private void getInventory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************ADMIN - GET INVENTORY***************");
+		ArrayList<Book> bookList = BookService.getBookList();
+		String htmlBookList = "";
+		
+		for(Book b: bookList) {
+			String authorName;
+			
+			authorName = AuthorService.getAuthorName(b.getAuthorID());
+			//System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
+			htmlBookList += "<tr>" + 
+							"	<td><a data-toggle=\"modal\" data-target=\"#viewbook-div\">" + b.getTitle() + "</a></td>" +
+							"	<td>" + authorName +  " </td>" +
+							"	<td>" + b.getFormat() + " </td> " +
+							"	<td>" + b.getPrice() + " </td> " +
+							"	<td>" + b.getStock() + " </td> " +
+							"</tr>";
+		}
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(htmlBookList);
+	    System.out.println("***************/ADMIN SERVLET - GET INVENTORY/***************");
+	}
+	
     private void getOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************ADMIN SERVLET - GET ORDERS***************");
     	ArrayList<Order> orderList = OrderService.getAllOrders();
@@ -188,22 +213,21 @@ public class AdminServlet extends HttpServlet {
     	System.out.println("***************/ADMIN SERVLET - GET ADMIN LIST/***************");
 		
 		ArrayList<Admin> adminList = AdminService.getAdminList();
-		String htmlBookList = "";
+		String htmlAdminList = "";
 		System.out.println("gt in");
 		for(Admin a: adminList) {
-			htmlBookList += "<form action=\"editAdminGet\" method=\"post\">" + 
-							"<div class = \"Div\"> <br>" + 
-							"Email: " + a.getEmail() + " <br> " +
-							"First Name: " + a.getFirstname() + " <br> " +
-							"Last Name: " + a.getLastname() + " <br> " +
-							"Role: " + a.getRole() + "<br>" +
-							"<Button type= \"submit\" name = \"btn-editProd\" value =" + a.getEmail()  + "> EDIT </button>" +
-							"<Button type= \"submit\" name = \"btn-deleteProd\" value =" + a.getEmail()  + "> DELETE </button>" +
-							"</form>";
+			htmlAdminList += "<tr> " +
+							 "	<td> " + a.getFirstname() + "</td>" +
+							 "	<td> " + a.getLastname() + "</td>" +
+							 "	<td> " + a.getEmail() + "</td>" + 
+							 "	<td> " + a.getRole() + "</td>" +
+							 "  <td><button class=\"btn btn-default btn-tabledelacc\" data-toggle=\"modal\" data-target=\"#delaccount-modal\"><span class=\"glyphicon glyphicon-remove\"></span></button></td>" + 
+							 "</tr>";
 		}
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
-	    response.getWriter().write(htmlBookList);
+	    System.out.println("adminList is: " + htmlAdminList);
+	    response.getWriter().write(htmlAdminList);
 	    
 	    System.out.println("***************/ADMIN SERVLET - GET ADMIN LIST/***************");
 	}
@@ -252,12 +276,19 @@ public class AdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		switch(request.getServletPath()) {
+		
 		case "/getOrders": System.out.println("I am at adminServlet, getOrders case");
 						getOrders(request, response);
 						break;
 		case "/getOrderDetails": System.out.println("I am at adminServlet, getOrderDetails case");
 						getOrderDetails(request, response);
 						break;
+		case "/getInventory": System.out.println("I am at adminServlet, getOrderDetails case");
+							getInventory(request, response);
+							break;
+		case "/getAdminList" : System.out.println("I am at adminServlet, getAdminList case");
+							getAdminList(request, response);	
+							break;
 		}
 	}
 
@@ -282,9 +313,6 @@ public class AdminServlet extends HttpServlet {
 				case "/editConfirm": System.out.println("I am at adminServlet, editGet case");
 								editBookConfirm(request, response);	
 								break;	
-				case "/getAdminList" : System.out.println("I am at adminServlet, getAdminList case");
-								getAdminList(request, response);	
-								break;
 				case "/editAdminGet" : System.out.println("I am at adminServlet, editAdminGet case");
 								editAdmin(request, response);	
 								break;
