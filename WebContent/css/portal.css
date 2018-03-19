@@ -54,3 +54,13 @@ hr {
     color: snow;
     font-weight: 300;
 }
+
+#errormsg {
+    color: crimson;
+    font-size: 10px;
+    font-style: italic;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    letter-spacing: 0.2px;
+    display: none;
+}

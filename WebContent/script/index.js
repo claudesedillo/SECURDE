@@ -51,7 +51,7 @@ function submitTheForm(email, password){
         	accPassMismatch(data);
         },
         error:function(){
-        	console.log("error searchResult.js");
+        	console.log("error at submitting the form");
         }
      });
 }
