@@ -56,6 +56,10 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+		
+		System.out.println("IP : " + request.getRemoteAddr());
+		System.out.println(request.getRemoteHost());
+		
 		// TODO Auto-generated method stub
 		System.out.println("Login do post: " + request.getServletPath());
 		if(request.getServletPath().equals("/login")){
@@ -140,7 +144,7 @@ public class Login extends HttpServlet {
 			request.setAttribute("user", session.getAttribute("user"));
 			response.sendRedirect("PassRecoveryEmailDoor.html");
 		}
-		else response.sendRedirect("ForgotPassword.jsp");
+		else response.sendRedirect("ForgotPasswordPortal.jsp");
 	}
 
 	private void forgotKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
