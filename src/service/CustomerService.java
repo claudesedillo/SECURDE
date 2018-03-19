@@ -107,10 +107,12 @@ public class CustomerService {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					if(pass.equals(hashedPass))
-					System.out.println("CustomerService, checkLogin complete! Return Value true");
-					System.out.println("*************************************************************");
-					return true;
+					if(pass.equals(hashedPass)){
+						System.out.println("CustomerService, checkLogin complete! Return Value true");
+						System.out.println("*************************************************************");
+						return true;
+					}
+					
 				}
 			}
 		}

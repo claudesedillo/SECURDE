@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -23,8 +24,10 @@ import org.owasp.esapi.errors.EncryptionException;
 
 import beans.Admin;
 import beans.Customer;
+import beans.LoginAttempt;
 import service.AdminService;
 import service.CustomerService;
+import service.LoginAttemptService;
 
 /**
  * Servlet implementation class Login
@@ -57,8 +60,8 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
 		
-		System.out.println("IP : " + request.getRemoteAddr());
-		System.out.println(request.getRemoteHost());
+		//System.out.println("IP : " + request.getRemoteAddr());
+		//System.out.println(request.getRemoteHost());
 		
 		// TODO Auto-generated method stub
 		System.out.println("Login do post: " + request.getServletPath());
@@ -215,17 +218,28 @@ public class Login extends HttpServlet {
 		String pass = request.getParameter("password");	
 		System.out.println(user + " " + pass);
 		
+		String IpAddress = request.getRemoteAddr();
+		if(!LoginAttemptService.checkIfExists(IpAddress)){
+			java.sql.Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+			LoginAttemptService.addLoginAttempt(new LoginAttempt(IpAddress,currentTime,0));
+		}
+		
 		if(CustomerService.doesCustomerExist(user)) {
 			if(CustomerService.checkLogin(user, pass)){
-				//Login hash cookie
-				Cookie cookie = new Cookie("logged", user);
-				cookie.setMaxAge(60*60*24*365*2);
-				response.addCookie(cookie);
-				System.out.println("Succesful Login (Customer)");
-				response.getWriter().write("PASS-LOGIN-CUSTOMER");
+				if(!LoginAttemptService.checkForBruteForce(IpAddress)){
+					//Login hash cookie
+					Cookie cookie = new Cookie("logged", user);
+					cookie.setMaxAge(60*60*24*365*2);
+					response.addCookie(cookie);
+					LoginAttemptService.deleteLoginAttempt(IpAddress);
+					System.out.println("Succesful Login (Customer)");
+					response.getWriter().write("PASS-LOGIN-CUSTOMER");
+				}
 			}
-			
 			else{
+				if(LoginAttemptService.checkForBruteForce(IpAddress)){
+					System.out.println("BRUTE FORCE FOR IP : " + IpAddress + " DETECTED");
+				}
 				System.out.println("Customer: wrong email/pass");
 				response.getWriter().write("FAIL-LOGIN-CUSTOMER");
 			}
