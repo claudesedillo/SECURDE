@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
 		<link rel="stylesheet" href="css/accountcenter.css">
+		<script src="script/accountcenter.js"></script>
 		<title>Bookshelf | Account Center</title>
 	</head>
 	<body>
@@ -35,48 +36,66 @@
                 <div class="col-sm-7" id="accdetails-div">
                     <h4>ACCOUNT DETAILS</h4>
                     
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" id="form-editacc">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="name">Name: </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="name" value="Not Specified">
+                                <input class="form-control editacc-fields" type="text" id="name" value="Not Specified" disabled>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="email">Email: </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="email" value="jessganoww@gmail.com">
+                                <input class="form-control editacc-fields" type="text" id="email" value="jessganoww@gmail.com" disabled>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="address">Address: </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="address" value="The Grange, Edmonton Alberta CA">
+                                <input class="form-control editacc-fields" type="text" id="address" value="The Grange, Edmonton Alberta CA" disabled>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="phone">Phone: </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="number" id="phone" value="09989716071">
+                                <input class="form-control editacc-fields" type="number" id="phone" value="09989716071" disabled>
                             </div>
                         </div>
                     </form>
-                    <button class="btn btn-default">EDIT ACCOUNT DETAILS</button>
+                    <br>
+                    <button class="btn btn-default" id="btn-editacc">EDIT ACCOUNT DETAILS</button>
+                    <button class="btn btn-default" id="save-editacc">SAVE</button>
                 </div>
                 <div class="col-sm-5" id="changepw-div">
                     <h4>SECURITY</h4>
-                    <form class="form-horizontal">
+                    
+                    <form class="form-horizontal" id="form-changepw">
                          <div class="form-group">
-                            <label class="control-label col-sm-3" for="pw">Password: </label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="password" id="pw" value="nyeamchocnut">
+                            <label class="control-label col-sm-4" for="pw">Password: </label>
+                            <div class="col-sm-8">
+                                <input class="form-control changepw-fields" type="password" id="oldpw" value="nyeamchocnut" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group newpw-div">
+                            <label class="control-label col-sm-4" for="pw">New Password: </label>
+                            <div class="col-sm-8">
+                                <input class="form-control changepw-fields" type="password" id="newpw" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group newpw-div">
+                            <label class="control-label col-sm-4" for="pw">Confirm New Password: </label>
+                            <div class="col-sm-8">
+                                <input class="form-control changepw-fields" type="password" id="newpw2" disabled>
                             </div>
                         </div>
                     </form>
-                    <button class="btn btn-default">CHANGE PASSWORD</button>
+                    <br>
+                    <button class="btn btn-default" id="btn-changepw">CHANGE PASSWORD</button>
+                    <button class="btn btn-default" id="save-changepw">SAVE</button>
                 </div>
             </div>
             <hr>
