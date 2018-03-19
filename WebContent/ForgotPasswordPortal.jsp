@@ -37,14 +37,14 @@
                 <h2>FORGOT PASSWORD</h2>
                 <p>Reset your password by entering the email address associated with your account (please note that the email address must be listed in our system for you to receive the email).</p><br>
 
-                <form>
+                <form action="forgotPassword" method="post">
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="email address">
+                        <input type="email" class="form-control" placeholder="email address" name="email">
                     </div>
                     
                     <p class="errormsg">Invalid username and/or password</p>
 
-                    <button class="btn btn-default" id="btn-submit">SUBMIT</button>
+                    <button type="submit" class="btn btn-default" id="btn-submit">SUBMIT</button>
                 </form>
             </div>
         </div>

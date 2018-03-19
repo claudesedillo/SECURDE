@@ -197,4 +197,40 @@ public class CustomerService {
 		return cust;
 	}
 	
+	public static void updateCustomer(Customer newCust){
+		System.out.println("*************************************************************");
+		System.out.println("I am at CustomerService, updateCustomer");
+		
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			String query = "UPDATE customers SET email = ?, hasedpassword = ?, firstname = ?, lastname = ?, securityquestion = ?, "
+					+ "securityanswer = ?, streetaddress = ?, postalcode = ?, city = ?, province = ?, phonenumber = ?, WHERE email = ?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setString(1, newCust.getEmail());
+			stmt.setString(2, newCust.getHashedpassword());
+			stmt.setString(3, newCust.getFirstname());
+			stmt.setString(4, newCust.getLastname());
+			stmt.setString(5, newCust.getSecurityquestion());
+			stmt.setString(6, newCust.getSecurityanswer());
+			stmt.setString(7, newCust.getStreetaddress());
+			stmt.setInt(8, newCust.getPostalcode());
+			stmt.setString(9, newCust.getCity());
+			stmt.setString(10, newCust.getProvince());
+			stmt.setString(11, newCust.getPhonenumber());
+			stmt.setString(12, newCust.getEmail());
+			
+			System.out.println("Query is: " + query);
+			stmt.executeUpdate();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		System.out.println("CustomerService, updateCustomer complete!");
+		System.out.println("*************************************************************");
+	}
 }
