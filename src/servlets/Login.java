@@ -29,7 +29,7 @@ import service.CustomerService;
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey", "/logout" , "/forgotPassword"})
+@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey", "/logout" , "/forgotPassword", "/forgetKey", "/newPasswordConfirm"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -73,9 +73,14 @@ public class Login extends HttpServlet {
 		else if(request.getServletPath().equals("/forgotPassword")){
 			forgotPassword(request, response);
 		}
-		
+		else if(request.getServletPath().equals("/forgetKey")){
+			forgotKey(request, response);
+		}
+		else if(request.getServletPath().equals("/newPasswordConfirm")){
+			newPasswordConfirm(request, response);
+		}
 	}
-	
+
 	private void adminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
@@ -102,11 +107,101 @@ public class Login extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
 	}
 
+	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
+		HttpSession session = request.getSession();
+		String emailKey = (String) session.getAttribute("emailkey");
+		String inputKey = request.getParameter("emailkey");
+		System.out.println("session key : " + emailKey);
+		if(inputKey.equals(emailKey)){
+			System.out.println("Succesful Login (Admin)");
+			response.sendRedirect("AdminDashboard.jsp");
+		}
+		else{
+			System.out.println("wrong input >:(");
+			response.sendRedirect("adminEmailDoor.html");
+		}
+		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
+	}
+	
 	private void forgotPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		if(CustomerService.doesCustomerExist(email)) {
-			
+		String user = request.getParameter("email");
+		if(CustomerService.doesCustomerExist(user)) {
+			String emailKey = UUID.randomUUID().toString().replace("-", "");
+			emailKey = emailKey.substring(0, 5);
+			Email email = new Email(user, "PASSWORD RECOVERY", "Authentication Key : " + emailKey);
+			sendEmail(request, response, email);
+			HttpSession session = request.getSession();
+			session.setAttribute("emailkey", emailKey);
+			request.setAttribute("emailkey", session.getAttribute("emailkey"));
+			session.setAttribute("user", user);
+			request.setAttribute("user", session.getAttribute("user"));
+			response.sendRedirect("PassRecoveryEmailDoor.html");
+		}
+		else response.sendRedirect("ForgotPassword.jsp");
+	}
+
+	private void forgotKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
+		HttpSession session = request.getSession();
+		String emailKey = (String) session.getAttribute("emailkey");
+		String inputKey = request.getParameter("emailkey");
+		System.out.println("session key : " + emailKey);
+		if(inputKey.equals(emailKey)){
+			response.sendRedirect("PassRecovery.html");
+		}
+		else{
+			System.out.println("wrong input >:(");
+			response.sendRedirect("PassRecoveryEmailDoor.html");
+		}
+		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
+	}
+	
+	private void newPasswordConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String pass = request.getParameter("pass");
+		String pass2 = request.getParameter("pass2");	
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		
+		if(pass.equals(pass2)){
+			if(pass.length()>= 8){
+				if(!pass.equals(pass.toUpperCase()) && !pass.equals(pass.toLowerCase())){
+					if(!pass.matches("[A-Za-z0-9 ]*")){
+						//Hashing Password
+						try {
+							pass = ESAPI.encryptor().encrypt(pass);
+						} catch (EncryptionException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						Customer newCust = CustomerService.getCustomer(user);
+						newCust.setHashedpassword(pass);
+						CustomerService.updateCustomer(newCust);
+						
+						System.out.println("Password of Customer Succesfully Updated");
+						request.getRequestDispatcher("Index.jsp").forward(request, response);
+					}
+					else{
+						System.out.println("Your password must contain a special, non alpha numeric character, ex : !,?, %, or &");
+						request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+					}	
+				}
+				else{
+					System.out.println("Your password must contain both UPPER CASE and LOWER CASE letters");
+					request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+				}
+			}
+			else{
+				System.out.println("Your password is too weak (LESS THAN 8 CHARACTERS)");
+				request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+			}
+		}
+		else{
+			System.out.println("Your passwords dont match!!! >:(");
+			request.getRequestDispatcher("PassRecovery.html").forward(request, response);
 		}
 	}
 
@@ -133,25 +228,7 @@ public class Login extends HttpServlet {
 		}
 		System.out.println("***************/SHOPPING SERVLET - LOGIN/***************");
 	}
-	
-	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
-		HttpSession session = request.getSession();
-		String emailKey = (String) session.getAttribute("emailkey");
-		String inputKey = request.getParameter("emailkey");
-		System.out.println("session key : " + emailKey);
-		if(inputKey.equals(emailKey)){
-			System.out.println("Succesful Login (Admin)");
-			response.sendRedirect("AdminDashboard.jsp");
-		}
-		else{
-			System.out.println("wrong input >:(");
-			response.sendRedirect("adminEmailDoor.html");
-		}
-		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
-	}
-	
 	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String user = request.getParameter("email");
 		String pass = request.getParameter("password");	
@@ -181,10 +258,12 @@ public class Login extends HttpServlet {
 									e.printStackTrace();
 								}
 								
+								/*
 								//Login hash cookie
 								Cookie cookie = new Cookie("logged", user);
 								cookie.setMaxAge(60*60*24*365*2);
 								response.addCookie(cookie);
+								*/
 								
 								Customer cust = new Customer();
 								cust.setEmail(user);
