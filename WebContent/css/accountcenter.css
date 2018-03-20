@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-@import url('https://fonts.googleapis.com/css?family=Muli:400,600,800');
+@import url('https://fonts.googleapis.com/css?family=Muli:300,400,800');
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 @import url('https://fonts.googleapis.com/css?family=Nixie+One');
 
@@ -57,10 +57,10 @@ nav p {
 
 #dashboard h4 {
     margin: 0px;
-    letter-spacing: 2.25px;  
-    font-size: 22px;
+    letter-spacing: 1.5px;  
+    font-size: 24px;
     margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 300;
 }
 
 #orderhistory-div {
@@ -92,6 +92,18 @@ label {
     border-color: white;
 }
 
+.form-group .col-sm-9 {
+    padding-left: 0px;
+}
+
+.help-text {
+    font-size: 10px;
+    padding: 5px;
+    line-height: 120%;
+    color: dimgray;
+    display: none;
+}
+
 .btn {
     padding-left: 20px;
     padding-right: 20px;
@@ -109,7 +121,7 @@ label {
     color: snow;
 }
 
-#save-editacc, #save-changepw, .newpw-div {
+#save-editacc, #save-changepw, .newpw-div, .address-div {
 	display: none;
 }
 

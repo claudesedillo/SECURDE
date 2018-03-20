@@ -42,7 +42,7 @@
                     <p class="warnings" id="userexists">Email address already in use.</p>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="password (Must Be 8 characters long, contains Upper Case and Lower Case Letters, and one special Character)" name="password" maxlength="20">
+                    <input type="password" class="form-control" id="password" placeholder="password" name="password" maxlength="20">
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name="password2" maxlength="20">
@@ -62,7 +62,7 @@
                     <input type="password" class="form-control" id="security-answer" placeholder="security answer" name="securityA">
                 </div>
                 <hr>
-                 <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, or special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
+                 <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, and special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
                 
                 <button type="submit" class="btn btn-default" id="btn-signup" name="btn-signup" value="cust-signup">SIGN UP</button> 
             </form>     

@@ -24,8 +24,8 @@
                         <a class="navbar-brand" href="index.html">bookshelf</a><p>| account center </p>
                     </div> 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">CONTINUE SHOPPING</a></li>
-                        <li><a href="#">LOGOUT</a></li>
+                        <li><a href="Index.jsp">CONTINUE SHOPPING</a></li>
+                        <li><a href="logout">LOGOUT</a></li>
                     </ul>  
                 </div>
             </div>
@@ -38,29 +38,60 @@
                     
                     <form class="form-horizontal" id="form-editacc">
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Name: </label>
-                            <div class="col-sm-10">
+                            <label class="control-label col-sm-3" for="name">Name: </label>
+                            <div class="col-sm-9">
                                 <input class="form-control editacc-fields" type="text" id="name" value="Not Specified" disabled>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Email: </label>
-                            <div class="col-sm-10">
+                            <label class="control-label col-sm-3" for="email">Email: </label>
+                            <div class="col-sm-9">
                                 <input class="form-control editacc-fields" type="text" id="email" value="jessganoww@gmail.com" disabled>
                             </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="address">Address: </label>
-                            <div class="col-sm-10">
-                                <input class="form-control editacc-fields" type="text" id="address" value="The Grange, Edmonton Alberta CA" disabled>
+                         <div class="form-group combaddress-div">
+                            <label class="control-label col-sm-3" for="comb-address">Address: </label>
+                            <div class="col-sm-9">
+                                <input class="form-control editacc-fields" type="text" id="comb-address" value="The Grange, Edmonton Alberta CA" disabled>
                             </div>
                         </div>
                         
+                        <!-- address div, to append -->
+                        <div class="form-group address-div">
+                            <label class="control-label col-sm-3" for="st-address">Street Address: </label>
+                            <div class="col-sm-9">
+                                <input class="form-control address-fields" type="text" id="st-address" value="257 Grantham Court" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group address-div">
+                            <label class="control-label col-sm-3" for="city">City: </label>
+                            <div class="col-sm-9">
+                                <input class="form-control address-fields" type="text" id="city" value="Edmonton" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group address-div">
+                            <label class="control-label col-sm-3" for="province">Province: </label>
+                            <div class="col-sm-9">
+                                <input class="form-control address-fields" type="text" id="province" value="Alberta" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group address-div">
+                            <label class="control-label col-sm-3" for="postalcode">Postal Code: </label>
+                            <div class="col-sm-9">
+                                <input class="form-control address-fields" type="text" id="postalcode" value="T5T 1K8" disabled>
+                            </div>
+                        </div>
+                        
+                        <!-- end of address div -->
+                        
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="phone">Phone: </label>
-                            <div class="col-sm-10">
+                            <label class="control-label col-sm-3" for="phone">Phone: </label>
+                            <div class="col-sm-9">
                                 <input class="form-control editacc-fields" type="number" id="phone" value="09989716071" disabled>
                             </div>
                         </div>
@@ -94,6 +125,8 @@
                         </div>
                     </form>
                     <br>
+                    <p class="help-text">Password must be 8-20 characters long with at least 1 of the following: 
+                    uppercase, lowercase, numbers, and special characters (~!@#$%^*-_=+[{]}/;:,.?).</p>
                     <button class="btn btn-default" id="btn-changepw">CHANGE PASSWORD</button>
                     <button class="btn btn-default" id="save-changepw">SAVE</button>
                 </div>

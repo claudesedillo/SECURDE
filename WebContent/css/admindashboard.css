@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:300,500,600,800');
+@import url('https://fonts.googleapis.com/css?family=Muli:500,600,800');
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
 
 body {
@@ -79,7 +79,7 @@ nav p {
 #sidenav li a:hover  {
     background-color: #222222;
     color: snow;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
