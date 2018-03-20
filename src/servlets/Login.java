@@ -228,6 +228,14 @@ public class Login extends HttpServlet {
 			if(CustomerService.checkLogin(user, pass)){
 				if(!LoginAttemptService.checkForBruteForce(IpAddress)){
 					//Login hash cookie
+					
+					try {
+						user = ESAPI.encryptor().encrypt(user);
+					} catch (EncryptionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					Cookie cookie = new Cookie("logged", user);
 					cookie.setMaxAge(60*60*24*365*2);
 					response.addCookie(cookie);
