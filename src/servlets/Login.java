@@ -172,43 +172,125 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("user");
 		
+		if(isPasswordValid(pass, pass2)){
+			//Hashing Password
+			try {
+				pass = ESAPI.encryptor().encrypt(pass);
+			} catch (EncryptionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Customer newCust = CustomerService.getCustomer(user);
+			newCust.setHashedpassword(pass);
+			CustomerService.updateCustomer(newCust);
+			
+			System.out.println("Password of Customer Succesfully Updated");
+			request.getRequestDispatcher("Index.jsp").forward(request, response);
+		}
+		else request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+	}
+	
+	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String user = request.getParameter("email");
+		String pass = request.getParameter("password");	
+		String pass2 = request.getParameter("password2");	
+		String type = request.getParameter("btn-signup");
+		
+		if(type.equals("cust-signup")){
+			String secQ = request.getParameter("securityQ"),
+				   secA = request.getParameter("securityA"),
+				   firstname = request.getParameter("fname"),
+				   lastname = request.getParameter("lname");
+			if(!CustomerService.checkUser(user)){
+				if(isPasswordValid(pass, pass2)){
+					//Hashing Password
+					try {
+						pass = ESAPI.encryptor().encrypt(pass);
+					} catch (EncryptionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Customer cust = new Customer();
+					cust.setEmail(user);
+					cust.setHashedpassword(pass);
+					cust.setSecurityquestion(secQ);
+					cust.setSecurityanswer(secA);
+					cust.setFirstname(firstname);
+					cust.setLastname(lastname);
+					CustomerService.addCustomer(cust);
+					System.out.println("Succesful signup (Customer)");
+					request.getRequestDispatcher("Index.jsp").forward(request, response);
+				}
+				else request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+			}
+			else{
+				System.out.println("Your email already exists!!! >:(");
+				request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+			}
+		}
+		else if(type.equals("admin-signup")){
+			String fName = request.getParameter("firstName");
+			String lName = request.getParameter("lastName");
+			String role = request.getParameter("role");
+			
+			
+			System.out.println(user + " " + type + " " + fName + " " +  lName + " " + role);
+			
+			if(!AdminService.checkUser(user)){
+					Admin admin = new Admin();
+					admin.setEmail(user);
+					String adminPass = UUID.randomUUID().toString().replace("-", "");
+					adminPass = adminPass.substring(0, 10);
+					Email email = new Email(user, "Your Admin Account has been Created!", "Password : " + adminPass);
+					sendEmail(request, response, email);
+					admin.setHashedpassword(adminPass);
+					admin.setFirstname(fName);
+					admin.setLastname(lName);
+					admin.setRole(role);
+					AdminService.addAdmin(admin);
+					System.out.println("Succesful signup (ADMIN)");
+					request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+			}
+			else{
+				System.out.println("Your email already exists!!! >:(");
+				request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+			}
+		}
+	}
+	
+	public boolean isPasswordValid(String pass, String pass2){
 		if(pass.equals(pass2)){
 			if(pass.length()>= 8){
 				if(!pass.equals(pass.toUpperCase()) && !pass.equals(pass.toLowerCase())){
 					if(!pass.matches("[A-Za-z0-9 ]*")){
-						//Hashing Password
-						try {
-							pass = ESAPI.encryptor().encrypt(pass);
-						} catch (EncryptionException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						if(!pass.contains("&") && !pass.contains("<") && !pass.contains(">")){
+							return true;
 						}
-						
-						Customer newCust = CustomerService.getCustomer(user);
-						newCust.setHashedpassword(pass);
-						CustomerService.updateCustomer(newCust);
-						
-						System.out.println("Password of Customer Succesfully Updated");
-						request.getRequestDispatcher("Index.jsp").forward(request, response);
+						else{
+							System.out.println("Your password contains illegal characters, i.e. <, >, and &");
+							return false;
+						}
 					}
 					else{
 						System.out.println("Your password must contain a special, non alpha numeric character, ex : !,?, %, or &");
-						request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+						return false;
 					}	
 				}
 				else{
 					System.out.println("Your password must contain both UPPER CASE and LOWER CASE letters");
-					request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+					return false;
 				}
 			}
 			else{
 				System.out.println("Your password is too weak (LESS THAN 8 CHARACTERS)");
-				request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+				return false;
 			}
 		}
 		else{
 			System.out.println("Your passwords dont match!!! >:(");
-			request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+			return false;
 		}
 	}
 
@@ -255,113 +337,6 @@ public class Login extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - LOGIN/***************");
 	}
 
-	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String user = request.getParameter("email");
-		String pass = request.getParameter("password");	
-		String pass2 = request.getParameter("password2");	
-		String type = request.getParameter("btn-signup");
-		
-		if(type.equals("cust-signup")){
-			String secQ = request.getParameter("securityQ"),
-				   secA = request.getParameter("securityA"),
-				   firstname = request.getParameter("fname"),
-				   lastname = request.getParameter("lname");
-				   //address = request.getParameter("streetaddress"),
-				   //city = request.getParameter("city"),
-				   //province = request.getParameter("province"),
-				   //phone = request.getParameter("phone");
-			//int postal = Integer.parseInt(request.getParameter("postal"));
-			if(!CustomerService.checkUser(user)){
-				if(pass.equals(pass2)){
-					if(pass.length()>= 8){
-						if(!pass.equals(pass.toUpperCase()) && !pass.equals(pass.toLowerCase())){
-							if(!pass.matches("[A-Za-z0-9 ]*")){
-								//Hashing Password
-								try {
-									pass = ESAPI.encryptor().encrypt(pass);
-								} catch (EncryptionException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								
-								/*
-								//Login hash cookie
-								Cookie cookie = new Cookie("logged", user);
-								cookie.setMaxAge(60*60*24*365*2);
-								response.addCookie(cookie);
-								*/
-								
-								Customer cust = new Customer();
-								cust.setEmail(user);
-								cust.setHashedpassword(pass);
-								cust.setSecurityquestion(secQ);
-								cust.setSecurityanswer(secA);
-								cust.setFirstname(firstname);
-								cust.setLastname(lastname);
-								//cust.setStreetaddress(address);
-								//cust.setPostalcode(postal);
-								//cust.setCity(city);
-								//cust.setProvince(province);
-								//cust.setPhonenumber(phone);
-								CustomerService.addCustomer(cust);
-								System.out.println("Succesful signup (Customer)");
-								request.getRequestDispatcher("Index.jsp").forward(request, response);
-							}
-							else{
-								System.out.println("Your password must contain a special, non alpha numeric character, ex : !,?, %, or &");
-								request.getRequestDispatcher("SignUp.jsp").forward(request, response);
-							}	
-						}
-						else{
-							System.out.println("Your password must contain both UPPER CASE and LOWER CASE letters");
-							request.getRequestDispatcher("SignUp.jsp").forward(request, response);
-						}
-					}
-					else{
-						System.out.println("Your password is too weak (LESS THAN 8 CHARACTERS)");
-						request.getRequestDispatcher("SignUp.jsp").forward(request, response);
-					}
-				}
-				else{
-					System.out.println("Your passwords dont match!!! >:(");
-					request.getRequestDispatcher("SignUp.jsp").forward(request, response);
-				}
-			}
-			else{
-				System.out.println("Your email already exists!!! >:(");
-				request.getRequestDispatcher("SignUp.jsp").forward(request, response);
-			}
-		}
-		else if(type.equals("admin-signup")){
-			String fName = request.getParameter("firstName");
-			String lName = request.getParameter("lastName");
-			String role = request.getParameter("role");
-			
-			
-			System.out.println(user + " " + type + " " + fName + " " +  lName + " " + role);
-			
-			if(!AdminService.checkUser(user)){
-					Admin admin = new Admin();
-					admin.setEmail(user);
-					String adminPass = UUID.randomUUID().toString().replace("-", "");
-					adminPass = adminPass.substring(0, 10);
-					Email email = new Email(user, "Your Admin Account has been Created!", "Password : " + adminPass);
-					sendEmail(request, response, email);
-					admin.setHashedpassword(adminPass);
-					admin.setFirstname(fName);
-					admin.setLastname(lName);
-					admin.setRole(role);
-					AdminService.addAdmin(admin);
-					System.out.println("Succesful signup (ADMIN)");
-					request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
-			}
-			else{
-				System.out.println("Your email already exists!!! >:(");
-				request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
-			}
-		}
-	}
-	
 	private void signout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		System.out.println("***************SHOPPING SERVLET - SIGN OUT***************");
 		request.getSession().invalidate();

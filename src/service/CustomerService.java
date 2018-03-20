@@ -207,8 +207,8 @@ public class CustomerService {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
-			String query = "UPDATE customers SET email = ?, hasedpassword = ?, firstname = ?, lastname = ?, securityquestion = ?, "
-					+ "securityanswer = ?, streetaddress = ?, postalcode = ?, city = ?, province = ?, phonenumber = ?, WHERE email = ?";
+			String query = "UPDATE customers SET email = ?, hashedpassword = ?, firstname = ?, lastname = ?, securityquestion = ?, "
+					+ "securityanswer = ?, streetaddress = ?, postalcode = ?, city = ?, province = ?, phonenumber = ? WHERE email = ?";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setString(1, newCust.getEmail());
 			stmt.setString(2, newCust.getHashedpassword());
