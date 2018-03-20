@@ -226,11 +226,11 @@
 
                                                   <div class="form-group">
                                                       <label for="genre-inp">Genre</label>
-                                                      <select class="form-control" id="genre-inp">
+                                                      <select class="form-control" id="genreList">
                                                           <option value = "Biography and Memoir">Biography &amp; Memoir</option>
                                                           <option value = "Business and Finance">Business &amp; Finance</option>
                                                           <option value = "Computers">Computers</option>
-                                                          <option value = "Fiction and Literature">Fiction &amp; Literature</option>
+                                                          <option value = "Fiction and literature">Fiction &amp; Literature</option>
                                                           <option value = "Graphic Novels and Manga">Graphic Novels &amp; Manga</option>
                                                           <option value = "SciFi and Fantasy">Sci-fi &amp; Fantasy</option>
                                                           <option value = "Science and Nature">Science &amp; Nature</option>
