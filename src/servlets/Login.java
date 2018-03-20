@@ -274,7 +274,7 @@ public class Login extends HttpServlet {
 						}
 					}
 					else{
-						System.out.println("Your password must contain a special, non alpha numeric character, ex : !,?, %, or &");
+						System.out.println("Your password must contain a special, non alpha numeric character, ex : !,?, or %");
 						return false;
 					}	
 				}
