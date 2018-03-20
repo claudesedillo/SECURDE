@@ -120,17 +120,21 @@ function updateTextFields(bookJSON){
 	$("#publisherField").val(publisherName);
 	$("#titleField").val(bookJSON.title);
 	$("#priceField").val(bookJSON.price);
-	//$("#genreList").val("Computers").trigger("change");
 	
 	$("#genreList > option").each(function() {
 		console.log("this.value = " + this.value);
     	console.log("bookJSON.genre = " + bookJSON.genre);
 	    if(bookJSON.genre == this.value){
 	    	$("#genreList").val(this.value).trigger("change");
-//	    	console.log("this.value = " + this.value);
-//	    	console.log("bookJSON.genre = " + bookJSON.genre);
 	    }
 	});
+	console.log("Format " + bookJSON.format);
+	if(bookJSON.format == "Paperback"){
+		$("#paperbackRadioEdit").prop("checked", true);
+	}
+	else {
+		$("#hardboundRadioEdit").prop("checked", true);
+	}
 }
 function getBookDetails(bookID){
 	console.log("I am at getBookDetails");

@@ -246,8 +246,8 @@
                                                 </div>
 
                                                 <div class="col-sm-7 abdiv-bottom">
-                                                    <label class="radio-inline"><input type="radio" name="optradio">Paperback</label>
-                                                    <label class="radio-inline"><input type="radio" name="optradio">Hardbound</label>
+                                                    <label class="radio-inline"><input type="radio" name="optradio" id = "paperbackRadioEdit">Paperback</label>
+                                                    <label class="radio-inline"><input type="radio" name="optradio" id = "hardboundRadioEdit">Hardbound</label>
                                                 </div>
                                                 <br>
                                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-okay"> <span class="glyphicon glyphicon-ok"></span></button>
