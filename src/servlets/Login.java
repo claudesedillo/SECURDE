@@ -319,7 +319,7 @@ public class Login extends HttpServlet {
 					}
 					
 					Cookie cookie = new Cookie("logged", user);
-					cookie.setMaxAge(60*60*24*365*2);
+					cookie.setMaxAge(60*30);
 					response.addCookie(cookie);
 					LoginAttemptService.deleteLoginAttempt(IpAddress);
 					System.out.println("Succesful Login (Customer)");
