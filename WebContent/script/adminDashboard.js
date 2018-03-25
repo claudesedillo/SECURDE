@@ -1,3 +1,5 @@
+var globalBookID;
+
 function displayOrders(){
 		
 	var orderTable = document.getElementById("orderTable");
@@ -120,7 +122,7 @@ function updateTextFields(bookJSON){
 	$("#publisherField").val(publisherName);
 	$("#titleField").val(bookJSON.title);
 	$("#priceField").val(bookJSON.price);
-	
+	$("#stockField").val(bookJSON.stock);
 	$("#genreList > option").each(function() {
 		console.log("this.value = " + this.value);
     	console.log("bookJSON.genre = " + bookJSON.genre);
@@ -154,6 +156,36 @@ function getBookDetails(bookID){
 	});
 }
 
+function editBook(bookID){
+	console.log("I am on editBook!");
+	var format = $("input[name='edit-format']:checked").val();
+	console.log("format is" + format);
+	$.ajax({
+		context: this,
+		url: 'editBook',
+		data:{'bookID' : bookID,
+			  'title': $("#titleField").val(),
+			  'authorName': $("#authorField").val(),
+			  'isbn': $("#isbnField").val(),
+			  'publisherName' : $("#publisherField").val(),
+			  'datePublished': $("#publishedField").val(),
+			  'genre': $("#genreList").val(),
+			  'price': $("#priceField").val(),
+			  'stock': $("#stockField").val(),
+			  'format': $("input[name='edit-format']:checked").val(),
+			  },
+		type: 'post',
+		cache: false,
+		success: function(data){
+			console.log("edit book complete!");
+			console.log(data);
+		},
+		error:function(){
+			console.log("something is wrong on editBook");
+		}
+	});
+}
+
 $("document").ready(function() {
 	displayOrders();
 	displayAdminList();
@@ -162,8 +194,14 @@ $("document").ready(function() {
 	$(document).on("click", ".edit-book-btn",function() {
 		console.log("Edit book clicked!");
 		
-		var bookID = $(this).attr("data-bookId");
-		console.log("book ID of selected book is: " + bookID);
-		getBookDetails(bookID);
+		globalBookID = $(this).attr("data-bookId");
+		console.log("book ID of selected book is: " + globalBookID);
+		getBookDetails(globalBookID);
+	});
+	
+	$(document).on("click", "#btn-edit-okay",function() {
+		console.log("Edit book confirmed!");
+		editBook(globalBookID);
+		$("#viewbook-div").modal('toggle');
 	});
 });

@@ -244,13 +244,20 @@
                                                           <input type="number" class="form-control" id="priceField">
                                                       </div>  
                                                 </div>
-
+												
+												<div class="col-sm-3 abdiv-bottom">
+                                                     <div class="form-group">
+                                                          <label for="author-inp">Stock</label>
+                                                          <input type="number" class="form-control" id="stockField">
+                                                      </div>  
+                                                </div>
+                                                
                                                 <div class="col-sm-7 abdiv-bottom">
-                                                    <label class="radio-inline"><input type="radio" name="optradio" id = "paperbackRadioEdit">Paperback</label>
-                                                    <label class="radio-inline"><input type="radio" name="optradio" id = "hardboundRadioEdit">Hardbound</label>
+                                                    <label class="radio-inline"><input type="radio" name="edit-format" id = "paperbackRadioEdit" value = "Paperback">Paperback</label>
+                                                    <label class="radio-inline"><input type="radio" name="edit-format" id = "hardboundRadioEdit" value = "Hardbound">Hardbound</label>
                                                 </div>
                                                 <br>
-                                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-okay"> <span class="glyphicon glyphicon-ok"></span></button>
+                                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-edit-okay"> <span class="glyphicon glyphicon-ok"></span></button>
                                               </div>
                                           </div>
                                         </div>

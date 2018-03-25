@@ -29,13 +29,9 @@ import service.ShoppingcartService;
  * Servlet implementation class ShoppingServlet
  */
 
-@WebServlet(urlPatterns = {"/getCatalog", 
-						   "/addToCart", 
+@WebServlet(urlPatterns = {"/addToCart", 
 						   "/checkout",
 						   "/checkoutConfirm",
-						   "/viewBook",
-						   "/search",
-						   "/browseByGenre",
 						   "/intoCart",
 						   "/getCartList",
 						   "/removeFromCart",
@@ -46,102 +42,7 @@ import service.ShoppingcartService;
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private void browseByGenre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - BROWSE BY GENRE***************");
-		
-		List<Book> bookList;
-		List<String> authorNames = new ArrayList<String>();
-		String genre = request.getParameter("genre");
-		
-		bookList = BookService.filterByGenre(genre);
-		for(Book b: bookList) {
-			authorNames.add(AuthorService.getAuthorName(b.getAuthorID()));
-		}
-		
-		request.setAttribute("authorNames", authorNames);
-		request.setAttribute("genre", genre);
-		request.setAttribute("bookList", bookList);
-		request.getRequestDispatcher("ViewByGenre.jsp").forward(request, response);
-		System.out.println("***************/SHOPPING SERVLET - BROWSE BY GENRE/***************");
-	}
-	
-	private void viewBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - VIEW BOOK***************");
-		int bookid = Integer.parseInt(request.getParameter("bookID"));
-		Book book = BookService.getBook(bookid);
-		String authorName = AuthorService.getAuthorName(book.getAuthorID()), 
-			   publisherName = PublisherService.getPublisher(book.getPublisherID());
-		request.setAttribute("authorName", authorName);
-		request.setAttribute("publisherName", publisherName);
-		HttpSession session = request.getSession();
-		session.setAttribute("book", book);
-		request.setAttribute("book", book);
-		request.getRequestDispatcher("ViewBook.jsp").forward(request, response);
-		System.out.println("***************/SHOPPING SERVLET - VIEW BOOK/***************");
-	}
-	
-	private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - SEARCH***************");
-		
-		List<Integer> authorIDs;
-		List<Book> bookList, bookListByAuthor;
-		
-		List<String> authorNames = new ArrayList<String>();
-		
-		String searchTerm = request.getParameter("searchTerm");
-		System.out.println("Search term is " + searchTerm);
-		
-		authorIDs = AuthorService.findAuthor(searchTerm);
-		bookListByAuthor = BookService.getBookByAuthorID(authorIDs);
-		bookList = BookService.searchBook(searchTerm);
-		
-		bookList.removeAll(bookListByAuthor);
-		bookList.addAll(bookListByAuthor);		
-		
-		for(Book b: bookList) {
-			authorNames.add(AuthorService.getAuthorName(b.getAuthorID()));
-		}
-		
-		request.setAttribute("authorNames", authorNames);
-		request.setAttribute("searchTerm", searchTerm);
-		request.setAttribute("bookList", bookList);
-		request.getRequestDispatcher("SearchResult.jsp").forward(request, response);
-		System.out.println("***************/SHOPPING SERVLET - SEARCH/***************");
-	}
-	
 
-	
-	private void getCatalog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("***************SHOPPING SERVLET - GET CATALOG***************");
-		ArrayList<Book> bookList = BookService.getBookList();
-		String htmlBookList = "";
-		//System.out.println("Book List:");
-		
-		for(Book b: bookList) {
-			//System.out.println("Book Name: " + b.getTitle());
-			//System.out.println("Book ID: " + b.getBookID());
-			//System.out.println("Author ID: " + b.getAuthorID());
-			String authorName;
-			authorName = AuthorService.getAuthorName(b.getAuthorID());
-			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
-							"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
-							"<form method = \"GET\" > " +
-							"<div class=\"row\"> " +
-							"<a class = \"bookLink\" data-bookId = " + b.getBookID() + "><p class=\"title\">" + b.getTitle() + "</p></a> " +
-							"<p class=\"author\">" + authorName + "</p> " +
-		                    "<p class=\"price\"> " + b.getPrice() + "</p>" +
-							"</div>" + 
-		                    "</div>" +
-							"</form>";
-		}
-		response.setContentType("text/html"); 
-	    response.setCharacterEncoding("UTF-8"); 
-	    response.getWriter().write(htmlBookList);
-		System.out.println("***************/SHOPPING SERVLET - GET CATALOG/***************");
-	}
-	
-
-	
 	private void getCartList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		System.out.println("***************SHOPPING SERVLET - GET CART LIST***************");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
@@ -548,26 +449,13 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("I am at shopping servlet, doGet method");
 		System.out.println(request.getServletPath());
 		switch(request.getServletPath()) {
-		
-		case "/getCatalog": System.out.println("I am at doGet method, getCatalog case");
-							getCatalog(request, response);
-							break;
+
 		case "/getCartList" : System.out.println("I am at doGet method, getCartList case");
 							getCartList(request, response);
 							break;
 		case "/checkout" :  System.out.println("I am at doGet method, checkout case");
 							getCheckOutButton(request, response);
 							break;
-			
-		case "/viewBook": System.out.println("I am at doGet method, viewBook case");
-						  viewBook(request, response);
-						  break;
-		case "/search": System.out.println("I am at shoppingServlet, search case");
-						search(request, response);
-						break;
-		case "/browseByGenre": System.out.println("I am at shoppingServlet, BrowseByGenre method");
-							   browseByGenre(request, response);
-							   break;
 		case "/addToCart": System.out.println("I am at shoppingServlet, addToCart method");
 						   addToCart(request, response);
 						   break;			

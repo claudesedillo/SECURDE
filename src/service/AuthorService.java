@@ -98,4 +98,59 @@ public class AuthorService {
 		//System.out.println("*************************************************************");
 		return authorName;
 	}
+	
+	public static boolean doesAuthorExist(String authorName) {
+		System.out.println("*************************************************************");
+		System.out.println("I am at AuthorService, doesAuthorExist");
+		try {
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM authors WHERE name = ?");
+			
+			stmt.setString(1, authorName);
+			//System.out.println("Query is: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			//System.out.println("There was a problem retrieving the publisher from the database");
+		}
+		System.out.println("*************************************************************");
+		return false;
+	}
+	
+	public static int getAuthorID(String authorName) {
+		//System.out.println("*************************************************************");
+		//System.out.println("I am at PublisherService, getPubliser");
+		//System.out.println("Publisher ID: " + id);
+		try {
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM authors WHERE name = ?");
+			
+			stmt.setString(1, authorName);
+			//System.out.println("Query is: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				int authorID = rs.getInt("authorid");
+				return authorID;
+			}
+			conn.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+			//System.out.println("There was a problem retrieving the publisher from the database");
+		}
+		//System.out.println("PublisherService, getPublisher complete!");
+		//System.out.println("*************************************************************");
+		return 0;
+	}
 }
