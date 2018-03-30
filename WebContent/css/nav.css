@@ -129,20 +129,21 @@
 
 /** SIGN IN MODAL **/
 .modal-content {
-    width: 80%;
+    width: 85%;
     margin: auto;
-    border-radius: 2px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    top: 35px;
+    border-radius: 3px;
+    padding: 10px;
 }
 
 #signin-modal h3 {
     margin: 0px;
+    font-size: 22px;
     font-weight: 600;
 }
 
 #signin-modal a {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: #617C93;
 }
@@ -179,14 +180,10 @@
     text-decoration: underline;
     background-color: black;
     color: snow;
-}
-
-#forgotpw {
-    float: right;
+    cursor: pointer;
 }
 
 /** USERNAV SPECIFICS **/
-
 #ss-bar .dd-account {
     font-weight: 400;
     color: #222222;

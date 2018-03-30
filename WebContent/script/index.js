@@ -18,43 +18,6 @@ function displayCatalog(){
 	});
 }
 
-function validateEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-
-function showError() {
-    $("#errormsg").show();
-    $(".form-group").addClass("has-error");
-}
-
-function accPassMismatch(data){
-	console.log("data is: " + data);
-	if(data == "PASS-LOGIN-CUSTOMER"){
-		document.location.href = 'Index.jsp';
-	}
-	else if(data == "FAIL-LOGIN-CUSTOMER"){
-		console.log("wrong password");
-		showError();
-	}
-}
-function submitTheForm(email, password){
-    $.ajax({
- 	    context: this,
-        url:'login',
-        data:{'email': email,
-        	  'password': password},
-        type:'POST',
-        cache:false,
-        success: function(data){
-        	console.log("submitTheForm success!");
-        	accPassMismatch(data);
-        },
-        error:function(){
-        	console.log("error at submitting the form");
-        }
-     });
-}
 
 
 $("document").ready(function(){
@@ -68,21 +31,6 @@ $("document").ready(function(){
     });
     
 	displayCatalog();
-    
-    // submit form for button
-	$(document).on("click", "#btn-signin",function() {
-		console.log("Sign in clicked");
-		
-		var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        
-        if(validateEmail(email) && password !== null && password !== ""){
-        	$(".form-group").removeClass("has-error");
-        	submitTheForm(email, password); 
-        } else{
-        	showError();
-        }
-	});
     
     // submit for on enter
 //    $(document).keyup(function (e) {
