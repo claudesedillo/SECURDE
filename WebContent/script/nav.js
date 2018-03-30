@@ -80,6 +80,7 @@ $("document").ready(function(){
 	$(document).on("click", ".close", function() {
 		$("#errormsg").hide();
 		$("#signin-modal .form-group").removeClass("has-error");
+		$("#signin-modal form")[0].reset();
 	})
 
 	// submit form for button
@@ -96,6 +97,18 @@ $("document").ready(function(){
         	showError();
         }
 	});
+	
+//	$(document).keyup(function (e) {
+//		var email = document.getElementById('email').value;
+//        var password = document.getElementById('password').value;
+        
+//        if(validateEmail(email) && password !== null && password !== ""){
+//        	$(".form-group").removeClass("has-error");
+//        	submitTheForm(email, password); 
+//        } else{
+//        	showError();
+//        }
+//    });
 
-	console.log("I'm in nav.js");
+	console.log("Nav.js loaded");
 });
