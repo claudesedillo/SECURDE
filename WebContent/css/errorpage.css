@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600,800');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
+.container-fluid {
+    width: 50%;
+    margin-top: 100px;
+}
+
+#title {
+    font-family: Abril Fatface;
+    font-size: 45px;
+    color: #222222;   
+}
+
+p {
+    font-family: 'Muli';
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+#btn-home {
+    font-family: 'Muli';
+    background-color: #222222;
+    color: snow;
+    margin: 10px;
+    padding: 6px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 1px;
+    font-size: 11px;
+    float: right;
+    letter-spacing: 0.75px;
+}
+
+#btn-home:hover {
+    text-decoration: underline;
+    background-color: black;
+    color: snow;
+}

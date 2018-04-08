@@ -51,14 +51,16 @@
                             </div>
                         </div>
                         
+                        
+                        <!-- TO-DO: get user address from DB --> 
                          <div class="form-group combaddress-div">
                             <label class="control-label col-sm-3" for="comb-address">Address: </label>
                             <div class="col-sm-9">
-                                <input class="form-control editacc-fields" type="text" id="comb-address" value="The Grange, Edmonton Alberta CA" disabled>
+                                <input class="form-control editacc-fields" type="text" id="comb-address" disabled>
                             </div>
                         </div>
                         
-                        <!-- address div, to append -->
+                        
                         <div class="form-group address-div">
                             <label class="control-label col-sm-3" for="st-address">Street Address: </label>
                             <div class="col-sm-9">
