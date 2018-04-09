@@ -158,28 +158,28 @@
 									  	<div class="col-sm-8">
 		                                      <div class="form-group">
 		                                          <label for="title-inp">Title</label>
-		                                          <input type="text" class="form-control" id="title-inp" name = "bookTitle">
+		                                          <input type="text" class="form-control" id="addbook-title" name = "bookTitle">
 		                                      </div>
 		                                      <div class="form-group">
 		                                          <label for="author-inp">Author</label>
-		                                          <input type="text" class="form-control" id="author-inp" name = "selectAuthor">
+		                                          <input type="text" class="form-control" id="addbook-author" name = "selectAuthor">
 		                                      </div>
 		                                      <div class="form-group">
 		                                          <label for="isbn-inp">ISBN</label>
-		                                          <input type="number" class="form-control" id="isbn-inp" name = "isbn">
+		                                          <input type="number" class="form-control" id="addbook-isbn" name = "isbn">
 		                                      </div>
 		                                      <div class="form-group">
 		                                          <label for="publisher-inp">Publisher</label>
-		                                          <input type="text" class="form-control" id="publisher-inp" name = "publisher">
+		                                          <input type="text" class="form-control" id="addbook-publisher" name = "publisher">
 		                                      </div>
 		                                      <div class="form-group">
 		                                          <label for="datepub-inp">Date Published</label>
-		                                          <input type="date" class="form-control" id="datepub-inp" name = "published">
+		                                          <input type="date" class="form-control" id="addbook-published" name = "published">
 		                                      </div>
 		                                      
 		                                      <div class="form-group">
 		                                          <label for="genre-inp">Genre</label>
-		                                          <select class="form-control" id="genre-inp" name = "genre">
+		                                          <select class="form-control" id="addbook-genre" name = "genre">
 		                                              <option>Biography &amp; Memoir</option>
 		                                              <option>Business &amp; Finance</option>
 		                                              <option>Computers</option>
@@ -194,7 +194,7 @@
 		                                    <div class="col-sm-6 abdiv-bottom">
 		                                         <div class="form-group">
 		                                              <label for="price-inp">Price</label>
-		                                              <input type="number" class="form-control" id="price-inp" name = "price">
+		                                              <input type="number" class="form-control" id="addbook-price" name = "price">
 		                                          </div>  
 		                                    </div>
 		                                      
@@ -203,12 +203,12 @@
 		                                    <div class="col-sm-5 abdiv-bottom">
 		                                        <div class="form-group">
 		                                            <label for="qty-inp">Qty</label>
-		                                            <input type="number" class="form-control" id="qty-inp" name = "qty">
+		                                            <input type="number" class="form-control" id="addbook-qty" name = "qty">
 		                                        </div>  
 		                                    </div>
 		                                    
-		                                    <label class="radio-inline"><input type="radio" name="optradio">Paperback</label>
-		                                    <label class="radio-inline"><input type="radio" name="optradio">Hardbound</label>
+		                                    <label class="radio-inline"><input type="radio" name="addbook-format" value = "Paperback">Paperback</label>
+		                                    <label class="radio-inline"><input type="radio" name="addbook-format" value = "Hardbound">Hardbound</label>
 		                                    <br>
 		                                      
 		                                    <button type="submit" class="btn btn-default btn-okay"  id="btn-okayinventory"> <span class="glyphicon glyphicon-ok"></span></button>
