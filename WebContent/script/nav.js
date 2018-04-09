@@ -65,9 +65,11 @@ $("document").ready(function(){
 			$("#nav").load("usernav.html");
 		    $("#footer").load("footer.html");
 	    	console.log("Log in successful");
+	    	console.log("Nav and footer loaded!");
     }else {
 			$("#nav").load("nav.html");
 		    $("#footer").load("footer.html");
+		    console.log("Nav and footer loaded!");
     }
 	 
 	$(document).on("click", "#btn-cart", function(){

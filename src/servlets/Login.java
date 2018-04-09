@@ -90,7 +90,7 @@ public class Login extends HttpServlet {
 
 	private void adminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
+		System.out.println("***************LOGIN SERVLET - ADMIN LOGIN***************");
 		String user = request.getParameter("email");
 		String pass = request.getParameter("password");	
 		System.out.println(user + " " + pass);
@@ -98,10 +98,13 @@ public class Login extends HttpServlet {
 		if(AdminService.checkLogin(user, pass)){
 			String emailKey = UUID.randomUUID().toString().replace("-", "");
 			emailKey = emailKey.substring(0, 5);
+			//TODO: REMOVE THIS ASAP. FOR CHECKING ONLY
+			System.out.println("emailKey is: " + emailKey);
 			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
 			sendEmail(request, response, email);
 			HttpSession session = request.getSession();
 			session.setAttribute("emailkey", emailKey);
+			session.setAttribute("email", user);
 			request.setAttribute("emailkey", session.getAttribute("emailkey"));
 			response.sendRedirect("adminEmailDoor.html");
 			response.getWriter().write("PASS-LOGIN-ADMIN");
@@ -111,17 +114,29 @@ public class Login extends HttpServlet {
 			request.getRequestDispatcher("Portal.jsp").forward(request, response);
 			response.getWriter().write("FAIL-LOGIN-ADMIN");
 		}
-		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
+		System.out.println("***************/LOGIN SERVLET - ADMIN LOGIN/***************");
 	}
 
 	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
-		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
+		System.out.println("***************LOGIN SERVLET - CHECK ADMIN LOGIN***************");
 		HttpSession session = request.getSession();
 		String emailKey = (String) session.getAttribute("emailkey");
+		String email = (String) session.getAttribute("email");
 		String inputKey = request.getParameter("emailkey");
 		System.out.println("session key : " + emailKey);
+		
 		if(inputKey.equals(emailKey)){
+			Cookie theCookie;
+			theCookie = new Cookie("ADMIN", email); 
+			theCookie.setMaxAge(604800); //1 week expirey.
+				
+			//Checking
+			System.out.println("Cookie placed: " + theCookie.getName());
+			System.out.println("Cookie value: " + theCookie.getValue());
+
+			//Add cookie
+			response.addCookie(theCookie);
 			System.out.println("Succesful Login (Admin)");
 			response.sendRedirect("AdminDashboard.jsp");
 		}
@@ -129,10 +144,11 @@ public class Login extends HttpServlet {
 			System.out.println("wrong input >:(");
 			response.sendRedirect("adminEmailDoor.html");
 		}
-		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
+		System.out.println("***************/LOGIN SERVLET - CHECK ADMIN LOGIN/***************");
 	}
 	
 	private void forgotPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - FORGOT PASSWORD***************");
 		// TODO Auto-generated method stub
 		String user = request.getParameter("email");
 		if(CustomerService.doesCustomerExist(user)) {
@@ -148,10 +164,11 @@ public class Login extends HttpServlet {
 			response.sendRedirect("PassRecoveryEmailDoor.html");
 		}
 		else response.sendRedirect("ForgotPasswordPortal.jsp");
+		System.out.println("***************/LOGIN SERVLET - FORGOT PASSWORD/***************");
 	}
 
 	private void forgotKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("***************SHOPPING SERVLET - ADMIN LOGIN***************");
+		System.out.println("***************LOGIN SERVLET - FORGOT KEY***************");
 		HttpSession session = request.getSession();
 		String emailKey = (String) session.getAttribute("emailkey");
 		String inputKey = request.getParameter("emailkey");
@@ -163,10 +180,11 @@ public class Login extends HttpServlet {
 			System.out.println("wrong input >:(");
 			response.sendRedirect("PassRecoveryEmailDoor.html");
 		}
-		System.out.println("***************/SHOPPING SERVLET - ADMIN LOGIN/***************");
+		System.out.println("***************/LOGIN SERVLET - FORGOT KEY/***************");
 	}
 	
 	private void newPasswordConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - NEW PASSWORD CONFIRM***************");
 		String pass = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");	
 		HttpSession session = request.getSession();
@@ -189,9 +207,11 @@ public class Login extends HttpServlet {
 			request.getRequestDispatcher("Index.jsp").forward(request, response);
 		}
 		else request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+		System.out.println("***************/LOGIN SERVLET - NEW PASSWORD CONFIRM/***************");
 	}
 	
 	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - SIGN UP***************");
 		String user = request.getParameter("email");
 		String pass = request.getParameter("password");	
 		String pass2 = request.getParameter("password2");	
@@ -258,9 +278,11 @@ public class Login extends HttpServlet {
 				request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
 			}
 		}
+		System.out.println("***************/LOGIN SERVLET - SIGN UP/***************");
 	}
 	
 	public boolean isPasswordValid(String pass, String pass2){
+		System.out.println("***************LOGIN SERVLET - IS PASSWORD VALID***************");
 		if(pass.equals(pass2)){
 			if(pass.length()>= 8){
 				if(!pass.equals(pass.toUpperCase()) && !pass.equals(pass.toLowerCase())){
@@ -295,7 +317,7 @@ public class Login extends HttpServlet {
 	}
 
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("***************SHOPPING SERVLET - LOGIN***************");
+		System.out.println("***************LOGIN SERVLET - LOGIN***************");
 		String user = request.getParameter("email");
 		String pass = request.getParameter("password");	
 		System.out.println(user + " " + pass);
@@ -318,7 +340,7 @@ public class Login extends HttpServlet {
 						e.printStackTrace();
 					}
 					
-					Cookie cookie = new Cookie("logged", user);
+					Cookie cookie = new Cookie("USER", user);
 					cookie.setMaxAge(60*30);
 					response.addCookie(cookie);
 					LoginAttemptService.deleteLoginAttempt(IpAddress);
@@ -334,11 +356,11 @@ public class Login extends HttpServlet {
 				response.getWriter().write("FAIL-LOGIN-CUSTOMER");
 			}
 		}
-		System.out.println("***************/SHOPPING SERVLET - LOGIN/***************");
+		System.out.println("***************/LOGIN SERVLET - LOGIN/***************");
 	}
 
 	private void signout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("***************SHOPPING SERVLET - SIGN OUT***************");
+		System.out.println("***************LOGIN SERVLET - SIGN OUT***************");
 		request.getSession().invalidate();
 		
 		// kill cookie
@@ -346,17 +368,18 @@ public class Login extends HttpServlet {
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
 				Cookie currentCookie = cookies[i];
-				if(currentCookie.getName().equals("logged")){
+				if(currentCookie.getName().equals("USER")){
 					currentCookie.setMaxAge(0);
 					response.addCookie(currentCookie);
 				}
 			}
 		}
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
-		System.out.println("***************/SHOPPING SERVLET - SIGN OUT/***************");
+		System.out.println("***************/LOGIN SERVLET - SIGN OUT/***************");
 	}
 
 	private void sendEmail(HttpServletRequest request, HttpServletResponse response, Email email) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - SEND EMAIL***************");
 		final String user="indigo.emailkey@gmail.com";
 		final String pass="#96NDIGO@SECURDE78#";  
 		
@@ -387,6 +410,7 @@ public class Login extends HttpServlet {
 	      {
 	      	 e.printStackTrace();
 	      }
+		System.out.println("***************/LOGIN SERVLET - SEND EMAIL/***************");
 	}
 	
 	public class Email{
