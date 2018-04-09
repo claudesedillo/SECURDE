@@ -95,35 +95,7 @@ public class InventoryServlet extends HttpServlet {
 	    response.getWriter().write(htmlBookList);
 	    System.out.println("***************/INVENTORY SERVLET - GET INVENTORY/***************");
 	}
-	
-//	private void editBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		System.out.println("***************INVENTORY SERVLET - EDIT BOOK***************");
-//		
-//		if(request.getParameter("btn-editProd") != null){
-//			int id = Integer.valueOf(request.getParameter("btn-editProd"));
-//			Book oldBook = BookService.getBook(id);
-//			HttpSession session = request.getSession();
-//			session.setAttribute("bookid", id);
-//			request.setAttribute("bookid", session.getAttribute("bookid"));
-//			request.setAttribute("title", oldBook.getTitle());
-//			request.setAttribute("isbn", oldBook.getIsbn());
-//			request.setAttribute("genre", oldBook.getGenre());
-//			request.setAttribute("format", oldBook.getFormat());
-//			request.setAttribute("pub", oldBook.getSQLDate());
-//			request.setAttribute("price", oldBook.getPrice());
-//			request.setAttribute("stock", oldBook.getStock());
-//			request.setAttribute("authorID", oldBook.getAuthorID());
-//			request.setAttribute("publisherID", oldBook.getPublisherID());
-//			request.getRequestDispatcher("updateProduct.jsp").forward(request, response);
-//		}
-//		else{
-//			int id = Integer.valueOf(request.getParameter("btn-deleteProd"));
-//			BookService.deleteBook(id);
-//			System.out.println("***************/INVENTORY SERVLET - EDIT BOOK/***************");
-//			request.getRequestDispatcher("catalogTest.html").forward(request, response);
-//		}
-//	}
-	
+		
     protected void addBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************INVENTORY SERVLET - ADD BOOK***************");
     	

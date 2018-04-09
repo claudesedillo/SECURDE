@@ -25,7 +25,7 @@
                            <span class="icon-bar"></span>
                            <span class="icon-bar"></span> 
                        </button>
-                         <a class="navbar-brand" href="portal.html">bookshelf</a><p>| portal</p>
+                         <a class="navbar-brand" href="Portal.jsp">bookshelf</a><p>| portal</p>
                    </div>
 
                    <div class="collapse navbar-collapse" id="nav_collapse">
@@ -88,23 +88,11 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">ORDER ID: #420420420</h4>
+                                    <h4 class="modal-title">ORDER ID:</h4>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-sm-9">
-                                            <p id="name">Hey Google</p>
-                                            <p id="address">4136 SMDC Green Residences <br>Taft Avenue, Metro Manila</p>
-                                            <p id="contact">09989716071</p>
-                                            <br>
-                                            <p class="detail-subheader">Status: Out for Delivery</p>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <p class="labels">Subtotal: </p> <p class="info">420</p><br>
-                                            <p class="labels">Shipping: </p> <p class="info">100</p><br>
-                                            <p class="labels">Total: </p> <p class="info" >520</p><br>
-                                        </div>
-                                    </div>
+                                <div class="modal-body" >
+                                	<div class="row" id ="ordersummary-div">
+                                	</div>
                                     <div class="row">
                                         <table class="table">
                                             <thead>
@@ -115,13 +103,7 @@
                                                     <th>TOTAL PRICE</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>How To Be a God by Patrick Tobias</td>
-                                                    <td>10</td>
-                                                    <td>P 420.00</td>
-                                                    <td>P 4200.00</td>
-                                                </tr>
+                                            <tbody id = "orderdetails-ordertable">
                                             </tbody>
                                         </table> 
                                     </div>

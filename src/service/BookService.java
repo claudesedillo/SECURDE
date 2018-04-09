@@ -288,6 +288,34 @@ public class BookService {
 		System.out.println("*************************************************************");
 	}
 	
+	public static String getBookTitle(int bookID) {
+		String title = "";
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM book WHERE bookid = ?");
+			
+			stmt.setInt(1, bookID);
+			//System.out.println("Query is: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				title = rs.getString("Title");
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		//System.out.println("BookService, getBook complete!");
+		//System.out.println("*************************************************************");
+		return title;
+	}
 	public static List<Book> getBookByAuthorID(List<Integer> authorIDs) {
 		//System.out.println("*************************************************************");
 		//System.out.println("I am at BookService, getBookByAuthorID (searching books by author)");
