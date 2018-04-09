@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/nav.js"></script>
+        <script src ="script/signup.js"></script>
         <title>Bookshelf | Sign Up</title>
     </head>
     
@@ -26,30 +27,29 @@
             <h3>create your bookshelf account now!</h3>
             <p>Access your Bookshelf account, write reviews, track orders and more.</p>
             <hr><br>
-            <form action="signup" method="post">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="fname" placeholder="first name" name="fname">
+                        <input type="text" class="form-control" id="fname" placeholder="first name">
                     </div>
                 </div>
                 <div class="col-sm-5 col-sm-offset-1">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="lname" placeholder="last name" name="lname">
+                        <input type="text" class="form-control" id="lname" placeholder="last name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="email address" name="email">
+                    <input type="email" class="form-control" id="email-signup" placeholder="email address">
                     <p class="warnings" id="userexists">Email address already in use.</p>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="password" placeholder="password" name="password" maxlength="20">
+                    <input type="password" class="form-control" id="password-signup" placeholder="password" maxlength="20">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" name="password2" maxlength="20">
+                    <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" maxlength="20">
                 </div>
                 
                 <div class="form-group">
-                    <select class="form-control" id="security-qs" name="securityQ">
+                    <select class="form-control" id="security-qs" >
                         <option selected disabled>security question</option>
                         <option>what’s your dream car?</option>
                         <option>what subject did you enjoy the most in college?</option>
@@ -59,13 +59,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="security-answer" placeholder="security answer" name="securityA">
+                    <input type="password" class="form-control" id="security-answer" placeholder="security answer">
                 </div>
                 <hr>
                  <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, and special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
                 
-                <button type="submit" class="btn btn-default" id="btn-signup" name="btn-signup" value="cust-signup">SIGN UP</button> 
-            </form>     
+                <button class="btn btn-default" id="btn-signup" name="btn-signup" value="cust-signup">SIGN UP</button>   
         </div>
         <br><br> 
        <footer class="page-footer center-on-small-only" id="footer"></footer>

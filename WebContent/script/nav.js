@@ -6,11 +6,12 @@ function getCartCount(){
 		context: this,
 		url: 'getCartCount',
 		type: 'get',
+		async: false,
 		cache: false,
 		success: function(data){
 			console.log("badge content: " + badgeText);
 			console.log("Cart count: " + data);
-			$(badge).text("WOOOOOOOOO");
+			$(badge).text(data);
 			console.log("badge content: " + badgeText);
 			console.log("append complete!");
 		},
@@ -61,15 +62,15 @@ function submitTheForm(email, password){
 
 $("document").ready(function(){
 	
-	if(document.cookie.indexOf("logged") >= 0){   	 	
+	if(document.cookie.indexOf("USER") >= 0){   	 	
 			$("#nav").load("usernav.html");
 		    $("#footer").load("footer.html");
 	    	console.log("Log in successful");
-	    	console.log("Nav and footer loaded!");
+	    	console.log("Nav and footer (user) loaded!");
     }else {
 			$("#nav").load("nav.html");
 		    $("#footer").load("footer.html");
-		    console.log("Nav and footer loaded!");
+		    console.log("Nav and footer (not logged in) loaded!");
     }
 	 
 	$(document).on("click", "#btn-cart", function(){
