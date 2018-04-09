@@ -29,15 +29,15 @@
         <div class="container-fluid" id="body">
             <div class="wrapper">
                 <h3>RESET PASSWORD</h3><br>
-                <form>
+                <form action = "newPasswordConfirm" method = "POST">
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="new password">
+                        <input type="password" class="form-control" placeholder="new password" name = "pass">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="confirm new password">
+                        <input type="password" class="form-control" placeholder="confirm new password" name = "pass2">
                     </div>
                     
-                    <button class="btn btn-default" id="btn-submit">SUBMIT</button>
+                    <button type="submit" class="btn btn-default" id="btn-submit">SUBMIT</button>
                 </form>
             </div>
         </div>

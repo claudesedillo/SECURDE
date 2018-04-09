@@ -212,7 +212,7 @@ public class Login extends HttpServlet {
 		}
 		System.out.println("session key : " + emailKey);
 		if(inputKey.equals(emailKey)){
-			response.sendRedirect("PassRecovery.html");
+			response.sendRedirect("ResetPassword.jsp");
 		}
 		else{
 			System.out.println("wrong input >:(");
@@ -244,7 +244,7 @@ public class Login extends HttpServlet {
 			System.out.println("Password of Customer Succesfully Updated");
 			request.getRequestDispatcher("Index.jsp").forward(request, response);
 		}
-		else request.getRequestDispatcher("PassRecovery.html").forward(request, response);
+		else request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
 		System.out.println("***************/LOGIN SERVLET - NEW PASSWORD CONFIRM/***************");
 	}
 	
