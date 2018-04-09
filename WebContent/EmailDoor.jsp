@@ -18,7 +18,7 @@
 	<body>
 		<div class="container-fluid">
             <div class="row">
-                <a class="title" href="portal.html">bookshelf</a><p>| portal</p>
+                <a class="title" href="Portal.jsp">bookshelf</a><p>| portal</p>
             </div>
             <hr>
             <div class="row">

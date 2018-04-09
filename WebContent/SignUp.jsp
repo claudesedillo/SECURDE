@@ -31,25 +31,27 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <input type="text" class="form-control" id="fname" placeholder="first name">
+                        <p class="warnings" id="fname-error">Please enter your first name.</p>
                     </div>
                 </div>
                 <div class="col-sm-5 col-sm-offset-1">
                     <div class="form-group">
                         <input type="text" class="form-control" id="lname" placeholder="last name">
+                        <p class="warnings" id="lname-error">Please enter your last name.</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <input type="email" class="form-control" id="email-signup" placeholder="email address">
                     <p class="warnings" id="userexists">Email address already in use.</p>
+                    <p class="warnings" id="email-error">Please enter valid email address.</p>
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="password-signup" placeholder="password" maxlength="20">
+                    <meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter>
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" maxlength="20">
-                </div>
-                <div class="form-group">
-                	<meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter>
+                    <p class="warnings" id="pwnotmatch">Passwords do not match.</p>
                 </div>
                 <div class="form-group">
                     <select class="form-control" id="security-qs" >
@@ -65,7 +67,8 @@
                     <input type="password" class="form-control" id="security-answer" placeholder="security answer">
                 </div>
                 <hr>
-                 <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, and special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
+                 <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, 
+                 and special characters (~!@#$%^*-_=+[{]}/;:,.?).</p><br>
                 
                 <button class="btn btn-default" id="btn-signup" name="btn-signup" value="cust-signup">SIGN UP</button>   
         </div>

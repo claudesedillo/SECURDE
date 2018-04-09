@@ -87,19 +87,19 @@ $("document").ready(function(){
 	})
 
 	// submit form for button
-	$(document).on("click", "#btn-signin",function() {
-		console.log("Sign in clicked");
-		
-		var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        
-        if(validateEmail(email) && password !== null && password !== ""){
-        	$("#signin-modal .form-group").removeClass("has-error");
-        	submitTheForm(email, password); 
-        } else{
-        	showError();
-        }
-	});
+		$(document).on("click", "#btn-signin",function() {
+			console.log("Sign in clicked");
+			
+			var email = document.getElementById('email').value;
+	        var password = document.getElementById('password').value;
+	        
+	        if(validateEmail(email) && password !== null && password !== ""){
+	        	$("#signin-modal .form-group").removeClass("has-error");
+	        	submitTheForm(email, password); 
+	        } else{
+	        	showError();
+	        }
+		});
 	
 //	$(document).keyup(function (e) {
 //		var email = document.getElementById('email').value;

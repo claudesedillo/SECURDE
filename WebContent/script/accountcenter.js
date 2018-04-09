@@ -1,3 +1,62 @@
+function displayOrders(){
+		
+	var orderTable = document.getElementById("orderTable");
+		
+	$.ajax({
+		context: this,
+		url: 'getOrders',
+		type: 'get',
+		cache: false,
+		success: function(data){
+			$(orderTable).append(data);
+			console.log("displayOrders complete!");
+		},
+		error:function(){
+			console.log("something is wrong on displayOrders");
+		}
+	});
+}
+
+function getOrderDetails(orderID){
+	var orderDetailsTable = document.getElementById("orderdetails-ordertable");
+	
+	$.ajax({
+		context: this,
+		url: 'getOrderDetails',
+		data:{'orderID' : orderID},
+		type: 'get',
+		cache: false,
+		success: function(orderDetails){
+			console.log("getOrderDetails complete!");
+			console.log(orderDetails);
+			$(orderDetailsTable).append(orderDetails);
+		},
+		error:function(){
+			console.log("something is wrong on getBookDetails");
+		}
+	});
+}
+
+function getOrderSummary(orderID){
+	var orderSummaryDiv = document.getElementById("ordersummary-div");
+	
+	$.ajax({
+		context: this,
+		url: 'getOrderSummary',
+		data:{'orderID' : orderID},
+		type: 'get',
+		cache: false,
+		success: function(orderSummary){
+			console.log("getOrderSummary complete!");
+			console.log(orderSummary);
+			$(orderSummaryDiv).append(orderSummary);
+		},
+		error:function(){
+			console.log("something is wrong on getOrderSummary");
+		}
+	});	
+}
+
 function appendAddress () {
 	document.getElementById('comb-address').value = 
 		document.getElementById('st-address').value + ' ' +
@@ -5,10 +64,18 @@ function appendAddress () {
 		document.getElementById('province').value + ' ' + 
 		document.getElementById('postalcode').value;
 		console.log("Address appended");
-
 }
 
 $(document).ready(function() { 
+	
+	$(document).on("click", ".view-orderdetails-btn", function(){
+		console.log("view order details clicked!");
+		
+		var orderID = $(this).attr("data-orderid");
+		console.log("order ID: " + orderID);
+		getOrderSummary(orderID);
+		getOrderDetails(orderID);
+	});
 	
 	// edit account details
     $('#btn-editacc').click(function() {

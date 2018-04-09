@@ -11,6 +11,28 @@ function redirectCustomer(data){
 		document.location.href = 'SignUp.jsp';
 	}
 }
+
+/**
+ * Checks if password is equal or not.
+ * @param pass2 - second verifying password
+ * @param pass1 - original password.
+ * @returns
+ */
+function confirmPasswordMatch(pass1, pass2) {
+	var pw1 = pass1.value;
+	var pw2 = pass2.value;
+	
+	if(pw1 === pw2) {
+		$('#pwnotmatch').show();
+		$("#password-signup").addClass("has-error");
+		$("#confirm-pw").addClass("has-error");
+	} else {
+		$('#pwnotmatch').hide();
+		$("#password-signup").removeClass("has-error");
+		$("#confirm-pw").removeClass("has-error");
+	}	
+}
+
 function signup(email, password, password2){
 	var firstname = document.getElementById('fname').value;
 	var lastname = document.getElementById('lname').value;
@@ -47,16 +69,30 @@ $("document").ready(function() {
 	
 	$(document).on("click", "#btn-signup",function() {
 		console.log("signup clicked!");
+		var fname = document.getElementById('fname').value;
+		var lname = document.getElementById('lname').value;
 		var email = document.getElementById('email-signup').value;
         var password = document.getElementById('password-signup').value;
         var password2 = document.getElementById('confirm-pw').value;
         
         console.log(password + " " + password2);
         
-        if(validateEmail(email) && password !== null && password !== "" && password == password2){
-        	signup(email, password, password2); 
+        if(validateEmail(email) && password !== null && password !== "" && password === password2){
+        	if(true) // insert check input
+        		signup(email, password, password2); 
         } else{
-        	console.log("Something's wrong");
+        	if (fname == "") {
+        		$('#fname-error').show();
+        		$("#fname").addClass("has-error");
+        	}
+        	if (lname == "") {
+        		$('#lname-error').show();
+        		$("#lname").addClass("has-error");
+        	}
+        	if (email == "") {
+        		$('#email-error').show();
+        		$("#email-signup").addClass("has-error");
+        	}
         }
 	});
 	
