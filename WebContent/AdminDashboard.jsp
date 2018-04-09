@@ -34,7 +34,7 @@
                                <a class="dropdown-toggler" data-toggle="dropdown" href="#">ACCOUNT <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                    <li><a href="#">SETTINGS</a></li>
-                                   <li><a href="Index.jsp">LOGOUT</a></li>
+                                   <li><a href="logout">LOGOUT</a></li>
                                </ul>
                            </li>
                        </ul>

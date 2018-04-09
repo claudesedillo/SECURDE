@@ -75,9 +75,7 @@ $("document").ready(function(){
 	 
 	$(document).on("click", "#btn-cart", function(){
 	  	console.log("Cart was clicked");
-	   	var bookID = $(this).attr("data-bookId");
-	   	console.log("BookID =  " + bookID);
-	   	window.location = "intoCart";  
+	  	document.location.href = 'Cart.jsp';
 	});
 	
 	$(document).on("click", ".close", function() {
