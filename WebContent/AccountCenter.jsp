@@ -155,6 +155,8 @@
                     </tbody>
                 </table>
             </div>
+            
+            <!-- ORDER DETAILS MODAL -->
             <div id="details-modal" class="modal" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
