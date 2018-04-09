@@ -152,6 +152,14 @@ public class Login extends HttpServlet {
 		System.out.println("input key : " + inputKey);
 		
 		if(inputKey.equals(emailKey)){
+			
+			try {
+				email = ESAPI.encryptor().encrypt(email);
+			} catch (EncryptionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			Cookie theCookie;
 			theCookie = new Cookie("ADMIN", email); 
 			theCookie.setMaxAge(604800); //1 week expirey.
