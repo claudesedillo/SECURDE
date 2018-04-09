@@ -23,13 +23,13 @@
             <hr>
             <div class="row">
                 <p>Enter session key</p>
-                <form action = "emailKey" method = "POST">
+                <form action = "forgetKey" method = "POST">
                     <input type="text" class="form-control code-fields" name = "s1" maxlength="1">
                     <input type="text" class="form-control code-fields" name = "s2" maxlength="1">
                     <input type="text" class="form-control code-fields" name = "s3" maxlength="1">
                     <input type="text" class="form-control code-fields" name = "s4" maxlength="1">
                     <input type="text" class="form-control code-fields" name = "s5" maxlength="1"><br><br>
-                    <button class="btn btn-default" type="submit" name ="btn-signup" value ="admin-signup">proceed</button><br>
+                    <button class="btn btn-default" type="submit" name ="btn-passrec" value ="cust-passrec">proceed</button><br>
                 </form>
                 <br><br>
             </div>

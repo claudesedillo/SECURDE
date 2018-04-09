@@ -187,7 +187,8 @@ public class Login extends HttpServlet {
 			request.setAttribute("emailkey", session.getAttribute("emailkey"));
 			session.setAttribute("user", user);
 			request.setAttribute("user", session.getAttribute("user"));
-			response.sendRedirect("PassRecoveryEmailDoor.html");
+			//response.sendRedirect("PassRecoveryEmailDoor.html");
+			response.sendRedirect("ResetPasswordDoor.jsp");
 		}
 		else response.sendRedirect("ForgotPasswordPortal.jsp");
 		System.out.println("***************/LOGIN SERVLET - FORGOT PASSWORD/***************");
@@ -197,14 +198,17 @@ public class Login extends HttpServlet {
 		System.out.println("***************LOGIN SERVLET - FORGOT KEY***************");
 		HttpSession session = request.getSession();
 		String emailKey = (String) session.getAttribute("emailkey");
-		String inputKey = request.getParameter("emailkey");
+		String inputKey = "";
+		for(int x = 1; x < 6; x+=1){
+			inputKey += request.getParameter("s" + Integer.toString(x));
+		}
 		System.out.println("session key : " + emailKey);
 		if(inputKey.equals(emailKey)){
 			response.sendRedirect("PassRecovery.html");
 		}
 		else{
 			System.out.println("wrong input >:(");
-			response.sendRedirect("PassRecoveryEmailDoor.html");
+			response.sendRedirect("ResetPasswordDoor.jsp");
 		}
 		System.out.println("***************/LOGIN SERVLET - FORGOT KEY/***************");
 	}
