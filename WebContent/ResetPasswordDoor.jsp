@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="css/portal.css">
         <script src="script/key.js"></script>
         
-        <title>Bookshelf | Employee Portal</title>
+        <title>Bookshelf | Password Recovery</title>
 	</head>
 	<body>
 		<div class="container-fluid">
