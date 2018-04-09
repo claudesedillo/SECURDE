@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="css/nav.css">
         <link rel="stylesheet" href="css/footer.css">
         <script src="script/nav.js"></script>
+        <script src="script/zxcvbn.js"></script>
         <script src ="script/signup.js"></script>
         <title>Bookshelf | Sign Up</title>
     </head>
@@ -47,7 +48,9 @@
                 <div class="form-group">
                     <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" maxlength="20">
                 </div>
-                
+                <div class="form-group">
+                	<meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter>
+                </div>
                 <div class="form-group">
                     <select class="form-control" id="security-qs" >
                         <option selected disabled>security question</option>

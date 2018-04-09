@@ -11,7 +11,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
        
         <link rel="stylesheet" href="css/resetpassword.css">
-		
+		<script src="script/zxcvbn.js"></script>
+        <script src ="script/resetPassword.js"></script>
 		<title>Bookshelf | Password Recovery</title>
 	</head>
 	<body>
@@ -31,12 +32,14 @@
                 <h3>RESET PASSWORD</h3><br>
                 <form action = "newPasswordConfirm" method = "POST">
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="new password" name = "pass">
+                        <input type="password" class="form-control" placeholder="new password" name = "pass" id="password-forgot">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="confirm new password" name = "pass2">
                     </div>
-                    
+                    <div class="form-group">
+	                	<meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter>
+	                </div>
                     <button type="submit" class="btn btn-default" id="btn-submit">SUBMIT</button>
                 </form>
             </div>
