@@ -271,18 +271,23 @@ public class ShoppingServlet extends HttpServlet {
 	
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - ADD TO CART***************");
+		
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+		System.out.println("Book ID is: " + bookID);
+		Book book = BookService.getBook(bookID);
+		
 		HttpSession session = request.getSession();
-		Book book = (Book) session.getAttribute("book");
 		//int qty = Integer.parseInt(request.getParameter("qty"));
 		
 		boolean guest = true;
 		String email = "Guest";
 		
+		try {
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
 				Cookie currentCookie = cookies[i];
-				if(currentCookie.getName().equals("logged")){
+				if(currentCookie.getName().equals("USER")){
 					guest = false;
 					email = currentCookie.getValue();
 				}
@@ -320,7 +325,11 @@ public class ShoppingServlet extends HttpServlet {
 		}
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
-		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		response.getWriter().write("PASS-ADD-CART");
+		}
+		catch(Exception e) {
+			response.getWriter().write("FAIL-ADD-CART");
+		}
 		System.out.println("***************/SHOPPING SERVLET - ADD TO CART/***************");
 	}
 	
@@ -336,7 +345,7 @@ public class ShoppingServlet extends HttpServlet {
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
 				Cookie currentCookie = cookies[i];
-				if(currentCookie.getName().equals("logged")){
+				if(currentCookie.getName().equals("USER")){
 					guest = false;
 				}
 			}
@@ -381,7 +390,7 @@ public class ShoppingServlet extends HttpServlet {
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
 				Cookie currentCookie = cookies[i];
-				if(currentCookie.getName().equals("logged")){
+				if(currentCookie.getName().equals("USER")){
 					guest = false;
 					email = currentCookie.getValue();
 				}
@@ -455,10 +464,7 @@ public class ShoppingServlet extends HttpServlet {
 							break;
 		case "/checkout" :  System.out.println("I am at doGet method, checkout case");
 							getCheckOutButton(request, response);
-							break;
-		case "/addToCart": System.out.println("I am at shoppingServlet, addToCart method");
-						   addToCart(request, response);
-						   break;			
+							break;			
 		case "/intoCart": System.out.println("I am at shoppingServlet, intoCart method");
 						  intoCart(request, response);
 						  break;
@@ -485,6 +491,9 @@ public class ShoppingServlet extends HttpServlet {
 			case "/checkoutConfirm" : System.out.println("I am at doGet method, checkoutConfirm case");
 			  						  checkOutConfirm(request, response);
 			  						  break;
+			case "/addToCart": System.out.println("I am at shoppingServlet, addToCart method");
+			   addToCart(request, response);
+			   break;
 		}
 	}
 

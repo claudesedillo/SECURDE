@@ -17,7 +17,8 @@
 	    <link rel="stylesheet" href="css/nav.css">
 	    <link rel="stylesheet" href="css/footer.css">
 	    <script src="script/searchOptions.js"></script>
-	    <script type = "text/javascript" src = "script/nav.js"></script>  
+	    <script type = "text/javascript" src = "script/nav.js"></script>
+	    <script type = "text/javascript" src = "script/viewbook.js"></script>
 	</head>
 	<body onload="getCartCount()">
 		<nav class="navbar navbar-default" id="nav"></nav><br>
@@ -41,9 +42,9 @@
 		         <div class="row">
 		            <p id="price">P${book.price}</p>
 		             
-		            <form action="addToCart" method="get">
-		             	<button type="submit" class="btn btn-default" id="btn-addtocart"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
-		         	</form>
+
+		             	<button class="btn btn-default" id="btn-addtocart" value="${book.bookID}"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart </button>
+	
 		         </div>
 		     </div>
 		 </div>
