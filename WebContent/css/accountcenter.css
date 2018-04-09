@@ -133,3 +133,54 @@ hr {
 .table tr {
     font-size: 11px;
 }
+
+#ordernum:hover {
+    cursor: pointer;
+}
+
+/** ORDER DETAILS MODAL **/
+.modal-content {
+    width: 125%;
+    margin-left: -60px;
+    top: 42px;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+.modal-content .row {
+    padding: 15px;
+    padding-bottom: 5px;
+}
+
+.modal-content .detail-header {
+    font-size: 15.5px;
+    margin-left: 5px;
+    font-weight: 600;
+    color: #617C93;
+}
+
+.modal-content .detail-subheader {
+    font-size: 11.5px;
+    margin-left: 5px;
+    font-style: italic;
+}
+
+.modal-content p {
+    font-size: 12px;
+    margin: 0px;
+}
+
+.modal-content #name {
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.labels {
+    width: 80px;
+    display: inline-table;
+}
+
+.info {
+    display: inline-table;
+    font-weight: 600;
+}

@@ -32,7 +32,14 @@ import service.LoginAttemptService;
 /**
  * Servlet implementation class Login
  */
-@WebServlet(urlPatterns = {"/login", "/adminLogin", "/signup", "/emailKey", "/logout" , "/forgotPassword", "/forgetKey", "/newPasswordConfirm"})
+@WebServlet(urlPatterns = {"/login", 
+						"/adminLogin", 
+						"/signup", 
+						"/emailKey", 
+						"/logout" , 
+						"/forgotPassword", 
+						"/forgetKey", 
+						"/newPasswordConfirm"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
