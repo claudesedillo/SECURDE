@@ -102,8 +102,8 @@ public class BookService {
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
 			
-			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO book (Title, ISBN, Genre, Format, Published, Price, StockLevel) " +
-															"VALUES (?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO book (Title, ISBN, Genre, Format, Published, Price, StockLevel, authorID, publisherID) " +
+															"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			stmt.setString(1, book.getTitle());
 			stmt.setString(2, book.getIsbn());
 			stmt.setString(3, book.getGenre());
@@ -111,6 +111,8 @@ public class BookService {
 			stmt.setDate(5, book.getSQLDate());
 			stmt.setFloat(6, book.getPrice());
 			stmt.setInt(7, book.getStock());
+			stmt.setInt(8, book.getAuthorID());
+			stmt.setInt(9, book.getPublisherID());
 			//System.out.println("Query is: " + stmt);
 			stmt.executeUpdate();
 			//System.out.println("Book was successfully added to the database!");

@@ -124,6 +124,51 @@ public class InventoryServlet extends HttpServlet {
 //		}
 //	}
 	
+    protected void addBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("***************INVENTORY SERVLET - ADD BOOK***************");
+    	
+    	int stock = Integer.parseInt(request.getParameter("stock")), publisherID, authorID;
+
+    	String title = request.getParameter("title");
+    	String isbn = request.getParameter("isbn");
+    	String genre = request.getParameter("genre");
+    	String format = request.getParameter("format");
+		String authorName = request.getParameter("authorName");
+		String publisherName = request.getParameter("publisherName");
+		
+		Date datePublished = java.sql.Date.valueOf((request.getParameter("datePublished")));		
+    	float price = Float.parseFloat(request.getParameter("price"));		
+
+		if(!PublisherService.doesPublisherExist(publisherName)) {
+			Publisher newPublisher = new Publisher(publisherName);
+			PublisherService.addPublisher(newPublisher);	
+		}
+		
+		if(!AuthorService.doesAuthorExist(authorName)) {
+			Author newAuthor = new Author(authorName);
+			AuthorService.addAuthor(newAuthor);
+		}
+		
+		publisherID = PublisherService.getPublisherID(publisherName);
+		authorID = AuthorService.getAuthorID(authorName);
+		
+		System.out.println("Book Title: " + title);
+		System.out.println("ISBN: " + isbn);
+		System.out.println("Genre: " + genre);
+		System.out.println("Format: " + format);
+		System.out.println("Price: " + price);
+		System.out.println("Date Published: " + datePublished);
+		System.out.println("Stock: " + stock);
+		System.out.println("Author ID: " + authorID);
+		System.out.println("Publisher ID: " + publisherID);
+		
+    	Book book = new Book(title, isbn, genre, format, price, stock, datePublished, authorID, publisherID);
+    	BookService.addBook(book);
+    	System.out.println("***************/INVENTORY SERVLET - ADD BOOK/***************");
+    	request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+    	
+    }
+    
 	private void editBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************INVENTORY SERVLET - EDIT BOOK***************");
 		
@@ -286,32 +331,8 @@ public class InventoryServlet extends HttpServlet {
 		System.out.println("***************/INVENTORY SERVLET - GET CATALOG/***************");
 	}
 	
-    protected void addBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	System.out.println("***************INVENTORY SERVLET - ADD BOOK***************");
-		
-		System.out.println("Book Title: " + request.getParameter("bookTitle"));
-		System.out.println("ISBN: " + request.getParameter("isbn"));
-		System.out.println("Genre: " + request.getParameter("genre"));
-		System.out.println("Format: " + request.getParameter("optradio"));
-		System.out.println("Price: " + request.getParameter("price"));
-		System.out.println("Date Published: " + request.getParameter("published"));
-		System.out.println("Stock: " + request.getParameter("qty"));
-		 
-    	String title = request.getParameter("bookTitle");
-    	String isbn = request.getParameter("isbn");
-    	String genre = request.getParameter("genre");
-    	String format = request.getParameter("optradio");
-    	String published = request.getParameter("published");
-    	float price = Float.parseFloat(request.getParameter("price"));
-    	int stock = Integer.parseInt(request.getParameter("qty"));
-    	
-    	Book book = new Book(title, isbn, genre, format, price, stock);
-    	book.setSQLDate(published);
-    	BookService.addBook(book);
-    	System.out.println("***************/INVENTORY SERVLET - ADD BOOK/***************");
-    	request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
-    	
-    }
+
+    
     protected void addAuthor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************INVENTORY SERVLET - ADD AUTHOR***************");
 		System.out.println("First name: " + request.getParameter("authorFirstName"));

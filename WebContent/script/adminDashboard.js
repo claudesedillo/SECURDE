@@ -160,6 +160,7 @@ function editBook(bookID){
 	console.log("I am on editBook!");
 	var format = $("input[name='edit-format']:checked").val();
 	console.log("format is" + format);
+	
 	$.ajax({
 		context: this,
 		url: 'editBook',
@@ -186,6 +187,33 @@ function editBook(bookID){
 	});
 }
 
+function addBook(){
+	console.log("I am at addbook");
+	
+	$.ajax({
+		context: this,
+		url: 'addBook',
+		data:{'title': $("#addbook-title").val(),
+			  'authorName': $("#addbook-author").val(),
+			  'isbn': $("#addbook-isbn").val(),
+			  'publisherName' : $("#addbook-publisher").val(),
+			  'datePublished': $("#addbook-published").val(),
+			  'genre': $("#addbook-genre").val(),
+			  'price': $("#addbook-price").val(),
+			  'stock': $("#addbook-qty").val(),
+			  'format': $("input[name='addbook-format']:checked").val(),
+			  },
+		type: 'post',
+		cache: false,
+		success: function(data){
+			console.log(data);
+		},
+		error:function(){
+			console.log("something is wrong on editBook");
+		}
+	});
+}
+
 $("document").ready(function() {
 	displayOrders();
 	displayAdminList();
@@ -197,6 +225,11 @@ $("document").ready(function() {
 		globalBookID = $(this).attr("data-bookId");
 		console.log("book ID of selected book is: " + globalBookID);
 		getBookDetails(globalBookID);
+	});
+	
+	$(document).on("click", "#btn-addbook", function(){
+		console.log("Add book clicked!");
+		addBook();
 	});
 	
 	$(document).on("click", "#btn-edit-okay",function() {
