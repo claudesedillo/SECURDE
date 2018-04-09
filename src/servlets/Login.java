@@ -265,6 +265,15 @@ public class Login extends HttpServlet {
 					adminPass = adminPass.substring(0, 10);
 					Email email = new Email(user, "Your Admin Account has been Created!", "Password : " + adminPass);
 					sendEmail(request, response, email);
+					
+					//Hashing Password
+					try {
+						adminPass = ESAPI.encryptor().encrypt(adminPass);
+					} catch (EncryptionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					admin.setHashedpassword(adminPass);
 					admin.setFirstname(fName);
 					admin.setLastname(lName);

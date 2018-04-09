@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.EncryptionException;
+
 import beans.Admin;
 
 public class AdminService {
@@ -175,7 +178,14 @@ public class AdminService {
 				user = rs.getString("email");
 				pass = rs.getString("hashedpassword");
 				
-				if(user.equals(email) && pass.equals(hashedPass)){
+				if(user.equals(email))
+					try {
+						pass = ESAPI.encryptor().decrypt(pass);
+					} catch (EncryptionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(pass.equals(hashedPass)){
 					System.out.println("AdminService, checkLogin complete! Return value true");
 					System.out.println("*************************************************************");
 					return true;
