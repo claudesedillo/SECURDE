@@ -120,12 +120,17 @@ public class Login extends HttpServlet {
 				System.out.println("emailKey is: " + emailKey);
 				Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
 				sendEmail(request, response, email);
+				
+				Cookie theCookie;
+				theCookie = new Cookie("ADMIN-ATTEMPT", user); 
+				theCookie.setMaxAge(60*30); //30 minutes
+				
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("emailkey", emailKey);
 				session.setAttribute("email", user);
 				request.setAttribute("emailkey", session.getAttribute("emailkey"));
-				//response.sendRedirect("adminEmailDoor.html");
-				//request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
+				response.addCookie(theCookie);
 				response.getWriter().write("PASS-LOGIN-ADMIN");
 			}
 		}	
@@ -175,12 +180,25 @@ public class Login extends HttpServlet {
 			//Add cookie
 			response.addCookie(theCookie);
 			System.out.println("Succesful Login (Admin)");
-			response.sendRedirect("AdminDashboard.jsp");
+			
+			//Destroy attempt cookie
+			Cookie[] cookies = request.getCookies();
+			if(cookies!=null){
+				for(int i = 0; i < cookies.length; i++){
+					Cookie currentCookie = cookies[i];
+					if(currentCookie.getName().equals("ADMIN-ATTEMPT")) {
+						System.out.println("ADMIN ATTEMPT found!");
+						currentCookie.setMaxAge(0);
+						response.addCookie(currentCookie);
+						System.out.println("ADMIN ATTEMPT killed!");
+					}
+				}
+			}
+			response.getWriter().write("SUCCESS-LOGIN-ADMIN");
 		}
 		else{
 			System.out.println("wrong input >:(");
-			//response.sendRedirect("adminEmailDoor.html");
-			request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
+			response.getWriter().write("FAIL-LOGIN-ADMIN");
 		}
 		System.out.println("***************/LOGIN SERVLET - CHECK ADMIN LOGIN/***************");
 	}
@@ -461,7 +479,7 @@ public class Login extends HttpServlet {
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
 				Cookie currentCookie = cookies[i];
-				if(currentCookie.getName().equals("USER")){
+				if(currentCookie.getName().equals("USER") || currentCookie.getName().equals("ADMIN") || currentCookie.getName().equals("CART")){
 					currentCookie.setMaxAge(0);
 					response.addCookie(currentCookie);
 				}

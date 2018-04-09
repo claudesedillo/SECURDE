@@ -32,7 +32,6 @@ import service.ShoppingcartService;
 @WebServlet(urlPatterns = {"/addToCart", 
 						   "/checkout",
 						   "/checkoutConfirm",
-						   "/intoCart",
 						   "/getCartList",
 						   "/removeFromCart",
 						   "/getCheckoutDelivery",
@@ -87,7 +86,7 @@ public class ShoppingServlet extends HttpServlet {
 	
 
 	private void getCheckOutButton(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.print("GOT IN intoCart");
+		System.out.println("***************SHOPPING SERVLET - getCheckOutButton***************");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		float total = 0;
 		for(Shoppingcart sc : cartlist){
@@ -111,6 +110,7 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(checkoutHTML);
+		System.out.println("***************/SHOPPING SERVLET - getCheckOutButton/***************");
 	}
 	
 	private void getCheckoutSignIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -262,13 +262,6 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************/SHOPPING SERVLET - CHECKOUT CONFIRM/***************");
 	}
 	
-	private void intoCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("***************SHOPPING SERVLET - INTO CART***************");
-		request.getRequestDispatcher("Cart.jsp").forward(request, response);
-		System.out.println("***************/SHOPPING SERVLET - INTO CART/***************");
-	}
-	
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - ADD TO CART***************");
 		
@@ -325,6 +318,11 @@ public class ShoppingServlet extends HttpServlet {
 		}
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
+		
+		Cookie theCookie;
+		theCookie = new Cookie("CART", "not empty"); 
+		theCookie.setMaxAge(60*60*24*7*30); //30 minutes
+		
 		response.getWriter().write("PASS-ADD-CART");
 		}
 		catch(Exception e) {
@@ -376,6 +374,18 @@ public class ShoppingServlet extends HttpServlet {
 		
 		session.setAttribute("cartlist", cartlist);
 		request.setAttribute("cartlist", cartlist);
+		
+		if(cartlist.isEmpty()) {
+			if(cookies!=null){
+				for(int i = 0; i < cookies.length; i++){
+					Cookie currentCookie = cookies[i];
+					if(currentCookie.getName().equals("CART")){
+						currentCookie.setMaxAge(0);
+						response.addCookie(currentCookie);
+					}
+				}
+			}
+		}
 		request.getRequestDispatcher("Cart.jsp").forward(request, response);
 		System.out.println("***************/SHOPPING SERVLET - REMOVE FROM CART/***************");
 	}
@@ -464,10 +474,7 @@ public class ShoppingServlet extends HttpServlet {
 							break;
 		case "/checkout" :  System.out.println("I am at doGet method, checkout case");
 							getCheckOutButton(request, response);
-							break;			
-		case "/intoCart": System.out.println("I am at shoppingServlet, intoCart method");
-						  intoCart(request, response);
-						  break;
+							break;
 		case "/removeFromCart" : System.out.println("I am at shoppingServlet, removeFromCart method");
 								 removeFromCart(request, response);
 								 break;

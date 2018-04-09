@@ -18,8 +18,6 @@ function displayCatalog(){
 	});
 }
 
-
-
 $("document").ready(function(){
 	
     // view book
