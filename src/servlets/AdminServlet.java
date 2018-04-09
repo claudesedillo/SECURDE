@@ -73,7 +73,7 @@ public class AdminServlet extends HttpServlet {
     	
     	for(Order o: orderList) {
     		htmlOrderlist +=  "<tr>" +
-	    				         "<td><a data-toggle=\"modal\" data-target=\"#\">" + o.getOrderID() +"</a></td>" +
+	    				         "<td><a data-toggle=\"modal\" data-target=\"#details-modal\" id=\"ordernum\">" + o.getOrderID() +"</a></td>" +
 	    				         "<td>" + o.getEmail() +"</td>" +
 	    				         "<td>" + o.getFirstName() + " " + o.getLastName() + "</td>" +
 	    				         "<td>" + o.getTotal() +"</td>" +

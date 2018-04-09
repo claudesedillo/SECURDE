@@ -233,10 +233,6 @@ td {
     background:transparent;
 }
 
-#ordernum:hover {
-    pointer: cursor;
-}
-
 /** ORDER DETAILS MODAL **/
 #details-modal  .row {
     padding: 15px;
@@ -267,4 +263,8 @@ td {
 .info {
     display: inline-table;
     font-weight: 700;
+}
+
+#ordernum:hover, #bookid:hover {
+    cursor: pointer;
 }

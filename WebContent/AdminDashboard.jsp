@@ -47,9 +47,9 @@
 	        <div class="col-sm-2" id="sidenav">
 	            <ul class="nav nav-pills nav-stacked">
 	                <li><a href="#">INBOX</a></li>
-	                <li><a href="#ordertracking" data-toggle="tab">ORDER TRACKING</a></li>
+	                <li class="active"><a href="#ordertracking" data-toggle="tab">ORDER TRACKING</a></li>
 	                <li><a href="#inventory" data-toggle="tab">INVENTORY</a></li>
-	                <li class="active"><a href="#manage-accounts" data-toggle="tab">MANAGE ACCOUNTS</a></li>
+	                <li><a href="#manage-accounts" data-toggle="tab">MANAGE ACCOUNTS</a></li>
 	            </ul>
 	        </div>
 	            
@@ -57,7 +57,7 @@
             	<!-- ORDER TRACKING TAB -->
                 <div class="tab-pane" id="ordertracking">
                     <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control search-bar"  placeholder="search" >
+                        <input type="text" class="form-control search-bar" placeholder="search" >
                         <span class="input-group-addon">
                             <button type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -128,15 +128,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> <!--  END ORDER DETAILS -->
+                </div> <!-- END TRACK ORDER -->
             
                 <!-- INVENTORY TAB -->
                 <div class="tab-pane" id="inventory">
                 	<button type="button" class="btn btn-default" 
                 	data-toggle="modal" data-target="#addbook-modal" id="btn-addbook">
                 	<span class="glyphicon glyphicon-plus"></span>  ADD A BOOK</button>
-                    
+                	
                 	<!-- ADD BOOK MODAL -->
 	                <div id="addbook-modal" class="modal" role="dialog">
 	                      <div class="modal-dialog modal-dialog-centered">
@@ -150,7 +150,9 @@
 	                              <div class="row">
 	                                  <div class="col-sm-4" id="cover-div">
 	                                      <img src="css/generic-cover.jpg" class="img-responsive">
-	                                       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-upload"><span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
+	                                       <button type="button" class="btn btn-default" data-toggle="modal" 
+	                                       data-target="#addbook-div" id="btn-upload">
+	                                       <span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
 	                                  </div>
 									  <form action = "addBook" method = "POST">
 									  	<div class="col-sm-8">
@@ -215,10 +217,10 @@
 	                              </div>
 	                            </div>
 	                        </div>
-	                      </div>
 	                	</div>
-                    
-                    <!-- INVENTORY TABLE -->
+	            	</div> <!-- END ADD BOOK MODAL -->
+                
+                	<!-- INVENTORY TABLE -->
                     <div class="row table-div">
                         <div class="col-sm-12 bookdiv">
                             <table class="table">
@@ -232,10 +234,11 @@
                                     </tr>
                                 </thead>
                                 <tbody id = "inventoryTable"></tbody>
+                               </table>
                         </div>
-                    </div>  
+                    </div> <!-- END INVENTORY TABLE -->	
                     
-                  	<!--  VIEW BOOK -->
+                    <!--  VIEW BOOK -->
                   	<div id="viewbook-div" class="modal" role="dialog">
                        <div class="modal-dialog modal-dialog-centered">
                          <div class="modal-content">
@@ -247,8 +250,8 @@
                             <div class="modal-body">
                                <div class="row">
                                    <div class="col-sm-4" id="cover-div">
-                                       <img src="generic-cover.jpg" class="img-responsive">
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-upload"><span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
+                                       <img src="css/generic-cover.jpg" class="img-responsive">
+                                       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-upload"><span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
                                    </div>
 
                                    <div class="col-sm-8">
@@ -313,61 +316,61 @@
                              </div>
                          </div>
                        </div>
-                     </div> 
-                </div>
+                     </div> <!-- END VIEW BOOK -->
                 
-                <!-- MANAGE ACCOUNTS TAB -->
-                <div class="tab-pane active" id="manage-accounts">
-                    <button type="button" class="btn btn-default" data-toggle="modal" 
-                    data-target="#addaccount-modal" id="btn-addaccount">
-                    <span class="glyphicon glyphicon-plus"></span>  ADD ACCOUNT</button>
-                    
-                    <!-- ADD ACOUNT MODAL -->
-                    <div id="addaccount-modal" class="modal" role="dialog">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">ADD AN ACCOUNT</h4>
-                            </div>
-                        
-                        	<form action = "signup" method = "POST">
-	                            <div class="modal-body">
-	                              <div class="row">
-	                                  <div class="form-group">
-	                                      <label for="fname-inp">First Name</label>
-	                                      <input type="text" class="form-control" id="fname-inp" name = "firstName">
-	                                  </div>
-	                                  
-	                                  <div class="form-group">
-	                                      <label for="lname-inp">Last Name</label>
-	                                      <input type="text" class="form-control" id="lname-inp" name = "lastName">
-	                                  </div>
-	                                  
-	                                  <div class="form-group">
-	                                      <label for="email-inp">Email Address</label>
-	                                      <input type="email" class="form-control" id="email-inp" name ="email">
-	                                  </div>
-	                                  
-	                                  <div class="form-group">
-	                                      <label for="dept-inp">Department</label>
-	                                      <select class="form-control" id="dept-inp" select name = "role">
-	                                          <option>Customer Support</option>
-	                                          <option>Shipping &amp; Tracking</option>
-	                                          <option>Inventory</option> 
-	                                      </select>
-	                                </div>
-	                                  
-	                                <button type="submit" class="btn btn-default btn-okay" id="btn-okayaccount" name ="btn-signup" value ="admin-signup"> <span class="glyphicon glyphicon-ok"></span></button>
-	                              </div>
-	                            </div>
-	                    	</form>
-                        </div>
-                      </div>
+                </div> <!-- END INVENTORY TAB -->
+               
+            	<!-- MANAGE ACCOUNTS TAB -->
+            	<div class="tab-pane" id="manage-accounts">
+            		 <button type="button" class="btn btn-default" data-toggle="modal" 
+            		 data-target="#addaccount-modal" id="btn-addaccount">
+            		 <span class="glyphicon glyphicon-plus"></span>  ADD ACCOUNT</button>
+            		 
+            		 <!-- ADD ACOUNT MODAL -->
+                     <div id="addaccount-modal" class="modal" role="dialog">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+								    <button type="button" class="close" data-dismiss="modal">&times;</button>
+								    <h4 class="modal-title">ADD A ACCOUNT</h4>
+								</div>
+						  
+								<div class="modal-body">
+									<div class="row">
+									    <div class="form-group">
+									        <label for="fname-inp">First Name</label>
+									        <input type="text" class="form-control" id="fname-inp">
+									    </div>
+									    
+									    <div class="form-group">
+									        <label for="lname-inp">Last Name</label>
+									        <input type="text" class="form-control" id="lname-inp">
+									    </div>
+									    
+									    <div class="form-group">
+									        <label for="email-inp">Email Address</label>
+									        <input type="text" class="form-control" id="email-inp">
+									    </div>
+									    
+									    <div class="form-group">
+									        <label for="dept-inp">Department</label>
+									        <select class="form-control" id="dept-inp">
+									            <option>Customer Support</option>
+									            <option>Shipping &amp; Tracking</option>
+									            <option>Inventory</option> 
+									        </select>
+									  	</div>
+									    
+									  	<button type="button" class="btn btn-default btn-okay" id="btn-okayaccount">
+									  	<span class="glyphicon glyphicon-ok"></span></button>
+									</div>
+								</div>
+						  	</div>
+						</div>
                     </div>
             		
-            		<!-- ACCOUNTS TABLE MODAL -->
-                   	<div class="row table-div">
+					<!-- ACCOUNTS TABLE -->
+                    <div class="row table-div">
                         <div class="col-sm-12">
                             <table class="table">
                                 <thead>
@@ -379,7 +382,14 @@
                                         <th> </th>
                                     </tr>
                                 </thead>
-                                <tbody id = "adminTable">
+                                <tbody>
+                                    <tr>
+                                        <td>Tobias</td>
+                                        <td>Patrick</td>
+                                        <td>tobi@god.com</td>
+                                        <td>God</td>
+                                        <td><button class="btn btn-default btn-tabledelacc" data-toggle="modal" data-target="#delaccount-modal"><span class="glyphicon glyphicon-remove"></span></button></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             
@@ -405,9 +415,10 @@
                               </div>
                             </div>  
                         </div>
-                    </div>
-                </div>
-            </div>
-	        </div>
-	    </body>
+                    </div> <!-- END OF ACCOUNTS TABLE -->
+            		
+            	</div> <!-- END MANAGE ACCOUNTS -->
+            </div> <!-- END TAB-CONTENT -->
+		</div>
+	</body>
 </html>
