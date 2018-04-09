@@ -160,37 +160,21 @@
                              <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <p class="detail-header">Order ID: #420420420</p>
                             <p class="detail-subheader">Status: Out for Delivery</p>
-                            <div class="row">
-                                <div class="col-sm-9">
-                                    <p id="name">Hey Google</p>
-                                    <p id="address">4136 SMDC Green Residences <br>Taft Avenue, Metro Manila</p>
-                                    <p id="contact">09989716071</p>
-                                </div>
-                                <div class="col-sm-3">
-                                    <p class="labels">Subtotal: </p> <p class="info">420</p><br>
-                                    <p class="labels">Shipping: </p> <p class="info">100</p><br>
-                                    <p class="labels">Total: </p> <p class="info" >520</p><br>
-                                </div>
+                        	<div class="row" id ="ordersummary-div">
                             </div>
                             <div class="row">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Qty</th>
-                                            <th>Unit Price</th>
-                                            <th>Total Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>How To Be a God by Patrick Tobias</td>
-                                            <td>10</td>
-                                            <td>P 420.00</td>
-                                            <td>P 4200.00</td>
-                                        </tr>
-                                    </tbody>
-                                </table> 
+                            <table class="table">
+                            	<thead>
+                                	<tr>
+                                    	<th>PRODUCT</th>
+                                        <th>QTY</th>
+                                        <th>UNIT PRICE</th>
+                                        <th>TOTAL PRICE</th>
+                                    </tr>
+                               	 </thead>
+                            	<tbody id = "orderdetails-ordertable">
+                            	</tbody>
+                            </table> 
                             </div>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 function displayOrders(){
 		
-	var orderTable = document.getElementById("orderTable");
+	var orderTable = document.getElementById("orderdetail-ordertable");
 		
 	$.ajax({
 		context: this,
-		url: 'getOrders',
+		url: 'getUserOrders',
 		type: 'get',
 		cache: false,
 		success: function(data){
@@ -67,6 +67,7 @@ function appendAddress () {
 }
 
 $(document).ready(function() { 
+	displayOrders();
 	
 	$(document).on("click", ".view-orderdetails-btn", function(){
 		console.log("view order details clicked!");
@@ -75,6 +76,12 @@ $(document).ready(function() {
 		console.log("order ID: " + orderID);
 		getOrderSummary(orderID);
 		getOrderDetails(orderID);
+	});
+	
+	$("#details-modal").on("hidden.bs.modal", function () {
+		$("#ordersummary-div").empty();
+		$("#orderdetails-ordertable").empty();
+	    console.log("modal closed!");
 	});
 	
 	// edit account details

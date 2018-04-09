@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-$("document").ready(function(){
-	
-=======
 /**
  *  TODO parse inputs to string, append, then compare to actual code
  */
@@ -50,7 +46,6 @@ $("document").ready(function(){
     	submitTheForm();
     });
     
->>>>>>> origin/master
     $('.code-fields').keyup(function () {
         if (this.value.length == this.maxLength) {
           $(this).next('.code-fields').focus();
@@ -59,8 +54,8 @@ $("document").ready(function(){
    
 })
 
-$(window).bind("pageshow", function() {
-        var form = $('form'); 
-        // let the browser natively reset defaults
-        form[0].reset();
-});
+	$(window).bind("pageshow", function() {
+	        var form = $('form'); 
+	        // let the browser natively reset defaults
+	        form[0].reset();
+	});

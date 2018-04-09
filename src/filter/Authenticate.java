@@ -111,6 +111,7 @@ public class Authenticate implements Filter {
             //Public Pages
 			case "/Portal.jsp":
 			case "/nav.html":
+			case "/usernav.html":
 			case "/footer.html":
 			case "/Index.jsp":
 			case "/ErrorPage.html":
