@@ -102,23 +102,34 @@ public class Login extends HttpServlet {
 		String pass = request.getParameter("password");	
 		System.out.println(user + " " + pass);
 		
+		String IpAddress = request.getRemoteAddr();
+		if(!LoginAttemptService.checkIfExists(IpAddress)){
+			java.sql.Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+			LoginAttemptService.addLoginAttempt(new LoginAttempt(IpAddress,currentTime,0));
+		}
+		
 		if(AdminService.checkLogin(user, pass)){
-			String emailKey = UUID.randomUUID().toString().replace("-", "");
-			emailKey = emailKey.substring(0, 5);
-			//TODO: REMOVE THIS ASAP. FOR CHECKING ONLY
-			System.out.println("emailKey is: " + emailKey);
-			Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
-			sendEmail(request, response, email);
-			HttpSession session = request.getSession();
-			session.setAttribute("emailkey", emailKey);
-			session.setAttribute("email", user);
-			request.setAttribute("emailkey", session.getAttribute("emailkey"));
-			//response.sendRedirect("adminEmailDoor.html");
-			//request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
-			response.getWriter().write("PASS-LOGIN-ADMIN");
+			if(!LoginAttemptService.checkForBruteForce(IpAddress)){
+				String emailKey = UUID.randomUUID().toString().replace("-", "");
+				emailKey = emailKey.substring(0, 5);
+				//TODO: REMOVE THIS ASAP. FOR CHECKING ONLY
+				System.out.println("emailKey is: " + emailKey);
+				Email email = new Email(user, "ADMIN LOGIN ATTEMPTED", "Authentication Key : " + emailKey);
+				sendEmail(request, response, email);
+				HttpSession session = request.getSession();
+				session.setAttribute("emailkey", emailKey);
+				session.setAttribute("email", user);
+				request.setAttribute("emailkey", session.getAttribute("emailkey"));
+				//response.sendRedirect("adminEmailDoor.html");
+				//request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
+				response.getWriter().write("PASS-LOGIN-ADMIN");
+			}
 		}	
 		else{
-			System.out.println("Wrong email/pass ma dude");
+			if(LoginAttemptService.checkForBruteForce(IpAddress)){
+				System.out.println("BRUTE FORCE FOR IP : " + IpAddress + " DETECTED");
+			}
+			else System.out.println("Wrong email/pass ma dude");
 			request.getRequestDispatcher("Portal.jsp").forward(request, response);
 			response.getWriter().write("FAIL-LOGIN-ADMIN");
 		}
