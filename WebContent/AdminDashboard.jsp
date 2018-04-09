@@ -81,14 +81,64 @@
                             </table>
                         </div>
                     </div>
+                    
+                    <!-- ORDER DETAILS MODAL -->
+                    <div id="details-modal" class="modal" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">ORDER ID: #420420420</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <p id="name">Hey Google</p>
+                                            <p id="address">4136 SMDC Green Residences <br>Taft Avenue, Metro Manila</p>
+                                            <p id="contact">09989716071</p>
+                                            <br>
+                                            <p class="detail-subheader">Status: Out for Delivery</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p class="labels">Subtotal: </p> <p class="info">420</p><br>
+                                            <p class="labels">Shipping: </p> <p class="info">100</p><br>
+                                            <p class="labels">Total: </p> <p class="info" >520</p><br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>PRODUCT</th>
+                                                    <th>QTY</th>
+                                                    <th>UNIT PRICE</th>
+                                                    <th>TOTAL PRICE</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>How To Be a God by Patrick Tobias</td>
+                                                    <td>10</td>
+                                                    <td>P 420.00</td>
+                                                    <td>P 4200.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             
                 <!-- INVENTORY TAB -->
                 <div class="tab-pane" id="inventory">
-                	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-modal" id="btn-addbook"><span class="glyphicon glyphicon-plus"></span>  ADD A BOOK</button>
+                	<button type="button" class="btn btn-default" 
+                	data-toggle="modal" data-target="#addbook-modal" id="btn-addbook">
+                	<span class="glyphicon glyphicon-plus"></span>  ADD A BOOK</button>
                     
                 	<!-- ADD BOOK MODAL -->
-	                  <div id="addbook-modal" class="modal" role="dialog">
+	                <div id="addbook-modal" class="modal" role="dialog">
 	                      <div class="modal-dialog modal-dialog-centered">
 	                        <div class="modal-content">
 	                            <div class="modal-header">
@@ -166,7 +216,7 @@
 	                            </div>
 	                        </div>
 	                      </div>
-	                    </div>
+	                	</div>
                     
                     <!-- INVENTORY TABLE -->
                     <div class="row table-div">
@@ -181,99 +231,96 @@
                                         <th>QTY</th>
                                     </tr>
                                 </thead>
-                                <tbody id = "inventoryTable">
-                                </tbody>
-                            </table>
-                            
-                            <!--  VIEW BOOK -->
-                             <div id="viewbook-div" class="modal" role="dialog">
-                                  <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">VIEW BOOK</h4>
-                                        </div>
-
-                                        <div class="modal-body">
-                                          <div class="row">
-                                              <div class="col-sm-4" id="cover-div">
-                                                  <img src="generic-cover.jpg" class="img-responsive">
-                                                   <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-upload"><span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
-                                              </div>
-
-                                              <div class="col-sm-8">
-                                                  <div class="form-group">
-                                                      <label for="title-inp">Title</label>
-                                                      <input type="text" class="form-control" id="titleField">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="author-inp">Author</label>
-                                                      <input type="text" class="form-control" id="authorField">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="isbn-inp">ISBN</label>
-                                                      <input type="number" class="form-control" id="isbnField">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="publisher-inp">Publisher</label>
-                                                      <input type="text" class="form-control" id="publisherField">
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="datepub-inp">Date Published</label>
-                                                      <input type="date" class="form-control" id="publishedField">
-                                                  </div>
-
-
-                                                  <div class="form-group">
-                                                      <label for="genre-inp">Genre</label>
-                                                      <select class="form-control" id="genreList">
-                                                          <option value = "Biography and Memoir">Biography &amp; Memoir</option>
-                                                          <option value = "Business and Finance">Business &amp; Finance</option>
-                                                          <option value = "Computers">Computers</option>
-                                                          <option value = "Fiction and literature">Fiction &amp; Literature</option>
-                                                          <option value = "Graphic Novels and Manga">Graphic Novels &amp; Manga</option>
-                                                          <option value = "SciFi and Fantasy">Sci-fi &amp; Fantasy</option>
-                                                          <option value = "Science and Nature">Science &amp; Nature</option>
-                                                          <option value = "Travel">Travel</option>
-                                                      </select>
-                                                </div>
-
-                                                <div class="col-sm-3 abdiv-bottom">
-                                                     <div class="form-group">
-                                                          <label for="author-inp">Price</label>
-                                                          <input type="number" class="form-control" id="priceField">
-                                                      </div>  
-                                                </div>
-												
-												<div class="col-sm-3 abdiv-bottom">
-                                                     <div class="form-group">
-                                                          <label for="author-inp">Stock</label>
-                                                          <input type="number" class="form-control" id="stockField">
-                                                      </div>  
-                                                </div>
-                                                
-                                                <div class="col-sm-7 abdiv-bottom">
-                                                    <label class="radio-inline"><input type="radio" name="edit-format" id = "paperbackRadioEdit" value = "Paperback">Paperback</label>
-                                                    <label class="radio-inline"><input type="radio" name="edit-format" id = "hardboundRadioEdit" value = "Hardbound">Hardbound</label>
-                                                </div>
-                                                <br>
-                                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-edit-okay"> <span class="glyphicon glyphicon-ok"></span></button>
-                                              </div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            
-                            
-                            
+                                <tbody id = "inventoryTable"></tbody>
                         </div>
-                    </div>   
+                    </div>  
+                    
+                  	<!--  VIEW BOOK -->
+                  	<div id="viewbook-div" class="modal" role="dialog">
+                       <div class="modal-dialog modal-dialog-centered">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                 <h4 class="modal-title">VIEW BOOK</h4>
+                             </div>
+
+                            <div class="modal-body">
+                               <div class="row">
+                                   <div class="col-sm-4" id="cover-div">
+                                       <img src="generic-cover.jpg" class="img-responsive">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-upload"><span class="glyphicon glyphicon-cloud-upload"></span>  UPLOAD COVER</button>
+                                   </div>
+
+                                   <div class="col-sm-8">
+                                       <div class="form-group">
+                                           <label for="title-inp">Title</label>
+                                           <input type="text" class="form-control" id="titleField">
+                                       </div>
+                                       <div class="form-group">
+                                           <label for="author-inp">Author</label>
+                                           <input type="text" class="form-control" id="authorField">
+                                       </div>
+                                       <div class="form-group">
+                                           <label for="isbn-inp">ISBN</label>
+                                           <input type="number" class="form-control" id="isbnField">
+                                       </div>
+                                       <div class="form-group">
+                                           <label for="publisher-inp">Publisher</label>
+                                           <input type="text" class="form-control" id="publisherField">
+                                       </div>
+                                       <div class="form-group">
+                                           <label for="datepub-inp">Date Published</label>
+                                           <input type="date" class="form-control" id="publishedField">
+                                       </div>
+
+
+                                       <div class="form-group">
+                                           <label for="genre-inp">Genre</label>
+                                           <select class="form-control" id="genreList">
+                                               <option value = "Biography and Memoir">Biography &amp; Memoir</option>
+                                               <option value = "Business and Finance">Business &amp; Finance</option>
+                                               <option value = "Computers">Computers</option>
+                                               <option value = "Fiction and literature">Fiction &amp; Literature</option>
+                                               <option value = "Graphic Novels and Manga">Graphic Novels &amp; Manga</option>
+                                               <option value = "SciFi and Fantasy">Sci-fi &amp; Fantasy</option>
+                                               <option value = "Science and Nature">Science &amp; Nature</option>
+                                               <option value = "Travel">Travel</option>
+                                           </select>
+                                     </div>
+
+                                     <div class="col-sm-3 abdiv-bottom">
+                                          <div class="form-group">
+                                               <label for="author-inp">Price</label>
+                                               <input type="number" class="form-control" id="priceField">
+                                           </div>  
+                                     </div>
+	
+									<div class="col-sm-3 abdiv-bottom">
+                                          <div class="form-group">
+                                               <label for="author-inp">Stock</label>
+                                               <input type="number" class="form-control" id="stockField">
+                                           </div>  
+                                     </div>
+                                     
+                                     <div class="col-sm-7 abdiv-bottom">
+                                         <label class="radio-inline"><input type="radio" name="edit-format" id = "paperbackRadioEdit" value = "Paperback">Paperback</label>
+                                         <label class="radio-inline"><input type="radio" name="edit-format" id = "hardboundRadioEdit" value = "Hardbound">Hardbound</label>
+                                     </div>
+                                     <br>
+                                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addbook-div" id="btn-edit-okay"> <span class="glyphicon glyphicon-ok"></span></button>
+                                   </div>
+                               </div>
+                             </div>
+                         </div>
+                       </div>
+                     </div> 
                 </div>
                 
                 <!-- MANAGE ACCOUNTS TAB -->
                 <div class="tab-pane active" id="manage-accounts">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addaccount-modal" id="btn-addaccount"><span class="glyphicon glyphicon-plus"></span>  ADD ACCOUNT</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" 
+                    data-target="#addaccount-modal" id="btn-addaccount">
+                    <span class="glyphicon glyphicon-plus"></span>  ADD ACCOUNT</button>
                     
                     <!-- ADD ACOUNT MODAL -->
                     <div id="addaccount-modal" class="modal" role="dialog">
@@ -318,8 +365,9 @@
                         </div>
                       </div>
                     </div>
-            
-                   <div class="row table-div">
+            		
+            		<!-- ACCOUNTS TABLE MODAL -->
+                   	<div class="row table-div">
                         <div class="col-sm-12">
                             <table class="table">
                                 <thead>
