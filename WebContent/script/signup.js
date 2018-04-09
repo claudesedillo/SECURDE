@@ -3,18 +3,25 @@ function validateEmail(email) {
 	 return re.test(email);
 }
 
+function redirectCustomer(data){
+	if(data == "PASS-SIGNUP-CUSTOMER"){
+		document.location.href = 'Index.jsp';
+	}
+	else{
+		document.location.href = 'SignUp.jsp';
+	}
+}
 function signup(email, password, password2){
 	var firstname = document.getElementById('fname').value;
 	var lastname = document.getElementById('lname').value;
 	var	securityQuestion = document.getElementById('security-qs').value;
 	var securityAnswer = document.getElementById('security-answer').value;
-	var type = document.getElementById('btn-signup').value;
     
-	console.log(email + " " + password + " " + password2 + " " + firstname + " " + lastname + " " + securityQuestion + " " + securityAnswer + " " + type);
+	console.log(email + " " + password + " " + password2 + " " + firstname + " " + lastname + " " + securityQuestion + " " + securityAnswer + " ");
 	
     $.ajax({
  	    context: this,
-        url:'signup',
+        url:'signupcustomer',
         data:{'email': email,
         	  'fname': firstname,
         	  'lname': lastname,
@@ -22,11 +29,13 @@ function signup(email, password, password2){
         	  'password2': password2,
         	  'securityQ': securityQuestion,
         	  'securityA': securityAnswer,
-        	  'btn-signup': type},
+        		},
         type:'POST',
         cache:false,
         success: function(data){
         	console.log("signUp success!");
+        	console.log("data is" + data);
+        	redirectCustomer(data);
         },
         error:function(){
         	console.log("error at submitting the form");

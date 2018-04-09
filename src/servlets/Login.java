@@ -39,7 +39,8 @@ import service.LoginAttemptService;
 						"/logout" , 
 						"/forgotPassword", 
 						"/forgetKey", 
-						"/newPasswordConfirm"})
+						"/newPasswordConfirm",
+						"/signupcustomer"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -77,6 +78,9 @@ public class Login extends HttpServlet {
 		}
 		else if(request.getServletPath().equals("/signup")){
 			signup(request, response);
+		}
+		else if(request.getServletPath().equals("/signupcustomer")){
+			signUpCustomer(request, response);
 		}
 		else if(request.getServletPath().equals("/adminLogin")){
 			adminLogin(request, response);
@@ -248,6 +252,47 @@ public class Login extends HttpServlet {
 		System.out.println("***************/LOGIN SERVLET - NEW PASSWORD CONFIRM/***************");
 	}
 	
+	private void signUpCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - SIGN UP CUSTOMER***************");
+		String user = request.getParameter("email");
+		String pass = request.getParameter("password");	
+		String pass2 = request.getParameter("password2");
+		String secQ = request.getParameter("securityQ"),
+			   secA = request.getParameter("securityA"),
+			   firstname = request.getParameter("fname"),
+			   lastname = request.getParameter("lname");
+		
+		if(!CustomerService.checkUser(user)){
+				if(isPasswordValid(pass, pass2)){
+					//Hashing Password
+					try {
+						pass = ESAPI.encryptor().encrypt(pass);
+					} catch (EncryptionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Customer cust = new Customer();
+					cust.setEmail(user);
+					cust.setHashedpassword(pass);
+					cust.setSecurityquestion(secQ);
+					cust.setSecurityanswer(secA);
+					cust.setFirstname(firstname);
+					cust.setLastname(lastname);
+					CustomerService.addCustomer(cust);
+					System.out.println("Succesful signup (Customer)");
+					response.getWriter().write("PASS-SIGNUP-CUSTOMER");
+				}
+				else {
+					request.getRequestDispatcher("SignUp.jsp").forward(request, response);
+					response.getWriter().write("FAIL-SIGNUP-CUSTOMER");
+				}
+			}
+			else{
+				System.out.println("Your email already exists!!! >:(");
+				response.getWriter().write("FAIL-SIGNUP-CUSTOMER");
+			}
+	}
 	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		System.out.println("***************LOGIN SERVLET - SIGN UP***************");
 		String user = request.getParameter("email");
@@ -279,7 +324,7 @@ public class Login extends HttpServlet {
 					cust.setLastname(lastname);
 					CustomerService.addCustomer(cust);
 					System.out.println("Succesful signup (Customer)");
-					request.getRequestDispatcher("Index.jsp").forward(request, response);
+					response.getWriter().write("PASS-SIGNUP-CUSTOMER");
 				}
 				else request.getRequestDispatcher("SignUp.jsp").forward(request, response);
 			}
@@ -288,6 +333,7 @@ public class Login extends HttpServlet {
 				request.getRequestDispatcher("SignUp.jsp").forward(request, response);
 			}
 		}
+		
 		else if(type.equals("admin-signup")){
 			String fName = request.getParameter("firstName");
 			String lName = request.getParameter("lastName");
