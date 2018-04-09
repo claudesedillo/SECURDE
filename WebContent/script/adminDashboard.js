@@ -206,6 +206,7 @@ function addBook(){
 		type: 'post',
 		cache: false,
 		success: function(data){
+			console.log("add book complete!");
 			console.log(data);
 		},
 		error:function(){
