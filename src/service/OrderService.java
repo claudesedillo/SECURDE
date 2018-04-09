@@ -3,13 +3,51 @@ package service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.Book;
 import beans.Order;
 
 public class OrderService {
 
+	public static Order getOrder(int orderID) {
+		Order order = null;
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			
+			
+			PreparedStatement stmt =  conn.prepareStatement("SELECT * FROM orders WHERE orderid = ?");
+			
+			stmt.setInt(1, orderID);
+			//System.out.println("Query is: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				order = new Order(rs.getInt("orderid"),
+					    rs.getString("email"),
+						rs.getString("firstName"),
+						rs.getString("lastName"),
+						rs.getString("streetaddress"),
+						rs.getString("city"),
+						rs.getString("province"),
+						rs.getInt("postalcode"),
+						rs.getString("phonenumber"),
+						rs.getInt("total"));
+			}
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		//System.out.println("BookService, getBook complete!");
+		//System.out.println("*************************************************************");
+		return order;
+	}
 	public static int getLatestOrder() {
 		int orderID = 0;
 		try {

@@ -215,11 +215,59 @@ function addBook(){
 	});
 }
 
+function getOrderDetails(orderID){
+	var orderDetailsTable = document.getElementById("orderdetails-ordertable");
+	
+	$.ajax({
+		context: this,
+		url: 'getOrderDetails',
+		data:{'orderID' : orderID},
+		type: 'get',
+		cache: false,
+		success: function(orderDetails){
+			console.log("getOrderDetails complete!");
+			console.log(orderDetails);
+			$(orderDetailsTable).append(orderDetails);
+		},
+		error:function(){
+			console.log("something is wrong on getBookDetails");
+		}
+	});
+}
+
+function getOrderSummary(orderID){
+	var orderSummaryDiv = document.getElementById("ordersummary-div");
+	
+	$.ajax({
+		context: this,
+		url: 'getOrderSummary',
+		data:{'orderID' : orderID},
+		type: 'get',
+		cache: false,
+		success: function(orderSummary){
+			console.log("getOrderSummary complete!");
+			console.log(orderSummary);
+			$(orderSummaryDiv).append(orderSummary);
+		},
+		error:function(){
+			console.log("something is wrong on getOrderSummary");
+		}
+	});	
+}
+
 $("document").ready(function() {
 	displayOrders();
 	displayAdminList();
 	displayInventory();
 	
+	$(document).on("click", ".view-orderdetails-btn", function(){
+		console.log("view order details clicked!");
+		
+		var orderID = $(this).attr("data-orderid");
+		console.log("order ID: " + orderID);
+		getOrderSummary(orderID);
+		getOrderDetails(orderID);
+	});
 	$(document).on("click", ".edit-book-btn",function() {
 		console.log("Edit book clicked!");
 		
@@ -238,4 +286,11 @@ $("document").ready(function() {
 		editBook(globalBookID);
 		$("#viewbook-div").modal('toggle');
 	});
+	
+	$("#details-modal").on("hidden.bs.modal", function () {
+		$("#ordersummary-div").empty();
+		$("#orderdetails-ordertable").empty();
+	    console.log("modal closed!");
+	});
+
 });

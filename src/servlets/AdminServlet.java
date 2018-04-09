@@ -31,6 +31,7 @@ import service.PublisherService;
  * Servlet implementation class AdminServlet
  */
 @WebServlet(urlPatterns = { "/getOrders",
+							"/getOrderSummary",
 		   					"/getOrderDetails",
 						    "/getAdminList",
 						    "/editAdminGet",
@@ -48,6 +49,37 @@ public class AdminServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    private void getOrderSummary(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("***************ADMIN SERVLET - GET ORDER SUMMARY***************");
+    	int orderID = Integer.parseInt(request.getParameter("orderID"));
+    	System.out.println("Order id is: " + orderID);
+    	Order order = OrderService.getOrder(orderID);
+    	String htmlOrderSummary = "";
+    	String name = order.getFirstName() + " " + order.getLastName();
+    	String address = order.getStreetAddress() + " " + order.getCity() + "<br>" + order.getProvince() + " " 
+    	+ order.getPostalCode();
+    	String contact = order.getPhoneNumber();
+    	int subtotal = order.getTotal();
+    	
+    	htmlOrderSummary += "<div class=\"col-sm-9\">" +
+    						"    <p id=\"orderdetails-name\">" + name + "</p>" +
+    						"    <p id=\"orderdetails-address\">" + address + "</p>" +
+    						"	 <p id=\"orderdeatails-contact\">" + contact + "</p>" +
+    						"    <br>" + 
+    						"    <p class=\"detail-subheader\">Status: Out for Delivery</p>" +
+    						"</div>" +
+    						"<div class=\"col-sm-3\">" + 
+    						"		<p class=\"labels\">Subtotal: </p> <p class=\"info\" id=\"orderdetails-subtotal\">" + subtotal + "</p><br>" + 
+    						"   	<p class=\"labels\">Shipping: </p> <p class=\"info\" id=\"orderdetails-shippingfee\">100</p><br>" + 
+    						"   	<p class=\"labels\">Total: </p> <p class=\"info\" id=\"orderdetails-total\">" + (subtotal + 100) + "</p><br>" + 
+    						"</div>";
+		response.setContentType("text/html"); 
+	    response.setCharacterEncoding("UTF-8"); 
+	    response.getWriter().write(htmlOrderSummary);
+	    System.out.println(htmlOrderSummary);
+    	System.out.println("***************/ADMIN SERVLET - GET ORDER SUMMARY/***************");
+    }
+    
     private void getOrderDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************ADMIN SERVLET - GET ORDER DETAILS***************");
     	System.out.println("Order id is: " + request.getParameter("orderID"));
@@ -55,8 +87,13 @@ public class AdminServlet extends HttpServlet {
     	String htmlOrderDetails = "";
     	
     	for(OrderList o: orderlist) {
-    		htmlOrderDetails += "<div class = \"order\"> " +
-    							"<p> Book Title: " + BookService.getBook(o.getBookID()) + "		Quantity: " + o.getQuantity() + "</p>";
+    		Book book = BookService.getBook(o.getBookID());
+    		htmlOrderDetails += "<tr class = \"book-order-detail\">" +
+    							"    <td>" + book.getTitle() + "</td>" +
+    							"    <td>" + o.getQuantity() + "</td>" +
+    							"	 <td>" + book.getPrice() + "</td>" +
+    							"    <td>P" + (o.getQuantity() * book.getPrice()) + "</td>" +
+    							"</tr>";
     	}
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
@@ -72,8 +109,9 @@ public class AdminServlet extends HttpServlet {
     	String htmlOrderlist = "";
     	
     	for(Order o: orderList) {
+    		int orderID = o.getOrderID();
     		htmlOrderlist +=  "<tr>" +
-	    				         "<td><a data-toggle=\"modal\" data-target=\"#details-modal\" id=\"ordernum\">" + o.getOrderID() +"</a></td>" +
+	    				         "<td><a data-toggle=\"modal\" data-target=\"#details-modal\" class = \"view-orderdetails-btn\" data-orderid = \"" + orderID +"\" id=\"ordernum\">" + orderID +"</a></td>" +
 	    				         "<td>" + o.getEmail() +"</td>" +
 	    				         "<td>" + o.getFirstName() + " " + o.getLastName() + "</td>" +
 	    				         "<td>" + o.getTotal() +"</td>" +
@@ -157,7 +195,9 @@ public class AdminServlet extends HttpServlet {
 		case "/getOrderDetails": System.out.println("I am at adminServlet, getOrderDetails case");
 						getOrderDetails(request, response);
 						break;
-
+		case "/getOrderSummary": System.out.println("I am at adminServlet, getOrderDetails case");
+						getOrderSummary(request, response);
+						break;				
 		case "/getAdminList" : System.out.println("I am at adminServlet, getAdminList case");
 							getAdminList(request, response);	
 							break;

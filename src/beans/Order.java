@@ -33,6 +33,20 @@ public class Order {
 		this.lastName = lastName;
 	}
 	
+	public Order(int orderID, String email, String firstName, String lastName, String streetAddress, String city, String province,
+			int postalcode, String phoneNumber, int total) {
+		
+		this.orderID = orderID;
+		this.email = email;
+		this.total = total;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.province = province;
+		this.postalCode = postalcode;
+		this.phoneNumber = phoneNumber;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 	public Order(String email, String firstName, String lastname, String address, String city, int total) {
 		this.email = email;
 		this.firstName = firstName;
