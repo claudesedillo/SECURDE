@@ -11,6 +11,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 
         <link rel="stylesheet" href="css/portal.css">
+        <script src ="script/adminLogin.js"></script>
 		<title>Bookshelf | Employee Portal</title>
 </head>
 <body>
@@ -20,15 +21,13 @@
         </div>
         <hr>
         <div class="row">
-           <form action="adminLogin" method="post">
+              <div class="form-group">
+                  <input type="email" class="form-control" placeholder="email address" id = "email-admin">
+              </div>
                <div class="form-group">
-                   <input type="email" class="form-control" placeholder="email address" name = "email">
-               </div>
-                <div class="form-group">
-                   <input type="password" class="form-control" placeholder="password" name = "password">
-               </div>
-               <button type="submit" class="btn btn-default" id="btn-signin" name = "btn-signin" value = "admin-signin">sign in</button>
-           </form>
+                  <input type="password" class="form-control" placeholder="password" id = "password-admin">
+              </div>
+              <button type="submit" class="btn btn-default" id="btn-signin" name = "btn-signin" value = "admin-signin">sign in</button>
            <br><br>
         </div>
     </div>

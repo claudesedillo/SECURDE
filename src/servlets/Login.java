@@ -114,7 +114,7 @@ public class Login extends HttpServlet {
 			session.setAttribute("email", user);
 			request.setAttribute("emailkey", session.getAttribute("emailkey"));
 			//response.sendRedirect("adminEmailDoor.html");
-			request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
+			//request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
 			response.getWriter().write("PASS-LOGIN-ADMIN");
 		}	
 		else{
