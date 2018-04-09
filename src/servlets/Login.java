@@ -162,7 +162,7 @@ public class Login extends HttpServlet {
 			
 			Cookie theCookie;
 			theCookie = new Cookie("ADMIN", email); 
-			theCookie.setMaxAge(604800); //1 week expirey.
+			theCookie.setMaxAge(60*30); //30 minutes
 				
 			//Checking
 			System.out.println("Cookie placed: " + theCookie.getName());
