@@ -23,12 +23,13 @@
             <hr>
             <div class="row">
                 <p>Enter session key</p>
-                <form>
-                    <input type="text" class="form-control code-fields" maxlength="1">
-                    <input type="text" class="form-control code-fields" maxlength="1">
-                    <input type="text" class="form-control code-fields" maxlength="1">
-                    <input type="text" class="form-control code-fields" maxlength="1">
-                    <input type="text" class="form-control code-fields" maxlength="1">
+                <form action = "emailKey" method = "POST">
+                    <input type="text" class="form-control code-fields" name = "s1" maxlength="1">
+                    <input type="text" class="form-control code-fields" name = "s2" maxlength="1">
+                    <input type="text" class="form-control code-fields" name = "s3" maxlength="1">
+                    <input type="text" class="form-control code-fields" name = "s4" maxlength="1">
+                    <input type="text" class="form-control code-fields" name = "s5" maxlength="1">
+                    <Button type="submit" name ="btn-signup" value ="admin-signup">Confirm</Button><br>
                 </form>
                 <br><br>
             </div>

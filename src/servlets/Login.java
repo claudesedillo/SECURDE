@@ -106,7 +106,8 @@ public class Login extends HttpServlet {
 			session.setAttribute("emailkey", emailKey);
 			session.setAttribute("email", user);
 			request.setAttribute("emailkey", session.getAttribute("emailkey"));
-			response.sendRedirect("adminEmailDoor.html");
+			//response.sendRedirect("adminEmailDoor.html");
+			request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
 			response.getWriter().write("PASS-LOGIN-ADMIN");
 		}	
 		else{
@@ -123,8 +124,14 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		String emailKey = (String) session.getAttribute("emailkey");
 		String email = (String) session.getAttribute("email");
-		String inputKey = request.getParameter("emailkey");
+		String inputKey = "";
+		
+		for(int x = 1; x < 6; x+=1){
+			inputKey += request.getParameter("s" + Integer.toString(x));
+		}
+		
 		System.out.println("session key : " + emailKey);
+		System.out.println("input key : " + inputKey);
 		
 		if(inputKey.equals(emailKey)){
 			Cookie theCookie;
@@ -142,7 +149,8 @@ public class Login extends HttpServlet {
 		}
 		else{
 			System.out.println("wrong input >:(");
-			response.sendRedirect("adminEmailDoor.html");
+			//response.sendRedirect("adminEmailDoor.html");
+			request.getRequestDispatcher("EmailDoor.jsp").forward(request, response);
 		}
 		System.out.println("***************/LOGIN SERVLET - CHECK ADMIN LOGIN/***************");
 	}
