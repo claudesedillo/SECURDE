@@ -111,7 +111,7 @@ public class UserServlet extends HttpServlet {
 			         "<td><a data-toggle=\"modal\" data-target=\"#details-modal\" class = \"view-orderdetails-btn\" data-orderid = \"" + orderID +"\" id=\"ordernum\">" + orderID +"</a></td>" +
 			         "<td>" + Encode.forHtml(o.getEmail()) +"</td>" +
 			         "<td>" + Encode.forHtml(o.getFirstName() + " " + o.getLastName()) + "</td>" +
-			         "<td>" + Encode.forHtml(String.format("%.2f", o.getTotal())) +"</td>" +
+			         "<td>" + Encode.forHtml(String.format("%d", o.getTotal())) +"</td>" +
 		         "</tr>";
     	}
 		response.setContentType("text/html"); 

@@ -146,6 +146,13 @@ $(document).ready(function() {
 	postalcodef = document.getElementById("postalcode").value;
 	phonef = document.getElementById("phone").value;
 	
+	console.log("namef" + namef);
+	console.log("streedaddressf" + streetaddressf);
+	console.log("cityf" + cityf);
+	console.log("provincef" + provincef);
+	console.log("postalcodef" + postalcodef);
+	console.log("phonef" + phonef);
+	
 	$(document).on("click", ".view-orderdetails-btn", function(){
 		console.log("view order details clicked!");
 		
