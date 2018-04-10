@@ -164,5 +164,11 @@ public class Order {
 		this.lastName = lastName;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "orderID=" + orderID + ", email=" + email + ", orderDate=" + orderDate + ", total=" + total
+				+ ", streetAddress=" + streetAddress + ", city=" + city
+				+ ", province=" + province + ", postalCode=" + postalCode + ", phoneNumber=" + phoneNumber
+				+ ", firstName=" + firstName + ", lastName=" + lastName;
+	}
 }

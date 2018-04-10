@@ -200,14 +200,21 @@ public class AdminServlet extends HttpServlet {
     private void printLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************ADMIN SERVLET - PRINT LOG***************");
     	
-    	List<Log> logs = LogService.getLogs();
-    	
+    	 List<Log> logs = LogService.getLogs();
+    	 ArrayList<Order> orders = OrderService.getAllOrders();
+    	 
     	 File file = new File("C:/Users/Acer/Desktop/SchoolLocal/Securde/MP/securde/INDIGO-COPY.txt");
 
          try (Writer writer = new BufferedWriter(new FileWriter(file))) {
-             for(int x = 0; x < logs.size(); x+= 1){
+        	writer.write("LOGIN LOGS" + System.getProperty("line.separator"));
+            for(int x = 0; x < logs.size(); x+= 1){
          		writer.write(logs.get(x).toString() + System.getProperty("line.separator"));
          	}
+            writer.write("ORDER LOGS" + System.getProperty("line.separator"));
+            for(int x = 0; x < orders.size(); x+= 1){
+         		writer.write(orders.get(x).toString() + System.getProperty("line.separator"));
+         	}
+             
          } catch (IOException e) {
              e.printStackTrace();
          }
