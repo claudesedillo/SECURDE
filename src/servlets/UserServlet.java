@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.owasp.esapi.ESAPI;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import beans.Customer;
 import beans.Order;
 import service.CustomerService;
+import service.DecryptorService;
 import service.OrderService;
 
 /**
@@ -63,18 +62,7 @@ public class UserServlet extends HttpServlet {
 					break;
 		}
 	}
-	
-    private String decryptCookie(Cookie cookie) {
-    	String decrypted = "";
-    	try {
-			decrypted = ESAPI.encryptor().decrypt(cookie.getValue());
-			System.out.println("Decrypted value is: " + decrypted);
-			}catch(Exception e) {
-				System.out.println("I cri");
-			}
-    	return decrypted;
-    }
-    
+	    
     private void updateAccountDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************USER SERVLET - UPDATE ACCOUNT DETAILS***************");
     	String name = request.getParameter("name"),
@@ -108,7 +96,7 @@ public class UserServlet extends HttpServlet {
 		for(int i = 0; i < cookies.length; i++){
 			Cookie currentCookie = cookies[i];
 			if(currentCookie.getName().equals("USER")){
-				email = decryptCookie(currentCookie);
+				email = DecryptorService.decryptCookie(currentCookie);
 			}
 		}
 
@@ -137,7 +125,7 @@ public class UserServlet extends HttpServlet {
 		for(int i = 0; i < cookies.length; i++){
 			Cookie currentCookie = cookies[i];
 			if(currentCookie.getName().equals("USER")){
-				email = decryptCookie(currentCookie);
+				email = DecryptorService.decryptCookie(currentCookie);
 			}
 		}
 		Customer customer = CustomerService.getCustomer(email);

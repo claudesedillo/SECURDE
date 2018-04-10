@@ -22,6 +22,7 @@ import beans.Shoppingcart;
 import service.AuthorService;
 import service.BookService;
 import service.CustomerService;
+import service.DecryptorService;
 import service.OrderListService;
 import service.OrderService;
 import service.PublisherService;
@@ -284,7 +285,7 @@ public class ShoppingServlet extends HttpServlet {
 				Cookie currentCookie = cookies[i];
 				if(currentCookie.getName().equals("USER")){
 					guest = false;
-					email = currentCookie.getValue();
+					email = DecryptorService.decryptCookie(currentCookie);
 				}
 			}
 		}
@@ -324,6 +325,7 @@ public class ShoppingServlet extends HttpServlet {
 		Cookie theCookie;
 		theCookie = new Cookie("CART", "not empty"); 
 		theCookie.setMaxAge(60*60*24*7*30); //30 minutes
+		response.addCookie(theCookie);
 		
 		response.getWriter().write("PASS-ADD-CART");
 		}
@@ -404,7 +406,7 @@ public class ShoppingServlet extends HttpServlet {
 				Cookie currentCookie = cookies[i];
 				if(currentCookie.getName().equals("USER")){
 					guest = false;
-					email = currentCookie.getValue();
+					email = DecryptorService.decryptCookie(currentCookie);
 				}
 			}
 		}

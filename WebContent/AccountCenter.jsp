@@ -22,7 +22,7 @@
             <div class="container-fluid main-nav">
                 <div class="wrapper">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="index.html">bookshelf</a><p>| account center </p>
+                        <a class="navbar-brand" href="Index.jsp">bookshelf</a><p>| account center </p>
                     </div> 
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="Index.jsp">CONTINUE SHOPPING</a></li>
