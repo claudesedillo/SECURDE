@@ -45,7 +45,11 @@ public class Authenticate implements Filter {
 		req = (HttpServletRequest) request;
 		res = (HttpServletResponse) response;
 		user = false; //Fixed infinite redirection
-		boolean admin = false, cartEmpty = true, adminAttempt = false;
+		boolean admin = false, 
+				cartEmpty = true, 
+				adminAttempt = false,
+				recoveryAttempt = false,
+				promptPassword = false;
 		String url = req.getServletPath();
 		
 		System.out.println("\n*************AUTHENTICATE SERVLET*********************");
@@ -84,6 +88,20 @@ public class Authenticate implements Filter {
 						adminAttempt = true;
 					}
 				}
+				else if(c.getName().equals("RECOVERY-ATTEMPT")) {
+					System.out.println("RECOVERY ATTEMPT found!");
+					
+					if(c.getMaxAge() != 0){
+						recoveryAttempt = true;
+					}
+				}
+				else if(c.getName().equals("PROMPT-RECOVER-PASSWORD")) {
+					System.out.println("PROMPT-RECOVER-PASSWORD found!");
+					
+					if(c.getMaxAge() != 0){
+						promptPassword = true;
+					}
+				}				
 			}
 		}
 		
@@ -92,6 +110,8 @@ public class Authenticate implements Filter {
 		System.out.println("User exists: " + user);
 		System.out.println("Admin exists:" + admin);
 		System.out.println("Admin sign in attempt exists: " + adminAttempt);
+		System.out.println("Recovery attempt exists: " + recoveryAttempt);
+		System.out.println("Prompt for new password exists: " + recoveryAttempt);
 		System.out.println("Is cart empty? : " + cartEmpty);
 		
 		System.out.println("Is it user or admin?::");
@@ -159,12 +179,34 @@ public class Authenticate implements Filter {
 					res.sendRedirect("AdminDashboard.jsp");
 				}
 				else{
-					 System.out.println("Not an admin! redirecting to page");
+					 System.out.println("ForgotPortal/Cart Not an admin! redirecting to page");
 					 chain.doFilter(request, response);
 				}
 				break;
-				
-			//For users only
+			//For users who have to reset password
+			case "/ResetPasswordDoor.jsp":
+				if(recoveryAttempt) {
+					 System.out.println("Reset attempt found! redirecting to account center");
+					 chain.doFilter(request, response);
+				}
+				else {
+                    System.out.println("ResetPasswordDoor No user found! redirecting to error page"); 
+                    res.sendRedirect("ErrorPage.html");
+				}
+				break;
+			//For users who have to type new password
+			case "/ResetPassword.jsp":
+				if(promptPassword) {
+					 System.out.println("Prompt cookie found! redirecting to reset password");
+					 chain.doFilter(request, response);
+				}
+				else {
+                    System.out.println("ResetPassword No user found! redirecting to error page"); 
+                    res.sendRedirect("ErrorPage.html");
+				}
+				break;
+			//For users only{
+					
 			case "/AccountCenter.jsp":
 				if(user) {
 					 System.out.println("User found! redirecting to account center");

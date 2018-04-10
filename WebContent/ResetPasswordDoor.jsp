@@ -11,7 +11,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                 
         <link rel="stylesheet" href="css/portal.css">
-        <script src="script/key.js"></script>
+        <script src="script/resetpwdoor.js"></script>
         
         <title>Bookshelf | Password Recovery</title>
 	</head>
