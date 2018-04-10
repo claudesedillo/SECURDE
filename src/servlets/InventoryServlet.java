@@ -85,7 +85,7 @@ public class InventoryServlet extends HttpServlet {
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			//System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
 			htmlBookList += "<tr>" + 
-							"	<td><a data-toggle=\"modal\" data-target=\"#viewbook-div\" id=\"bookid\" data-bookid = \"" + b.getBookID() + "\" class = \"edit-book-btn\">" + b.getTitle() + "</a></td>" +
+							"	<td><a data-toggle=\"modal\" data-target=\"#viewbook-div\" id=\"bookid\" data-bookid = \"" + Encode.forHtml(String.format("%d", b.getBookID())) + "\" class = \"edit-book-btn\">" + Encode.forHtml(b.getTitle()) + "</a></td>" +
 							"	<td>" + Encode.forHtml(authorName) +  " </td>" +
 							"	<td>" + Encode.forHtml(b.getFormat()) + " </td> " +
 							"	<td>" + Encode.forHtml(String.format("%.2f", b.getPrice())) + " </td> " +
