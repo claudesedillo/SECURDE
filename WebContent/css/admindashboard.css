@@ -268,3 +268,10 @@ td {
 #ordernum:hover, #bookid:hover {
     cursor: pointer;
 }
+
+#btn-log {
+	color: snow;
+	background-color: indianred;
+	margin: auto;
+	width: 100%;
+}
