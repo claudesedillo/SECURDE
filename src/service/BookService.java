@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.owasp.encoder.Encode;
+
 import beans.Book;
 
 public class BookService {
@@ -31,10 +33,10 @@ public class BookService {
 			while(rs.next()) {
 				//System.out.println("book found!");
 				Book book = new Book(rs.getInt("bookid"),
-								    rs.getString("Title"),
-									rs.getString("ISBN"),
-									rs.getString("Genre"),
-									rs.getString("Format"),
+									Encode.forHtml(rs.getString("Title")),
+									Encode.forHtml(rs.getString("ISBN")),
+									Encode.forHtml(rs.getString("Genre")),
+									Encode.forHtml(rs.getString("Format")),
 									rs.getFloat("Price"),
 									rs.getInt("stocklevel"),
 									rs.getDate("Published"),
@@ -73,10 +75,10 @@ public class BookService {
 			while(rs.next()) {
 				//System.out.println("book found!");
 				Book book = new Book(rs.getInt("bookid"),
-								    rs.getString("Title"),
-									rs.getString("ISBN"),
-									rs.getString("Genre"),
-									rs.getString("Format"),
+									Encode.forHtml(rs.getString("Title")),
+									Encode.forHtml(rs.getString("ISBN")),
+									Encode.forHtml(rs.getString("Genre")),
+									Encode.forHtml(rs.getString("Format")),
 									rs.getFloat("Price"),
 									rs.getInt("stocklevel"),
 									rs.getDate("Published"),
@@ -141,10 +143,10 @@ public class BookService {
 			
 			while(rs.next()) {
 				Book book = new Book(rs.getInt("bookid"),
-								    rs.getString("Title"),
-									rs.getString("ISBN"),
-									rs.getString("Genre"),
-									rs.getString("Format"),
+									Encode.forHtml(rs.getString("Title")),
+									Encode.forHtml(rs.getString("ISBN")),
+									Encode.forHtml(rs.getString("Genre")),
+									Encode.forHtml(rs.getString("Format")),
 									rs.getFloat("Price"),
 									rs.getInt("stocklevel"),
 									rs.getDate("Published"),
@@ -183,10 +185,10 @@ public class BookService {
 			
 			while(rs.next()) {
 				book = new Book(rs.getInt("bookid"),
-					    rs.getString("Title"),
-						rs.getString("ISBN"),
-						rs.getString("Genre"),
-						rs.getString("Format"),
+						Encode.forHtml(rs.getString("Title")),
+						Encode.forHtml(rs.getString("ISBN")),
+						Encode.forHtml(rs.getString("Genre")),
+						Encode.forHtml(rs.getString("Format")),
 						rs.getFloat("Price"),
 						rs.getInt("stocklevel"),
 						rs.getDate("Published"),
@@ -338,10 +340,10 @@ public class BookService {
 				while(rs.next()) {
 					//System.out.println("book found!");
 					Book book = new Book(rs.getInt("bookid"),
-									    rs.getString("Title"),
-										rs.getString("ISBN"),
-										rs.getString("Genre"),
-										rs.getString("Format"),
+										Encode.forHtml(rs.getString("Title")),
+										Encode.forHtml(rs.getString("ISBN")),
+										Encode.forHtml(rs.getString("Genre")),
+										Encode.forHtml(rs.getString("Format")),
 										rs.getFloat("Price"),
 										rs.getInt("stocklevel"),
 										rs.getDate("Published"),

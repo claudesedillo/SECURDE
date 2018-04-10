@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.owasp.encoder.Encode;
+
 import beans.Author;
 import beans.Book;
 
@@ -31,7 +33,7 @@ public class AuthorService {
 			while(rs.next()) {
 				System.out.println("author found!");
 				Author author = new Author(rs.getInt("authorid"),
-										 rs.getString("name"));
+										   Encode.forHtml(rs.getString("name")));
 				authorIDs.add(author.getAuthorID());
 			}
 			conn.close();
@@ -87,7 +89,7 @@ public class AuthorService {
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				authorName = rs.getString("name");
+				authorName = Encode.forHtml(rs.getString("name"));
 			}
 			conn.close();
 		}catch(Exception e) {

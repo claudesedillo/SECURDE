@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.owasp.encoder.Encode;
+
 import beans.Admin;
 import beans.Shoppingcart;
 
@@ -104,7 +106,7 @@ public class ShoppingcartService {
 			
 			while(rs.next()) {
 				if(rs.getString("email").equals(email)){
-					Shoppingcart sc = new Shoppingcart(rs.getInt("bookid"), rs.getFloat("price"), rs.getString("email"), rs.getInt("quantity"));
+					Shoppingcart sc = new Shoppingcart(rs.getInt("bookid"), rs.getFloat("price"), Encode.forHtml(rs.getString("email")), rs.getInt("quantity"));
 					cartList.add(sc);
 				}
 			}

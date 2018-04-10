@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.owasp.encoder.Encode;
+
 import beans.Publisher;
 
 public class PublisherService {
@@ -49,7 +51,7 @@ public class PublisherService {
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				publisherName = rs.getString("publishername");
+				publisherName = Encode.forHtml(rs.getString("publishername"));
 			}
 			conn.close();
 		}catch(Exception e) {

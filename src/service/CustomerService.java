@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.owasp.encoder.Encode;
 import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.errors.EncryptionException;
 
@@ -177,15 +178,15 @@ public class CustomerService {
 				if(rs.getString("email").equals(email)){
 					cust = new Customer(rs.getString("email"),
 										rs.getString("hashedpassword"),
-										rs.getString("firstname"),
-										rs.getString("lastname"),
+										Encode.forHtml(rs.getString("firstname")),
+										Encode.forHtml(rs.getString("lastname")),
 										rs.getString("securityquestion"),
-										rs.getString("securityanswer"),
-										rs.getString("streetaddress"),
+										Encode.forHtml(rs.getString("securityanswer")),
+										Encode.forHtml(rs.getString("streetaddress")),
 										rs.getInt("postalcode"),
-										rs.getString("city"),
-										rs.getString("province"),
-										rs.getString("phonenumber"));
+										Encode.forHtml(rs.getString("city")),
+										Encode.forHtml(rs.getString("province")),
+										Encode.forHtml(rs.getString("phonenumber")));
 				}
 			}
 			conn.close();

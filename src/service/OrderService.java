@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.owasp.encoder.Encode;
+
 import beans.Book;
 import beans.Order;
 
@@ -28,14 +30,14 @@ public class OrderService {
 			
 			while(rs.next()) {
 				order = new Order(rs.getInt("orderid"),
-					    rs.getString("email"),
-						rs.getString("firstName"),
-						rs.getString("lastName"),
-						rs.getString("streetaddress"),
-						rs.getString("city"),
-						rs.getString("province"),
+						Encode.forHtml(rs.getString("email")),
+						Encode.forHtml(rs.getString("firstName")),
+						Encode.forHtml(rs.getString("lastName")),
+						Encode.forHtml(rs.getString("streetaddress")),
+						Encode.forHtml(rs.getString("city")),
+						Encode.forHtml(rs.getString("province")),
 						rs.getInt("postalcode"),
-						rs.getString("phonenumber"),
+						Encode.forHtml(rs.getString("phonenumber")),
 						rs.getInt("total"));
 			}
 			conn.close();
@@ -67,16 +69,16 @@ public class OrderService {
 
 			while(rs.next()) {
 				Order order = new Order(rs.getInt("orderid"),
-										 rs.getString("email"),
+										 Encode.forHtml(rs.getString("email")),
 										 rs.getDate("orderDate"),
 										 rs.getInt("total"),
-										 rs.getString("streetAddress"),
-										 rs.getString("city"),
-										 rs.getString("province"),
+										 Encode.forHtml(rs.getString("streetAddress")),
+										 Encode.forHtml(rs.getString("city")),
+										 Encode.forHtml(rs.getString("province")),
 										 rs.getInt("postalcode"),
-										 rs.getString("phonenumber"),
-										 rs.getString("firstname"),
-										 rs.getString("lastname"));
+										 Encode.forHtml(rs.getString("phonenumber")),
+										 Encode.forHtml(rs.getString("firstname")),
+										 Encode.forHtml(rs.getString("lastname")));
 				orderList.add(order);
 			}
 			conn.close();
@@ -158,16 +160,16 @@ public class OrderService {
 
 			while(rs.next()) {
 				Order order = new Order(rs.getInt("orderid"),
-										 rs.getString("email"),
+										 Encode.forHtml(rs.getString("email")),
 										 rs.getDate("orderDate"),
 										 rs.getInt("total"),
-										 rs.getString("streetAddress"),
-										 rs.getString("city"),
-										 rs.getString("province"),
+										 Encode.forHtml(rs.getString("streetAddress")),
+										 Encode.forHtml(rs.getString("city")),
+										 Encode.forHtml(rs.getString("province")),
 										 rs.getInt("postalcode"),
-										 rs.getString("phonenumber"),
-										 rs.getString("firstname"),
-										 rs.getString("lastname"));
+										 Encode.forHtml(rs.getString("phonenumber")),
+										 Encode.forHtml(rs.getString("firstname")),
+										 Encode.forHtml(rs.getString("lastname")));
 				orderList.add(order);
 			}
 			conn.close();

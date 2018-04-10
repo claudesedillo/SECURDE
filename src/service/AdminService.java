@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.owasp.encoder.Encode;
 import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.errors.EncryptionException;
 
@@ -59,9 +60,9 @@ public class AdminService {
 			while(rs.next()) {
 				Admin admin = new Admin(rs.getString("email"),
 								     	rs.getString("hashedpassword"),
-								     	rs.getString("firstname"),
-								     	rs.getString("lastname"),
-								     	rs.getString("role"));
+								     	Encode.forHtml(rs.getString("firstname")),
+								     	Encode.forHtml(rs.getString("lastname")),
+								     	Encode.forHtml(rs.getString("role")));
 				adminList.add(admin);
 			}
 			conn.close();
@@ -94,9 +95,9 @@ public class AdminService {
 				if(email.equals(rs.getString("email"))){
 					admin = new Admin(rs.getString("email"),
 							rs.getString("hashedpassword"),
-							rs.getString("firstname"),
-							rs.getString("lastname"),
-							rs.getString("role"));
+							Encode.forHtml(rs.getString("firstname")),
+							Encode.forHtml(rs.getString("lastname")),
+							Encode.forHtml(rs.getString("role")));
 				}
 				
 			}
