@@ -38,8 +38,7 @@ import service.PublisherService;
 		   					"/getOrderDetails",
 						    "/getAdminList",
 						    "/editAdminGet",
-						    "/editAdminConfirm",
-						    "/getUserOrders"
+						    "/editAdminConfirm"
 		   					})
 
 public class AdminServlet extends HttpServlet {
@@ -80,7 +79,6 @@ public class AdminServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlOrderSummary);
-	    System.out.println(htmlOrderSummary);
     	System.out.println("***************/ADMIN SERVLET - GET ORDER SUMMARY/***************");
     }
     
@@ -105,44 +103,7 @@ public class AdminServlet extends HttpServlet {
     	System.out.println("***************/ADMIN SERVLET - GET ORDER DETAILS/***************");
     }
     
-    private String decryptCookie(Cookie cookie) {
-    	String decrypted = "";
-    	try {
-			decrypted = ESAPI.encryptor().decrypt(cookie.getValue());
-			System.out.println("Decrypted value is: " + decrypted);
-			}catch(Exception e) {
-				System.out.println("I cri");
-			}
-    	return decrypted;
-    }
-    private void getUserOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	System.out.println("***************ADMIN SERVLET - GET USER ORDERS***************");
-    	String email = "";
-    	Cookie[] cookies = request.getCookies();
-		for(int i = 0; i < cookies.length; i++){
-			Cookie currentCookie = cookies[i];
-			if(currentCookie.getName().equals("USER")){
-				email = decryptCookie(currentCookie);
-			}
-		}
 
-    	ArrayList<Order> orderList = OrderService.getUserOrder(email);
-    	String htmlOrderlist = "";
-    	
-    	for(Order o: orderList) {
-    		int orderID = o.getOrderID();
-    		htmlOrderlist +=  "<tr>" +
-	    				         "<td><a data-toggle=\"modal\" data-target=\"#details-modal\" class = \"view-orderdetails-btn\" data-orderid = \"" + orderID +"\" id=\"ordernum\">" + orderID +"</a></td>" +
-	    				         "<td>" + o.getEmail() +"</td>" +
-	    				         "<td>" + o.getFirstName() + " " + o.getLastName() + "</td>" +
-	    				         "<td>" + o.getTotal() +"</td>" +
-    				         "</tr>";
-    	}
-		response.setContentType("text/html"); 
-	    response.setCharacterEncoding("UTF-8"); 
-	    response.getWriter().write(htmlOrderlist);
-    	System.out.println("***************/ADMIN SERVLET - GET USER  ORDERS/***************");
-    }
 	
     private void getOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************ADMIN SERVLET - GET ORDERS***************");
@@ -236,9 +197,7 @@ public class AdminServlet extends HttpServlet {
 		case "/getOrderDetails": System.out.println("I am at adminServlet, getOrderDetails case");
 						getOrderDetails(request, response);
 						break;
-		case "/getUserOrders": System.out.println("I am at adminServlet, getOrderDetails case");
-						getUserOrders(request, response);
-						break;				
+				
 		case "/getOrderSummary": System.out.println("I am at adminServlet, getOrderDetails case");
 						getOrderSummary(request, response);
 						break;				

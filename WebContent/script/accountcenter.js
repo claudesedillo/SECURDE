@@ -1,3 +1,65 @@
+var accountDetails;
+
+function updateAccountDetails(){
+	$.ajax({
+		context: this,
+		url: 'updateAccountDetails',
+		data:{'email' : accountDetails.email,
+			  'name' : $("#name").val(),
+			  'streetAddress' : $("#st-address").val(),
+			  'city' : $("#city").val(),
+			  'province' : $("#province").val(),
+			  'postalcode': $("#postalcode").val(),
+			  'phone': $("#phone").val()
+			  },
+		type: 'post',
+		cache: false,
+		success: function(data){
+			console.log("edit book complete!");
+			console.log(data);
+		},
+		error:function(){
+			console.log("something is wrong on editBook");
+		}
+	});	
+}
+
+function updateProfileFields(){
+	var name = accountDetails.firstname + " " + accountDetails.lastname;
+	var email = accountDetails.email;
+	var address = accountDetails.streetaddress + " " + accountDetails.postalcode + " " + accountDetails.city + " " + accountDetails.province;
+	var phone = accountDetails.phonenumber;
+	
+	$("#name").val(name);
+	$("#email").val(email);
+	
+	if(accountDetails.streetaddress == undefined)
+		$("#comb-address").val("Not specified");
+	else
+		$("#comb-address").val(address);
+	
+	if(phone != undefined)
+		$("#phone").val(phone);
+	else
+		$("#phone").val("");
+}
+
+function getAccountDetails(){
+	$.ajax({
+		context: this,
+		url: 'getAccountDetails',
+		type: 'get',
+		cache: false,
+		success: function(data){
+			accountDetails = data;
+			updateProfileFields();
+		},
+		error:function(){
+			console.log("something is wrong on getAccountDetails");
+		}
+	});
+}
+
 function displayOrders(){
 		
 	var orderTable = document.getElementById("orderdetail-ordertable");
@@ -68,6 +130,7 @@ function appendAddress () {
 
 $(document).ready(function() { 
 	displayOrders();
+	getAccountDetails();
 	
 	$(document).on("click", ".view-orderdetails-btn", function(){
 		console.log("view order details clicked!");
@@ -104,6 +167,7 @@ $(document).ready(function() {
         $('#btn-editacc').show();
         $('#save-editacc').hide();
         appendAddress();
+        updateAccountDetails();
     })
     
     // change password

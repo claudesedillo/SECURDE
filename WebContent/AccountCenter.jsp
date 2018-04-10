@@ -86,7 +86,7 @@
                         <div class="form-group address-div">
                             <label class="control-label col-sm-3" for="postalcode">Postal Code: </label>
                             <div class="col-sm-9">
-                                <input class="form-control address-fields" type="text" id="postalcode" value="T5T 1K8" disabled>
+                                <input class="form-control address-fields" type="number" id="postalcode" value="1004" disabled>
                             </div>
                         </div>
                         
@@ -157,7 +157,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">
-                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <p class="detail-header">Order ID: #420420420</p>
                             <p class="detail-subheader">Status: Out for Delivery</p>
                         	<div class="row" id ="ordersummary-div">

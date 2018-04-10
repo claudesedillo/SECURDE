@@ -201,7 +201,6 @@ public class InventoryServlet extends HttpServlet {
 		Gson gson = new GsonBuilder()
 				   .setDateFormat("yyyy-MM-dd").create();
 		String bookJson = gson.toJson(book);
-		System.out.println("Book JSON: " + bookJson);
 		response.setContentType("application/json"); 
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(bookJson);

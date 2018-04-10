@@ -199,6 +199,37 @@ public class CustomerService {
 		return cust;
 	}
 	
+	public static boolean updateCustomerDetails(Customer newCustomer) {
+		System.out.println("*************************************************************");
+		System.out.println("I am at CustomerService, updateCustomerDetails");
+		
+		try{
+			String driver = "com.mysql.jdbc.Driver";
+			Class.forName(driver);
+			Connection conn = DatabaseManager.getConnection();
+			PreparedStatement stmt =  conn.prepareStatement("UPDATE customers SET firstname = ?, lastname = ?, streetaddress = ?, city = ?, " +
+															"province = ?, phonenumber = ?, postalcode = ? WHERE email = ?");
+			stmt.setString(1, newCustomer.getFirstname());
+			stmt.setString(2, newCustomer.getLastname());
+			stmt.setString(3, newCustomer.getStreetaddress());
+			stmt.setString(4, newCustomer.getCity());
+			stmt.setString(5, newCustomer.getProvince());
+			stmt.setString(6, newCustomer.getPhonenumber());
+			stmt.setInt(7, newCustomer.getPostalcode());
+			stmt.setString(8, newCustomer.getEmail());
+			
+			System.out.println("Query is: " + stmt);
+			stmt.executeUpdate();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		System.out.println("CustomerService, updateCustomer complete!");
+		System.out.println("*************************************************************");
+		return true;
+	}
 	public static void updateCustomer(Customer newCust){
 		System.out.println("*************************************************************");
 		System.out.println("I am at CustomerService, updateCustomer");
