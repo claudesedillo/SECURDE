@@ -1,4 +1,47 @@
 var accountDetails;
+var namef, streetaddress, cityf, provincef, postalcodef, phonef;
+var name, email, address, phone;
+
+function checkNumInput(input) {
+	return /^\d+$/.test(input)
+}
+
+
+function getAccountDetails(){
+	$.ajax({
+		context: this,
+		url: 'getAccountDetails',
+		type: 'get',
+		cache: false,
+		success: function(data){
+			accountDetails = data;
+			updateProfileFields();
+		},
+		error:function(){
+			console.log("Error encountered at getAccountDetails");
+		}
+	});
+}
+
+function updateProfileFields(name, email, address, phone){
+	name = accountDetails.firstname + " " + accountDetails.lastname;
+	email = accountDetails.email;
+	address = accountDetails.streetaddress + " " + accountDetails.postalcode + " " + accountDetails.city + " " + accountDetails.province;
+	phone = accountDetails.phonenumber;
+	
+	$("#name").val(name);
+	$("#email").val(email);
+	
+	if(accountDetails.streetaddress == undefined)
+		$("#comb-address").val("Not specified");
+	else
+		$("#comb-address").val(address);
+	
+	if(phone != undefined)
+		$("#phone").val(phone);
+	else
+		$("#phone").val("");
+}
 
 function updateAccountDetails(){
 	$.ajax({
@@ -15,49 +58,13 @@ function updateAccountDetails(){
 		type: 'post',
 		cache: false,
 		success: function(data){
-			console.log("edit book complete!");
+			console.log("Account Details successfully updated!");
 			console.log(data);
 		},
 		error:function(){
-			console.log("something is wrong on editBook");
+			console.log("Error encountered at updateAccountDetails.");
 		}
 	});	
-}
-
-function updateProfileFields(){
-	var name = accountDetails.firstname + " " + accountDetails.lastname;
-	var email = accountDetails.email;
-	var address = accountDetails.streetaddress + " " + accountDetails.postalcode + " " + accountDetails.city + " " + accountDetails.province;
-	var phone = accountDetails.phonenumber;
-	
-	$("#name").val(name);
-	$("#email").val(email);
-	
-	if(accountDetails.streetaddress == undefined)
-		$("#comb-address").val("Not specified");
-	else
-		$("#comb-address").val(address);
-	
-	if(phone != undefined)
-		$("#phone").val(phone);
-	else
-		$("#phone").val("");
-}
-
-function getAccountDetails(){
-	$.ajax({
-		context: this,
-		url: 'getAccountDetails',
-		type: 'get',
-		cache: false,
-		success: function(data){
-			accountDetails = data;
-			updateProfileFields();
-		},
-		error:function(){
-			console.log("something is wrong on getAccountDetails");
-		}
-	});
 }
 
 function displayOrders(){
@@ -125,12 +132,19 @@ function appendAddress () {
 		document.getElementById('city').value + ' ' +
 		document.getElementById('province').value + ' ' + 
 		document.getElementById('postalcode').value;
-		console.log("Address appended");
+	console.log("Address appended");
 }
 
 $(document).ready(function() { 
 	displayOrders();
 	getAccountDetails();
+	
+	namef = document.getElementById("name").value;
+	streetaddressf = document.getElementById("st-address").value;
+	cityf = document.getElementById("city").value;
+	provincef  = document.getElementById("province").value;
+	postalcodef = document.getElementById("postalcode").value;
+	phonef = document.getElementById("phone").value;
 	
 	$(document).on("click", ".view-orderdetails-btn", function(){
 		console.log("view order details clicked!");
@@ -160,14 +174,40 @@ $(document).ready(function() {
     
     // save account details
     $('#save-editacc').click(function() {
-    	$('form#form-editacc input.editacc-fields').attr('disabled', 'disabled');
+    	console.log("Name: "+ namef);
+    	if (namef &&
+			streetaddressf &&
+			cityf &&
+			provincef &&
+			checkNumInput(postalcodef) &&
+			checkNumInput(phonef)) {
+    		console.log("Name: "+ namef);
+    	} else {
+    		if (namef == "")
+    			$('#name-error').show();
+    		if (streetaddressf == "")
+    			$('#st-error').show();
+    		if (cityf == "")
+    			$('#city-error').show();
+    		if (provincef == "")
+    			$('#prov-error').show();
+    		if (!(checkNumInput(postalcodef)) || postalcodef == "")
+    			$('#postal-error').show();
+    		if (!(checkNumInput(phonef)) || phonef == "")
+    			$('#mobile-error').show();
+    		
+    		
+    	}
+    		
+    		
+    	/**$('form#form-editacc input.editacc-fields').attr('disabled', 'disabled');
         $('.combaddress-div').slideDown();
         $('.address-div').slideUp();
         $('form#form-editacc input.address-fields').attr('disabled', 'disabled');
         $('#btn-editacc').show();
         $('#save-editacc').hide();
         appendAddress();
-        updateAccountDetails();
+        updateAccountDetails(); **/
     })
     
     // change password

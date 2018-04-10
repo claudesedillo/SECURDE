@@ -41,18 +41,11 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="name">Name: </label>
                             <div class="col-sm-9">
-                                <input class="form-control editacc-fields" type="text" id="name" value="Not Specified" disabled>
+                                <input class="form-control editacc-fields" type="text" id="name" disabled>
+                                <p class="warnings" id="name-error">Please enter your name</p>
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="email">Email: </label>
-                            <div class="col-sm-9">
-                                <input class="form-control editacc-fields" type="text" id="email" value="jessganoww@gmail.com" disabled>
-                            </div>
-                        </div>
-                        
-                        
+                  
                         <!-- TO-DO: get user address from DB --> 
                          <div class="form-group combaddress-div">
                             <label class="control-label col-sm-3" for="comb-address">Address: </label>
@@ -65,28 +58,32 @@
                         <div class="form-group address-div">
                             <label class="control-label col-sm-3" for="st-address">Street Address: </label>
                             <div class="col-sm-9">
-                                <input class="form-control address-fields" type="text" id="st-address" value="257 Grantham Court" disabled>
+                                <input class="form-control address-fields" type="text" id="st-address" disabled>
+                                <p class="warnings" id="st-error">Please enter your street address</p>
                             </div>
                         </div>
                         
                         <div class="form-group address-div">
                             <label class="control-label col-sm-3" for="city">City: </label>
                             <div class="col-sm-9">
-                                <input class="form-control address-fields" type="text" id="city" value="Edmonton" disabled>
+                                <input class="form-control address-fields" type="text" id="city" disabled>
+                                <p class="warnings" id="city-error">Please enter city</p>
                             </div>
                         </div>
                         
                         <div class="form-group address-div">
                             <label class="control-label col-sm-3" for="province">Province: </label>
                             <div class="col-sm-9">
-                                <input class="form-control address-fields" type="text" id="province" value="Alberta" disabled>
+                                <input class="form-control address-fields" type="text" id="province" disabled>
+                                <p class="warnings" id="prov-error">Please enter province</p>
                             </div>
                         </div>
                         
                         <div class="form-group address-div">
                             <label class="control-label col-sm-3" for="postalcode">Postal Code: </label>
                             <div class="col-sm-9">
-                                <input class="form-control address-fields" type="number" id="postalcode" value="1004" disabled>
+                                <input class="form-control address-fields" type="number" id="postalcode" disabled>
+                                <p class="warnings" id="postal-error">Please enter valid postal code</p>
                             </div>
                         </div>
                         
@@ -95,7 +92,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="phone">Phone: </label>
                             <div class="col-sm-9">
-                                <input class="form-control editacc-fields" type="number" id="phone" value="09989716071" disabled>
+                                <input class="form-control editacc-fields" type="number" id="phone" disabled>
+                                <p class="warnings" id="mobile-error">Please enter valid mobile number</p>
                             </div>
                         </div>
                     </form>
