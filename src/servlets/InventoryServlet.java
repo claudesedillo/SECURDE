@@ -292,7 +292,7 @@ public class InventoryServlet extends HttpServlet {
 					"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
 					"<form method = \"GET\" > " +
 					"<div class=\"row\"> " +
-					"<a class = \"bookLink\" data-bookId = " + Encode.forHtml(String.format("%d", b.getBookID())) + "><p class=\"title\">" + b.getTitle() + "</p></a> " +
+					"<a class = \"bookLink\" data-bookId = " + Encode.forHtml(String.format("%d", b.getBookID())) + "><p class=\"title\">" + Encode.forHtml(b.getTitle()) + "</p></a> " +
 					"<p class=\"author\">" + Encode.forHtml(authorName) + "</p> " +
                     "<p class=\"price\"> " + Encode.forHtml(String.format("%.2f", b.getPrice())) + "</p>" +
 					"</div>" + 
