@@ -27,6 +27,7 @@
                <div class="form-group">
                   <input type="password" class="form-control" placeholder="password" id = "password-admin">
               </div>
+              <p class="warnings" id="key-error">Invalid username/password<br><br></p>
               <button type="submit" class="btn btn-default" id="btn-signin" name = "btn-signin" value = "admin-signin">sign in</button>
            <br><br>
         </div>

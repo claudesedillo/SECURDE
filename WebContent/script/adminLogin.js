@@ -3,18 +3,27 @@ function validateEmail(email) {
 	 return re.test(email);
 }
 
+function showError() {
+    $("#key-error").show();
+    $(".form-group").addClass("has-error");
+}
+
+function removeError() {
+	$("#key-error").hide();
+	//$(".form-group").removeClass("has-error");
+}
+
 function accPassMismatch(data){
-	console.log("data is: " + data);
+	console.log("Data is: " + data);
 	if(data == "PASS-LOGIN-ADMIN"){
 		document.location.href = 'EmailDoor.jsp';
 	}
 	else if(data == "FAIL-LOGIN-ADMIN"){
-		console.log("wrong password");
 		showError();
 	}
 }
 
-function passToServlet(email, password){
+function toServlet(email, password){
 	$.ajax({
  	    context: this,
         url:'adminLogin',
@@ -23,27 +32,24 @@ function passToServlet(email, password){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("passToServlet success!");
-        	console.log("data is " + data);
-        	accPassMismatch(data)
+        	console.log("toServletsuccess!");
+        	accPassMismatch(data);
         },
         error:function(){
-        	console.log("error at submitting the form");
+        	console.log("Error encountered at toServlet");
         }
      });
 }
 
 $("document").ready(function() {
 	$(document).on("click", "#btn-signin",function() {
-		console.log("signin clicked!");
 		
 		var email = document.getElementById('email-admin').value;
         var password = document.getElementById('password-admin').value;
         
-        if(validateEmail(email)){
-        	passToServlet(email, password); 
-        } else{
-        	console.log("Something's wrong");
-        }
+        if(validateEmail(email) && password !== null && password !== ""){
+        	removeError();
+        	toServlet(email, password); 
+        } else showError();
 	});
 });

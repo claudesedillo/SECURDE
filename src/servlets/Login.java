@@ -139,7 +139,7 @@ public class Login extends HttpServlet {
 				System.out.println("BRUTE FORCE FOR IP : " + IpAddress + " DETECTED");
 			}
 			else System.out.println("Wrong email/pass ma dude");
-			request.getRequestDispatcher("Portal.jsp").forward(request, response);
+			//request.getRequestDispatcher("Portal.jsp").forward(request, response);
 			response.getWriter().write("FAIL-LOGIN-ADMIN");
 		}
 		System.out.println("***************/LOGIN SERVLET - ADMIN LOGIN/***************");

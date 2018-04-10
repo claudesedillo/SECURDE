@@ -71,3 +71,11 @@ hr {
     width: 35px;
 }
 
+.warnings {
+    font-size: 10px;
+    padding: 5px;
+    line-height: 120%;
+    color: darkred; 
+    font-style: italic;
+    display: none;
+}

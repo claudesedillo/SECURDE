@@ -31,18 +31,22 @@ function showError() {
     $("#signin-modal .form-group").addClass("has-error");
 }
 
+function removeError() {
+	$("#errormsg").hide();
+	$("#signin-modal .form-group").removeClass("has-error");
+}
+
 function accPassMismatch(data){
-	console.log("data is: " + data);
+	console.log("Data is: " + data);
 	if(data == "PASS-LOGIN-CUSTOMER"){
 		document.location.href = 'Index.jsp';
 	}
 	else if(data == "FAIL-LOGIN-CUSTOMER"){
-		console.log("wrong password");
 		showError();
 	}
 }
 
-function submitTheForm(email, password){
+function toServlet(email, password){
     $.ajax({
  	    context: this,
         url:'login',
@@ -51,11 +55,11 @@ function submitTheForm(email, password){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("submitTheForm success!");
+        	console.log("toServletsuccess!");
         	accPassMismatch(data);
         },
         error:function(){
-        	console.log("error at submitting the form");
+        	console.log("Error encountered at toServlet");
         }
      });
 }
@@ -85,31 +89,16 @@ $("document").ready(function(){
 	})
 
 	// submit form for button
-		$(document).on("click", "#btn-signin",function() {
-			console.log("Sign in clicked");
-			
-			var email = document.getElementById('email').value;
-	        var password = document.getElementById('password').value;
-	        
-	        if(validateEmail(email) && password !== null && password !== ""){
-	        	$("#signin-modal .form-group").removeClass("has-error");
-	        	submitTheForm(email, password); 
-	        } else{
-	        	showError();
-	        }
-		});
-	
-//	$(document).keyup(function (e) {
-//		var email = document.getElementById('email').value;
-//        var password = document.getElementById('password').value;
-        
-//        if(validateEmail(email) && password !== null && password !== ""){
-//        	$(".form-group").removeClass("has-error");
-//        	submitTheForm(email, password); 
-//        } else{
-//        	showError();
-//        }
-//    });
+	$(document).on("click", "#btn-signin",function() {
 
+		var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        
+        if(validateEmail(email) && password !== null && password !== ""){
+        	removeError();
+        	toServlet(email, password); 
+        } else showError();
+	});
+	
 	console.log("Nav.js loaded");
 });

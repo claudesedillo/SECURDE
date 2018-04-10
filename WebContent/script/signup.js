@@ -19,13 +19,9 @@ function confirmPasswordMatch(pass1, pass2) {
 		$('#pwnotmatch').show();
 		console.log("NO");
 		satisfied = false;
-		//$("#password-signup").addClass("has-error");
-		//$("#confirm-pw").addClass("has-error");
 	} else {
 		$('#pwnotmatch').hide();
 		console.log("YES");
-		//$("#password-signup").removeClass("has-error");
-		//$("#confirm-pw").removeClass("has-error");
 	}	
 	
 	return satisfied;

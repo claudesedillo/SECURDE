@@ -1,15 +1,13 @@
-/**
- *  TODO parse inputs to string, append, then compare to actual code
- */
-
-function redirectAdmin(data){
+function redirectAdmin(data) {
 	if(data == "SUCCESS-LOGIN-ADMIN"){
 		document.location.href = 'AdminDashboard.jsp';
 	}
 	else{
 		//error message here
+		$('.key-error').show();
 	}
 }
+
 function submitTheForm(){
 	var s1 = document.getElementById('s1').value;
 	var s2 = document.getElementById('s2').value;
@@ -39,8 +37,6 @@ function submitTheForm(){
 }
 
 $("document").ready(function(){
-    var code;
-    
     $(document).on("click", "#btn-signin", function(){
     	console.log("Sign in clicked!");
     	submitTheForm();
@@ -52,10 +48,10 @@ $("document").ready(function(){
         }
     });
    
-})
+});
 
-	$(window).bind("pageshow", function() {
-	        var form = $('form'); 
-	        // let the browser natively reset defaults
-	        form[0].reset();
-	});
+$(window).bind("pageshow", function() {
+    var form = $('form'); 
+    // let the browser natively reset defaults
+        form[0].reset();
+});
