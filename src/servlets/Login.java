@@ -24,9 +24,11 @@ import org.owasp.esapi.errors.EncryptionException;
 
 import beans.Admin;
 import beans.Customer;
+import beans.Log;
 import beans.LoginAttempt;
 import service.AdminService;
 import service.CustomerService;
+import service.LogService;
 import service.LoginAttemptService;
 
 /**
@@ -107,13 +109,16 @@ public class Login extends HttpServlet {
 		System.out.println(user + " " + pass);
 		
 		String IpAddress = request.getRemoteAddr();
-		if(!LoginAttemptService.checkIfExists(IpAddress)){
-			java.sql.Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		java.sql.Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		if(!LoginAttemptService.checkIfExists(IpAddress)){	
 			LoginAttemptService.addLoginAttempt(new LoginAttempt(IpAddress,currentTime,0));
 		}
 		
 		if(AdminService.checkLogin(user, pass)){
 			if(!LoginAttemptService.checkForBruteForce(IpAddress)){
+				
+				LogService.addLog(new Log(IpAddress, currentTime, true, user,"admin"));
+				
 				String emailKey = UUID.randomUUID().toString().replace("-", "");
 				emailKey = emailKey.substring(0, 5);
 				//TODO: REMOVE THIS ASAP. FOR CHECKING ONLY
@@ -139,6 +144,7 @@ public class Login extends HttpServlet {
 				System.out.println("BRUTE FORCE FOR IP : " + IpAddress + " DETECTED");
 			}
 			else System.out.println("Wrong email/pass ma dude");
+			LogService.addLog(new Log(IpAddress, currentTime, false, user,"admin"));
 			//request.getRequestDispatcher("Portal.jsp").forward(request, response);
 			response.getWriter().write("FAIL-LOGIN-ADMIN");
 		}
@@ -434,8 +440,8 @@ public class Login extends HttpServlet {
 		System.out.println(user + " " + pass);
 		
 		String IpAddress = request.getRemoteAddr();
+		java.sql.Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 		if(!LoginAttemptService.checkIfExists(IpAddress)){
-			java.sql.Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 			LoginAttemptService.addLoginAttempt(new LoginAttempt(IpAddress,currentTime,0));
 		}
 		
@@ -443,7 +449,7 @@ public class Login extends HttpServlet {
 			if(CustomerService.checkLogin(user, pass)){
 				if(!LoginAttemptService.checkForBruteForce(IpAddress)){
 					//Login hash cookie
-					
+					LogService.addLog(new Log(IpAddress, currentTime, true, user,"customer"));
 					try {
 						user = ESAPI.encryptor().encrypt(user);
 					} catch (EncryptionException e) {
@@ -464,6 +470,7 @@ public class Login extends HttpServlet {
 					System.out.println("BRUTE FORCE FOR IP : " + IpAddress + " DETECTED");
 				}
 				System.out.println("Customer: wrong email/pass");
+				LogService.addLog(new Log(IpAddress, currentTime, false, user,"customer"));
 				response.getWriter().write("FAIL-LOGIN-CUSTOMER");
 			}
 		}
