@@ -101,38 +101,40 @@
                     <button class="btn btn-default" id="btn-editacc">EDIT ACCOUNT DETAILS</button>
                     <button class="btn btn-default" id="save-editacc">SAVE</button>
                 </div>
-                <div class="col-sm-5" id="changepw-div">
-                    <h4>SECURITY</h4>
-                    
-                    <form class="form-horizontal" id="form-changepw">
-                         <div class="form-group">
-                            <label class="control-label col-sm-4" for="pw">Password: </label>
-                            <div class="col-sm-8">
-                                <input class="form-control changepw-fields" type="password" id="oldpw" value="nyeamchocnut" disabled>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group newpw-div">
-                            <label class="control-label col-sm-4" for="pw">New Password: </label>
-                            <div class="col-sm-8">
-                                <input class="form-control changepw-fields" type="password" id="newpw">
-                                <meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter><br>
-                            </div>
-                        </div>
-                        <div class="form-group newpw-div">
-                            <label class="control-label col-sm-4" for="pw">Confirm New Password: </label>
-                            <div class="col-sm-8">
-                                <input class="form-control changepw-fields" type="password" id="newpw2">
-                            </div>
-                        </div>
-                    </form>
-                    
-                    <br>
-                    <p class="help-text">Password must be 8-20 characters long with at least 1 of the following: 
-                    uppercase, lowercase, numbers, and special characters (~!@#$%^*-_=+[{]}/;:,.?).</p>
-                    <button class="btn btn-default" id="btn-changepw">CHANGE PASSWORD</button>
-                    <button class="btn btn-default" id="save-changepw">SAVE</button>
-                </div>
+                <form action="changePassword" method="post">
+                	<div class="col-sm-5" id="changepw-div">
+	                    <h4>SECURITY</h4>
+	                    
+	                    <form class="form-horizontal" id="form-changepw">
+	                         <div class="form-group">
+	                            <label class="control-label col-sm-4" for="pw">Password: </label>
+	                            <div class="col-sm-8">
+	                                <input class="form-control changepw-fields" type="password" id="oldpw" value="nyeamchocnut">
+	                            </div>
+	                        </div>
+	                        
+	                        <div class="form-group newpw-div">
+	                            <label class="control-label col-sm-4" for="pw">New Password: </label>
+	                            <div class="col-sm-8">
+	                                <input class="form-control changepw-fields" type="password" id="newpw">
+	                                <meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter><br>
+	                            </div>
+	                        </div>
+	                        <div class="form-group newpw-div">
+	                            <label class="control-label col-sm-4" for="pw">Confirm New Password: </label>
+	                            <div class="col-sm-8">
+	                                <input class="form-control changepw-fields" type="password" id="newpw2">
+	                            </div>
+	                        </div>
+	                    </form>
+	                    
+	                    <br>
+	                    <p class="help-text">Password must be 8-20 characters long with at least 1 of the following: 
+	                    uppercase, lowercase, numbers, and special characters (~!@#$%^*-_=+[{]}/;:,.?).</p>
+	                    <button class="btn btn-default" id="btn-changepw">CHANGE PASSWORD</button>
+	                    <button class="btn btn-default" type = "submit" id="save-changepw">SAVE</button>
+	                </div>
+                </form>
             </div>
             <hr>
             <div class="row" id="orderhistory-div">

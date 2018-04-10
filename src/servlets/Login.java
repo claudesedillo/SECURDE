@@ -44,7 +44,8 @@ import service.LoginAttemptService;
 						"/forgotPassword", 
 						"/forgetKey", 
 						"/newPasswordConfirm",
-						"/signupcustomer"})
+						"/signupcustomer",
+						"/changePassword"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -104,6 +105,54 @@ public class Login extends HttpServlet {
 		else if(request.getServletPath().equals("/resetPasswordDoor")){
 			resetPasswordDoor(request, response);
 		}
+		else  if(request.getServletPath().equals("/changePassword")){
+			changePassword(request, response);
+		} 
+	}
+	
+	private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - NEW PASSWORD CONFIRM***************");
+		String oldPass =request.getParameter("oldpw");
+		String pass = request.getParameter("newpw");
+		String pass2 = request.getParameter("newpw2");	
+		HttpSession session = request.getSession();
+		String user = "";
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("PROMPT-RECOVER-PASSWORD")) {
+					System.out.println("PROMPT-RECOVER-PASSWORD found!");
+					user = DecryptorService.decryptCookie(currentCookie);
+					currentCookie.setMaxAge(0);
+					response.addCookie(currentCookie);
+					System.out.println("PROMPT-RECOVER-PASSWORD killed!");
+				}
+			}
+		}
+		System.out.println("User is: " + user);
+		if(CustomerService.checkLogin(user, oldPass)){
+			if(isPasswordValid(pass, pass2)){
+				//Hashing Password
+				try {
+					pass = ESAPI.encryptor().encrypt(pass);
+				} catch (EncryptionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				Customer newCust = CustomerService.getCustomer(user);
+				newCust.setHashedpassword(pass);
+				CustomerService.updateCustomer(newCust);
+				
+				System.out.println("Password of Customer Succesfully Updated");
+				response.getWriter().write("SUCCESS-RECOVER-PASS");
+			}
+			else response.getWriter().write("FAIL-RECOVER-PASS");
+		}
+		else response.getWriter().write("FAIL-RECOVER-PASS");	
+		System.out.println("***************/LOGIN SERVLET - NEW PASSWORD CONFIRM/***************");
 	}
 
 	private void adminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
