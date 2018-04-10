@@ -152,13 +152,14 @@ public class Authenticate implements Filter {
 				break;
 				
 			//For users and guests only
+			case "/ForgotPasswordPortal.jsp":
 			case "/Cart.jsp":
 				if(admin) {
 					System.out.println("Admin found! redirecting to dashboard"); 
 					res.sendRedirect("AdminDashboard.jsp");
 				}
 				else{
-					 System.out.println("Not an admin! redirecting to cart");
+					 System.out.println("Not an admin! redirecting to page");
 					 chain.doFilter(request, response);
 				}
 				break;
