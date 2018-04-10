@@ -48,6 +48,7 @@
                 <div class="form-group">
                     <input type="password" class="form-control" id="password-signup" placeholder="password" maxlength="20">
                     <meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter>
+                    <p class="warnings" id="pw-error">Please enter valid password.</p>
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="confirm-pw" placeholder="confirm password" maxlength="20">
@@ -62,9 +63,11 @@
                         <option>what's the name of your first pet?</option>
                         <option>what's your usual coffee order?</option>
                     </select>
+                    <p class="warnings" id="sq-error">Please select valid option.</p>
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" id="security-answer" placeholder="security answer">
+                    <p class="warnings" id="sa-error">Please enter valid security answer.</p>
                 </div>
                 <hr>
                  <p class="help-text">Password must be 8-20 characters long with at least 3 of the following: uppercase, lowercase, numbers, 

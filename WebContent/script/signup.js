@@ -12,26 +12,35 @@ function redirectCustomer(data){
 	}
 }
 
-/**
- * Checks if password is equal or not.
- * @param pass2 - second verifying password
- * @param pass1 - original password.
- * @returns
- */
 function confirmPasswordMatch(pass1, pass2) {
-	var pw1 = pass1.value;
-	var pw2 = pass2.value;
+	var satisfied = true;
 	
-	if(pw1 === pw2) {
+	if(pass1 != pass2) {
 		$('#pwnotmatch').show();
-		$("#password-signup").addClass("has-error");
-		$("#confirm-pw").addClass("has-error");
+		console.log("NO");
+		satisfied = false;
+		//$("#password-signup").addClass("has-error");
+		//$("#confirm-pw").addClass("has-error");
 	} else {
 		$('#pwnotmatch').hide();
-		$("#password-signup").removeClass("has-error");
-		$("#confirm-pw").removeClass("has-error");
+		console.log("YES");
+		//$("#password-signup").removeClass("has-error");
+		//$("#confirm-pw").removeClass("has-error");
 	}	
+	
+	return satisfied;
 }
+
+function checkPassword(value) { 
+	// Java special char // ["'\]
+	return value.length >= 8 && /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).*$/.test(value);
+	//#?!@$%^&*-
+}
+
+function removeWhiteSpaces(value) {
+	return value.replace(/\s+/g,' ').trim();
+}
+
 
 function signup(email, password, password2){
 	var firstname = document.getElementById('fname').value;
@@ -68,31 +77,47 @@ function signup(email, password, password2){
 $("document").ready(function() {
 	
 	$(document).on("click", "#btn-signup",function() {
-		console.log("signup clicked!");
 		var fname = document.getElementById('fname').value;
 		var lname = document.getElementById('lname').value;
 		var email = document.getElementById('email-signup').value;
         var password = document.getElementById('password-signup').value;
         var password2 = document.getElementById('confirm-pw').value;
+        var select = document.getElementById('security-qs');
+        var securityq = select.options[select.selectedIndex].value;
+        var securitya = document.getElementById('security-answer').value;
         
-        console.log(password + " " + password2);
+        fname = removeWhiteSpaces(fname);
+        lname = removeWhiteSpaces(lname);
+        email = removeWhiteSpaces(email);
+        securitya = removeWhiteSpaces(securitya);
+
+        $(".warnings").hide();
+        console.log("Select is " + securityq);
         
-        if(validateEmail(email) && password !== null && password !== "" && password === password2){
-        	if(true) // insert check input
-        		signup(email, password, password2); 
-        } else{
-        	if (fname == "") {
-        		$('#fname-error').show();
-        		$("#fname").addClass("has-error");
-        	}
-        	if (lname == "") {
-        		$('#lname-error').show();
-        		$("#lname").addClass("has-error");
-        	}
-        	if (email == "") {
-        		$('#email-error').show();
-        		$("#email-signup").addClass("has-error");
-        	}
+      //  if (confirmPasswordMatch(password, password2))
+       // 	console.log("IF-1 true")
+        if (validateEmail(email) && 
+        		fname && 
+        		lname && 
+        		securityq &&
+        		securitya &&
+        		confirmPasswordMatch(password, password2)) {
+        	console.log("Successful data validation!");
+    		signup(email, password, password2);	
+        } 
+    	else {
+	    	if (!(validateEmail(email)) || email == "" || email == null)
+	    		$("#email-error").show();
+	    	if (fname == "")
+	    		$('#fname-error').show();
+	    	if (lname == "")
+	    		$('#lname-error').show();
+	    	if (!(checkPassword(password)) || password == "")
+	    		$('#pw-error').show();
+	    	if (securityq  == "security question")
+	    		$('#sq-error').show();
+	    	if (securitya == "")
+	    		$('#sa-error').show();
         }
 	});
 	
