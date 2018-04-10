@@ -25,10 +25,10 @@
                   <input type="email" class="form-control" placeholder="email address" id = "email-admin">
               </div>
                <div class="form-group">
-                  <input type="password" class="form-control" placeholder="password" id = "password-admin">
+                  <input type="password" onfocus="this.value=''" class="form-control" placeholder="password" id = "password-admin">
               </div>
               <p class="warnings" id="key-error">Invalid username/password<br><br></p>
-              <button type="submit" class="btn btn-default" id="btn-signin" name = "btn-signin" value = "admin-signin">sign in</button>
+              <button type="submit" class="btn btn-default" id="btn-signin">sign in</button>
            <br><br>
         </div>
     </div>

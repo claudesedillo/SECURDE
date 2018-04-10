@@ -24,14 +24,14 @@
             <div class="row">
                 <p>Enter session key</p>
                 <form>
-                    <input type="text" class="form-control code-fields" id = "s1" maxlength="1">
-                    <input type="text" class="form-control code-fields" id = "s2" maxlength="1">
-                    <input type="text" class="form-control code-fields" id = "s3" maxlength="1">
-                    <input type="text" class="form-control code-fields" id = "s4" maxlength="1">
-                    <input type="text" class="form-control code-fields" id = "s5" maxlength="1"><br><br>
-                    <p class="warnings" id="key-error">Invalid key.</p>
+                    <input type="password" onfocus="this.value=''" class="form-control code-fields" id = "s1" maxlength="1">
+                    <input type="password" onfocus="this.value=''" class="form-control code-fields" id = "s2" maxlength="1">
+                    <input type="password" onfocus="this.value=''" class="form-control code-fields" id = "s3" maxlength="1">
+                    <input type="password" onfocus="this.value=''" class="form-control code-fields" id = "s4" maxlength="1">
+                    <input type="password" onfocus="this.value=''" class="form-control code-fields" id = "s5" maxlength="1"><br><br>
+                    <p class="warnings" id="key-error">Invalid key.<br><br></p>
                  </form>
-                    <button class="btn btn-default" id ="btn-signin">proceed</button><br>
+                    <button class="btn btn-default" id ="btn-proceed">proceed</button><br>
                 <br><br>
             </div>
         </div>

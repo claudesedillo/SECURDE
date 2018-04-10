@@ -3,8 +3,7 @@ function redirectAdmin(data) {
 		document.location.href = 'AdminDashboard.jsp';
 	}
 	else{
-		//error message here
-		$('.key-error').show();
+		$('#key-error').show();
 	}
 }
 
@@ -37,14 +36,16 @@ function submitTheForm(){
 }
 
 $("document").ready(function(){
-    $(document).on("click", "#btn-signin", function(){
-    	console.log("Sign in clicked!");
+    $(document).on("click", "#btn-proceed", function(){
     	submitTheForm();
     });
     
     $('.code-fields').keyup(function () {
         if (this.value.length == this.maxLength) {
-          $(this).next('.code-fields').focus();
+        	$(this).next('.code-fields').focus();
+        	$(this).next('.code-fields').value = "";
+        	
+          
         }
     });
    
