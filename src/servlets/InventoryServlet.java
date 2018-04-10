@@ -253,6 +253,7 @@ public class InventoryServlet extends HttpServlet {
 		List<String> authorNames = new ArrayList<String>();
 		
 		String searchTerm = request.getParameter("searchTerm");
+		searchTerm = Encode.forHtml(searchTerm);
 		System.out.println("Search term is " + searchTerm);
 		
 		authorIDs = AuthorService.findAuthor(searchTerm);
