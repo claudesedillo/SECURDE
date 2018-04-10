@@ -20,7 +20,7 @@
         	<div class="container-fluid main-nav">
                 <div class="wrapper">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="index.html">bookshelf</a>
+                        <a class="navbar-brand" href="Index.html">bookshelf</a>
                     </div>
                     <p class="navbar-text">PASSWORD RECOVERY</p>
                 </div>

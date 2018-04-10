@@ -27,6 +27,7 @@ import beans.Customer;
 import beans.LoginAttempt;
 import service.AdminService;
 import service.CustomerService;
+import service.DecryptorService;
 import service.LoginAttemptService;
 
 /**
@@ -36,7 +37,8 @@ import service.LoginAttemptService;
 						"/adminLogin", 
 						"/signup", 
 						"/emailKey", 
-						"/logout" , 
+						"/logout" ,
+						"/resetPasswordDoor",
 						"/forgotPassword", 
 						"/forgetKey", 
 						"/newPasswordConfirm",
@@ -97,6 +99,9 @@ public class Login extends HttpServlet {
 		else if(request.getServletPath().equals("/newPasswordConfirm")){
 			newPasswordConfirm(request, response);
 		}
+		else if(request.getServletPath().equals("/resetPasswordDoor")){
+			resetPasswordDoor(request, response);
+		}
 	}
 
 	private void adminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -144,9 +149,8 @@ public class Login extends HttpServlet {
 		}
 		System.out.println("***************/LOGIN SERVLET - ADMIN LOGIN/***************");
 	}
-
+	
 	private void checkAdminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-
 		System.out.println("***************LOGIN SERVLET - CHECK ADMIN LOGIN***************");
 		HttpSession session = request.getSession();
 		String emailKey = (String) session.getAttribute("emailkey");
@@ -203,27 +207,6 @@ public class Login extends HttpServlet {
 		System.out.println("***************/LOGIN SERVLET - CHECK ADMIN LOGIN/***************");
 	}
 	
-	private void forgotPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("***************LOGIN SERVLET - FORGOT PASSWORD***************");
-		// TODO Auto-generated method stub
-		String user = request.getParameter("email");
-		if(CustomerService.doesCustomerExist(user)) {
-			String emailKey = UUID.randomUUID().toString().replace("-", "");
-			emailKey = emailKey.substring(0, 5);
-			Email email = new Email(user, "PASSWORD RECOVERY", "Authentication Key : " + emailKey);
-			sendEmail(request, response, email);
-			HttpSession session = request.getSession();
-			session.setAttribute("emailkey", emailKey);
-			request.setAttribute("emailkey", session.getAttribute("emailkey"));
-			session.setAttribute("user", user);
-			request.setAttribute("user", session.getAttribute("user"));
-			//response.sendRedirect("PassRecoveryEmailDoor.html");
-			response.sendRedirect("ResetPasswordDoor.jsp");
-		}
-		else response.sendRedirect("ForgotPasswordPortal.jsp");
-		System.out.println("***************/LOGIN SERVLET - FORGOT PASSWORD/***************");
-	}
-
 	private void forgotKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		System.out.println("***************LOGIN SERVLET - FORGOT KEY***************");
 		HttpSession session = request.getSession();
@@ -243,13 +226,111 @@ public class Login extends HttpServlet {
 		System.out.println("***************/LOGIN SERVLET - FORGOT KEY/***************");
 	}
 	
+	private void forgotPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - FORGOT PASSWORD***************");
+		// TODO Auto-generated method stub
+		String user = request.getParameter("email");
+		
+		if(CustomerService.doesCustomerExist(user)) {
+			String emailKey = UUID.randomUUID().toString().replace("-", "");
+			emailKey = emailKey.substring(0, 5);
+			Email email = new Email(user, "PASSWORD RECOVERY", "Authentication Key : " + emailKey);
+			sendEmail(request, response, email);
+			HttpSession session = request.getSession();
+			session.setAttribute("emailkey", emailKey);
+			request.setAttribute("emailkey", session.getAttribute("emailkey"));
+			session.setAttribute("user", user);
+			request.setAttribute("user", session.getAttribute("user"));
+			System.out.println("User is " + user);
+			
+			try {
+				user = ESAPI.encryptor().encrypt(user);
+			} catch (EncryptionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Cookie theCookie;
+			theCookie = new Cookie("RECOVERY-ATTEMPT", user); 
+			theCookie.setMaxAge(60*30); //30 minutes
+			response.addCookie(theCookie);
+			//response.sendRedirect("PassRecoveryEmailDoor.html");
+			response.sendRedirect("ResetPasswordDoor.jsp");
+		}
+		else response.sendRedirect("ForgotPasswordPortal.jsp");
+		System.out.println("***************/LOGIN SERVLET - FORGOT PASSWORD/***************");
+	}
+	
+	private void resetPasswordDoor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - RESET PASSWORD DOOR***************");
+		HttpSession session = request.getSession();
+		String emailKey = (String) session.getAttribute("emailkey");
+		String email = "";
+		String inputKey = "";
+		for(int x = 1; x < 6; x+=1){
+			inputKey += request.getParameter("s" + Integer.toString(x));
+		}
+		
+		System.out.println("session key : " + emailKey);
+		System.out.println("input key : " + inputKey);
+		
+		if(inputKey.equals(emailKey)){
+			//Destroy attempt cookie
+			Cookie[] cookies = request.getCookies();
+			if(cookies!=null){
+				for(int i = 0; i < cookies.length; i++){
+					Cookie currentCookie = cookies[i];
+					if(currentCookie.getName().equals("RECOVERY-ATTEMPT")) {
+						System.out.println("RECOVERY-ATTEMPT found!");
+						email = currentCookie.getValue();
+						currentCookie.setMaxAge(0);
+						response.addCookie(currentCookie);
+						System.out.println("RECOVERY-ATTEMPT killed!");
+					}
+				}
+			}
+			System.out.println("email value is:" + email);
+			Cookie theCookie;
+			theCookie = new Cookie("PROMPT-RECOVER-PASSWORD", email); 
+			theCookie.setMaxAge(60*30); //30 minutes
+				
+			//Checking
+			System.out.println("Cookie placed: " + theCookie.getName());
+			System.out.println("Cookie value: " + theCookie.getValue());
+
+			//Add cookie
+			response.addCookie(theCookie);
+			System.out.println("Succesful Reset Password Door");
+
+			response.getWriter().write("SUCCESS-RECOVER-DOOR");
+		}
+		else{
+			System.out.println("wrong input >:(");
+			response.getWriter().write("FAIL-RECOVER-DOOR");
+		}
+		System.out.println("***************/LOGIN SERVLET - RESET PASSWORD DOOR/***************");
+	}
+	
 	private void newPasswordConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		System.out.println("***************LOGIN SERVLET - NEW PASSWORD CONFIRM***************");
 		String pass = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");	
 		HttpSession session = request.getSession();
-		String user = (String) session.getAttribute("user");
+		String user = "";
 		
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("PROMPT-RECOVER-PASSWORD")) {
+					System.out.println("PROMPT-RECOVER-PASSWORD found!");
+					user = DecryptorService.decryptCookie(currentCookie);
+					currentCookie.setMaxAge(0);
+					response.addCookie(currentCookie);
+					System.out.println("PROMPT-RECOVER-PASSWORD killed!");
+				}
+			}
+		}
+		System.out.println("User is: " + user);
 		if(isPasswordValid(pass, pass2)){
 			//Hashing Password
 			try {
