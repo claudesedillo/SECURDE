@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.encoder.Encode;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -84,10 +86,10 @@ public class InventoryServlet extends HttpServlet {
 			//System.out.println("Author Name: " + authorName + " Publisher Name: " + publisherName);
 			htmlBookList += "<tr>" + 
 							"	<td><a data-toggle=\"modal\" data-target=\"#viewbook-div\" id=\"bookid\" data-bookid = \"" + b.getBookID() + "\" class = \"edit-book-btn\">" + b.getTitle() + "</a></td>" +
-							"	<td>" + authorName +  " </td>" +
-							"	<td>" + b.getFormat() + " </td> " +
-							"	<td>" + b.getPrice() + " </td> " +
-							"	<td>" + b.getStock() + " </td> " +
+							"	<td>" + Encode.forHtml(authorName) +  " </td>" +
+							"	<td>" + Encode.forHtml(b.getFormat()) + " </td> " +
+							"	<td>" + Encode.forHtml(String.format("%.2f", b.getPrice())) + " </td> " +
+							"	<td>" + Encode.forHtml(String.format("%d", b.getStock())) + " </td> " +
 							"</tr>";
 		}
 		response.setContentType("text/html"); 
@@ -286,15 +288,15 @@ public class InventoryServlet extends HttpServlet {
 			String authorName;
 			authorName = AuthorService.getAuthorName(b.getAuthorID());
 			htmlBookList += "<div class=\"col-sm-3 book-div\"> " +
-							"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
-							"<form method = \"GET\" > " +
-							"<div class=\"row\"> " +
-							"<a class = \"bookLink\" data-bookId = " + b.getBookID() + "><p class=\"title\">" + b.getTitle() + "</p></a> " +
-							"<p class=\"author\">" + authorName + "</p> " +
-		                    "<p class=\"price\"> " + b.getPrice() + "</p>" +
-							"</div>" + 
-		                    "</div>" +
-							"</form>";
+					"<img src=\"css/generic-cover.jpg\" class=\"img-responsive\"> " +
+					"<form method = \"GET\" > " +
+					"<div class=\"row\"> " +
+					"<a class = \"bookLink\" data-bookId = " + Encode.forHtml(String.format("%d", b.getBookID())) + "><p class=\"title\">" + b.getTitle() + "</p></a> " +
+					"<p class=\"author\">" + Encode.forHtml(authorName) + "</p> " +
+                    "<p class=\"price\"> " + Encode.forHtml(String.format("%.2f", b.getPrice())) + "</p>" +
+					"</div>" + 
+                    "</div>" +
+					"</form>";
 		}
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
