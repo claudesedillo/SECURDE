@@ -1,7 +1,9 @@
 package servlets;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -199,19 +201,16 @@ public class AdminServlet extends HttpServlet {
     	System.out.println("***************ADMIN SERVLET - PRINT LOG***************");
     	
     	List<Log> logs = LogService.getLogs();
-    	Writer writer = null;
+    	
+    	 File file = new File("C:/Users/Acer/Desktop/SchoolLocal/Securde/MP/securde/INDIGO-COPY.txt");
 
-    	try {
-    	    writer = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("log-copy.txt"), "utf-8"));
-    	    for(int x = 0; x < logs.size(); x+= 1){
-        		writer.write(logs.get(x).toString());
-        	}
-    	    System.out.println("finished");
-    	} catch (IOException ex) {
-    	    // Report
-    	} finally {
-    	   try {writer.close();} catch (Exception ex) {/*ignore*/}
-    	}
+         try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+             for(int x = 0; x < logs.size(); x+= 1){
+         		writer.write(logs.get(x).toString() + System.getProperty("line.separator"));
+         	}
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
 
 		request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
 		System.out.println("***************/ADMIN SERVLET - PRINT LOG/***************");	
