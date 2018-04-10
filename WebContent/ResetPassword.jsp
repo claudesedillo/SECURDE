@@ -36,10 +36,9 @@
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="confirm new password" id = "pass2">
+                        <meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter>
+                         <p class="warnings">Passwords do not match</p>
                     </div>
-                    <div class="form-group">
-	                	<meter max="4" id="password-strength-meter" low="2" optimum="4" high="3"></meter>
-	                </div>
                     <button class="btn btn-default" id="btn-submit">SUBMIT</button>
             </div>
         </div>

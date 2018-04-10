@@ -7,13 +7,26 @@ function redirectUser(data){
 	}
 	else{
 		console.log(data);
+		$('.warnings').show();
 	}
 }
-function submitTheForm(){
+
+function confirmPasswordMatch(pass1, pass2) {
+	var satisfied = true;
 	
-	var pass = document.getElementById('pass').value;
-	var pass2 = document.getElementById('pass2').value;
+	if(pass1 != pass2) {
+		$('.warnings').show();
+		console.log("NO");
+		satisfied = false;
+	} else {
+		$('.warnings').hide();
+		console.log("YES");
+	}	
 	
+	return satisfied;
+}
+
+function submitTheForm(pass, pass2){
     $.ajax({
  	    context: this,
         url:'newPasswordConfirm',
@@ -33,8 +46,15 @@ function submitTheForm(){
 }
 $("document").ready(function(){
     $(document).on("click", "#btn-submit", function(){
-    	submitTheForm();
-    });
+    	var pass = document.getElementById('pass').value;
+    	var pass2 = document.getElementById('pass2').value;
+    	
+    	if (confirmPasswordMatch(pass,pass2) && pass != "") {
+    		submitTheForm(pass, pass2);
+    	} else $('.warnings').show();
+
+   });
+    
 	var strength = {
 	  0: "Worst",
 	  1: "Bad",

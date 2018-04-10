@@ -38,10 +38,10 @@
                 <p>Reset your password by entering the email address associated with your account (please note that the email address must be listed in our system for you to receive the email).</p><br>
 
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="email address" id = "email">
+                        <input type="email" class="form-control" placeholder="email address" id ="email">
                     </div>
                     
-                    <p class="errormsg">Invalid username and/or password</p>
+                    <p class="warnings">Please enter a valid email address.</p>
                     <button class="btn btn-default" id="btn-submit">SUBMIT</button>
             </div>
         </div>
