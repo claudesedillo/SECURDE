@@ -49,7 +49,9 @@
 	                <li class="active"><a href="#ordertracking" data-toggle="tab">ORDER TRACKING</a></li>
 	                <li><a href="#inventory" data-toggle="tab">INVENTORY</a></li>
 	                <li><a href="#manage-accounts" data-toggle="tab">MANAGE ACCOUNTS</a></li>
-	                <li><button class="btn btn-default" id="btn-log">VIEW LOG</button></li>
+	                <form action="printLog" method = "GET">
+	                	 <li><button type="submit" class="btn btn-default" id="btn-log">DOWNLOAD LOG</button></li>
+	                </form>
 	            </ul>
 	        </div>
 	            

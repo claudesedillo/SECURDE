@@ -1,8 +1,14 @@
 package servlets;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,12 +27,14 @@ import com.google.gson.GsonBuilder;
 import beans.Admin;
 import beans.Author;
 import beans.Book;
+import beans.Log;
 import beans.Order;
 import beans.OrderList;
 import beans.Publisher;
 import service.AdminService;
 import service.AuthorService;
 import service.BookService;
+import service.LogService;
 import service.OrderListService;
 import service.OrderService;
 import service.PublisherService;
@@ -39,7 +47,8 @@ import service.PublisherService;
 		   					"/getOrderDetails",
 						    "/getAdminList",
 						    "/editAdminGet",
-						    "/editAdminConfirm"
+						    "/editAdminConfirm",
+						    "/printLog"
 		   					})
 
 public class AdminServlet extends HttpServlet {
@@ -186,6 +195,27 @@ public class AdminServlet extends HttpServlet {
 		System.out.println("***************/ADMIN SERVLET - EDIT ADMIN CONFIRM/***************");	
 	}
     
+    private void printLog(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("***************ADMIN SERVLET - PRINT LOG***************");
+    	
+    	List<Log> logs = LogService.getLogs();
+    	Writer writer = null;
+
+    	try {
+    	    writer = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("log-copy.txt"), "utf-8"));
+    	    for(int x = 0; x < logs.size(); x+= 1){
+        		writer.write(logs.get(x).toString());
+        	}
+    	    System.out.println("finished");
+    	} catch (IOException ex) {
+    	    // Report
+    	} finally {
+    	   try {writer.close();} catch (Exception ex) {/*ignore*/}
+    	}
+
+		request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+		System.out.println("***************/ADMIN SERVLET - PRINT LOG/***************");	
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -205,6 +235,9 @@ public class AdminServlet extends HttpServlet {
 		case "/getAdminList" : System.out.println("I am at adminServlet, getAdminList case");
 							getAdminList(request, response);	
 							break;
+		case "/printLog" : System.out.println("I am at adminServlet, printLog() case");
+							printLog(request, response);	
+							break;					
 		}	
 	}
 

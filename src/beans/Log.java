@@ -60,4 +60,10 @@ public class Log {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	@Override
+	public String toString() {
+		return "ip_address=" + ip_address + ", attempt_date=" + attempt_date + ", successful=" + successful
+				+ ", email=" + email + ", type=" + type;
+	}
 }
