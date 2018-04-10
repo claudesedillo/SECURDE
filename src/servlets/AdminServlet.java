@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.encoder.Encode;
 import org.owasp.esapi.ESAPI;
 
 import com.google.gson.Gson;
@@ -65,16 +66,16 @@ public class AdminServlet extends HttpServlet {
     	int subtotal = order.getTotal();
     	
     	htmlOrderSummary += "<div class=\"col-sm-9\">" +
-    						"    <p id=\"orderdetails-name\">" + name + "</p>" +
-    						"    <p id=\"orderdetails-address\">" + address + "</p>" +
-    						"	 <p id=\"orderdeatails-contact\">" + contact + "</p>" +
+    						"    <p id=\"orderdetails-name\">" + Encode.forHtml(name) + "</p>" +
+    						"    <p id=\"orderdetails-address\">" + Encode.forHtml(address) + "</p>" +
+    						"	 <p id=\"orderdeatails-contact\">" + Encode.forHtml(contact) + "</p>" +
     						"    <br>" + 
     						"    <p class=\"detail-subheader\">Status: Out for Delivery</p>" +
     						"</div>" +
     						"<div class=\"col-sm-3\">" + 
-    						"		<p class=\"labels\">Subtotal: </p> <p class=\"info\" id=\"orderdetails-subtotal\">" + subtotal + "</p><br>" + 
+    						"		<p class=\"labels\">Subtotal: </p> <p class=\"info\" id=\"orderdetails-subtotal\">" +  Encode.forHtml(String.format("%d", subtotal)) + "</p><br>" + 
     						"   	<p class=\"labels\">Shipping: </p> <p class=\"info\" id=\"orderdetails-shippingfee\">100</p><br>" + 
-    						"   	<p class=\"labels\">Total: </p> <p class=\"info\" id=\"orderdetails-total\">" + (subtotal + 100) + "</p><br>" + 
+    						"   	<p class=\"labels\">Total: </p> <p class=\"info\" id=\"orderdetails-total\">" + Encode.forHtml(String.format("%d", subtotal + 100)) + "</p><br>" + 
     						"</div>";
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
@@ -91,10 +92,10 @@ public class AdminServlet extends HttpServlet {
     	for(OrderList o: orderlist) {
     		Book book = BookService.getBook(o.getBookID());
     		htmlOrderDetails += "<tr class = \"book-order-detail\">" +
-    							"    <td>" + book.getTitle() + "</td>" +
-    							"    <td>" + o.getQuantity() + "</td>" +
-    							"	 <td>" + book.getPrice() + "</td>" +
-    							"    <td>P" + (o.getQuantity() * book.getPrice()) + "</td>" +
+    							"    <td>" + Encode.forHtml(book.getTitle()) + "</td>" +
+    							"    <td>" + Encode.forHtml(String.format("%d", o.getQuantity())) + "</td>" +
+    							"	 <td>" + Encode.forHtml(String.format("%.2f", book.getPrice())) + "</td>" +
+    							"    <td>P" + Encode.forHtml(String.format("%.2f", (o.getQuantity() * book.getPrice()))) + "</td>" +
     							"</tr>";
     	}
 		response.setContentType("text/html"); 
@@ -114,9 +115,9 @@ public class AdminServlet extends HttpServlet {
     		int orderID = o.getOrderID();
     		htmlOrderlist +=  "<tr>" +
 	    				         "<td><a data-toggle=\"modal\" data-target=\"#details-modal\" class = \"view-orderdetails-btn\" data-orderid = \"" + orderID +"\" id=\"ordernum\">" + orderID +"</a></td>" +
-	    				         "<td>" + o.getEmail() +"</td>" +
-	    				         "<td>" + o.getFirstName() + " " + o.getLastName() + "</td>" +
-	    				         "<td>" + (o.getTotal() + 100) +"</td>" +
+	    				         "<td>" + Encode.forHtml(o.getEmail()) +"</td>" +
+	    				         "<td>" + Encode.forHtml(o.getFirstName() + " " + o.getLastName()) + "</td>" +
+	    				         "<td>" + Encode.forHtml(String.format("%d", o.getTotal() + 100)) +"</td>" +
     				         "</tr>";
     	}
 		response.setContentType("text/html"); 
@@ -133,10 +134,10 @@ public class AdminServlet extends HttpServlet {
 		System.out.println("gt in");
 		for(Admin a: adminList) {
 			htmlAdminList += "<tr> " +
-							 "	<td> " + a.getFirstname() + "</td>" +
-							 "	<td> " + a.getLastname() + "</td>" +
-							 "	<td> " + a.getEmail() + "</td>" + 
-							 "	<td> " + a.getRole() + "</td>" +
+							 "	<td> " + Encode.forHtml(a.getFirstname()) + "</td>" +
+							 "	<td> " + Encode.forHtml(a.getLastname()) + "</td>" +
+							 "	<td> " + Encode.forHtml(a.getEmail()) + "</td>" + 
+							 "	<td> " + Encode.forHtml(a.getRole()) + "</td>" +
 							 "  <td><button class=\"btn btn-default btn-tabledelacc\" data-toggle=\"modal\" data-target=\"#delaccount-modal\"><span class=\"glyphicon glyphicon-remove\"></span></button></td>" + 
 							 "</tr>";
 		}

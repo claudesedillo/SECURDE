@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.encoder.Encode;
+
 import beans.Book;
 import beans.Customer;
 import beans.Order;
@@ -56,16 +58,16 @@ public class ShoppingServlet extends HttpServlet {
 									"<form action=\"removeFromCart\" method=\"get\">" +
 										"<button type=\"submit\" class=\"btn btn-delete\"  name=\"remove\" value=\"" + String.format("%d", book.getBookID()) + "\"><span class=\"glyphicon glyphicon-remove\"></span></button>" +
 									"</form>" +
-									"<p class=\"title\">" + book.getTitle() + "</p>" +
-									"<p> by <span class=\"author\">" + AuthorService.getAuthorName(book.getAuthorID()) + "</span></p>" + 
+									"<p class=\"title\">" + Encode.forHtml(book.getTitle()) + "</p>" +
+									"<p> by <span class=\"author\">" + Encode.forHtml(AuthorService.getAuthorName(book.getAuthorID())) + "</span></p>" + 
 									"<p class=\"format\">" + book.getFormat() + "</p>" +
-									"<p class=\"price\">P" + String.format("%.2f", book.getPrice()) + " </p>" +
+									"<p class=\"price\">P" + Encode.forHtml(String.format("%.2f", book.getPrice())) + " </p>" +
 									"<div class=\"col-sm-3\">" +
 										"<div class=\"input-group\">" +
 											"<span class=\"input-group-btn\">" +
 												"<button type=\"button\" class=\"btn btn-default btn-number\" disabled=\"disabled\" data-type=\"minus\" data-field=\"quant[1]\"><span class=\"glyphicon glyphicon-minus\"></span></button>" +
 											"</span>" +
-											"<input type=\"text\" name=\"quant[1]\" class=\"form-control input-number\" value=\"" + String.format("%d", sc.getQuantity()) + "\" min=\"0\" max=\"" + String.format("%d", book.getStock())  + "\">" +
+											"<input type=\"text\" name=\"quant[1]\" class=\"form-control input-number\" value=\"" + Encode.forHtml(String.format("%d", sc.getQuantity())) + "\" min=\"0\" max=\"" + String.format("%d", book.getStock())  + "\">" +
 											"<span class=\"input-group-btn\">" +
 												"<button type=\"button\" class=\"btn btn-default btn-number\" data-type=\"plus\" data-field=\"quant[1]\"><span class=\"glyphicon glyphicon-plus\"></span>" +
 											"</button>" +
@@ -98,7 +100,7 @@ public class ShoppingServlet extends HttpServlet {
 				                "</div>" +
 				                
 				                "<div class=\"col-sm-7\">" +
-				                    "<p id=\"totalprice\"> P" + String.format("%.2f", total) + "</p>" +
+				                    "<p id=\"totalprice\"> P" + Encode.forHtml(String.format("%.2f", total)) + "</p>" +
 				                "</div>";
 		if(total > 0){
 			checkoutHTML += "<form action=\"Checkout.jsp\" method=\"get\">" + 
@@ -173,26 +175,26 @@ public class ShoppingServlet extends HttpServlet {
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"fname-inp\">First Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\" value = \" " + cust.getFirstname()  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\" value = \" " + Encode.forHtml(cust.getFirstname())  +"\">"
 						                         + "</div>"
 						                     + "</div>"
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"lname-inp\">Last Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\" value = \" " + cust.getLastname()  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\" value = \" " + Encode.forHtml(cust.getLastname())  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                    + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"address-inp\">Address</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\" value = \" " + cust.getStreetaddress()  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\" value = \" " + Encode.forHtml(cust.getStreetaddress())  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
 						                    + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"city-inp\">City</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\" value = \" " + cust.getCity()  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\" value = \" " + Encode.forHtml(cust.getCity())  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
@@ -222,7 +224,7 @@ public class ShoppingServlet extends HttpServlet {
 									+ "<p>ORDER TOTAL: </p>"  
 								+ "</div>"
 								+ "<div class=\"col-sm-7\">"    
-									+ "<p id=\"totalprice\">P" + String.format("%.2f", total) + "</p>"    
+									+ "<p id=\"totalprice\">P" + Encode.forHtml(String.format("%.2f", total)) + "</p>"    
 								+ "</div>"
 							+ "</div>";
 		
