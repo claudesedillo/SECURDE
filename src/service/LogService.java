@@ -25,7 +25,11 @@ public class LogService {
 			stmt.setTimestamp(2, log.getAttempt_date());
 			stmt.setBoolean(3, log.isSuccessful());
 			stmt.setString(4, log.getEmail());
-			stmt.setString(5, log.getEmail());
+			stmt.setString(5, log.getType());
+			System.out.println("Query is: " + stmt);
+			stmt.executeUpdate();
+			System.out.println("Admin Successfully added!");
+			conn.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
