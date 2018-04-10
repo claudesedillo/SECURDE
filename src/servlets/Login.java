@@ -259,10 +259,11 @@ public class Login extends HttpServlet {
 			theCookie = new Cookie("RECOVERY-ATTEMPT", user); 
 			theCookie.setMaxAge(60*30); //30 minutes
 			response.addCookie(theCookie);
-			//response.sendRedirect("PassRecoveryEmailDoor.html");
-			response.sendRedirect("ResetPasswordDoor.jsp");
+			response.getWriter().write("PROCEED-DOOR");
 		}
-		else response.sendRedirect("ForgotPasswordPortal.jsp");
+		else {
+			response.getWriter().write("FAIL-DOOR");
+		}
 		System.out.println("***************/LOGIN SERVLET - FORGOT PASSWORD/***************");
 	}
 	
@@ -351,9 +352,9 @@ public class Login extends HttpServlet {
 			CustomerService.updateCustomer(newCust);
 			
 			System.out.println("Password of Customer Succesfully Updated");
-			request.getRequestDispatcher("Index.jsp").forward(request, response);
+			response.getWriter().write("SUCCESS-RECOVER-PASS");
 		}
-		else request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
+		else response.getWriter().write("FAIL-RECOVER-PASS");
 		System.out.println("***************/LOGIN SERVLET - NEW PASSWORD CONFIRM/***************");
 	}
 	
