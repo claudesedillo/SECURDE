@@ -68,6 +68,19 @@ public class Order {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public Order(String email, String firstName, String lastName,  String streetAddress, 
+			String city, String province, int postalCode, String phoneNumber, int total) {
+
+		this.email = email;
+		this.total = total;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.province = province;
+		this.postalCode = postalCode;
+		this.phoneNumber = phoneNumber;
+	}
 	public int getOrderID() {
 		return orderID;
 	}

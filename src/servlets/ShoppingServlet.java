@@ -159,12 +159,27 @@ public class ShoppingServlet extends HttpServlet {
 	}
 
 	private void getCheckoutDelivery(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - GET CHECKOUT DELIVERY***************");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		
+		String email ="";
+		
 		Customer cust = null;
-		for(Shoppingcart c: cartlist) 
-			cust = CustomerService.getCustomer(c.getEmail());
-		if(cust == null)
+		
+    	Cookie[] cookies = request.getCookies();
+		for(int i = 0; i < cookies.length; i++){
+			Cookie currentCookie = cookies[i];
+			if(currentCookie.getName().equals("USER")){
+				email = DecryptorService.decryptCookie(currentCookie);
+			}
+		}
+		
+		cust = CustomerService.getCustomer(email);
+		if(cust == null) {
 			cust = new Customer();
+			System.out.println("Customer is null!");
+		}
+		System.out.println(cust.getFirstname());
 		String htmlBookList = "<div class=\"card\">"
 								+ "<div class=\"card-header\" id=\"ch-delivery\">"
 									+ "<h5 class=\"mb-0\"><button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" data-target=\"#delivery-card\" aria-expanded=\"false\" aria-controls=\"delivery-card\">DELIVERY</button></h5>"
@@ -176,29 +191,50 @@ public class ShoppingServlet extends HttpServlet {
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"fname-inp\">First Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\" value = \" " + Encode.forHtml(cust.getFirstname())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\" name = \"fname-inp\" value = \" " + Encode.forHtml(cust.getFirstname())  +"\">"
 						                         + "</div>"
 						                     + "</div>"
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"lname-inp\">Last Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\" value = \" " + Encode.forHtml(cust.getLastname())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\" name = \"lname-inp\"  value = \" " + Encode.forHtml(cust.getLastname())  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                    + "<div class=\"form-group\">"
-						                         + "<label class=\"control-label col-sm-2\" for=\"address-inp\">Address</label>"
+						                         + "<label class=\"control-label col-sm-2\" for=\"address-inp\">Street Address</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\" value = \" " + Encode.forHtml(cust.getStreetaddress())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\" name = \"address-inp\"  value = \" " + Encode.forHtml(cust.getStreetaddress())  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
 						                    + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"city-inp\">City</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\" value = \" " + Encode.forHtml(cust.getCity())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\" name = \"city-inp\"  value = \" " + Encode.forHtml(cust.getCity())  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
+						                    + "<div class=\"form-group\">"
+					                        	+ "<label class=\"control-label col-sm-2\" for=\"province-inp\">Province</label>"
+					                        	+ "<div class=\"col-sm-10\">"
+					                        		+ "<input type=\"text\" class=\"form-control\" id=\"province-inp\" name = \"province-inp\"  value = \" " + Encode.forHtml(cust.getProvince())  +"\">"
+					                        	+ "</div>"
+					                        + "</div>"
+
+						                    + "<div class=\"form-group\">"
+				                        		+ "<label class=\"control-label col-sm-2\" for=\"postalcode-inp\">Postal Code</label>"
+				                        		+ "<div class=\"col-sm-10\">"
+				                        			+ "<input type=\"number\" class=\"form-control\" id=\"postalcode-inp\" name = \"postalcode-inp\"  value = \" " + cust.getPostalcode()  +"\">"
+				                        		+ "</div>"
+				                        	+ "</div>"
+				                        	
+						                    + "<div class=\"form-group\">"
+				                        		+ "<label class=\"control-label col-sm-2\" for=\"phonenumber-inp\">Phone Number</label>"
+				                        		+ "<div class=\"col-sm-10\">"
+				                        			+ "<input type=\"number\" class=\"form-control\" id=\"phonenumber-inp\" name = \"phonenumber-inp\"  value = \" " + Encode.forHtml(cust.getPhonenumber())  +"\">"
+				                        		+ "</div>"
+				                        	+ "</div>"
+				                        	
 						                    + "<button type=\"submit\" class=\"btn btn-default\" id=\"btn-next2\" >next</button>"
 						                + "</form>"
 						            + "</div>"
@@ -208,7 +244,7 @@ public class ShoppingServlet extends HttpServlet {
 		response.setContentType("text/html"); 
 	    response.setCharacterEncoding("UTF-8"); 
 	    response.getWriter().write(htmlBookList);
-		
+		System.out.println("***************/SHOPPING SERVLET - GET CHECKOUT DELIVERY/***************");		
 	}
 	
 
@@ -241,26 +277,58 @@ public class ShoppingServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		int totalprice = 0;
-		
+		boolean guest = true;
 		for(Shoppingcart c: cartlist) {
 			totalprice += c.getPrice();
 		}
 		
-		String email = request.getParameter("email"),
-			   firstname = request.getParameter("firstname"),
-			   lastname = request.getParameter("lastname"),
-			   stAddress = request.getParameter("streetAddress"),
-			   city = request.getParameter("city");
-		System.out.println("Total price: " + totalprice);
-		Order order = new Order(email, firstname, lastname, stAddress, city, totalprice);
+		String email = "",
+			   firstname = request.getParameter("fname-inp"),
+			   lastname = request.getParameter("lname-inp"),
+			   stAddress = request.getParameter("address-inp"),
+			   city = request.getParameter("city-inp"),
+			   province = request.getParameter("province-inp"),
+			   phonenumber = request.getParameter("phonenumber-inp");
+		int postalcode = Integer.parseInt(request.getParameter("postalcode-inp"));
 		
-		OrderService.addCustomer(order);
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("USER")){
+					guest = false;
+					email = DecryptorService.decryptCookie(currentCookie);
+				}
+			}
+		}
+		
+		if(guest) {
+			
+		}
+		System.out.println("Name: " + firstname + " " + lastname);
+		System.out.println("Total price: " + totalprice);
+		Order order = new Order(email, firstname, lastname, stAddress, city, province, postalcode, phonenumber, totalprice);
+		System.out.println("After making order, Name: " + firstname + " " + lastname);
+		OrderService.addOrder(order);
 		int orderID = OrderService.getLatestOrder();
 		
 		for(Shoppingcart sc : cartlist){
 			OrderList ol = new OrderList(orderID, sc.getBookid(), sc.getQuantity());
 			OrderListService.addOrderList(ol);
 		}
+		
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("CART")) {
+					System.out.println("CART found!");
+					currentCookie.setMaxAge(0);
+					response.addCookie(currentCookie);
+					System.out.println("CART killed!");
+				}
+			}
+		}
+		
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
 		System.out.println("***************/SHOPPING SERVLET - CHECKOUT CONFIRM/***************");
 	}

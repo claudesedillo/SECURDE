@@ -56,10 +56,10 @@ function getCheckoutPrice(){
 }
 
 $("document").ready(function(){
-	if(!(document.cookie.indexOf("logged") >= 0)){   	 	
+	if(!(document.cookie.indexOf("USER") >= 0)){   	 	
 		getCheckoutSignIn();
+		console.log("signed in. getting sign in");
     }
 	getCheckoutDelivery();
-	//console.log("Console ready on checkout!");
 	getCheckoutPrice();
 });

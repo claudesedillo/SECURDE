@@ -112,22 +112,24 @@ public class OrderService {
 			}
 		return orderID;
 	}
-	public static void addCustomer(Order order){
+	public static void addOrder(Order order){
 		System.out.println("*************************************************************");
 		System.out.println("I am at OrderService, addOrder");
 		try {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
 			Connection conn = DatabaseManager.getConnection();
-			
-			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO orders (email, firstname, lastname, streetaddress, city, total) VALUES (?,?,?,?,?,?)");
-			
+			PreparedStatement stmt =  conn.prepareStatement("INSERT INTO orders (email, orderdate, firstname, lastname, streetaddress, city, province, postalcode, phonenumber, total) VALUES (?, NOW(), ?,?,?,?,?,?,?,?)");
+			System.out.println("At addOrder: Name is " + order.getFirstName() + order.getLastName());
 			stmt.setString(1, order.getEmail());
 			stmt.setString(2, order.getFirstName());
 			stmt.setString(3, order.getLastName());
 			stmt.setString(4, order.getStreetAddress());
 			stmt.setString(5, order.getCity());
-			stmt.setInt(6, order.getTotal());
+			stmt.setString(6,  order.getProvince());
+			stmt.setInt(7,  order.getPostalCode());
+			stmt.setString(8,  order.getPhoneNumber());
+			stmt.setInt(9, order.getTotal());
 			
 			System.out.println("Query is: " + stmt);
 			stmt.executeUpdate();

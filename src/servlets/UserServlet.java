@@ -24,7 +24,8 @@ import service.OrderService;
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet(urlPatterns = {"/getUserOrders",
+@WebServlet(urlPatterns = {"/changePassword",
+						   "/getUserOrders",
 						   "/getAccountDetails",
 						   "/updateAccountDetails"})
 public class UserServlet extends HttpServlet {
@@ -62,9 +63,19 @@ public class UserServlet extends HttpServlet {
 			case "/updateAccountDetails": System.out.println("I am at UserServlet, getOrderDetails case");
 					updateAccountDetails(request, response);
 					break;
+			case "/changePassword": System.out.println("I am at UserServlet, getOrderDetails case");
+					changePassword(request, response);
+					break;
 		}
 	}
 	    
+	private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************USER SERVLET - CHANGE PASSWORD***************");
+		
+		
+	}
+	
+	
     private void updateAccountDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("***************USER SERVLET - UPDATE ACCOUNT DETAILS***************");
     	String name = request.getParameter("name"),
