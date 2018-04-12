@@ -7,14 +7,15 @@ ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 22:16:17.0, successful=true,
 ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 22:18:44.0, successful=true, email=garynon12@gmail.com, type=admin
 ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 22:38:58.0, successful=false, email=garynon12@gmail.com, type=admin
 ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 22:39:05.0, successful=true, email=garynon12@gmail.com, type=admin
-ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 22:52:44.0, successful=true, email=garynon12@gmail.com, type=admin
-ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 23:19:08.0, successful=true, email=gary_non@dlsu.edu.ph, type=customer
-ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 23:26:53.0, successful=true, email=gary_non@dlsu.edu.ph, type=customer
-ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-10 23:39:42.0, successful=true, email=garynon12@gmail.com, type=admin
+ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-12 21:18:37.0, successful=true, email=claudesedillo@gmail.com, type=admin
+ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-12 21:19:39.0, successful=false, email=claudesedillo@gmail.com, type=customer
+ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-12 21:20:01.0, successful=false, email=claudesedillo@gmail.com, type=customer
+ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-12 21:20:06.0, successful=false, email=claudesedillo@gmail.com, type=customer
+ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-12 21:20:38.0, successful=true, email=claudesedillo@gmail.com, type=customer
+ip_address=0:0:0:0:0:0:0:1, attempt_date=2018-04-12 21:21:49.0, successful=true, email=claudesedillo@gmail.com, type=admin
 ORDER LOGS
 orderID=9, email=design@dthree.com.ph, orderDate=null, total=700, streetAddress=null, city=Mandaluying, province=null, postalCode=0, phoneNumber=null, firstName=Mon, lastName=XD
 orderID=10, email=jessgano@gmail.com, orderDate=null, total=1100, streetAddress=null, city=Mandaluyong, province=null, postalCode=0, phoneNumber=null, firstName=Jess, lastName=Gano
 orderID=11, email=claudesedillo@gmail.com, orderDate=null, total=420, streetAddress=null, city=Makati, province=null, postalCode=0, phoneNumber=null, firstName=Claude, lastName=Sedillo
 orderID=12, email=, orderDate=null, total=670, streetAddress=null, city=, province=null, postalCode=0, phoneNumber=null, firstName=, lastName=
-orderID=13, email=null, orderDate=null, total=500, streetAddress=null, city=null, province=null, postalCode=0, phoneNumber=null, firstName=null, lastName=null
-orderID=14, email=null, orderDate=null, total=500, streetAddress=null, city=null, province=null, postalCode=0, phoneNumber=null, firstName=null, lastName=null
+orderID=13, email=claudesedillo@gmail.com, orderDate=2018-04-12, total=1590, streetAddress=tite, city=tite, province=tite, postalCode=990, phoneNumber=20925, firstName=Claude, lastName=Sedillo
