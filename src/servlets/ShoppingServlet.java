@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.owasp.encoder.Encode;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.EncryptionException;
 
 import beans.Book;
 import beans.Customer;
@@ -40,7 +42,8 @@ import service.ShoppingcartService;
 						   "/getCheckoutDelivery",
 						   "/getCheckoutSignIn",
 						   "/getCheckoutPrice",
-						   "/getCartCount"})
+						   "/getCartCount",
+						   "/checkoutGuestEmail"})
 public class ShoppingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -127,26 +130,22 @@ public class ShoppingServlet extends HttpServlet {
 							 				+ "<div class=\"col-sm-6\" id=\"signin-div\">"
 							 					+ "<p>Sign in to your Bookshelf account</p>"
 							 					+ "<a href=\"#\">want to create an online account?</a><br><br>"
-							 					+ "<form>"
 							 						+ "<div class=\"form-group\">"
-							 							+ "<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"email address\">"
+							 							+ "<input type=\"email\" class=\"form-control\" id=\"signin-email\" placeholder=\"email address\">"
 							 						+ "</div>" 
 							 						+ "<div class=\"form-group\">"
-							 							+ "<input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"password\">"
+							 							+ "<input type=\"password\" class=\"form-control\" id=\"siginin-password\" placeholder=\"password\">"
 							 						+ "</div>"
 							 						+ "<button type=\"button\" class=\"btn btn-default\" id=\"btn-signin\">sign in</button>"
 							 						+ "<a href=\"#\">forgot password?</a>"
-							 					+ "</form>"
 							 				+ "</div>"
 							 				+ "<div class=\"col-sm-6\" id=\"guestco-div\">"
 							 					+ "<p>Checkout as a Guest</p>"
 							 					+ "<p class=\"sub\">your email will be used to confirm your order.</p>"
-							 					+ "<form>"
 							 						+ "<div class=\"form-group\">"
-							 							+ "<input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"email address\">"
+							 							+ "<input type=\"email\" class=\"form-control\" id=\"guest-email\" placeholder=\"email address\">"
 							 						+ "</div>"
-							 						+ "<button type=\"button\" class=\"btn btn-default\" id=\"btn-next1\" >next</button>"
-							 					+ "</form>"
+							 						+ "<button type=\"button\" class=\"btn btn-default\" id=\"btn-guestemail\" >next</button>"
 							 				+ "</div>"
 							 			+ "</div>"
 							 		+ "</div>"
@@ -162,14 +161,21 @@ public class ShoppingServlet extends HttpServlet {
 		System.out.println("***************SHOPPING SERVLET - GET CHECKOUT DELIVERY***************");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
 		
-		String email ="";
+		String email ="",
+				firstname = "",
+				lastname = "",
+				streetaddress = "",
+				city = "",
+				province = "",
+				phonenumber = "";
+		int postalcode = 0;
 		
 		Customer cust = null;
 		
     	Cookie[] cookies = request.getCookies();
 		for(int i = 0; i < cookies.length; i++){
 			Cookie currentCookie = cookies[i];
-			if(currentCookie.getName().equals("USER")){
+			if(currentCookie.getName().equals("USER") || currentCookie.getName().equals("GUEST-CHECKOUT") ){
 				email = DecryptorService.decryptCookie(currentCookie);
 			}
 		}
@@ -177,6 +183,13 @@ public class ShoppingServlet extends HttpServlet {
 		cust = CustomerService.getCustomer(email);
 		if(cust == null) {
 			cust = new Customer();
+			firstname = Encode.forHtml(cust.getFirstname());
+			lastname = Encode.forHtml(cust.getLastname());
+			streetaddress = Encode.forHtml(cust.getStreetaddress());
+			city = Encode.forHtml(cust.getCity());
+			province = Encode.forHtml(cust.getProvince());
+			phonenumber = Encode.forHtml(cust.getPhonenumber());
+			postalcode = cust.getPostalcode();
 			System.out.println("Customer is null!");
 		}
 		System.out.println(cust.getFirstname());
@@ -191,47 +204,47 @@ public class ShoppingServlet extends HttpServlet {
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"fname-inp\">First Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\" name = \"fname-inp\" value = \" " + Encode.forHtml(cust.getFirstname())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"fname-inp\" name = \"fname-inp\" value = \" " + firstname  +"\">"
 						                         + "</div>"
 						                     + "</div>"
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"lname-inp\">Last Name</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\" name = \"lname-inp\"  value = \" " + Encode.forHtml(cust.getLastname())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"lname-inp\" name = \"lname-inp\"  value = \" " + lastname  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                    + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"address-inp\">Street Address</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\" name = \"address-inp\"  value = \" " + Encode.forHtml(cust.getStreetaddress())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"address-inp\" name = \"address-inp\"  value = \" " + streetaddress  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
 						                    + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"city-inp\">City</label>"
 						                         + "<div class=\"col-sm-10\">"
-						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\" name = \"city-inp\"  value = \" " + Encode.forHtml(cust.getCity())  +"\">"
+						                             + "<input type=\"text\" class=\"form-control\" id=\"city-inp\" name = \"city-inp\"  value = \" " + city  +"\">"
 						                         + "</div>"
 						                    + "</div>"
 						                     
 						                    + "<div class=\"form-group\">"
 					                        	+ "<label class=\"control-label col-sm-2\" for=\"province-inp\">Province</label>"
 					                        	+ "<div class=\"col-sm-10\">"
-					                        		+ "<input type=\"text\" class=\"form-control\" id=\"province-inp\" name = \"province-inp\"  value = \" " + Encode.forHtml(cust.getProvince())  +"\">"
+					                        		+ "<input type=\"text\" class=\"form-control\" id=\"province-inp\" name = \"province-inp\"  value = \" " + province  +"\">"
 					                        	+ "</div>"
 					                        + "</div>"
 
 						                    + "<div class=\"form-group\">"
 				                        		+ "<label class=\"control-label col-sm-2\" for=\"postalcode-inp\">Postal Code</label>"
 				                        		+ "<div class=\"col-sm-10\">"
-				                        			+ "<input type=\"number\" class=\"form-control\" id=\"postalcode-inp\" name = \"postalcode-inp\"  value = \" " + cust.getPostalcode()  +"\">"
+				                        			+ "<input type=\"number\" class=\"form-control\" id=\"postalcode-inp\" name = \"postalcode-inp\"  value = \" " + postalcode  +"\">"
 				                        		+ "</div>"
 				                        	+ "</div>"
 				                        	
 						                    + "<div class=\"form-group\">"
 				                        		+ "<label class=\"control-label col-sm-2\" for=\"phonenumber-inp\">Phone Number</label>"
 				                        		+ "<div class=\"col-sm-10\">"
-				                        			+ "<input type=\"number\" class=\"form-control\" id=\"phonenumber-inp\" name = \"phonenumber-inp\"  value = \" " + Encode.forHtml(cust.getPhonenumber())  +"\">"
+				                        			+ "<input type=\"number\" class=\"form-control\" id=\"phonenumber-inp\" name = \"phonenumber-inp\"  value = \" " + phonenumber  +"\">"
 				                        		+ "</div>"
 				                        	+ "</div>"
 				                        	
@@ -303,8 +316,14 @@ public class ShoppingServlet extends HttpServlet {
 		}
 		
 		if(guest) {
-			
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("GUEST-CHECKOUT")){
+					email = DecryptorService.decryptCookie(currentCookie);
+				}
+			}
 		}
+		
 		System.out.println("Name: " + firstname + " " + lastname);
 		System.out.println("Total price: " + totalprice);
 		Order order = new Order(email, firstname, lastname, stAddress, city, province, postalcode, phonenumber, totalprice);
@@ -326,6 +345,13 @@ public class ShoppingServlet extends HttpServlet {
 					response.addCookie(currentCookie);
 					System.out.println("CART killed!");
 				}
+				if(currentCookie.getName().equals("GUEST-CHECKOUT")) {
+					System.out.println("GUEST-CHECKOUT found!");
+					currentCookie.setMaxAge(0);
+					response.addCookie(currentCookie);
+					System.out.println("GUEST-CHECKOUT killed!");
+				}
+				
 			}
 		}
 		
@@ -505,6 +531,27 @@ public class ShoppingServlet extends HttpServlet {
 		
 	}
 	
+	private void checkoutGuestEmail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("***************SHOPPING SERVLET - GUEST CHECKOUT EMAIL***************");
+		
+		String email = request.getParameter("email");
+		
+		try {
+			email = ESAPI.encryptor().encrypt(email);
+		} catch (EncryptionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Cookie theCookie;
+		theCookie = new Cookie("GUEST-CHECKOUT", email); 
+		theCookie.setMaxAge(60*60*24*7*30); //30 minutes
+		response.addCookie(theCookie);
+		
+		response.getWriter().write("PASS-GUEST-CHECKOUT");
+		
+		System.out.println("***************/SHOPPING SERVLET - GUEST CHECKOUT EMAIL/***************");
+	}
 	private void getCartCount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - GET CART COUNT***************");
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
@@ -565,14 +612,18 @@ public class ShoppingServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		switch(request.getServletPath()) {
 			case "/checkoutConfirm" : System.out.println("I am at doGet method, checkoutConfirm case");
 			  						  checkOutConfirm(request, response);
 			  						  break;
 			case "/addToCart": System.out.println("I am at shoppingServlet, addToCart method");
-			   addToCart(request, response);
-			   break;
+								   addToCart(request, response);
+								   break;
+			case "/checkoutGuestEmail" : System.out.println("I am at doPost method, guestCheckoutEmail case");
+								checkoutGuestEmail(request, response);
+									break;
 		}
 	}
 
