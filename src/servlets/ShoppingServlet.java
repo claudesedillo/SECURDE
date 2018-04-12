@@ -335,6 +335,13 @@ public class ShoppingServlet extends HttpServlet {
 			OrderList ol = new OrderList(orderID, sc.getBookid(), sc.getQuantity());
 			OrderListService.addOrderList(ol);
 		}
+		//clear cart and db
+		for(int x= 0; x< cartlist.size(); x+=1) {
+			ShoppingcartService.deleteCart(cartlist.get(x).getBookid(), cartlist.get(x).getEmail());
+		}
+		cartlist.clear();
+		session.setAttribute("cartlist", cartlist);
+		request.setAttribute("cartlist", cartlist);
 		
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
