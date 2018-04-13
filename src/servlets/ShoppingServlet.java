@@ -200,7 +200,7 @@ public class ShoppingServlet extends HttpServlet {
 								+ "<div id=\"delivery-card\" class=\"collapse show\" aria-labelledby=\"ch-delivery\" data-parent=\"#accordion\">"
 						        + "<div class=\"card-body\">"
 						            + "<div class=\"row\">"
-						                 + "<form class=\"form-horizontal\" method = \"POST\" action = \"checkoutConfirm\">"
+						            	 + "<div class = \"form-horizontal\">"
 						                     + "<div class=\"form-group\">"
 						                         + "<label class=\"control-label col-sm-2\" for=\"fname-inp\">First Name</label>"
 						                         + "<div class=\"col-sm-10\">"
@@ -230,7 +230,7 @@ public class ShoppingServlet extends HttpServlet {
 						                    + "<div class=\"form-group\">"
 					                        	+ "<label class=\"control-label col-sm-2\" for=\"province-inp\">Province</label>"
 					                        	+ "<div class=\"col-sm-10\">"
-					                        		+ "<input type=\"text\" class=\"form-control\" id=\"province-inp\" name = \"province-inp\"  value = \" " + province  +"\">"
+					                        		+ "<input type=\"text\" class=\"form-control\" id=\"province-input\" name = \"province-inp\"  value = \" " + province  +"\">"
 					                        	+ "</div>"
 					                        + "</div>"
 
@@ -246,10 +246,9 @@ public class ShoppingServlet extends HttpServlet {
 				                        		+ "<div class=\"col-sm-10\">"
 				                        			+ "<input type=\"number\" class=\"form-control\" id=\"phonenumber-inp\" name = \"phonenumber-inp\"  value = \" " + phonenumber  +"\">"
 				                        		+ "</div>"
-				                        	+ "</div>"
-				                        	
-						                    + "<button type=\"submit\" class=\"btn btn-default\" id=\"btn-next2\" >next</button>"
-						                + "</form>"
+				                        	+ "</div>"				  
+						                    + "<button class=\"btn btn-default\" id=\"btn-checkoutConfirm\" >next</button>"
+				                        	+"</div> "
 						            + "</div>"
 						        + "</div>"
 						    + "</div>"
@@ -283,26 +282,28 @@ public class ShoppingServlet extends HttpServlet {
 	    response.getWriter().write(htmlBookList);
 	    System.out.println("***************/SHOPPING SERVLET - GET CHECKOUT PRICE/***************");
 	}
-
 	
 	private void checkOutConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***************SHOPPING SERVLET - CHECKOUT CONFIRM***************");
 		HttpSession session = request.getSession();
 		List<Shoppingcart> cartlist = getShoppingCart(request, response);
+		
 		int totalprice = 0;
 		boolean guest = true;
+		
 		for(Shoppingcart c: cartlist) {
 			totalprice += c.getPrice();
 		}
 		
 		String email = "",
-			   firstname = request.getParameter("fname-inp"),
-			   lastname = request.getParameter("lname-inp"),
-			   stAddress = request.getParameter("address-inp"),
-			   city = request.getParameter("city-inp"),
-			   province = request.getParameter("province-inp"),
-			   phonenumber = request.getParameter("phonenumber-inp");
-		int postalcode = Integer.parseInt(request.getParameter("postalcode-inp"));
+			   firstname = request.getParameter("firstname"),
+			   lastname = request.getParameter("lastname"),
+			   stAddress = request.getParameter("streetaddress"),
+			   city = request.getParameter("city"),
+			   province = request.getParameter("province"),
+			   phonenumber = request.getParameter("phonenumber");
+		System.out.println("Postal code is" + request.getParameter("postalcode"));
+		int postalcode = Integer.parseInt(request.getParameter("postalcode"));
 		
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null){
@@ -361,8 +362,7 @@ public class ShoppingServlet extends HttpServlet {
 				
 			}
 		}
-		
-		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		response.getWriter().write("SUCCESS-CHECKOUT");
 		System.out.println("***************/SHOPPING SERVLET - CHECKOUT CONFIRM/***************");
 	}
 	

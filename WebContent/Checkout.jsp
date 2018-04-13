@@ -14,7 +14,8 @@
         
         <link rel="stylesheet" href="css/checkout.css">
         <link rel="stylesheet" href="css/footer.css">
-        <script src="script/checkout.js"></script>
+		<script src="script/checkout.js"></script>
+		<script src = "script/checkoutFunction.js"></script>
 <title>Checkout</title>
 </head>
 <body>
@@ -61,6 +62,6 @@
         </div>
         <br><br>
         <footer class="page-footer center-on-small-only" id="footer"></footer>
-
+		
 </body>
 </html>

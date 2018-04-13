@@ -103,6 +103,47 @@ function checkoutGuestEmail(email){
         }
      });
 }
+
+function checkoutConfirm(){
+	var firstname = $('#fname-inp').val();
+	var lastname = $('#lname-inp').val();
+	var streetaddress = $('#address-inp').val();
+	var city = $('#city-inp').val();
+	var province = $('#province-input').val();
+	var phonenumber =  $('#phonenumber-inp').val();
+	var postalcode = $('#postalcode-inp').val();
+	
+	console.log("firstname is" + firstname);
+	console.log("lastname is" + lastname);
+	console.log("postal code is " + postalcode);
+	console.log("streetaddress is " + streetaddress);
+	console.log("city is" + city);
+	console.log("province is" + province);
+	console.log("phonenumber is" + phonenumber);
+	console.log("postalcode is" + postalcode);
+	
+    $.ajax({
+ 	    context: this,
+        url:'checkoutConfirm',
+        data:{'firstname': firstname,
+        	'lastname':lastname,
+        	'streetaddress':streetaddress,
+        	'city':city,
+        	'province':province,
+        	'phonenumber':phonenumber,
+        	'postalcode':postalcode},
+        type:'POST',
+        cache:false,
+        success: function(data){
+        	if(data == "SUCCESS-CHECKOUT")
+        		document.location.href = 'Index.jsp';
+        },
+        error:function(){
+        	console.log("Error encountered at toServlet");
+        }
+     });
+}
+
 $("document").ready(function(){
 	
 	if(!(document.cookie.indexOf("USER") >= 0) && !(document.cookie.indexOf("GUEST-CHECKOUT") >= 0)){
@@ -113,25 +154,11 @@ $("document").ready(function(){
 		getCheckoutDelivery();
 		getCheckoutPrice();
 	}
-//	var verified = false, checkedUser = false;
-//	
-//	if(!(document.cookie.indexOf("USER") >= 0)){   	 	
-//		getCheckoutSignIn();
-//		console.log("user cookie does not exist");
-//		checkedUser = true;
-//    }
-//	else{
-//		getCheckoutDelivery();
-//		getCheckoutPrice();
-//		verified = true;
-//	}
-//	if(!verified && !checkedUser){
-//		if(!(document.cookie.indexOf("GUEST-CHECKOUT") >= 0)){
-//			getCheckoutSignIn();
-//			console.log("checkout cookie does not exist");
-//		}
 	
-
+	$(document).on("click", "#btn-checkoutConfirm",function() {
+		console.log("Checkoutonfirm clicked AT FUCKING CHECKOUT.JS!")
+		checkoutConfirm();
+	});
 	
 	$(document).on("click", "#btn-signin",function() {
 
