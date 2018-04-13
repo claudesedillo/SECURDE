@@ -7,20 +7,20 @@ function getOrder(orderID, parent){
 		data:{'orderID': orderID},
 		cache: false,
 		success: function(data){
-			console.log(parent);
+			//console.log(parent);
 			$(parent).append(data);
-			console.log("ajax complete!");
+			//console.log("ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on getOrder");
+			//console.log("something is wrong on getOrder");
 		}
 	});
 	
-	console.log("order ID is " + orderID);
+	//console.log("order ID is " + orderID);
 }
 
 function displayOrders(){
-	console.log("Hello!");
+	//console.log("Hello!");
 	
 	var orders = document.getElementById("orders");
 	
@@ -31,11 +31,11 @@ function displayOrders(){
 		cache: false,
 		success: function(data){
 			$(orders).append(data);
-			console.log(data);
-			console.log("ajax complete!");
+			//console.log(data);
+			//console.log("ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on displayOrders");
+			//console.log("something is wrong on displayOrders");
 		}
 	});
 }

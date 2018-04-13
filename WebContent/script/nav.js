@@ -9,14 +9,14 @@ function getCartCount(){
 		async: false,
 		cache: false,
 		success: function(data){
-			console.log("badge content: " + badgeText);
-			console.log("Cart count: " + data);
+			//console.log("badge content: " + badgeText);
+			//console.log("Cart count: " + data);
 			$(badge).text(data);
-			console.log("badge content: " + badgeText);
-			console.log("append complete!");
+			//console.log("badge content: " + badgeText);
+			//console.log("append complete!");
 		},
 		error:function(){
-			console.log("something is wrong on getCartCount");
+			//console.log("something is wrong on getCartCount");
 		}
 	});
 }
@@ -37,7 +37,7 @@ function removeError() {
 }
 
 function accPassMismatch(data){
-	console.log("Data is: " + data);
+	//console.log("Data is: " + data);
 	if(data == "PASS-LOGIN-CUSTOMER"){
 		document.location.href = 'Index.jsp';
 	}
@@ -55,11 +55,11 @@ function toServlet(email, password){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("toServletsuccess!");
+        	//console.log("toServletsuccess!");
         	accPassMismatch(data);
         },
         error:function(){
-        	console.log("Error encountered at toServlet");
+        	//console.log("Error encountered at toServlet");
         }
      });
 }
@@ -69,16 +69,16 @@ $("document").ready(function(){
 	if(document.cookie.indexOf("USER") >= 0){   	 	
 			$("#nav").load("usernav.html");
 		    $("#footer").load("footer.html");
-	    	console.log("Log in successful");
-	    	console.log("Nav and footer (user) loaded!");
+	    	//console.log("Log in successful");
+	    	//console.log("Nav and footer (user) loaded!");
     }else {
 			$("#nav").load("nav.html");
 		    $("#footer").load("footer.html");
-		    console.log("Nav and footer (not logged in) loaded!");
+		    //console.log("Nav and footer (not logged in) loaded!");
     }
 	 
 	$(document).on("click", "#btn-cart", function(){
-	  	console.log("Cart was clicked");
+	  	//console.log("Cart was clicked");
 	  	document.location.href = 'Cart.jsp';
 	});
 	
@@ -100,5 +100,5 @@ $("document").ready(function(){
         } else showError();
 	});
 	
-	console.log("Nav.js loaded");
+	//console.log("Nav.js loaded");
 });

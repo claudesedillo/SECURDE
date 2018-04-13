@@ -1,5 +1,5 @@
 function displayCatalog(){
-	console.log("Hello!");
+	//console.log("Hello!");
 	
 	var catalog = document.getElementById("catalogDiv");
 	
@@ -10,11 +10,11 @@ function displayCatalog(){
 		cache: false,
 		success: function(data){
 			$(catalog).append(data);
-			console.log(data);
-			console.log("ajax complete!");
+			//console.log(data);
+			//console.log("ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on displayCompleteCatalog");
+			//console.log("something is wrong on displayCompleteCatalog");
 		}
 	});
 }

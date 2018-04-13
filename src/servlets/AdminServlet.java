@@ -203,7 +203,7 @@ public class AdminServlet extends HttpServlet {
     	 List<Log> logs = LogService.getLogs();
     	 ArrayList<Order> orders = OrderService.getAllOrders();
     	 
-    	 File file = new File("C:/Users/Claude/Desktop/SECURDE/INDIGO-COPY.txt");
+    	 File file = new File("C:/Users/Acer/Desktop/SchoolLocal/Securde/MP/securde/INDIGO-COPY.txt");
 
          try (Writer writer = new BufferedWriter(new FileWriter(file))) {
         	writer.write("LOGIN LOGS" + System.getProperty("line.separator"));

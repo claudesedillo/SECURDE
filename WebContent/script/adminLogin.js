@@ -14,7 +14,7 @@ function removeError() {
 }
 
 function accPassMismatch(data){
-	console.log("Data is: " + data);
+	//console.log("Data is: " + data);
 	if(data == "PASS-LOGIN-ADMIN"){
 		document.location.href = 'EmailDoor.jsp';
 	}
@@ -32,11 +32,11 @@ function toServlet(email, password){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("toServletsuccess!");
+        	//console.log("toServletsuccess!");
         	accPassMismatch(data);
         },
         error:function(){
-        	console.log("Error encountered at toServlet");
+        	//console.log("Error encountered at toServlet");
         }
      });
 }

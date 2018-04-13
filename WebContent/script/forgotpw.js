@@ -21,11 +21,11 @@ function submitTheForm(email){
         type:'post',
         cache:false,
         success: function(data){
-        	console.log("data is: " + data);
+        	//console.log("data is: " + data);
         	redirectUser(data);
         },
         error:function(){
-        	console.log("error at submitting the form");
+        	//console.log("error at submitting the form");
         }
      });
 }

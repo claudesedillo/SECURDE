@@ -24,11 +24,11 @@ function checkPassword(value) {
 
 function isCurrentPasswordValid(isItTrue){
 	oldPassValid = isItTrue;
-	console.log("isCurrentPaswordValid: " + oldPassValid);
+	//console.log("isCurrentPaswordValid: " + oldPassValid);
 }
 
 function checkCurrentPassword(oldpw){
-	console.log("at checkCurrentPassword");
+	//console.log("at checkCurrentPassword");
     return $.ajax({
  	    context: this,
  	    async: false,
@@ -38,44 +38,44 @@ function checkCurrentPassword(oldpw){
         type:'get',
         cache:false,
         success: function(data){
-        	console.log("data from checkCurrentPassword: " + data);
+        	//console.log("data from checkCurrentPassword: " + data);
         	if(data == "FAIL-CHECK-PASSWORD"){
         		//show error here
         		isCurrentPasswordValid(false);
-        		console.log("wrong current password");
+        		//console.log("wrong current password");
         	}
         	else {
         		isCurrentPasswordValid(true);
-        		console.log("returning true");
+        		//console.log("returning true");
         	}
         },
         error:function(){
-        	console.log("error at checking current password");
+        	//console.log("error at checking current password");
         }
      });
 }
 
 function checkNewPass(pass, pass2){
-	console.log("at checkNewPass");
+	//console.log("at checkNewPass");
 	if(pass != pass2) {
 //		$('#pwnotmatch').show();
-//		console.log("NO");
+//		//console.log("NO");
 //		satisfied = false;
-		console.log("new passwords don't match");
-		console.log("returning false");
+		//console.log("new passwords don't match");
+		//console.log("returning false");
 		return false;
 	} else {
 //		$('#pwnotmatch').hide();
-//		console.log("YES");
-		console.log("new passwords match");
+//		//console.log("YES");
+		//console.log("new passwords match");
 		if(checkPassword(pass)){
-			console.log("new password format valid");
-			console.log("returning true");
+			//console.log("new password format valid");
+			//console.log("returning true");
 			return true;
 		}
 		else {
-			console.log("new password format not valid");
-			console.log("returning false");
+			//console.log("new password format not valid");
+			//console.log("returning false");
 			return false;
 		}
 	}
@@ -91,15 +91,15 @@ function changePassword(){
 	var newPassValid = checkNewPass(pass, pass2);
 	checkCurrentPassword(oldpw);
 	
-	console.log("pass: " + pass + "pass2: " + pass2);
+	//console.log("pass: " + pass + "pass2: " + pass2);
 	
-	console.log("after checkCurrentPasswordCall:" + oldPassValid);
+	//console.log("after checkCurrentPasswordCall:" + oldPassValid);
 	
-	console.log("new pass valid: " + newPassValid);
-	console.log("old pass valid: " + oldPassValid);
+	//console.log("new pass valid: " + newPassValid);
+	//console.log("old pass valid: " + oldPassValid);
 	
 	if(newPassValid && oldPassValid){
-		console.log("i am at ajax");
+		//console.log("i am at ajax");
 	    $.ajax({
 	 	    context: this,
 	        url:'newPasswordConfirm',
@@ -109,16 +109,16 @@ function changePassword(){
 	        type:'post',
 	        cache:false,
 	        success: function(data){
-	        	console.log("data is: " + data);
+	        	//console.log("data is: " + data);
 	        	redirectUser(data);
 	        },
 	        error:function(){
-	        	console.log("error at changing the password");
+	        	//console.log("error at changing the password");
 	        }
 	     });
 	}
 	else{
-		console.log("new pass not valid or old pass not valid");
+		//console.log("new pass not valid or old pass not valid");
 		$("#oldpw").attr('disabled','disabled');
 		$("#oldpw").val('nyeamchocnut');
 		$("#newpw").val('');
@@ -137,7 +137,7 @@ function getAccountDetails(){
 			updateProfileFields();
 		},
 		error:function(){
-			console.log("Error encountered at getAccountDetails");
+			//console.log("Error encountered at getAccountDetails");
 		}
 	});
 }
@@ -162,12 +162,11 @@ function updateProfileFields(name, email, address, phone){
 		$("#phone").val("");
 }
 
-function updateAccountDetails(){
+function updateAccountDetails(name, streetAddress, city, province, postalcode, phone){
 	$.ajax({
 		context: this,
 		url: 'updateAccountDetails',
-		data:{'email' : accountDetails.email,
-			  'name' : $("#name").val(),
+		data:{'name' : $("#name").val(),
 			  'streetAddress' : $("#st-address").val(),
 			  'city' : $("#city").val(),
 			  'province' : $("#province").val(),
@@ -177,11 +176,11 @@ function updateAccountDetails(){
 		type: 'post',
 		cache: false,
 		success: function(data){
-			console.log("Account Details successfully updated!");
-			console.log(data);
+			//console.log("Account Details successfully updated!");
+			//console.log(data);
 		},
 		error:function(){
-			console.log("Error encountered at updateAccountDetails.");
+			//console.log("Error encountered at updateAccountDetails.");
 		}
 	});	
 }
@@ -197,10 +196,10 @@ function displayOrders(){
 		cache: false,
 		success: function(data){
 			$(orderTable).append(data);
-			console.log("displayOrders complete!");
+			//console.log("displayOrders complete!");
 		},
 		error:function(){
-			console.log("something is wrong on displayOrders");
+			//console.log("something is wrong on displayOrders");
 		}
 	});
 }
@@ -215,12 +214,12 @@ function getOrderDetails(orderID){
 		type: 'get',
 		cache: false,
 		success: function(orderDetails){
-			console.log("getOrderDetails complete!");
-			console.log(orderDetails);
+			//console.log("getOrderDetails complete!");
+			//console.log(orderDetails);
 			$(orderDetailsTable).append(orderDetails);
 		},
 		error:function(){
-			console.log("something is wrong on getBookDetails");
+			//console.log("something is wrong on getBookDetails");
 		}
 	});
 }
@@ -235,12 +234,12 @@ function getOrderSummary(orderID){
 		type: 'get',
 		cache: false,
 		success: function(orderSummary){
-			console.log("getOrderSummary complete!");
-			console.log(orderSummary);
+			//console.log("getOrderSummary complete!");
+			//console.log(orderSummary);
 			$(orderSummaryDiv).append(orderSummary);
 		},
 		error:function(){
-			console.log("something is wrong on getOrderSummary");
+			//console.log("something is wrong on getOrderSummary");
 		}
 	});	
 }
@@ -251,7 +250,7 @@ function appendAddress () {
 		document.getElementById('city').value + ' ' +
 		document.getElementById('province').value + ' ' + 
 		document.getElementById('postalcode').value;
-	console.log("Address appended");
+	//console.log("Address appended");
 }
 
 $(document).ready(function() { 
@@ -265,18 +264,18 @@ $(document).ready(function() {
 	postalcodef = document.getElementById("postalcode").value;
 	phonef = document.getElementById("phone").value;
 	
-	console.log("namef" + namef);
-	console.log("streedaddressf" + streetaddressf);
-	console.log("cityf" + cityf);
-	console.log("provincef" + provincef);
-	console.log("postalcodef" + postalcodef);
-	console.log("phonef" + phonef);
+	//console.log("namef" + namef);
+	//console.log("streedaddressf" + streetaddressf);
+	//console.log("cityf" + cityf);
+	//console.log("provincef" + provincef);
+	//console.log("postalcodef" + postalcodef);
+	//console.log("phonef" + phonef);
 	
 	$(document).on("click", ".view-orderdetails-btn", function(){
-		console.log("view order details clicked!");
+		//console.log("view order details clicked!");
 		
 		var orderID = $(this).attr("data-orderid");
-		console.log("order ID: " + orderID);
+		//console.log("order ID: " + orderID);
 		getOrderSummary(orderID);
 		getOrderDetails(orderID);
 	});
@@ -284,7 +283,7 @@ $(document).ready(function() {
 	$("#details-modal").on("hidden.bs.modal", function () {
 		$("#ordersummary-div").empty();
 		$("#orderdetails-ordertable").empty();
-	    console.log("modal closed!");
+	    //console.log("modal closed!");
 	});
 	
 	// edit account details
@@ -300,14 +299,14 @@ $(document).ready(function() {
     
     // save account details
     $('#save-editacc').click(function() {
-    	console.log("Name: "+ namef);
+    	//console.log("Name: "+ namef);
     	if (namef &&
 			streetaddressf &&
 			cityf &&
 			provincef &&
 			checkNumInput(postalcodef) &&
 			checkNumInput(phonef)) {
-    		console.log("Name: "+ namef);
+    		updateAccountDetails(namef, streetaddressf, cityf, provincef, postalcodef, phonef);
     	} else {
     		if (namef == "")
     			$('#name-error').show();
@@ -344,12 +343,12 @@ $(document).ready(function() {
         $('.help-text').slideDown();
         $('#btn-changepw').hide();
         $('#save-changepw').show();
-        console.log("titi ka kasee");
+        //console.log("titi ka kasee");
     })
     
     // save password change
     $('#save-changepw').click(function() {
-    	console.log("titi ka kasi");
+    	//console.log("titi ka kasi");
     	changePassword();
         $('.newpw-div').slideUp();
         $('form#form-changepw input.changepw-fields').attr('disabled', 'disabled');

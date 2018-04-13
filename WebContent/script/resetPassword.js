@@ -6,7 +6,7 @@ function redirectUser(data){
 		document.location.href = 'Index.jsp';
 	}
 	else{
-		console.log(data);
+		//console.log(data);
 		$('.warnings').show();
 	}
 }
@@ -16,11 +16,11 @@ function confirmPasswordMatch(pass1, pass2) {
 	
 	if(pass1 != pass2) {
 		$('.warnings').show();
-		console.log("NO");
+		//console.log("NO");
 		satisfied = false;
 	} else {
 		$('.warnings').hide();
-		console.log("YES");
+		//console.log("YES");
 	}	
 	
 	return satisfied;
@@ -36,11 +36,11 @@ function submitTheForm(pass, pass2){
         type:'post',
         cache:false,
         success: function(data){
-        	console.log("data is: " + data);
+        	//console.log("data is: " + data);
         	redirectUser(data);
         },
         error:function(){
-        	console.log("error at submitting the form");
+        	//console.log("error at submitting the form");
         }
      });
 }

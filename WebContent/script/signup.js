@@ -17,11 +17,11 @@ function confirmPasswordMatch(pass1, pass2) {
 	
 	if(pass1 != pass2) {
 		$('#pwnotmatch').show();
-		console.log("NO");
+		//console.log("NO");
 		satisfied = false;
 	} else {
 		$('#pwnotmatch').hide();
-		console.log("YES");
+		//console.log("YES");
 	}	
 	
 	return satisfied;
@@ -44,7 +44,7 @@ function signup(email, password, password2){
 	var	securityQuestion = document.getElementById('security-qs').value;
 	var securityAnswer = document.getElementById('security-answer').value;
     
-	console.log(email + " " + password + " " + password2 + " " + firstname + " " + lastname + " " + securityQuestion + " " + securityAnswer + " ");
+	//console.log(email + " " + password + " " + password2 + " " + firstname + " " + lastname + " " + securityQuestion + " " + securityAnswer + " ");
 	
     $.ajax({
  	    context: this,
@@ -60,12 +60,12 @@ function signup(email, password, password2){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("signUp success!");
-        	console.log("data is" + data);
+        	//console.log("signUp success!");
+        	//console.log("data is" + data);
         	redirectCustomer(data);
         },
         error:function(){
-        	console.log("error at submitting the form");
+        	//console.log("error at submitting the form");
         }
      });
 }
@@ -88,17 +88,17 @@ $("document").ready(function() {
         securitya = removeWhiteSpaces(securitya);
 
         $(".warnings").hide();
-        console.log("Select is " + securityq);
+        //console.log("Select is " + securityq);
         
       //  if (confirmPasswordMatch(password, password2))
-       // 	console.log("IF-1 true")
+       // 	//console.log("IF-1 true")
         if (validateEmail(email) && 
         		fname && 
         		lname && 
         		securityq &&
         		securitya &&
         		confirmPasswordMatch(password, password2)) {
-        	console.log("Successful data validation!");
+        	//console.log("Successful data validation!");
     		signup(email, password, password2);	
         } 
     	else {

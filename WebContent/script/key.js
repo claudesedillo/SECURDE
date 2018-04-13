@@ -25,12 +25,12 @@ function submitTheForm(){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("submitTheForm success!");
-        	console.log("data is: " + data);
+        	//console.log("submitTheForm success!");
+        	//console.log("data is: " + data);
         	redirectAdmin(data);
         },
         error:function(){
-        	console.log("error at submitting the form");
+        	//console.log("error at submitting the form");
         }
      });
 }

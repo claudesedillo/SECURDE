@@ -8,7 +8,7 @@ function refreshPage(data){
 }
 
 function addToCart(bookID){
-	console.log("at addtocart. bookid is " + bookID);
+	//console.log("at addtocart. bookid is " + bookID);
 	
     $.ajax({
  	    context: this,
@@ -17,11 +17,11 @@ function addToCart(bookID){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("addToCart success!!");
+        	//console.log("addToCart success!!");
         	refreshPage(data);
         },
         error:function(){
-        	console.log("error at addToCart");
+        	//console.log("error at addToCart");
         }
      });
 }
@@ -30,7 +30,7 @@ $("document").ready(function(){
     
 	$(document).on("click", "#btn-addtocart", function(){
 		var bookID = document.getElementById('btn-addtocart').value;
-		console.log(bookID);
+		//console.log(bookID);
 		addToCart(bookID);
 		
 	});

@@ -1,5 +1,5 @@
 function displayCatalog(){
-	console.log("Hello!");
+	//console.log("Hello!");
 	
 	var feed = document.getElementById("feed");
 	
@@ -10,10 +10,10 @@ function displayCatalog(){
 		cache: false,
 		success: function(data){
 			$(feed).append(data);
-			console.log("displayCatalog ajax complete!");
+			//console.log("displayCatalog ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on displayCatalog");
+			//console.log("something is wrong on displayCatalog");
 		}
 	});
 }
@@ -22,9 +22,9 @@ $("document").ready(function(){
 	
     // view book
     $(document).on("click", ".bookLink", function(){
-    	console.log("book link was clicked!");
+    	//console.log("book link was clicked!");
     	var bookID = $(this).attr("data-bookId");
-    	console.log("book id is " + bookID);
+    	//console.log("book id is " + bookID);
     	window.location = "viewBook?bookID=" + bookID;  
     });
     

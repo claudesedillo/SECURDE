@@ -11,50 +11,50 @@ $priceCheckboxes.on('change', function(){
 		}
 		prices[this.id].push(this.data-low);
 	});
-	console.log(prices);
+	//console.log(prices);
 });
 
 $(document).on("change", "#under500", function(){
 	if(this.checked){
-		console.log("Under 500PHP is checked!");
+		//console.log("Under 500PHP is checked!");
 	}
 	else{
-		console.log("Under 500PHP is unchecked!");
+		//console.log("Under 500PHP is unchecked!");
 	}
 });
 
 $(document).on("change", "#fiveHundredTo1k", function(){
 	if(this.checked){
-		console.log("500 to 1000 is checked!");
+		//console.log("500 to 1000 is checked!");
 	}
 	else{
-		console.log("500 to 1000 is unchecked!");
+		//console.log("500 to 1000 is unchecked!");
 	}
 });
 
 $(document).on("change", "#over1000", function(){
 	if(this.checked){
-		console.log("Over 1000 is checked!");
+		//console.log("Over 1000 is checked!");
 	}
 	else{
-		console.log("Over 1000 is unchecked!");
+		//console.log("Over 1000 is unchecked!");
 	} 
 });
 
 $(document).on("change", "#paperback", function(){
 	if(this.checked){
-		console.log("paperback is checked!");
+		//console.log("paperback is checked!");
 	}
 	else{
-		console.log("paperback is unchecked!");
+		//console.log("paperback is unchecked!");
 	} 	
 });
 
 $(document).on("change", "#hardbound", function(){
 	if(this.checked){
-		console.log("hardbound is checked!");
+		//console.log("hardbound is checked!");
 	}
 	else{
-		console.log("hardbound is unchecked!");
+		//console.log("hardbound is unchecked!");
 	} 	
 });

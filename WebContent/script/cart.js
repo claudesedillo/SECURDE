@@ -1,5 +1,5 @@
 function displayCart(){
-	console.log("Inside displayCart");
+	//console.log("Inside displayCart");
 	
 	var listDiv = document.getElementById("list-div");
 	
@@ -9,20 +9,20 @@ function displayCart(){
 		type: 'get',
 		cache: false,
 		success : function(data){
-			console.log("at displayCart. Data is ");
-			console.log(data);
+			//console.log("at displayCart. Data is ");
+			//console.log(data);
 			$(listDiv).append(data);
-			console.log("getCartajax complete!");
+			//console.log("getCartajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong with displayCart");
+			//console.log("something is wrong with displayCart");
 		}
 	});
 	
 }
 
 function displayCheckOut(){
-	console.log("Inside displayCheckout");
+	//console.log("Inside displayCheckout");
 	
 	var totalDiv = document.getElementById("total-div");
 	
@@ -32,13 +32,13 @@ function displayCheckOut(){
 		type: 'get',
 		cache: false,
 		success : function(data){
-			console.log("at displayCheckOut. Data is ");
-			console.log(data);
+			//console.log("at displayCheckOut. Data is ");
+			//console.log(data);
 			$(totalDiv).append(data);
-			console.log("displayCheckout ajax complete!");
+			//console.log("displayCheckout ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong with displayCart");
+			//console.log("something is wrong with displayCart");
 		}
 	});
 	
@@ -49,7 +49,7 @@ $("document").ready(function(){
     if(document.cookie.indexOf("USER") >= 0){   	 	
 		$("#nav").load("usernav.html");
 	    $("#footer").load("footer.html");
-    	console.log("congrats you logged in");
+    	//console.log("congrats you logged in");
     }else {
 	    $(function(){
 			$("#nav").load("nav.html");

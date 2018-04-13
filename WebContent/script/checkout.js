@@ -18,10 +18,10 @@ function getCheckoutSignIn(){
 		cache: false,
 		success: function(data){
 			$(accordian).append(data);
-			console.log("ajax complete!");
+			//console.log("ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on getOrder");
+			//console.log("something is wrong on getOrder");
 		}
 	});
 }
@@ -37,10 +37,10 @@ function getCheckoutDelivery(){
 		cache: false,
 		success: function(data){
 			$(accordian).append(data);
-			console.log("ajax complete!");
+			//console.log("ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on getOrder");
+			//console.log("something is wrong on getOrder");
 		}
 	});
 }
@@ -56,10 +56,10 @@ function getCheckoutPrice(){
 		cache: false,
 		success: function(data){
 			$(feed).append(data);
-			console.log("ajax complete!");
+			//console.log("ajax complete!");
 		},
 		error:function(){
-			console.log("something is wrong on getOrder");
+			//console.log("something is wrong on getOrder");
 		}
 	});
 }
@@ -82,11 +82,11 @@ function toServlet(email, password){
         type:'POST',
         cache:false,
         success: function(data){
-        	console.log("toServletsuccess!");
+        	//console.log("toServletsuccess!");
         	accPassMismatch(data);
         },
         error:function(){
-        	console.log("Error encountered at toServlet");
+        	//console.log("Error encountered at toServlet");
         }
      });
 }
@@ -102,21 +102,21 @@ function checkoutGuestEmail(email){
         	document.location.href = 'Checkout.jsp';
         },
         error:function(){
-        	console.log("Error encountered at toServlet");
+        	//console.log("Error encountered at toServlet");
         }
      });
 }
 
 function checkoutConfirm(fname, lname, postalcode, streetaddress, city, province, 
 		phonenumber, postalcode){
-	console.log("firstname is" + firstname);
-	console.log("lastname is" + lastname);
-	console.log("postal code is " + postalcode);
-	console.log("streetaddress is " + streetaddress);
-	console.log("city is" + city);
-	console.log("province is" + province);
-	console.log("phonenumber is" + phonenumber);
-	console.log("postalcode is" + postalcode);
+	//console.log("firstname is" + firstname);
+	//console.log("lastname is" + lastname);
+	//console.log("postal code is " + postalcode);
+	//console.log("streetaddress is " + streetaddress);
+	//console.log("city is" + city);
+	//console.log("province is" + province);
+	//console.log("phonenumber is" + phonenumber);
+	//console.log("postalcode is" + postalcode);
 	
     $.ajax({
  	    context: this,
@@ -135,7 +135,7 @@ function checkoutConfirm(fname, lname, postalcode, streetaddress, city, province
         		document.location.href = 'Index.jsp';
         },
         error:function(){
-        	console.log("Error encountered at toServlet");
+        	//console.log("Error encountered at toServlet");
         }
      });
 }
@@ -145,7 +145,7 @@ $("document").ready(function(){
 	
 	if(!(document.cookie.indexOf("USER") >= 0) && !(document.cookie.indexOf("GUEST-CHECKOUT") >= 0)){
 		getCheckoutSignIn();
-		console.log("user cookie does not exist");
+		//console.log("user cookie does not exist");
 	}
 	else{
 		getCheckoutDelivery();
@@ -163,7 +163,7 @@ $("document").ready(function(){
 		
 		$('.warning').hide();
 		
-		console.log("Name: "+ firstname);
+		//console.log("Name: "+ firstname);
 		
 		if (firstname &&
 				lastname &&
@@ -172,7 +172,7 @@ $("document").ready(function(){
 				province &&
 				checkNumInput (phonenumber) &&
 				checkNumInput (postalcode)) {
-			console.log("Checkoutonfirm clicked AT FUCKING CHECKOUT.JS!");
+			//console.log("Checkoutonfirm clicked AT FUCKING CHECKOUT.JS!");
 			checkoutConfirm(firstname, lastname, postalcode, streetaddress, 
 					city, province, phonenumber, postalcode);
 		} else {
