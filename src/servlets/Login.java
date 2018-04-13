@@ -45,7 +45,8 @@ import service.LoginAttemptService;
 						"/forgetKey", 
 						"/newPasswordConfirm",
 						"/signupcustomer",
-						"/changePassword"})
+						"/changePassword",
+						"/checkCurrentPassword"})
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -65,6 +66,10 @@ public class Login extends HttpServlet {
 		if(request.getServletPath().equals("/logout")){
 			System.out.println("I am at login servlet, doPost, signout case");
 			signout(request, response);
+		}
+		else if(request.getServletPath().equals("/checkCurrentPassword")){
+			System.out.println("I am at login servlet, doPost, signout case");
+			checkCurrentPassword(request, response);
 		}
 	}
 
@@ -110,8 +115,31 @@ public class Login extends HttpServlet {
 		} 
 	}
 	
+	private void checkCurrentPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("***************LOGIN SERVLET - CHECK CURRENT PASSWORD***************");
+		String user = "", oldPass = request.getParameter("oldPassword");
+		
+		Cookie[] cookies = request.getCookies();
+		if(cookies!=null){
+			for(int i = 0; i < cookies.length; i++){
+				Cookie currentCookie = cookies[i];
+				if(currentCookie.getName().equals("USER")) {
+					System.out.println("USER found!");
+					user = DecryptorService.decryptCookie(currentCookie);
+				}
+			}
+		}
+		
+		if(CustomerService.checkLogin(user, oldPass)){
+			response.getWriter().write("SUCCESS-CHECK-PASSWORD");
+		}
+		else {
+			response.getWriter().write("FAIL-CHECK-PASSWORD");
+		}
+		System.out.println("***************/LOGIN SERVLET - CHECK CURRENT PASSWORD/***************");
+	}
 	private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("***************LOGIN SERVLET - NEW PASSWORD CONFIRM***************");
+		System.out.println("***************LOGIN SERVLET - CHANGE PASSWORD***************");
 		String oldPass =request.getParameter("oldpw");
 		String pass = request.getParameter("newpw");
 		String pass2 = request.getParameter("newpw2");	
@@ -128,6 +156,10 @@ public class Login extends HttpServlet {
 					currentCookie.setMaxAge(0);
 					response.addCookie(currentCookie);
 					System.out.println("PROMPT-RECOVER-PASSWORD killed!");
+				}
+				if(currentCookie.getName().equals("USER")) {
+					System.out.println("USER found!");
+					user = DecryptorService.decryptCookie(currentCookie);
 				}
 			}
 		}
@@ -147,12 +179,12 @@ public class Login extends HttpServlet {
 				CustomerService.updateCustomer(newCust);
 				
 				System.out.println("Password of Customer Succesfully Updated");
-				response.getWriter().write("SUCCESS-RECOVER-PASS");
+				response.getWriter().write("SUCCESS-CHANGE/RECOVER-PASS");
 			}
-			else response.getWriter().write("FAIL-RECOVER-PASS");
+			else response.getWriter().write("FAIL-CHANGE/RECOVER-PASS");
 		}
-		else response.getWriter().write("FAIL-RECOVER-PASS");	
-		System.out.println("***************/LOGIN SERVLET - NEW PASSWORD CONFIRM/***************");
+		else response.getWriter().write("FAIL-CHANGE/RECOVER-PASS");	
+		System.out.println("***************/LOGIN SERVLET - CHANGE PASSWORD/***************");
 	}
 
 	private void adminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -372,7 +404,7 @@ public class Login extends HttpServlet {
 		String pass2 = request.getParameter("pass2");	
 		HttpSession session = request.getSession();
 		String user = "";
-		
+		System.out.println("pass is " + pass + "pass2 is " + pass2);
 		Cookie[] cookies = request.getCookies();
 		if(cookies!=null){
 			for(int i = 0; i < cookies.length; i++){
@@ -383,6 +415,10 @@ public class Login extends HttpServlet {
 					currentCookie.setMaxAge(0);
 					response.addCookie(currentCookie);
 					System.out.println("PROMPT-RECOVER-PASSWORD killed!");
+				}
+				if(currentCookie.getName().equals("USER")) {
+					System.out.println("USER found!");
+					user = DecryptorService.decryptCookie(currentCookie);
 				}
 			}
 		}
@@ -401,9 +437,9 @@ public class Login extends HttpServlet {
 			CustomerService.updateCustomer(newCust);
 			
 			System.out.println("Password of Customer Succesfully Updated");
-			response.getWriter().write("SUCCESS-RECOVER-PASS");
+			response.getWriter().write("SUCCESS-CHANGE/RECOVER-PASS");
 		}
-		else response.getWriter().write("FAIL-RECOVER-PASS");
+		else response.getWriter().write("FAIL-CHANGE/RECOVER-PASS");
 		System.out.println("***************/LOGIN SERVLET - NEW PASSWORD CONFIRM/***************");
 	}
 	

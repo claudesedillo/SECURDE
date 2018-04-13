@@ -1,11 +1,130 @@
 var accountDetails;
 var namef, streetaddress, cityf, provincef, postalcodef, phonef;
 var name, email, address, phone;
+var oldPassValid;
 
 function checkNumInput(input) {
 	return /^\d+$/.test(input)
 }
 
+function redirectUser(data){
+	if(data == "SUCCESS-CHANGE/RECOVER-PASS"){
+		document.location.href = 'AccountCenter.jsp';
+	}
+	else{
+		//show error message
+	}
+}
+
+function checkPassword(value) { 
+	// Java special char // ["'\]
+	return value.length >= 8 && /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).*$/.test(value);
+	//#?!@$%^&*-
+}
+
+function isCurrentPasswordValid(isItTrue){
+	oldPassValid = isItTrue;
+	console.log("isCurrentPaswordValid: " + oldPassValid);
+}
+
+function checkCurrentPassword(oldpw){
+	console.log("at checkCurrentPassword");
+    return $.ajax({
+ 	    context: this,
+ 	    async: false,
+        url:'checkCurrentPassword',
+        data:{'oldPassword': oldpw
+        	},
+        type:'get',
+        cache:false,
+        success: function(data){
+        	console.log("data from checkCurrentPassword: " + data);
+        	if(data == "FAIL-CHECK-PASSWORD"){
+        		//show error here
+        		isCurrentPasswordValid(false);
+        		console.log("wrong current password");
+        	}
+        	else {
+        		isCurrentPasswordValid(true);
+        		console.log("returning true");
+        	}
+        },
+        error:function(){
+        	console.log("error at checking current password");
+        }
+     });
+}
+
+function checkNewPass(pass, pass2){
+	console.log("at checkNewPass");
+	if(pass != pass2) {
+//		$('#pwnotmatch').show();
+//		console.log("NO");
+//		satisfied = false;
+		console.log("new passwords don't match");
+		console.log("returning false");
+		return false;
+	} else {
+//		$('#pwnotmatch').hide();
+//		console.log("YES");
+		console.log("new passwords match");
+		if(checkPassword(pass)){
+			console.log("new password format valid");
+			console.log("returning true");
+			return true;
+		}
+		else {
+			console.log("new password format not valid");
+			console.log("returning false");
+			return false;
+		}
+	}
+	return false;
+}
+
+function changePassword(){
+	
+	var oldpw = $('#oldpw').val(); //document.getElementById('oldpw').value;
+	var pass = $('#newpw').val(); //document.getElementById('newpw').value;
+	var pass2 = $('#newpw2').val(); //document.getElementById('newp2').value;
+	
+	var newPassValid = checkNewPass(pass, pass2);
+	checkCurrentPassword(oldpw);
+	
+	console.log("pass: " + pass + "pass2: " + pass2);
+	
+	console.log("after checkCurrentPasswordCall:" + oldPassValid);
+	
+	console.log("new pass valid: " + newPassValid);
+	console.log("old pass valid: " + oldPassValid);
+	
+	if(newPassValid && oldPassValid){
+		console.log("i am at ajax");
+	    $.ajax({
+	 	    context: this,
+	        url:'newPasswordConfirm',
+	        data:{'pass': pass,
+	        	  'pass2': pass2
+	        	},
+	        type:'post',
+	        cache:false,
+	        success: function(data){
+	        	console.log("data is: " + data);
+	        	redirectUser(data);
+	        },
+	        error:function(){
+	        	console.log("error at changing the password");
+	        }
+	     });
+	}
+	else{
+		console.log("new pass not valid or old pass not valid");
+		$("#oldpw").attr('disabled','disabled');
+		$("#oldpw").val('nyeamchocnut');
+		$("#newpw").val('');
+		$('#newpw2').val('');
+	}
+}
 
 function getAccountDetails(){
 	$.ajax({
@@ -221,14 +340,17 @@ $(document).ready(function() {
     $('#btn-changepw').click(function() {
     	$('#oldpw').val("");
         $('.newpw-div').slideDown();
-        $('form#form-changepw input.changepw-fields').removeAttr('disabled');
+        $('#oldpw').removeAttr('disabled');
         $('.help-text').slideDown();
         $('#btn-changepw').hide();
         $('#save-changepw').show();
+        console.log("titi ka kasee");
     })
     
     // save password change
     $('#save-changepw').click(function() {
+    	console.log("titi ka kasi");
+    	changePassword();
         $('.newpw-div').slideUp();
         $('form#form-changepw input.changepw-fields').attr('disabled', 'disabled');
         $('.help-text').slideUp();

@@ -2,7 +2,7 @@
  *  TODO parse inputs to string, append, then compare to actual code
  */
 function redirectUser(data){
-	if(data == "SUCCESS-RECOVER-PASS"){
+	if(data == "SUCCESS-CHANGE/RECOVER-PASS"){
 		document.location.href = 'Index.jsp';
 	}
 	else{
