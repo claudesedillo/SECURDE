@@ -257,12 +257,7 @@ $(document).ready(function() {
 	displayOrders();
 	getAccountDetails();
 	
-	namef = document.getElementById("name").value;
-	streetaddressf = document.getElementById("st-address").value;
-	cityf = document.getElementById("city").value;
-	provincef  = document.getElementById("province").value;
-	postalcodef = document.getElementById("postalcode").value;
-	phonef = document.getElementById("phone").value;
+	
 	
 	//console.log("namef" + namef);
 	//console.log("streedaddressf" + streetaddressf);
@@ -299,6 +294,15 @@ $(document).ready(function() {
     
     // save account details
     $('#save-editacc').click(function() {
+    	namef = document.getElementById("name").value;
+    	streetaddressf = document.getElementById("st-address").value;
+    	cityf = document.getElementById("city").value;
+    	provincef  = document.getElementById("province").value;
+    	postalcodef = document.getElementById("postalcode").value;
+    	phonef = document.getElementById("phone").value;
+    	
+    	$(".warnings").hide();
+    	
     	//console.log("Name: "+ namef);
     	if (namef &&
 			streetaddressf &&
@@ -307,6 +311,14 @@ $(document).ready(function() {
 			checkNumInput(postalcodef) &&
 			checkNumInput(phonef)) {
     		updateAccountDetails(namef, streetaddressf, cityf, provincef, postalcodef, phonef);
+    		
+    		$('form#form-editacc input.editacc-fields').attr('disabled', 'disabled');
+            $('.combaddress-div').slideDown();
+            $('.address-div').slideUp();
+            $('form#form-editacc input.address-fields').attr('disabled', 'disabled');
+            $('#btn-editacc').show();
+            $('#save-editacc').hide();
+            appendAddress();
     	} else {
     		if (namef == "")
     			$('#name-error').show();
@@ -325,14 +337,8 @@ $(document).ready(function() {
     	}
     		
     		
-    	/**$('form#form-editacc input.editacc-fields').attr('disabled', 'disabled');
-        $('.combaddress-div').slideDown();
-        $('.address-div').slideUp();
-        $('form#form-editacc input.address-fields').attr('disabled', 'disabled');
-        $('#btn-editacc').show();
-        $('#save-editacc').hide();
-        appendAddress();
-        updateAccountDetails(); **/
+    	
+       // updateAccountDetails(); 
     })
     
     // change password
