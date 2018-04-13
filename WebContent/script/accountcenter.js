@@ -6,7 +6,6 @@ function checkNumInput(input) {
 	return /^\d+$/.test(input)
 }
 
-
 function getAccountDetails(){
 	$.ajax({
 		context: this,

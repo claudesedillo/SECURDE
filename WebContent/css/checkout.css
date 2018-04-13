@@ -128,3 +128,12 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
+.warning {
+    font-size: 9px !important;
+    padding: 5px;
+    line-height: 120%;
+    color: darkred; 
+    font-style: italic;
+    display: none;
+}

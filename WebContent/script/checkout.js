@@ -3,6 +3,9 @@ function validateEmail(email) {
 	 return re.test(email);
 }
 
+function checkNumInput(input) {
+	return /^\d+$/.test(input)
+}
 
 function getCheckoutSignIn(){
 	
@@ -104,15 +107,8 @@ function checkoutGuestEmail(email){
      });
 }
 
-function checkoutConfirm(){
-	var firstname = $('#fname-inp').val();
-	var lastname = $('#lname-inp').val();
-	var streetaddress = $('#address-inp').val();
-	var city = $('#city-inp').val();
-	var province = $('#province-input').val();
-	var phonenumber =  $('#phonenumber-inp').val();
-	var postalcode = $('#postalcode-inp').val();
-	
+function checkoutConfirm(fname, lname, postalcode, streetaddress, city, province, 
+		phonenumber, postalcode){
 	console.log("firstname is" + firstname);
 	console.log("lastname is" + lastname);
 	console.log("postal code is " + postalcode);
@@ -146,6 +142,7 @@ function checkoutConfirm(){
 
 $("document").ready(function(){
 	
+	
 	if(!(document.cookie.indexOf("USER") >= 0) && !(document.cookie.indexOf("GUEST-CHECKOUT") >= 0)){
 		getCheckoutSignIn();
 		console.log("user cookie does not exist");
@@ -156,8 +153,46 @@ $("document").ready(function(){
 	}
 	
 	$(document).on("click", "#btn-checkoutConfirm",function() {
-		console.log("Checkoutonfirm clicked AT FUCKING CHECKOUT.JS!")
-		checkoutConfirm();
+		var firstname = $('#fname-inp').val();
+		var lastname = $('#lname-inp').val();
+		var streetaddress = $('#address-inp').val();
+		var city = $('#city-inp').val();
+		var province = $('#province-input').val();
+		var phonenumber =  $('#phonenumber-inp').val();
+		var postalcode = $('#postalcode-inp').val();
+		
+		$('.warning').hide();
+		
+		console.log("Name: "+ firstname);
+		
+		if (firstname &&
+				lastname &&
+				streetaddress &&
+				city &&
+				province &&
+				checkNumInput (phonenumber) &&
+				checkNumInput (postalcode)) {
+			console.log("Checkoutonfirm clicked AT FUCKING CHECKOUT.JS!");
+			checkoutConfirm(firstname, lastname, postalcode, streetaddress, 
+					city, province, phonenumber, postalcode);
+		} else {
+			if (firstname == " " || firstname == null)
+				$("#fname-error").show();
+			if (lastname == " ")
+				$("#lname-error").show();
+			if (streetaddress == " ")
+				$("#staddress-error").show();
+			if (city == " ")
+				$("#city-error").show();
+			if (province == " ")
+				$("#province-error").show();
+			if (phonenumber == " " || !(checkNumInput(phonenumber)))
+				$("#phone-error").show();
+			if (postalcode == " " || !(checkNumInput(postalcode)))
+				$("#postal-error").show();
+			
+		}
+		
 	});
 	
 	$(document).on("click", "#btn-signin",function() {
