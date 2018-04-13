@@ -516,6 +516,10 @@ public class ShoppingServlet extends HttpServlet {
 					guest = false;
 					email = DecryptorService.decryptCookie(currentCookie);
 				}
+				if(currentCookie.getName().equals("CART")){
+					currentCookie.setMaxAge(0);
+					response.addCookie(currentCookie);
+				}
 			}
 		}
 		
@@ -530,12 +534,22 @@ public class ShoppingServlet extends HttpServlet {
 			else {
 				System.out.println("Cartlist is null, user is not a guest");
 				cartlist = ShoppingcartService.getShoppingCartList(email);
+				
+				Cookie theCookie;
+				theCookie = new Cookie("CART", "not empty"); 
+				theCookie.setMaxAge(60*60*24*7*30); //30 minutes
+				response.addCookie(theCookie);
 			}
 		}
 		else{
 			if(!guest) {
 				System.out.println("Cartlist is not null, user is not a guest");
 				cartlist = ShoppingcartService.getShoppingCartList(email);
+				
+				Cookie theCookie;
+				theCookie = new Cookie("CART", "not empty"); 
+				theCookie.setMaxAge(60*60*24*7*30); //30 minutes
+				response.addCookie(theCookie);
 			}
 			System.out.println("Cart is not empty!");
 			System.out.println(cartlist);
