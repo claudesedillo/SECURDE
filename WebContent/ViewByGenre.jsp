@@ -60,7 +60,7 @@
                 		<div class="col-sm-3 book-div">
                 			<img src="css/generic-cover.jpg" class="img-responsive">
                 			<div class="row">
-                				<a class="title" data-bookId="${b.bookID}">${b.title}</a>
+                				<a class="title bookLink" data-bookId="${b.bookID}">${b.title}</a>
                 				<p class="author">${authorNames[status.index]}</p>
                 				<p class="price">${b.price}</p>
                 			</div>
